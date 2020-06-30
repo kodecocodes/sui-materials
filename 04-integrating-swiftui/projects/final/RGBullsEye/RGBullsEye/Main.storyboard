@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="vgH-7b-oW4">
+    <device id="retina5_9" orientation="landscape" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--BullsEye-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController storyboardIdentifier="ViewController" id="BYZ-38-t0r" customClass="ViewController" customModule="RGBullsEye" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="812" height="375"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LMD-zE-t25">
+                                <rect key="frame" x="381" y="172.66666666666666" width="50" height="30"/>
+                                <state key="normal" title="Hit Me!"/>
+                                <connections>
+                                    <action selector="showAlert" destination="BYZ-38-t0r" eventType="touchUpInside" id="4PM-TG-AnY"/>
+                                </connections>
+                            </button>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="50" minValue="1" maxValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="Ewn-YW-ymX">
+                                <rect key="frame" x="69.666666666666686" y="102.33333333333333" width="652" height="30.999999999999986"/>
+                                <connections>
+                                    <action selector="sliderMoved:" destination="BYZ-38-t0r" eventType="valueChanged" id="qE6-aG-nw7"/>
+                                </connections>
+                            </slider>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5je-zt-DHd">
+                                <rect key="frame" x="54" y="107.33333333333333" width="7.6666666666666643" height="20.333333333333329"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zg0-Xv-AnB">
+                                <rect key="frame" x="729.66666666666663" y="107.33333333333333" width="28.333333333333371" height="20.333333333333329"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="hhD-Xg-hDw">
+                                <rect key="frame" x="236.33333333333334" y="52" width="339.66666666666663" height="20.333333333333329"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Put the Bull's Eye as close as you can to:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1i5-Pj-r9X">
+                                        <rect key="frame" x="0.0" y="0.0" width="309.33333333333331" height="20.333333333333332"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xi1-Ih-ihS">
+                                        <rect key="frame" x="311.33333333333326" y="0.0" width="28.333333333333314" height="20.333333333333332"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="hhD-Xg-hDw" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="2fP-MW-ivH"/>
+                            <constraint firstItem="Zg0-Xv-AnB" firstAttribute="centerY" secondItem="Ewn-YW-ymX" secondAttribute="centerY" id="85k-40-JGe"/>
+                            <constraint firstItem="hhD-Xg-hDw" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="Gdk-Ed-usV"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Zg0-Xv-AnB" secondAttribute="trailing" constant="10" id="Wae-Za-DdK"/>
+                            <constraint firstItem="Zg0-Xv-AnB" firstAttribute="leading" secondItem="Ewn-YW-ymX" secondAttribute="trailing" constant="10" id="ePa-wj-gG4"/>
+                            <constraint firstItem="Ewn-YW-ymX" firstAttribute="leading" secondItem="5je-zt-DHd" secondAttribute="trailing" constant="10" id="f1c-fa-Wyw"/>
+                            <constraint firstItem="LMD-zE-t25" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="iUm-yc-Cae"/>
+                            <constraint firstItem="LMD-zE-t25" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="nPD-eX-lM0"/>
+                            <constraint firstItem="5je-zt-DHd" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="qEd-Kc-uI1"/>
+                            <constraint firstItem="Ewn-YW-ymX" firstAttribute="top" secondItem="hhD-Xg-hDw" secondAttribute="bottom" constant="30" id="ujr-Xm-edR"/>
+                            <constraint firstItem="5je-zt-DHd" firstAttribute="centerY" secondItem="Ewn-YW-ymX" secondAttribute="centerY" id="vRa-27-lRq"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="BullsEye" id="DKA-26-BMf"/>
+                    <connections>
+                        <outlet property="slider" destination="Ewn-YW-ymX" id="5Cn-sy-tpK"/>
+                        <outlet property="targetLabel" destination="Xi1-Ih-ihS" id="8Ua-G6-5LT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="157" y="671"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="p2R-av-rNV">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="vgH-7b-oW4" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="nNC-K6-pQU">
+                        <rect key="frame" x="0.0" y="0.0" width="812" height="32"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="2nW-gY-gNY"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yFC-9I-7MC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="157" y="-122"/>
+        </scene>
+    </scenes>
+</document>

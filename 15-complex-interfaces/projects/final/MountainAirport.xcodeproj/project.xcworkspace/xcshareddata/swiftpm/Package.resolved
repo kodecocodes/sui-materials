@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "TimelineTableViewCell",
+        "repositoryURL": "https://github.com/kf99916/TimelineTableViewCell.git",
+        "state": {
+          "branch": null,
+          "revision": "3cbe928af47429463ad6e80795e01d74f3ca9fcf",
+          "version": "2.2.1"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
