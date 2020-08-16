@@ -228,14 +228,14 @@
 			isa = PBXGroup;
 			children = (
 				57578FA724E9D943003465A4 /* HomeView.swift */,
+				57EF340024E89F91004ABEB2 /* KuchiApp.swift */,
+				57578FA424E9D943003465A4 /* StarterView.swift */,
 				57578F9924E9D943003465A4 /* Learn */,
 				57578FB124E9D943003465A4 /* Practice */,
 				57578FA024E9D943003465A4 /* Profile */,
 				57578FA924E9D943003465A4 /* Resources */,
-				57578FA424E9D943003465A4 /* StarterView.swift */,
 				57578FA524E9D943003465A4 /* Utils */,
 				57578F9024E9D943003465A4 /* Welcome */,
-				57EF340024E89F91004ABEB2 /* KuchiApp.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
