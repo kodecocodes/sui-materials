@@ -40,7 +40,13 @@ struct StarterView: View {
     if self.userViewModel.isRegistered {
       WelcomeView()
     } else {
+      #if os(iOS)
       RegisterView(keyboardHandler: KeyboardFollower())
+      #endif
+      
+      #if os(macOS)
+      RegisterView()
+      #endif
     }
   }
 }

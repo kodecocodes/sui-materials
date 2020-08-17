@@ -34,12 +34,29 @@ import SwiftUI
 
 struct RegisterView: View {
   @EnvironmentObject var userManager: UserManager
+  
+  #if os(iOS)
   @ObservedObject var keyboardHandler: KeyboardFollower
 
+  var paddingHeight: CGFloat {
+    keyboardHandler.keyboardHeight
+  }
+
+  var ignoreSafeArea: Bool {
+    keyboardHandler.isVisible
+  }
+  
   init(keyboardHandler: KeyboardFollower) {
     self.keyboardHandler = keyboardHandler
   }
-
+  #endif
+  
+  #if os(macOS)
+  let paddingHeight: CGFloat = 0
+  let ignoreSafeArea = false
+  init() {}
+  #endif
+  
   var body: some View {
     VStack {
       Spacer()
@@ -86,8 +103,8 @@ struct RegisterView: View {
       Spacer()
 
     }
-      .padding(.bottom, keyboardHandler.keyboardHeight)
-      .edgesIgnoringSafeArea(keyboardHandler.isVisible ? .bottom : [])
+      .padding(.bottom, paddingHeight)
+      .edgesIgnoringSafeArea(ignoreSafeArea ? .bottom : [])
       .padding()
       .background(WelcomeBackgroundImage())
   }
@@ -111,8 +128,15 @@ struct RegisterView_Previews: PreviewProvider {
   static let user = UserManager(name: "Ray")
 
   static var previews: some View {
+    #if os(iOS)
     RegisterView(keyboardHandler: KeyboardFollower())
       .environmentObject(user)
+    #endif
+    
+    #if os(macOS)
+    RegisterView()
+      .environmentObject(user)
+    #endif
   }
 }
 

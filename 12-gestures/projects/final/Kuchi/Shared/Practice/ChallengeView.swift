@@ -37,44 +37,60 @@ struct ChallengeView: View {
   @Binding var numberOfAnswered: Int
   @State var showAnswers = false
   
+  #if os(iOS)
   @Environment(\.verticalSizeClass) var verticalSizeClass
+  #endif
+  
   @Environment(\.questionsPerSession) var questionsPerSession
 
-  @ViewBuilder
-  var body: some View {
-    if verticalSizeClass == .compact {
-      VStack {
-        HStack {
-          Button(action: {
-            self.showAnswers = !self.showAnswers
-          }) {
-            QuestionView(question: challengeTest.challenge.question)
-          }
-          if showAnswers {
-            Divider()
-            ChoicesView(challengeTest: challengeTest)
-          }
-        }
-        ScoreView(numberOfQuestions: questionsPerSession, numberOfAnswered: $numberOfAnswered)
-
-      }
-    } else {
-      VStack {
+  var compactBody: some View {
+    VStack {
+      HStack {
         Button(action: {
           self.showAnswers = !self.showAnswers
         }) {
           QuestionView(question: challengeTest.challenge.question)
-            .frame(height: 300)
         }
-        ScoreView(numberOfQuestions: questionsPerSession, numberOfAnswered: $numberOfAnswered)
         if showAnswers {
           Divider()
           ChoicesView(challengeTest: challengeTest)
-            .frame(height: 300)
-            .padding()
         }
       }
+      ScoreView(numberOfQuestions: questionsPerSession, numberOfAnswered: $numberOfAnswered)
     }
+  }
+  
+  var regularBody: some View {
+    VStack {
+      Button(action: {
+        self.showAnswers = !self.showAnswers
+      }) {
+        QuestionView(question: challengeTest.challenge.question)
+          .frame(height: 300)
+      }
+      ScoreView(numberOfQuestions: questionsPerSession, numberOfAnswered: $numberOfAnswered)
+      if showAnswers {
+        Divider()
+        ChoicesView(challengeTest: challengeTest)
+          .frame(height: 300)
+          .padding()
+      }
+    }
+  }
+  
+  @ViewBuilder
+  var body: some View {
+    #if os(iOS)
+    if verticalSizeClass == .compact {
+      compactBody
+    } else {
+      regularBody
+    }
+    #endif
+    
+    #if os(macOS)
+    regularBody
+    #endif
   }
 }
 
