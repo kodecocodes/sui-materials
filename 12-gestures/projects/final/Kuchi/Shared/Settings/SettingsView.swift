@@ -32,54 +32,29 @@
 
 import SwiftUI
 
-struct HomeView: View {
-  @EnvironmentObject var userManager: UserManager
-  @EnvironmentObject var challengesViewModel: ChallengesViewModel
+struct SettingsView: View {
+  enum Appearance: Int, CaseIterable, Identifiable {
+    case light, dark, automatic
+    var id: Int { self.rawValue }
+  }
   
+  @State var appearance: Appearance = .light
+    
   var body: some View {
-    TabView {
-      LearnView()
-        .tabItem({
-          VStack {
-            Image(systemName: "bookmark")
-            Text("Learn")
-          }
-        })
-        .tag(0)
-      
-      PracticeView(
-        challengeTest: $challengesViewModel.currentChallenge,
-        userName: $userManager.profile.name,
-        numberOfAnswered: .constant(challengesViewModel.numberOfAnswered)
-      )
-      .tabItem({
-        VStack {
-          Image(systemName: "rectangle.dock")
-          Text("Challenge")
+    List {
+      Section(header: Text("Appearance")) {
+        RadioPicker("", selection: $appearance) {
+          RadioOption("Light", systemImageName: "lightbulb").tag(Appearance.light)
+          RadioOption("Dark", systemImageName: "lightbulb.fill").tag(Appearance.dark)
+          RadioOption("Automatic", systemImageName: "puzzlepiece").tag(Appearance.automatic)
         }
-      })
-      .tag(1)
-      
-      SettingsView()
-        .tabItem({
-          VStack {
-            Image(systemName: "gearshape.2")
-            Text("Settings")
-          }
-        })
-        .tag(1)
-        
-        .environment(\.questionsPerSession, challengesViewModel.numberOfQuestions)
-      
+      }
     }
-    .accentColor(.orange)
   }
 }
 
-struct HomeView_Previews: PreviewProvider {
+struct SettingsView_Previews: PreviewProvider {
   static var previews: some View {
-    HomeView()
-      .environmentObject(UserManager())
-      .environmentObject(ChallengesViewModel())
+    SettingsView()
   }
 }

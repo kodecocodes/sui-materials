@@ -32,54 +32,46 @@
 
 import SwiftUI
 
-struct HomeView: View {
-  @EnvironmentObject var userManager: UserManager
-  @EnvironmentObject var challengesViewModel: ChallengesViewModel
+struct RadioPicker<Label, SelectionValue, Content>: View where Label: View, SelectionValue: Hashable, Content: View {
+
+  @Binding private var selection: SelectionValue
+  private let label: Label
+  private var content: Content
+  
+  init(selection: Binding<SelectionValue>, label: Label, @ViewBuilder content: () -> Content) {
+    self._selection = selection
+    self.label = label
+    self.content = content()
+  }
   
   var body: some View {
-    TabView {
-      LearnView()
-        .tabItem({
-          VStack {
-            Image(systemName: "bookmark")
-            Text("Learn")
-          }
-        })
-        .tag(0)
-      
-      PracticeView(
-        challengeTest: $challengesViewModel.currentChallenge,
-        userName: $userManager.profile.name,
-        numberOfAnswered: .constant(challengesViewModel.numberOfAnswered)
-      )
-      .tabItem({
-        VStack {
-          Image(systemName: "rectangle.dock")
-          Text("Challenge")
-        }
-      })
-      .tag(1)
-      
-      SettingsView()
-        .tabItem({
-          VStack {
-            Image(systemName: "gearshape.2")
-            Text("Settings")
-          }
-        })
-        .tag(1)
-        
-        .environment(\.questionsPerSession, challengesViewModel.numberOfQuestions)
-      
+    VStack {
+      label
+      HStack {
+        content
+      }
     }
-    .accentColor(.orange)
   }
 }
 
-struct HomeView_Previews: PreviewProvider {
+extension RadioPicker where Label == Text {
+  init<S>(_ title: S, selection: Binding<SelectionValue>, @ViewBuilder content: () -> Content) where S : StringProtocol {
+    self.init(selection: selection, label: Text(title), content: content)
+  }
+}
+
+struct RadioSelector_Previews: PreviewProvider {
+  enum Selection: Int, Hashable, Identifiable {
+    case one, two
+    var id: Int { self.rawValue }
+  }
+  
+  @State static var selection: Selection = .one
+  
   static var previews: some View {
-    HomeView()
-      .environmentObject(UserManager())
-      .environmentObject(ChallengesViewModel())
+    RadioPicker(selection: $selection, label: Text("Selection")) {
+      RadioOption("One", systemImageName: "1.square").tag(Selection.one)
+      RadioOption("Two", systemImageName: "2.square").tag(Selection.two)
+    }
   }
 }

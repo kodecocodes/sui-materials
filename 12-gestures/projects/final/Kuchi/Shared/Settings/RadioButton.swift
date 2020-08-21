@@ -32,54 +32,53 @@
 
 import SwiftUI
 
-struct HomeView: View {
-  @EnvironmentObject var userManager: UserManager
-  @EnvironmentObject var challengesViewModel: ChallengesViewModel
+struct RadioButton: View {
+  @Binding var isOn: Bool
+  let label: String?
+  
+  init(isOn: Binding<Bool>, label: String? = nil) {
+    self._isOn = isOn
+    self.label = label
+  }
   
   var body: some View {
-    TabView {
-      LearnView()
-        .tabItem({
-          VStack {
-            Image(systemName: "bookmark")
-            Text("Learn")
+    Button(action: {
+      self.isOn.toggle()
+    }) {
+      HStack(alignment: .center) {
+        ZStack {
+          Circle().fill(isOn ? Color.blue : Color.clear)
+          Circle().stroke(Color.black.opacity(0.2))
+          if isOn {
+            Image(systemName: "checkmark")
+              .foregroundColor(.white)
           }
-        })
-        .tag(0)
-      
-      PracticeView(
-        challengeTest: $challengesViewModel.currentChallenge,
-        userName: $userManager.profile.name,
-        numberOfAnswered: .constant(challengesViewModel.numberOfAnswered)
-      )
-      .tabItem({
-        VStack {
-          Image(systemName: "rectangle.dock")
-          Text("Challenge")
         }
-      })
-      .tag(1)
-      
-      SettingsView()
-        .tabItem({
-          VStack {
-            Image(systemName: "gearshape.2")
-            Text("Settings")
-          }
-        })
-        .tag(1)
-        
-        .environment(\.questionsPerSession, challengesViewModel.numberOfQuestions)
-      
+        .frame(width: 24, height: 24)
+
+        if let label = label {
+          Text(label)
+            .foregroundColor(.primary)
+        }
+      }
     }
-    .accentColor(.orange)
+    .buttonStyle(RadioButtonStyle())
   }
 }
 
-struct HomeView_Previews: PreviewProvider {
+struct RadioButtonStyle: ButtonStyle {
+  func makeBody(configuration: Self.Configuration) -> some View {
+    configuration.label
+      .padding(.vertical, 4)
+      .padding(.horizontal, 8)
+      .background(Color.clear)
+  }
+}
+struct RadioButton_Previews: PreviewProvider {
+  @State static var isOn1: Bool = false
+  @State static var isOn2: Bool = true
   static var previews: some View {
-    HomeView()
-      .environmentObject(UserManager())
-      .environmentObject(ChallengesViewModel())
+    RadioButton(isOn: $isOn1, label: "Option")
+    RadioButton(isOn: $isOn2)
   }
 }

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		574D4B7224EDC001008B6614 /* RadioPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574D4B7124EDC001008B6614 /* RadioPicker.swift */; };
+		574D4B7324EDC001008B6614 /* RadioPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574D4B7124EDC001008B6614 /* RadioPicker.swift */; };
 		57578FBA24E9D943003465A4 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57578F9124E9D943003465A4 /* WelcomeView.swift */; };
 		57578FBB24E9D943003465A4 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57578F9124E9D943003465A4 /* WelcomeView.swift */; };
 		57578FBC24E9D943003465A4 /* .keep in Resources */ = {isa = PBXBuildFile; fileRef = 57578F9324E9D943003465A4 /* .keep */; };
@@ -66,11 +68,18 @@
 		57578FF924E9D943003465A4 /* ScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57578FB824E9D943003465A4 /* ScoreView.swift */; };
 		57578FFA24E9D943003465A4 /* ChoicesRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57578FB924E9D943003465A4 /* ChoicesRow.swift */; };
 		57578FFB24E9D943003465A4 /* ChoicesRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57578FB924E9D943003465A4 /* ChoicesRow.swift */; };
+		57885FB424EC6C34008338E4 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57885FB324EC6C34008338E4 /* SettingsView.swift */; };
+		57885FB524EC6C34008338E4 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57885FB324EC6C34008338E4 /* SettingsView.swift */; };
+		57885FB724EC740C008338E4 /* RadioOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57885FB624EC740C008338E4 /* RadioOption.swift */; };
+		57885FB824EC740C008338E4 /* RadioOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57885FB624EC740C008338E4 /* RadioOption.swift */; };
+		57885FBB24EC7838008338E4 /* RadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57885FBA24EC7838008338E4 /* RadioButton.swift */; };
+		57885FBC24EC7838008338E4 /* RadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57885FBA24EC7838008338E4 /* RadioButton.swift */; };
 		57EF341324E89F92004ABEB2 /* KuchiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57EF340024E89F91004ABEB2 /* KuchiApp.swift */; };
 		57EF341424E89F92004ABEB2 /* KuchiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57EF340024E89F91004ABEB2 /* KuchiApp.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		574D4B7124EDC001008B6614 /* RadioPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioPicker.swift; sourceTree = "<group>"; };
 		57578F9124E9D943003465A4 /* WelcomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		57578F9324E9D943003465A4 /* .keep */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .keep; sourceTree = "<group>"; };
 		57578F9424E9D943003465A4 /* LogoImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogoImage.swift; sourceTree = "<group>"; };
@@ -101,6 +110,9 @@
 		57578FB724E9D943003465A4 /* ChallengeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeView.swift; sourceTree = "<group>"; };
 		57578FB824E9D943003465A4 /* ScoreView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreView.swift; sourceTree = "<group>"; };
 		57578FB924E9D943003465A4 /* ChoicesRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChoicesRow.swift; sourceTree = "<group>"; };
+		57885FB324EC6C34008338E4 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		57885FB624EC740C008338E4 /* RadioOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioOption.swift; sourceTree = "<group>"; };
+		57885FBA24EC7838008338E4 /* RadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButton.swift; sourceTree = "<group>"; };
 		57EF340024E89F91004ABEB2 /* KuchiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KuchiApp.swift; sourceTree = "<group>"; };
 		57EF340724E89F92004ABEB2 /* Kuchi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kuchi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		57EF340A24E89F92004ABEB2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -213,6 +225,17 @@
 			path = Practice;
 			sourceTree = "<group>";
 		};
+		57885FB224EC6C0E008338E4 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				57885FB324EC6C34008338E4 /* SettingsView.swift */,
+				57885FB624EC740C008338E4 /* RadioOption.swift */,
+				57885FBA24EC7838008338E4 /* RadioButton.swift */,
+				574D4B7124EDC001008B6614 /* RadioPicker.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		57EF33FA24E89F91004ABEB2 = {
 			isa = PBXGroup;
 			children = (
@@ -233,6 +256,7 @@
 				57578FB124E9D943003465A4 /* Practice */,
 				57578FA024E9D943003465A4 /* Profile */,
 				57578FA924E9D943003465A4 /* Resources */,
+				57885FB224EC6C0E008338E4 /* Settings */,
 				57578F9024E9D943003465A4 /* Welcome */,
 			);
 			path = Shared;
@@ -369,6 +393,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				57578FBE24E9D943003465A4 /* LogoImage.swift in Sources */,
+				574D4B7224EDC001008B6614 /* RadioPicker.swift in Sources */,
 				57578FD624E9D943003465A4 /* Profile.swift in Sources */,
 				57578FF024E9D943003465A4 /* CongratulationsView.swift in Sources */,
 				57578FF624E9D943003465A4 /* ChallengeView.swift in Sources */,
@@ -386,13 +411,16 @@
 				57578FC024E9D943003465A4 /* WelcomeBackgroundImage.swift in Sources */,
 				57578FDC24E9D943003465A4 /* KeyboardFollower.swift in Sources */,
 				57578FC224E9D943003465A4 /* WelcomeMessageView.swift in Sources */,
+				57885FB724EC740C008338E4 /* RadioOption.swift in Sources */,
 				57578FD824E9D943003465A4 /* Settings.swift in Sources */,
 				57578FC824E9D943003465A4 /* CardView.swift in Sources */,
 				57578FCA24E9D943003465A4 /* LearnView.swift in Sources */,
+				57885FB424EC6C34008338E4 /* SettingsView.swift in Sources */,
 				57578FF424E9D943003465A4 /* PracticeView.swift in Sources */,
 				57578FBA24E9D943003465A4 /* WelcomeView.swift in Sources */,
 				57578FFA24E9D943003465A4 /* ChoicesRow.swift in Sources */,
 				57578FCE24E9D943003465A4 /* DeckView.swift in Sources */,
+				57885FBB24EC7838008338E4 /* RadioButton.swift in Sources */,
 				57578FD024E9D943003465A4 /* FlashDeck.swift in Sources */,
 				57578FDE24E9D943003465A4 /* HomeView.swift in Sources */,
 			);
@@ -417,12 +445,16 @@
 				57578FF324E9D943003465A4 /* ChallengesViewModel.swift in Sources */,
 				57578FED24E9D943003465A4 /* ChoicesView.swift in Sources */,
 				57578FEF24E9D943003465A4 /* QuestionView.swift in Sources */,
+				57885FB824EC740C008338E4 /* RadioOption.swift in Sources */,
 				57578FC124E9D943003465A4 /* WelcomeBackgroundImage.swift in Sources */,
 				57578FC324E9D943003465A4 /* WelcomeMessageView.swift in Sources */,
 				57578FD924E9D943003465A4 /* Settings.swift in Sources */,
+				57885FBC24EC7838008338E4 /* RadioButton.swift in Sources */,
+				574D4B7324EDC001008B6614 /* RadioPicker.swift in Sources */,
 				57578FC924E9D943003465A4 /* CardView.swift in Sources */,
 				57578FCB24E9D943003465A4 /* LearnView.swift in Sources */,
 				57578FF524E9D943003465A4 /* PracticeView.swift in Sources */,
+				57885FB524EC6C34008338E4 /* SettingsView.swift in Sources */,
 				57578FBB24E9D943003465A4 /* WelcomeView.swift in Sources */,
 				57578FFB24E9D943003465A4 /* ChoicesRow.swift in Sources */,
 				57578FCF24E9D943003465A4 /* DeckView.swift in Sources */,

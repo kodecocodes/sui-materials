@@ -32,54 +32,35 @@
 
 import SwiftUI
 
-struct HomeView: View {
-  @EnvironmentObject var userManager: UserManager
-  @EnvironmentObject var challengesViewModel: ChallengesViewModel
+struct RadioOption: View {
+  let label: String
+  let systemImageName: String
+  @State var isOn: Bool = false
+
+  init(_ label: String, systemImageName: String) {
+    self.label = label
+    self.systemImageName = systemImageName
+  }
   
   var body: some View {
-    TabView {
-      LearnView()
-        .tabItem({
-          VStack {
-            Image(systemName: "bookmark")
-            Text("Learn")
-          }
-        })
-        .tag(0)
-      
-      PracticeView(
-        challengeTest: $challengesViewModel.currentChallenge,
-        userName: $userManager.profile.name,
-        numberOfAnswered: .constant(challengesViewModel.numberOfAnswered)
-      )
-      .tabItem({
-        VStack {
-          Image(systemName: "rectangle.dock")
-          Text("Challenge")
-        }
-      })
-      .tag(1)
-      
-      SettingsView()
-        .tabItem({
-          VStack {
-            Image(systemName: "gearshape.2")
-            Text("Settings")
-          }
-        })
-        .tag(1)
-        
-        .environment(\.questionsPerSession, challengesViewModel.numberOfQuestions)
-      
+    VStack {
+      Image(systemName: systemImageName)
+        .resizable()
+        .aspectRatio(contentMode: .fit)
+        .frame(width: 36, height: 36)
+      Text(label)
+      RadioButton(isOn: $isOn)
     }
-    .accentColor(.orange)
   }
 }
 
-struct HomeView_Previews: PreviewProvider {
+struct RadioOptionView_Previews: PreviewProvider {
+  @State static var isOn: Bool = false
+  
   static var previews: some View {
-    HomeView()
-      .environmentObject(UserManager())
-      .environmentObject(ChallengesViewModel())
+    RadioOption(
+      "Option",
+      systemImageName: "flashlight.off.fill"
+    )
   }
 }
