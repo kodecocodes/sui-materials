@@ -43,10 +43,10 @@ struct SettingsView: View {
   var body: some View {
     List {
       Section(header: Text("Appearance")) {
-        RadioPicker("", selection: $appearance) {
-          RadioOption("Light", systemImageName: "lightbulb").tag(Appearance.light)
-          RadioOption("Dark", systemImageName: "lightbulb.fill").tag(Appearance.dark)
-          RadioOption("Automatic", systemImageName: "puzzlepiece").tag(Appearance.automatic)
+        RadioPicker(selection: $appearance, label: Text("")) {
+          RadioOption("Light", systemImageName: "lightbulb")
+          RadioOption("Dark", systemImageName: "lightbulb.fill")
+          RadioOption("Automatic", systemImageName: "puzzlepiece")
         }
       }
     }

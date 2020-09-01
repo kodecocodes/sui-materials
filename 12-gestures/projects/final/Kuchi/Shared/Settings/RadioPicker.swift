@@ -32,31 +32,63 @@
 
 import SwiftUI
 
-struct RadioPicker<Label, SelectionValue, Content>: View where Label: View, SelectionValue: Hashable, Content: View {
-
-  @Binding private var selection: SelectionValue
-  private let label: Label
-  private var content: Content
-  
-  init(selection: Binding<SelectionValue>, label: Label, @ViewBuilder content: () -> Content) {
-    self._selection = selection
-    self.label = label
-    self.content = content()
-  }
+private struct _RadioOption: View {
+  let option: RadioOption
+  @Binding var isOn: Bool
   
   var body: some View {
     VStack {
-      label
-      HStack {
-        content
-      }
+      option
+      RadioButton(isOn: $isOn)
     }
   }
 }
 
-extension RadioPicker where Label == Text {
-  init<S>(_ title: S, selection: Binding<SelectionValue>, @ViewBuilder content: () -> Content) where S : StringProtocol {
-    self.init(selection: selection, label: Text(title), content: content)
+
+@_functionBuilder
+struct RadioOptionBuilder {
+  static func buildBlock(_ children: RadioOption...) -> [RadioOption] {
+    return children
+  }
+}
+
+struct RadioPicker<Label, SelectionValue>: View where Label: View, SelectionValue: Hashable {
+
+  @Binding private var selection: SelectionValue
+  private let label: Label
+  private let options: [RadioOption]
+  var isOn: State<[Bool]> { didSet {
+    let indexes = oldValue
+      .wrappedValue
+      .enumerated()
+      .filter({ $0.element == true })
+      .map({ $0.offset })
+    
+    for index in indexes {
+      isOn.wrappedValue[index] = false
+    }
+  }}
+
+  init(selection: Binding<SelectionValue>, label: Label, @RadioOptionBuilder content: () -> [RadioOption]) {
+    self._selection = selection
+    self.label = label
+
+    self.options = content()
+    self.isOn = State(initialValue: Array(repeating: false, count: options.count))
+  }
+
+  var body: some View {
+    VStack {
+      label
+      ScrollView(.horizontal) {
+        HStack(spacing: 16) {
+          ForEach (0 ..< options.count) { index in
+            _RadioOption(option: options[index], isOn:  self.isOn.projectedValue[index])
+          }
+        }
+        .padding()
+      }
+    }
   }
 }
 
@@ -65,13 +97,19 @@ struct RadioSelector_Previews: PreviewProvider {
     case one, two
     var id: Int { self.rawValue }
   }
-  
+
   @State static var selection: Selection = .one
-  
+
   static var previews: some View {
     RadioPicker(selection: $selection, label: Text("Selection")) {
-      RadioOption("One", systemImageName: "1.square").tag(Selection.one)
-      RadioOption("Two", systemImageName: "2.square").tag(Selection.two)
+      RadioOption("One", systemImageName: "1.square")
+      RadioOption("Two", systemImageName: "2.square")
+      RadioOption("Dark", systemImageName: "lightbulb.fill")
+      RadioOption("Automatic", systemImageName: "puzzlepiece")
+      RadioOption("One One", systemImageName: "1.square")
+      RadioOption("Two Two", systemImageName: "2.square")
+      RadioOption("Dark", systemImageName: "lightbulb.fill")
+      RadioOption("Automatic", systemImageName: "puzzlepiece")
     }
   }
 }

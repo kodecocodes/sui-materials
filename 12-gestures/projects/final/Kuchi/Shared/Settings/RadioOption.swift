@@ -35,7 +35,6 @@ import SwiftUI
 struct RadioOption: View {
   let label: String
   let systemImageName: String
-  @State var isOn: Bool = false
 
   init(_ label: String, systemImageName: String) {
     self.label = label
@@ -47,9 +46,8 @@ struct RadioOption: View {
       Image(systemName: systemImageName)
         .resizable()
         .aspectRatio(contentMode: .fit)
-        .frame(width: 36, height: 36)
+        .frame(maxWidth: 36, maxHeight: 36)
       Text(label)
-      RadioButton(isOn: $isOn)
     }
   }
 }
