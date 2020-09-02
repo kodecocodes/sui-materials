@@ -33,8 +33,8 @@
 import Foundation
 
 enum StyleSheet: String, CaseIterable {
-    case GitHub
-    case Lopash
-    case Ulysses
-    case Solarized_Dark
+  case GitHub
+  case Lopash
+  case Ulysses
+  case Solarized_Dark
 }

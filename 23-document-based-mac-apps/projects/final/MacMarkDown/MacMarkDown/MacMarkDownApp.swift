@@ -36,17 +36,17 @@ import Combine
 @main
 struct MacMarkDownApp: App {
 
-    var body: some Scene {
-        DocumentGroup(newDocument: MacMarkDownDocument()) { file in
-            ContentView(document: file.$document, documentURL: .constant(file.fileURL))
-        }
-        .commands {
-            MenuCommands()
-        }
-
-        Settings {
-            SettingsView()
-        }
+  var body: some Scene {
+    DocumentGroup(newDocument: MacMarkDownDocument()) { file in
+      ContentView(document: file.$document, documentURL: .constant(file.fileURL))
     }
+    .commands {
+      MenuCommands()
+    }
+
+    Settings {
+      SettingsView()
+    }
+  }
 
 }

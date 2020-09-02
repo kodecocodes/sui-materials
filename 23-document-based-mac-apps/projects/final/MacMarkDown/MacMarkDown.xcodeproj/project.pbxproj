@@ -64,7 +64,9 @@
 				264A30B824F0D05D00503025 /* MacMarkDown */,
 				264A30B724F0D05D00503025 /* Products */,
 			);
+			indentWidth = 2;
 			sourceTree = "<group>";
+			tabWidth = 2;
 		};
 		264A30B724F0D05D00503025 /* Products */ = {
 			isa = PBXGroup;

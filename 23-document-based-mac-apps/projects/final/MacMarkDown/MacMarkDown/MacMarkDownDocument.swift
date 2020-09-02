@@ -35,56 +35,56 @@ import UniformTypeIdentifiers
 import MarkdownKit
 
 extension UTType {
-    static var markdownText: UTType {
-        UTType(importedAs: "net.daringfireball.markdown")
-    }
+  static var markdownText: UTType {
+    UTType(importedAs: "net.daringfireball.markdown")
+  }
 }
 
 struct MacMarkDownDocument: FileDocument {
-    @AppStorage("styleSheet") var styleSheet: StyleSheet = .GitHub
+  @AppStorage("styleSheet") var styleSheet: StyleSheet = .GitHub
 
-    var text: String
-    var html: String {
-        let markdown = MarkdownParser.standard.parse(text)
-        return HtmlGenerator.standard.generate(doc: markdown)
-    }
+  var text: String
+  var html: String {
+    let markdown = MarkdownParser.standard.parse(text)
+    return HtmlGenerator.standard.generate(doc: markdown)
+  }
 
-    init(text: String = "# Hello MacMarkDown") {
-        self.text = text
-    }
+  init(text: String = "# Hello MacMarkDown") {
+    self.text = text
+  }
 
-    mutating func refreshHtml() {
-        let temp = text
-        text = ""
-        text = temp
-    }
+  mutating func refreshHtml() {
+    let temp = text
+    text = ""
+    text = temp
+  }
 
-    mutating func addMarkdown(_ markdown: String) {
-        self.text += markdown
-    }
+  mutating func addMarkdown(_ markdown: String) {
+    self.text += markdown
+  }
 
-    static var readableContentTypes: [UTType] { [.markdownText] }
+  static var readableContentTypes: [UTType] { [.markdownText] }
 
-    init(configuration: ReadConfiguration) throws {
-        guard let data = configuration.file.regularFileContents,
-              let string = String(data: data, encoding: .utf8)
-        else {
-            throw CocoaError(.fileReadCorruptFile)
-        }
-        text = string
+  init(configuration: ReadConfiguration) throws {
+    guard let data = configuration.file.regularFileContents,
+          let string = String(data: data, encoding: .utf8)
+    else {
+      throw CocoaError(.fileReadCorruptFile)
     }
-    
-    func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
-        let data = text.data(using: .utf8)!
-        return .init(regularFileWithContents: data)
-    }
+    text = string
+  }
+
+  func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
+    let data = text.data(using: .utf8)!
+    return .init(regularFileWithContents: data)
+  }
 
 }
 
 extension MacMarkDownDocument {
 
-    var completeHTML: String {
-        return """
+  var completeHTML: String {
+    return """
         <!DOCTYPE html>
         <head>
           <meta charset="UTF-8">
@@ -94,20 +94,20 @@ extension MacMarkDownDocument {
         </body>
         </html>
         """
+  }
+
+  var completeHTMLPlusCSS: String {
+    var css: String = ""
+    let cssUrl = Bundle.main.url(forResource: styleSheet.rawValue, withExtension: "css")
+    if let cssUrl = cssUrl {
+      do {
+        css = try String(contentsOf: cssUrl)
+      } catch {
+        css = ""
+      }
     }
 
-    var completeHTMLPlusCSS: String {
-        var css: String = ""
-        let cssUrl = Bundle.main.url(forResource: styleSheet.rawValue, withExtension: "css")
-        if let cssUrl = cssUrl {
-            do {
-                css = try String(contentsOf: cssUrl)
-            } catch {
-                css = ""
-            }
-        }
-
-        return """
+    return """
         <!DOCTYPE html>
         <head>
           <meta charset="UTF-8">
@@ -120,5 +120,5 @@ extension MacMarkDownDocument {
         </body>
         </html>
         """
-    }
+  }
 }
