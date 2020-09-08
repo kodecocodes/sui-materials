@@ -32,13 +32,15 @@
 
 import SwiftUI
 
-struct RadioOption: View {
+struct RadioOption<Value: Hashable>: View {
   let label: String
   let systemImageName: String
+  let value: Value
 
-  init(_ label: String, systemImageName: String) {
+  init(_ label: String, systemImageName: String, value: Value) {
     self.label = label
     self.systemImageName = systemImageName
+    self.value = value
   }
   
   var body: some View {
@@ -58,7 +60,8 @@ struct RadioOptionView_Previews: PreviewProvider {
   static var previews: some View {
     RadioOption(
       "Option",
-      systemImageName: "flashlight.off.fill"
+      systemImageName: "flashlight.off.fill",
+      value: "value"
     )
   }
 }

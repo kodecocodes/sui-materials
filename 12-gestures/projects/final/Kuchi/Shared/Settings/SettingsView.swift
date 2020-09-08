@@ -38,15 +38,16 @@ struct SettingsView: View {
     var id: Int { self.rawValue }
   }
   
-  @State var appearance: Appearance = .light
+  @State var appearance: Appearance = .dark
     
   var body: some View {
     List {
-      Section(header: Text("Appearance")) {
+      Section(header: Text("Appearance: \(appearance.rawValue)")) {
+        
         RadioPicker(selection: $appearance, label: Text("")) {
-          RadioOption("Light", systemImageName: "lightbulb")
-          RadioOption("Dark", systemImageName: "lightbulb.fill")
-          RadioOption("Automatic", systemImageName: "puzzlepiece")
+          RadioOption("Light", systemImageName: "lightbulb", value: Appearance.light)
+          RadioOption("Dark", systemImageName: "lightbulb.fill", value: Appearance.dark)
+          RadioOption("Automatic", systemImageName: "puzzlepiece", value: Appearance.automatic)
         }
       }
     }

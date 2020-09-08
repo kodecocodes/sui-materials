@@ -43,7 +43,9 @@ struct RadioButton: View {
   
   var body: some View {
     Button(action: {
-      self.isOn.toggle()
+      if self.isOn == false {
+        self.isOn = true
+      }
     }) {
       HStack(alignment: .center) {
         ZStack {
