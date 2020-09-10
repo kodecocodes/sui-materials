@@ -32,19 +32,54 @@ struct ContentView: View {
   @StateObject var flightInfo: FlightData = FlightData()
   
   var body: some View {
-    NavigationView {
-      HStack {
-        ZStack {
-          Image(systemName: "airplane")
+    VStack {
+      VStack {
+        ZStack(alignment: .topLeading) {
+          // Background
+          Image("welcome-background")
             .resizable()
-            .aspectRatio(contentMode: .fit)
-            .frame(width: 250, height: 250, alignment: .center)
-            .opacity(0.1)
-            .rotationEffect(.degrees(-90))
-          Spacer()
+            .aspectRatio(contentMode: .fill)
+            .frame(width: 375, height: 250)
+            .clipped()
+            .frame(width: 375, height: 250)
+          //Title
+          Text("Mountain Airport")
+            .font(.system(size: 28, weight: .bold))
+            .foregroundColor(.white)
+            .padding()
         }
+        // Button
+        VStack(alignment: .leading) {
+          Circle()
+            .foregroundColor(Color.blue.opacity(0.8))
+            .frame(width: 80, height: 80)
+            .overlay(
+              Image(systemName: "airplane")
+                .resizable()
+                .frame(width: 55, height: 55)
+                .foregroundColor(.white)
+                .rotationEffect(.degrees(-45.0))
+            )
+          Spacer()
+          //Title
+          Text("Flight Status")
+            .font(.title)
+            .foregroundColor(.white)
+          //Subtitle
+          Text("Departure and Arrival Information")
+            .font(.subheadline)
+            .foregroundColor(.white)
+        }
+        .frame(width: 155, height: 233, alignment: .topLeading)
+        .padding()
+        .background(
+          // Background
+          Image("link-pattern")
+            .resizable()
+            .aspectRatio(contentMode: .fill)
+            .clipped()
+        )
       }
-      .navigationBarTitle(Text("Mountain Airport"))
     }
   }
 }
