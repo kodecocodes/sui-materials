@@ -34,19 +34,17 @@ struct WelcomeButtonView: View {
 
   var body: some View {
     VStack(alignment: .leading) {
-      Spacer()
       Text(title)
         .font(.title)
         .foregroundColor(.white)
       Text(subTitle)
         .font(.subheadline)
         .foregroundColor(.white)
-    }.frame(width: 135, height: 233)
-    .padding(5.0).padding(.bottom, 10.0)
+    }.padding()
+    .frame(maxWidth: .infinity, alignment: .leading)
     .background(
       Image("link-pattern")
         .resizable()
-        .aspectRatio(contentMode: .fill)
         .clipped()
     )
   }

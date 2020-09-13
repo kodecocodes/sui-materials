@@ -37,33 +37,41 @@ struct WelcomeView: View {
         // 2
         Image("welcome-background")
           .resizable()
-          .aspectRatio(contentMode: .fill)
-          .frame(width: 375, height: 250)
+          .aspectRatio(contentMode: .fit)
           .clipped()
         VStack(alignment: .leading) {
-          // 3
           NavigationLink(
-            // 4
             destination: GenericView()) {
-            // 5
-            Text("Flight Status")
+            WelcomeButtonView(
+              title: "Flight Status",
+              subTitle: "Departure and arrival information"
+            )
           }
           NavigationLink(
             destination: GenericView()) {
-            Text("Search Flights")
+            WelcomeButtonView(
+              title: "Search Flights",
+              subTitle: "Explore departing flights for the next two weeks"
+            )
           }
           NavigationLink(
             destination: GenericView()) {
-            Text("Your Awards")
+            WelcomeButtonView(
+              title: "Your Awards",
+              subTitle: "Earn awards for airport interactions"
+            )
           }
           NavigationLink(
             destination: GenericView()) {
-            Text("Saved Flights")
+            WelcomeButtonView(
+              title: "Saved Flights",
+              subTitle: "Flights you've saved for later review"
+            )
           }
           Spacer()
-        }.font(.title)
+        }.padding()
+        .font(.title)
         .foregroundColor(.white)
-        .padding()
       }.navigationTitle("Mountain Airport")
       // End Navigation View
     }.navigationViewStyle(StackNavigationViewStyle())
