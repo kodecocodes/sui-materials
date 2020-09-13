@@ -28,60 +28,38 @@
 
 import SwiftUI
 
-struct WelcomeView: View {
-  @StateObject var flightInfo: FlightData = FlightData()
-  
+struct FlightDetails: View {
+  var flight: FlightInformation
+
   var body: some View {
-    NavigationView {
-      ZStack(alignment: .topLeading) {
-        // 2
-        Image("welcome-background")
-          .resizable()
-          .aspectRatio(contentMode: .fit)
-          .clipped()
-        VStack(alignment: .leading) {
-          NavigationLink(
-            destination: FlightStatusBoard(
-              flights: flightInfo.getDaysFlights(Date()))
-          ) {
-            WelcomeButtonView(
-              title: "Flight Status",
-              subTitle: "Departure and arrival information"
-            )
-          }
-          NavigationLink(
-            destination: GenericView()) {
-            WelcomeButtonView(
-              title: "Search Flights",
-              subTitle: "Explore departing flights for the next two weeks"
-            )
-          }
-          NavigationLink(
-            destination: GenericView()) {
-            WelcomeButtonView(
-              title: "Your Awards",
-              subTitle: "Earn awards for airport interactions"
-            )
-          }
-          NavigationLink(
-            destination: GenericView()) {
-            WelcomeButtonView(
-              title: "Saved Flights",
-              subTitle: "Flights you've saved for later review"
-            )
-          }
-          Spacer()
-        }.padding()
-        .font(.title)
-        .foregroundColor(.white)
-      }.navigationTitle("Mountain Airport")
-      // End Navigation View
-    }.navigationViewStyle(StackNavigationViewStyle())
+    ZStack {
+      Image("background-view")
+        .resizable()
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+      VStack(alignment: .leading) {
+        HStack {
+          FlightDirectionGraphic(direction: flight.direction)
+            .frame(width: 40, height: 40)
+          VStack(alignment: .leading) {
+            flight.direction == .arrival ? Text("From ") : Text("To ") + Text(flight.otherAirport)
+            Text(flight.flightStatus)
+              .font(.subheadline)
+          }.font(.title2)
+        }
+        Spacer()
+      }.foregroundColor(.white)
+      .padding()
+      .navigationTitle("\(flight.airline) Flight \(flight.number)")
+    }
   }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct FlightDetails_Previews: PreviewProvider {
   static var previews: some View {
-    WelcomeView()
+    NavigationView {
+      FlightDetails(
+        flight: FlightData.generateTestFlight(date: Date())
+      )
+    }
   }
 }

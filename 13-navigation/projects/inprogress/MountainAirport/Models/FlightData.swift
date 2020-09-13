@@ -75,6 +75,10 @@ class FlightData: ObservableObject {
     return flights.first { $0.id == id }
   }
 
+  func getDaysFlights(_ date: Date) -> [FlightInformation] {
+    flights.filter { Calendar.current.isDate($0.localTime, inSameDayAs: date) }
+  }
+
   func generateSchedule() -> [FlightInformation] {
     var flights = [FlightInformation]()
 

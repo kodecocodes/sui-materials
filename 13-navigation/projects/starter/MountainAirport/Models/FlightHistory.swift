@@ -28,60 +28,68 @@
 
 import SwiftUI
 
-struct WelcomeView: View {
-  @StateObject var flightInfo: FlightData = FlightData()
+class FlightHistory : NSObject {
+  var day: Int
+  var flightId: Int
+  var date: Date
+  var direction: FlightDirection
+  var status: FlightStatus
+  var scheduledTime: Date
+  var actualTime: Date?
   
-  var body: some View {
-    NavigationView {
-      ZStack(alignment: .topLeading) {
-        // 2
-        Image("welcome-background")
-          .resizable()
-          .aspectRatio(contentMode: .fit)
-          .clipped()
-        VStack(alignment: .leading) {
-          NavigationLink(
-            destination: FlightStatusBoard(
-              flights: flightInfo.getDaysFlights(Date()))
-          ) {
-            WelcomeButtonView(
-              title: "Flight Status",
-              subTitle: "Departure and arrival information"
-            )
-          }
-          NavigationLink(
-            destination: GenericView()) {
-            WelcomeButtonView(
-              title: "Search Flights",
-              subTitle: "Explore departing flights for the next two weeks"
-            )
-          }
-          NavigationLink(
-            destination: GenericView()) {
-            WelcomeButtonView(
-              title: "Your Awards",
-              subTitle: "Earn awards for airport interactions"
-            )
-          }
-          NavigationLink(
-            destination: GenericView()) {
-            WelcomeButtonView(
-              title: "Saved Flights",
-              subTitle: "Flights you've saved for later review"
-            )
-          }
-          Spacer()
-        }.padding()
-        .font(.title)
-        .foregroundColor(.white)
-      }.navigationTitle("Mountain Airport")
-      // End Navigation View
-    }.navigationViewStyle(StackNavigationViewStyle())
+  var shortDate: String {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "MMM d"
+    return formatter.string(from: date)
   }
-}
 
-struct ContentView_Previews: PreviewProvider {
-  static var previews: some View {
-    WelcomeView()
+  var timeDifference: Int {
+    guard let actual = actualTime else { return 60 }
+    let diff = Calendar.current.dateComponents([.minute], from: scheduledTime, to: actual)
+    return diff.minute!
+  }
+  
+  var flightDelayDescription: String {
+    if status == .canceled {
+      return "Canceled"
+    }
+    
+    if timeDifference < 0 {
+      return "Early by \(-timeDifference) minutes."
+    } else if timeDifference == 0 {
+      return "On time"
+    } else {
+      return "Late by \(timeDifference) minutes."
+    }
+  }
+  
+  var delayColor: Color {
+    if status == .canceled {
+      return Color.init(red: 0.5, green: 0, blue: 0)
+    }
+    
+    if timeDifference <= 0 {
+      return Color.green
+    }
+    
+    if timeDifference <= 15 {
+      return Color.yellow
+    }
+    
+    return Color.red
+  }
+  
+  func calcOffset(_ width: CGFloat) -> CGFloat {
+    CGFloat(CGFloat(day - 1) * width)
+  }
+  
+  init(_ day: Int, id: Int, date: Date, direction: FlightDirection, status: FlightStatus, scheduledTime: Date, actualTime: Date?) {
+    self.day = day
+    self.flightId = id
+    self.date = date
+    self.direction = direction
+    self.status = status
+    self.scheduledTime = scheduledTime
+    self.actualTime = actualTime
   }
 }
