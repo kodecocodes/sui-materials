@@ -64,6 +64,10 @@ class FlightInformation: NSObject {
     "\(airline) \(number)"
   }
 
+  var dirString: String {
+    direction == .arrival ? "From" : "To"
+  }
+
   var otherEndTime: Date {
     if direction == .arrival {
       return Calendar.current.date(byAdding: .minute, value: -flightTime, to: currentTime ?? scheduledTime)!

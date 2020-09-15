@@ -41,7 +41,7 @@ struct FlightDetails: View {
           FlightDirectionGraphic(direction: flight.direction)
             .frame(width: 40, height: 40)
           VStack(alignment: .leading) {
-            flight.direction == .arrival ? Text("From ") : Text("To ") + Text(flight.otherAirport)
+            Text("\(flight.dirString) \(flight.otherAirport)")
             Text(flight.flightStatus)
               .font(.subheadline)
           }.font(.title2)

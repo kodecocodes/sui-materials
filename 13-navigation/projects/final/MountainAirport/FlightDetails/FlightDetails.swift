@@ -1,15 +1,15 @@
 /// Copyright (c) 2020 Razeware LLC
-/// 
+///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
 /// in the Software without restriction, including without limitation the rights
 /// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 /// copies of the Software, and to permit persons to whom the Software is
 /// furnished to do so, subject to the following conditions:
-/// 
+///
 /// The above copyright notice and this permission notice shall be included in
 /// all copies or substantial portions of the Software.
-/// 
+///
 /// Notwithstanding the foregoing, you may not use, copy, modify, merge, publish,
 /// distribute, sublicense, create a derivative work, and/or sell copies of the
 /// Software in any work that is designed, intended, or marketed for pedagogical or
@@ -17,7 +17,7 @@
 /// or information technology.  Permission for such use, copying, modification,
 /// merger, publication, distribution, sublicensing, creation of derivative works,
 /// or sale is expressly withheld.
-/// 
+///
 /// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 /// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 /// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -28,36 +28,39 @@
 
 import SwiftUI
 
-struct FlightStatusBoard: View {
-  var flights: [FlightInformation]
-  @State private var hidePast = false
-
-  var shownFlights: [FlightInformation] {
-    hidePast ?
-      flights.filter { $0.localTime >= Date() } :
-      flights
-  }
+struct FlightDetails: View {
+  var flight: FlightInformation
 
   var body: some View {
-    List(shownFlights, id: \.id) { flight in
-      NavigationLink(
-        flight.flightName,
-        destination: FlightDetails(flight: flight)
-      )
-    }.navigationTitle("Flight Status")
-    .navigationBarItems(
-      trailing: Toggle("Hide Past",
-                       isOn: $hidePast)
-    )
+    ZStack {
+      Image("background-view")
+        .resizable()
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+      VStack(alignment: .leading) {
+        HStack {
+          FlightDirectionGraphic(direction: flight.direction)
+            .frame(width: 40, height: 40)
+          VStack(alignment: .leading) {
+            Text("\(flight.dirString) \(flight.otherAirport)")
+            Text(flight.flightStatus)
+              .font(.subheadline)
+          }.font(.title2)
+        }
+        Spacer()
+      }.foregroundColor(.white)
+      .padding()
+      .navigationTitle("\(flight.airline) Flight \(flight.number)")
+    }
   }
 }
 
-struct FlightStatusBoard_Previews: PreviewProvider {
+struct FlightDetails_Previews: PreviewProvider {
   static var previews: some View {
     NavigationView {
-      FlightStatusBoard(
-        flights: FlightData.generateTestFlights(date: Date())
+      FlightDetails(
+        flight: FlightData.generateTestFlight(date: Date())
       )
     }
   }
 }
+
