@@ -85,7 +85,6 @@ struct RadioOptionBuilder<Value: Hashable> {
 }
 
 struct RadioPicker<Label: View, SelectionValue: Hashable>: View {
-
   @ObservedObject private var pickerState: RadioPickerState<SelectionValue>
   private let label: Label
   private let options: [RadioOption<SelectionValue>]
@@ -99,7 +98,11 @@ struct RadioPicker<Label: View, SelectionValue: Hashable>: View {
     }
   }
 
-  init(selection: Binding<SelectionValue>, label: Label, @RadioOptionBuilder<SelectionValue> content: () -> [RadioOption<SelectionValue>]) {
+  init(
+    selection: Binding<SelectionValue>,
+    label: Label,
+    @RadioOptionBuilder<SelectionValue> content: () -> [RadioOption<SelectionValue>]
+  ) {
     self.label = label
 
     self.options = content()

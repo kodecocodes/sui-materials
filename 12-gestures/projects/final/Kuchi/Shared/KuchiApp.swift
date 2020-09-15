@@ -32,9 +32,34 @@
 
 import SwiftUI
 
+enum Appearance: Int, CaseIterable, Identifiable {
+  case light, dark, automatic
+  var id: Int { self.rawValue }
+  
+  func getColorScheme() -> ColorScheme? {
+    switch self {
+    case .automatic: return nil
+    case .light: return .light
+    case .dark: return .dark
+    }
+  }
+}
+
+struct AppearanceKey: EnvironmentKey {
+  static var defaultValue: Appearance = .automatic
+}
+
+extension EnvironmentValues {
+    var appearance: Appearance {
+        get { self[AppearanceKey.self] }
+        set { self[AppearanceKey.self] = newValue }
+    }
+}
+
 @main
 struct KuchiApp: App {
   let userManager = UserManager()
+  @AppStorage("appearance") var appearance: Appearance = .automatic
   
   init() {
     userManager.load()
@@ -42,9 +67,12 @@ struct KuchiApp: App {
   
   var body: some Scene {
     WindowGroup {
-      StarterView()
-        .environmentObject(userManager)
-        .environmentObject(ChallengesViewModel())
+      HStack {
+        StarterView()
+          .environmentObject(userManager)
+          .environmentObject(ChallengesViewModel())
+          .preferredColorScheme(appearance.getColorScheme())
+      }
     }
   }
 }

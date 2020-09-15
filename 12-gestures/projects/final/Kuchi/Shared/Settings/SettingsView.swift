@@ -33,17 +33,11 @@
 import SwiftUI
 
 struct SettingsView: View {
-  enum Appearance: Int, CaseIterable, Identifiable {
-    case light, dark, automatic
-    var id: Int { self.rawValue }
-  }
+  @AppStorage("appearance") var appearance: Appearance = .automatic
   
-  @State var appearance: Appearance = .dark
-    
   var body: some View {
     List {
-      Section(header: Text("Appearance: \(appearance.rawValue)")) {
-        
+      Section(header: Text("Appearance")) {
         RadioPicker(selection: $appearance, label: Text("")) {
           RadioOption("Light", systemImageName: "lightbulb", value: Appearance.light)
           RadioOption("Dark", systemImageName: "lightbulb.fill", value: Appearance.dark)
@@ -57,5 +51,6 @@ struct SettingsView: View {
 struct SettingsView_Previews: PreviewProvider {
   static var previews: some View {
     SettingsView()
+      .environment(\.colorScheme, .dark)
   }
 }

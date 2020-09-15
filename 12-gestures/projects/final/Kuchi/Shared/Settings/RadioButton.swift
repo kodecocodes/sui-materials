@@ -33,12 +33,20 @@
 import SwiftUI
 
 struct RadioButton: View {
+  @Environment(\.colorScheme) var colorScheme
   @Binding var isOn: Bool
   let label: String?
   
   init(isOn: Binding<Bool>, label: String? = nil) {
     self._isOn = isOn
     self.label = label
+  }
+  
+  var borderColor: Color {
+    switch colorScheme {
+    case .dark: return Color.white.opacity(0.4)
+    case .light: return Color.black.opacity(0.2)
+    }
   }
   
   var body: some View {
@@ -50,7 +58,7 @@ struct RadioButton: View {
       HStack(alignment: .center) {
         ZStack {
           Circle().fill(isOn ? Color.blue : Color.clear)
-          Circle().stroke(Color.black.opacity(0.2))
+          Circle().stroke(borderColor)
           if isOn {
             Image(systemName: "checkmark")
               .foregroundColor(.white)
