@@ -30,6 +30,8 @@ import SwiftUI
 
 struct WelcomeView: View {
   @StateObject var flightInfo: FlightData = FlightData()
+  @State var showNextFlight = false
+  @ObservedObject var lastFlightInfo = FlightNavigationInfo()
   
   var body: some View {
     NavigationView {
@@ -40,9 +42,19 @@ struct WelcomeView: View {
           .aspectRatio(contentMode: .fit)
           .clipped()
         VStack(alignment: .leading) {
+          if let lastFlightId = lastFlightInfo.lastFlightId,
+             let lastFlight = flightInfo.getFlightById(lastFlightId) {
+            NavigationLink(
+              destination: FlightDetails(flight: lastFlight),
+              // 1
+              isActive: $showNextFlight
+              // 2
+            ) { }
+          }
           NavigationLink(
             destination: FlightStatusBoard(
-              flights: flightInfo.getDaysFlights(Date()))
+              flights: flightInfo.getDaysFlights(Date())
+            )
           ) {
             WelcomeButtonView(
               title: "Flight Status",
@@ -70,13 +82,27 @@ struct WelcomeView: View {
               subTitle: "Flights you've saved for later review"
             )
           }
+          // 1
+          if let id = lastFlightInfo.lastFlightId,
+             let lastFlight = flightInfo.getFlightById(id)
+          {
+            Button(action: {
+              showNextFlight = true
+            }) {
+              WelcomeButtonView(
+                title: "Last Flight \(lastFlight.flightName)",
+                subTitle: "Show Next Flight Departing or Arriving at Airport"
+              )
+            }
+          }
           Spacer()
         }.padding()
         .font(.title)
         .foregroundColor(.white)
       }.navigationTitle("Mountain Airport")
       // End Navigation View
-    }.navigationViewStyle(StackNavigationViewStyle())
+    }.environmentObject(lastFlightInfo)
+    .navigationViewStyle(StackNavigationViewStyle())
   }
 }
 
