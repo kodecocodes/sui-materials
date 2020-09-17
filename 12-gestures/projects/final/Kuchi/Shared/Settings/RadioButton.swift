@@ -46,6 +46,7 @@ struct RadioButton: View {
     switch colorScheme {
     case .dark: return Color.white.opacity(0.4)
     case .light: return Color.black.opacity(0.2)
+    @unknown default: return Color.black.opacity(0.2)
     }
   }
   
