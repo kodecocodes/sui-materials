@@ -58,11 +58,11 @@ struct FlightStatusBoard: View {
       FlightList(
         flights: shownFlights.filter { $0.direction == .arrival }
       ).tabItem {
-        Image(systemName: "airplane")
+        Image("descending-airplane")
           .resizable()
         Text("Arrivals")
         // 2
-      }.tag(FlightDirection.arrival)
+      }.tag(0)
       FlightList(
         flights: shownFlights
       ).tabItem {
@@ -79,7 +79,7 @@ struct FlightStatusBoard: View {
     }.navigationTitle("Flight Status")
     .navigationBarItems(
       trailing: Toggle("Hide Past",
-                       isOn: $hidePast)
+                        isOn: $hidePast)
     )
   }
 }

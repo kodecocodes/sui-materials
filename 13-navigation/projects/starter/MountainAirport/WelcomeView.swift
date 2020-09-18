@@ -41,15 +41,14 @@ struct WelcomeView: View {
           .frame(width: 375, height: 250)
           .clipped()
         //Title
-        Text("Mountain Airport")
-          .font(.system(size: 28.0, weight: .bold))
-          .foregroundColor(.white)
-          .padding()
+        VStack {
+          Text("Mountain Airport")
+            .font(.system(size: 28.0, weight: .bold))
+          Text("Flight Status")
+        }
+        .foregroundColor(.white)
+        .padding()
       }
-      Text("Flight Status")
-      Text("Search Flights")
-      Text("Your Awards")
-      Text("Saved Flights")
       Spacer()
     }.font(.title)
   }

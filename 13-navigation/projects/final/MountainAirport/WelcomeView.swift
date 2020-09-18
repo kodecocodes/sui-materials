@@ -34,52 +34,31 @@ struct WelcomeView: View {
   @ObservedObject var lastFlightInfo = FlightNavigationInfo()
   
   var body: some View {
+    // 1
     NavigationView {
       ZStack(alignment: .topLeading) {
         // 2
         Image("welcome-background")
           .resizable()
-          .aspectRatio(contentMode: .fit)
-          .clipped()
+          .aspectRatio(contentMode: .fill)
+          .frame(height: 250)
         VStack(alignment: .leading) {
-          if let lastFlightId = lastFlightInfo.lastFlightId,
-             let lastFlight = flightInfo.getFlightById(lastFlightId) {
-            NavigationLink(
-              destination: FlightDetails(flight: lastFlight),
-              // 1
-              isActive: $showNextFlight
-              // 2
-            ) { }
-          }
           NavigationLink(
+            destination: FlightDetails(flight: flightInfo.flights.first!),
+            // 1
+            isActive: $showNextFlight
+            // 2
+          ) { }
+          // 3
+          NavigationLink(
+            // 4
             destination: FlightStatusBoard(
-              flights: flightInfo.getDaysFlights(Date())
-            )
+              flights: flightInfo.getDaysFlights(Date()))
           ) {
+            // 5
             WelcomeButtonView(
               title: "Flight Status",
               subTitle: "Departure and arrival information"
-            )
-          }
-          NavigationLink(
-            destination: GenericView()) {
-            WelcomeButtonView(
-              title: "Search Flights",
-              subTitle: "Explore departing flights for the next two weeks"
-            )
-          }
-          NavigationLink(
-            destination: GenericView()) {
-            WelcomeButtonView(
-              title: "Your Awards",
-              subTitle: "Earn awards for airport interactions"
-            )
-          }
-          NavigationLink(
-            destination: GenericView()) {
-            WelcomeButtonView(
-              title: "Saved Flights",
-              subTitle: "Flights you've saved for later review"
             )
           }
           // 1
@@ -87,22 +66,24 @@ struct WelcomeView: View {
              let lastFlight = flightInfo.getFlightById(id)
           {
             Button(action: {
+              // 2
               showNextFlight = true
             }) {
               WelcomeButtonView(
+              // 3
                 title: "Last Flight \(lastFlight.flightName)",
                 subTitle: "Show Next Flight Departing or Arriving at Airport"
               )
             }
           }
           Spacer()
-        }.padding()
-        .font(.title)
+        }.font(.title)
         .foregroundColor(.white)
-      }.navigationTitle("Mountain Airport")
+        .padding()
+      }.navigationBarTitle("Mountain Airport")
       // End Navigation View
-    }.environmentObject(lastFlightInfo)
-    .navigationViewStyle(StackNavigationViewStyle())
+    }.navigationViewStyle(StackNavigationViewStyle())
+    .environmentObject(lastFlightInfo)
   }
 }
 
