@@ -37,6 +37,10 @@ struct SettingsView: View {
   
   var body: some View {
     List {
+      Text("Settings")
+        .font(.largeTitle)
+        .padding(.bottom, 8)
+      
       Section(header: Text("Appearance")) {
         RadioPicker(selection: $appearance, label: Text("")) {
           RadioOption("Light", systemImageName: "lightbulb", value: Appearance.light)
