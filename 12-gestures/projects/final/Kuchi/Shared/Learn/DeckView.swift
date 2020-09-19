@@ -40,9 +40,9 @@ enum DiscardedDirection {
 struct DeckView: View {
   @ObservedObject var deck: FlashDeck
   
-  let onMemorized: () -> Void
+  let onMemorized: (_ memorized: Bool) -> Void
   
-  init(onMemorized: @escaping () -> Void, deck: FlashDeck) {
+  init(deck: FlashDeck, onMemorized: @escaping (_ memorized: Bool) -> Void) {
     self.onMemorized = onMemorized
     self.deck = deck
   }
@@ -70,9 +70,8 @@ struct DeckView: View {
   
   func createCardView(for card: FlashCard) -> CardView {
     let view = CardView(card, onDrag: { card, direction in
-      if direction == .left {
-        self.onMemorized()
-      }
+      let memorized = direction == .left
+      self.onMemorized(memorized)
     })
     
     return view
@@ -82,8 +81,8 @@ struct DeckView: View {
 struct DeckView_Previews: PreviewProvider {
   static var previews: some View {
     DeckView(
-      onMemorized: {},
-      deck: FlashDeck(from: ChallengesViewModel().challenges)
+      deck: FlashDeck(from: ChallengesViewModel().challenges),
+      onMemorized: { _ in }
     )
   }
 }

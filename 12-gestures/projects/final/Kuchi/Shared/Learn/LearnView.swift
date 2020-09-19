@@ -34,29 +34,64 @@ import SwiftUI
 
 struct LearnView: View {
   @ObservedObject var learningStore = LearningStore(deck: ChallengesViewModel().challenges)
+  @State var remainingCards: Int = 0
   
+  init() {
+    _remainingCards = .init(initialValue: learningStore.flashDeck.cards.count)
+  }
   
   var body: some View {
     VStack {
       Spacer()
       
-      Text(
-        "Swipe left if you remembered"
-          + "\nSwipe right if you didn’t"
-      )        .font(.headline)
-      
-      DeckView(
-        onMemorized: { self.learningStore.score += 1 },
-        deck: learningStore.deck
-      )
-      .frame(height: 210)
+      if remainingCards > 0 {
+        Text(
+          "Swipe left if you remembered"
+            + "\nSwipe right if you didn’t"
+        )        .font(.headline)
+        
+        DeckView(
+          deck: learningStore.flashDeck,
+          onMemorized: { memorized in
+            remainingCards -= 1
+            if memorized {
+              self.learningStore.score += 1
+            }
+          }
+        )
+        .frame(height: 210)
+      } else {
+        VStack {
+          Spacer()
+          Text("Congratulations!")
+            .font(.largeTitle)
+          Spacer()
+          Text(
+            "You memorized \(self.learningStore.score) cards "
+              + "out of \(self.learningStore.flashDeck.cards.count)"
+          )
+          Spacer()
+          Button("Try again") {
+            reset()
+          }
+          Spacer()
+        }
+      }
       
       Spacer()
       Text(
-        "Remembered \(self.learningStore.score)" + "/\(self.learningStore.deck.cards.count)"
+        "Remembered \(self.learningStore.score)"
+          + "/\(self.learningStore.flashDeck.cards.count - remainingCards)"
+          + " - Remaining: \(remainingCards)"
+        
       )
       .font(.caption)
     }
+  }
+  
+  func reset() {
+    learningStore.reset()
+    remainingCards = learningStore.flashDeck.cards.count
   }
 }
 

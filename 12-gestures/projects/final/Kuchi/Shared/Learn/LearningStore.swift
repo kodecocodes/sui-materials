@@ -33,9 +33,10 @@
 import Foundation
 
 class LearningStore: ObservableObject {
+  private let deck: [Challenge]
   
   // 1
-  @Published var deck: FlashDeck
+  @Published var flashDeck: FlashDeck
   
   // 2
   @Published var card: FlashCard?
@@ -45,19 +46,26 @@ class LearningStore: ObservableObject {
   
   // 4
   init(deck: [Challenge]) {
-    self.deck = FlashDeck(from: deck)
+    self.deck = deck
+    self.flashDeck = FlashDeck(from: deck)
     self.card = getNextCard()
   }
   
   // 5
   func getNextCard() -> FlashCard? {
-    guard let card = self.deck.cards.last else {
+    guard let card = flashDeck.cards.last else {
       return nil
     }
     
     self.card = card
-    self.deck.cards.removeLast()
+    flashDeck.cards.removeLast()
     
-    return self.card
+    return card
+  }
+  
+  func reset() {
+    score = 0
+    flashDeck = FlashDeck(from: deck)
+    card = getNextCard()
   }
 }
