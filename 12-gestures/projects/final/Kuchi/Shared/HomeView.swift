@@ -39,10 +39,10 @@ struct HomeView: View {
   var body: some View {
     TabView {
       LearnView()
-      .tabItem({
-        Label("Learn", systemImage: "bookmark")
-      })
-      .tag(0)
+        .tabItem({
+          Label("Learn", systemImage: "bookmark")
+        })
+        .tag(0)
       
       PracticeView(
         challengeTest: $challengesViewModel.currentChallenge,
@@ -58,8 +58,8 @@ struct HomeView: View {
         .tabItem({
           Label("Settings", systemImage: "gearshape.2")
         })
-      .tag(1)
-      .environment(\.questionsPerSession, challengesViewModel.numberOfQuestions)
+        .tag(1)
+        .environment(\.questionsPerSession, challengesViewModel.numberOfQuestions)
       
     }
     .accentColor(.orange)
@@ -69,7 +69,7 @@ struct HomeView: View {
 struct HomeView_Previews: PreviewProvider {
   static var previews: some View {
     HomeView()
-    .environmentObject(UserManager())
-    .environmentObject(ChallengesViewModel())
+      .environmentObject(UserManager())
+      .environmentObject(ChallengesViewModel())
   }
 }

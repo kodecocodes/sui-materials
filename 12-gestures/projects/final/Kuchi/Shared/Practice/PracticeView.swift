@@ -54,7 +54,7 @@ struct PracticeView_Previews : PreviewProvider {
     challenge: Challenge(question: "おねがい　します", pronunciation: "Onegai shimasu", answer: "Please"),
     answers: ["Thank you", "Hello", "Goodbye"]
   )
-
+  
   static var previews: some View {
     return PracticeView(challengeTest: .constant(challengeTest), userName: .constant("Johnny Swift"), numberOfAnswered: $numberOfAnswered)
   }

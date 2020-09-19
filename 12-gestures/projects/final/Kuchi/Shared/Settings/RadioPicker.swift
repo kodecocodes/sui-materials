@@ -35,13 +35,13 @@ import SwiftUI
 class RadioPickerState<SelectionValue: Hashable>: ObservableObject {
   var currentSelectedIndex: Int?
   var values: [SelectionValue]
-
+  
   var selection: Binding<SelectionValue>
   
   @Published var isOn: [Bool] = [] {
     willSet {
       guard currentSelectedIndex == nil else { return }
-
+      
       if let currentSelectedIndex = isOn.firstIndex(where: { $0 == true }) {
         self.currentSelectedIndex = currentSelectedIndex
       }
@@ -56,7 +56,7 @@ class RadioPickerState<SelectionValue: Hashable>: ObservableObject {
       }
     }
   }
-
+  
   init(selection: Binding<SelectionValue>, values: [SelectionValue]) {
     self.values = values
     self.isOn = Array(repeating: false, count: values.count)
@@ -67,7 +67,7 @@ class RadioPickerState<SelectionValue: Hashable>: ObservableObject {
 private struct _RadioOption<Value: Hashable>: View {
   let option: RadioOption<Value>
   @Binding var isOn: Bool
-
+  
   var body: some View {
     VStack {
       option
@@ -88,7 +88,7 @@ struct RadioPicker<Label: View, SelectionValue: Hashable>: View {
   @ObservedObject private var pickerState: RadioPickerState<SelectionValue>
   private let label: Label
   private let options: [RadioOption<SelectionValue>]
-
+  
   var selection: Binding<SelectionValue> {
     get { $pickerState.selection.wrappedValue }
     set {
@@ -97,14 +97,14 @@ struct RadioPicker<Label: View, SelectionValue: Hashable>: View {
       pickerState.selection = newValue
     }
   }
-
+  
   init(
     selection: Binding<SelectionValue>,
     label: Label,
     @RadioOptionBuilder<SelectionValue> content: () -> [RadioOption<SelectionValue>]
   ) {
     self.label = label
-
+    
     self.options = content()
     self.pickerState = RadioPickerState(
       selection: selection,
@@ -112,7 +112,7 @@ struct RadioPicker<Label: View, SelectionValue: Hashable>: View {
     )
     self.selection = selection
   }
-
+  
   var body: some View {
     VStack {
       label
@@ -133,9 +133,9 @@ struct RadioSelector_Previews: PreviewProvider {
     case one, two, three, four, five, six, seven, eight
     var id: Int { self.rawValue }
   }
-
+  
   @State static var selection: Selection = .one
-
+  
   static var previews: some View {
     RadioPicker(selection: $selection, label: Text("Selection")) {
       RadioOption("One", systemImageName: "1.square", value: Selection.one)

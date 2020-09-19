@@ -98,7 +98,7 @@ class ChallengesViewModel: ObservableObject {
     guard count < answers.count else {
       return answers.shuffled()
     }
-   
+    
     var randomAnswers = Set<String>()
     randomAnswers.insert(includedAnswer)
     while randomAnswers.count < count {
@@ -130,9 +130,9 @@ class ChallengesViewModel: ObservableObject {
   private func getRandomChallenges(count: Int) -> [ChallengeTest] {
     let challenges = self.challenges.filter { $0.completed == false }
     var randomChallenges: Set<Challenge>
-
+    
     // If there are not enough challenges, return them all
-
+    
     if challenges.count < count {
       randomChallenges = Set(challenges)
     } else {
@@ -142,14 +142,14 @@ class ChallengesViewModel: ObservableObject {
         randomChallenges.insert(randomChallenge)
       }
     }
-
+    
     let tests = randomChallenges.map({
       ChallengeTest(
         challenge: $0,
         answers: getRandomAnswers(count: 3, including: $0.answer)
       )
     })
-
+    
     return tests.shuffled()
   }
   

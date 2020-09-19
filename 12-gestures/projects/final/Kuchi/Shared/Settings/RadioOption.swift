@@ -36,7 +36,7 @@ struct RadioOption<Value: Hashable>: View {
   let label: String
   let systemImageName: String
   let value: Value
-
+  
   init(_ label: String, systemImageName: String, value: Value) {
     self.label = label
     self.systemImageName = systemImageName

@@ -37,11 +37,11 @@ struct RegisterView: View {
   
   #if os(iOS)
   @ObservedObject var keyboardHandler: KeyboardFollower
-
+  
   var paddingHeight: CGFloat {
     keyboardHandler.keyboardHeight
   }
-
+  
   var ignoreSafeArea: Bool {
     keyboardHandler.isVisible
   }
@@ -60,12 +60,12 @@ struct RegisterView: View {
   var body: some View {
     VStack {
       Spacer()
-
+      
       WelcomeMessageView()
-
+      
       TextField("Type your name...", text: $userManager.profile.name)
         .bordered()
-
+      
       HStack {
         Spacer()
         Text("\(userManager.profile.name.count)")
@@ -74,35 +74,35 @@ struct RegisterView: View {
           .padding(.trailing)
       }
       .padding(.bottom)
-
-
+      
+      
       HStack {
         Spacer()
-
+        
         Toggle(isOn: $userManager.settings.rememberUser) {
           Text("Remember me")
             .font(.subheadline)
             .foregroundColor(.gray)
         }
-          .fixedSize()
+        .fixedSize()
       }
-
+      
       Button(action: self.registerUser) {
         Label {
           Text("OK")
-          .font(.body)
-          .bold()
+            .font(.body)
+            .bold()
         } icon: {
           Image(systemName: "checkmark")
-          .resizable()
-          .frame(width: 16, height: 16, alignment: .center)
+            .resizable()
+            .frame(width: 16, height: 16, alignment: .center)
         }
       }
       .bordered()
       .disabled(!userManager.isUserNameValid())
-
+      
       Spacer()
-
+      
     }
     .padding(.bottom, paddingHeight)
     .edgesIgnoringSafeArea(ignoreSafeArea ? .bottom : [])
@@ -119,7 +119,7 @@ extension RegisterView {
     } else {
       userManager.clear()
     }
-
+    
     userManager.persistSettings()
     userManager.setRegistered()
   }
@@ -127,7 +127,7 @@ extension RegisterView {
 
 struct RegisterView_Previews: PreviewProvider {
   static let user = UserManager(name: "Ray")
-
+  
   static var previews: some View {
     #if os(iOS)
     RegisterView(keyboardHandler: KeyboardFollower())

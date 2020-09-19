@@ -44,7 +44,7 @@ struct CongratulationsView: View {
   var body: some View {
     VStack {
       Spacer()
-
+      
       Text("Congratulations!")
         .font(.title)
         .foregroundColor(.gray)
@@ -90,7 +90,7 @@ struct CongratulationsView: View {
       }, label: {
         Text("Play Again")
       })
-        .padding(.bottom)
+      .padding(.bottom)
     }
   }
 }

@@ -42,7 +42,7 @@ struct ChallengeView: View {
   #endif
   
   @Environment(\.questionsPerSession) var questionsPerSession
-
+  
   var compactBody: some View {
     VStack {
       HStack {
@@ -101,7 +101,7 @@ struct ChallengeView_Previews: PreviewProvider {
     challenge: Challenge(question: "おねがい　します", pronunciation: "Onegai shimasu", answer: "Please"),
     answers: ["Thank you", "Hello", "Goodbye"]
   )
-
+  
   static var previews: some View {
     return ChallengeView(challengeTest: challengeTest, numberOfAnswered: $numberOfAnswered)
   }

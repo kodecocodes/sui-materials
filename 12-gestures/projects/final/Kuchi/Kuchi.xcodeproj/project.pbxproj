@@ -11,8 +11,6 @@
 		574D4B7324EDC001008B6614 /* RadioPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574D4B7124EDC001008B6614 /* RadioPicker.swift */; };
 		57578FBA24E9D943003465A4 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57578F9124E9D943003465A4 /* WelcomeView.swift */; };
 		57578FBB24E9D943003465A4 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57578F9124E9D943003465A4 /* WelcomeView.swift */; };
-		57578FBC24E9D943003465A4 /* .keep in Resources */ = {isa = PBXBuildFile; fileRef = 57578F9324E9D943003465A4 /* .keep */; };
-		57578FBD24E9D943003465A4 /* .keep in Resources */ = {isa = PBXBuildFile; fileRef = 57578F9324E9D943003465A4 /* .keep */; };
 		57578FBE24E9D943003465A4 /* LogoImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57578F9424E9D943003465A4 /* LogoImage.swift */; };
 		57578FBF24E9D943003465A4 /* LogoImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57578F9424E9D943003465A4 /* LogoImage.swift */; };
 		57578FC024E9D943003465A4 /* WelcomeBackgroundImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57578F9524E9D943003465A4 /* WelcomeBackgroundImage.swift */; };
@@ -81,7 +79,6 @@
 /* Begin PBXFileReference section */
 		574D4B7124EDC001008B6614 /* RadioPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioPicker.swift; sourceTree = "<group>"; };
 		57578F9124E9D943003465A4 /* WelcomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
-		57578F9324E9D943003465A4 /* .keep */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .keep; sourceTree = "<group>"; };
 		57578F9424E9D943003465A4 /* LogoImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogoImage.swift; sourceTree = "<group>"; };
 		57578F9524E9D943003465A4 /* WelcomeBackgroundImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeBackgroundImage.swift; sourceTree = "<group>"; };
 		57578F9624E9D943003465A4 /* WelcomeMessageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeMessageView.swift; sourceTree = "<group>"; };
@@ -152,7 +149,6 @@
 		57578F9224E9D943003465A4 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				57578F9324E9D943003465A4 /* .keep */,
 				57578F9424E9D943003465A4 /* LogoImage.swift */,
 				57578F9524E9D943003465A4 /* WelcomeBackgroundImage.swift */,
 				57578F9624E9D943003465A4 /* WelcomeMessageView.swift */,
@@ -367,7 +363,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				57578FBC24E9D943003465A4 /* .keep in Resources */,
 				57578FE424E9D943003465A4 /* Preview Assets.xcassets in Resources */,
 				57578FE824E9D943003465A4 /* jp.json in Resources */,
 				57578FE224E9D943003465A4 /* Assets.xcassets in Resources */,
@@ -378,7 +373,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				57578FBD24E9D943003465A4 /* .keep in Resources */,
 				57578FE524E9D943003465A4 /* Preview Assets.xcassets in Resources */,
 				57578FE924E9D943003465A4 /* jp.json in Resources */,
 				57578FE324E9D943003465A4 /* Assets.xcassets in Resources */,

@@ -34,7 +34,7 @@ import SwiftUI
 
 struct LearnView: View {
   @ObservedObject var learningStore = LearningStore(deck: ChallengesViewModel().challenges)
-
+  
   
   var body: some View {
     VStack {
@@ -42,19 +42,19 @@ struct LearnView: View {
       
       Text(
         "Swipe left if you remembered"
-        + "\nSwipe right if you didn’t"
+          + "\nSwipe right if you didn’t"
       )        .font(.headline)
-
+      
       DeckView(
         onMemorized: { self.learningStore.score += 1 },
         deck: learningStore.deck
       )
       .frame(height: 210)
-
+      
       Spacer()
       Text(
         "Remembered \(self.learningStore.score)" + "/\(self.learningStore.deck.cards.count)"
-       )
+      )
       .font(.caption)
     }
   }
