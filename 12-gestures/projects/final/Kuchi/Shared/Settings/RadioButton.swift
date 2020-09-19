@@ -69,6 +69,7 @@ struct RadioButton: View {
 
         if let label = label {
           Text(label)
+            .font(.body)
             .foregroundColor(.primary)
         }
       }

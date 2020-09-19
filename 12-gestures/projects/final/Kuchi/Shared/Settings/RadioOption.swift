@@ -48,8 +48,9 @@ struct RadioOption<Value: Hashable>: View {
       Image(systemName: systemImageName)
         .resizable()
         .aspectRatio(contentMode: .fit)
-        .frame(maxWidth: 36, maxHeight: 36)
+        .frame(maxWidth: 26, maxHeight: 26)
       Text(label)
+        .font(.caption)
     }
   }
 }

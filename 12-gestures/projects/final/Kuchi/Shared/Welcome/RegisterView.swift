@@ -88,13 +88,14 @@ struct RegisterView: View {
       }
 
       Button(action: self.registerUser) {
-        HStack {
-          Image(systemName: "checkmark")
-            .resizable()
-            .frame(width: 16, height: 16, alignment: .center)
+        Label {
           Text("OK")
-            .font(.body)
-            .bold()
+          .font(.body)
+          .bold()
+        } icon: {
+          Image(systemName: "checkmark")
+          .resizable()
+          .frame(width: 16, height: 16, alignment: .center)
         }
       }
       .bordered()
@@ -103,10 +104,10 @@ struct RegisterView: View {
       Spacer()
 
     }
-      .padding(.bottom, paddingHeight)
-      .edgesIgnoringSafeArea(ignoreSafeArea ? .bottom : [])
-      .padding()
-      .background(WelcomeBackgroundImage())
+    .padding(.bottom, paddingHeight)
+    .edgesIgnoringSafeArea(ignoreSafeArea ? .bottom : [])
+    .padding()
+    .background(WelcomeBackgroundImage())
   }
 }
 

@@ -50,10 +50,10 @@ struct AppearanceKey: EnvironmentKey {
 }
 
 extension EnvironmentValues {
-    var appearance: Appearance {
-        get { self[AppearanceKey.self] }
-        set { self[AppearanceKey.self] = newValue }
-    }
+  var appearance: Appearance {
+    get { self[AppearanceKey.self] }
+    set { self[AppearanceKey.self] = newValue }
+  }
 }
 
 @main

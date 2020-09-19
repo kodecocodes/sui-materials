@@ -38,8 +38,10 @@ struct CardView: View {
   @State var offset: CGSize = .zero
   @GestureState var isLongPressed = false
   
-  typealias CardDrag = (_ card: FlashCard,
-    _ direction: DiscardedDirection) -> Void
+  typealias CardDrag = (
+    _ card: FlashCard,
+    _ direction: DiscardedDirection
+  ) -> Void
   
   let dragged: CardDrag
   
@@ -50,7 +52,7 @@ struct CardView: View {
     self.flashCard = card
     self.dragged = dragged
   }
-
+  
   var body: some View {
     let drag = DragGesture()
       .onChanged { self.offset = $0.translation }
@@ -65,16 +67,15 @@ struct CardView: View {
           self.offset = .zero
         }
       }
-
+    
     let longPress = LongPressGesture()
       .updating($isLongPressed) { value, state, transition in
         state = value
-    }.simultaneously(with: drag)
+      }.simultaneously(with: drag)
     
     return ZStack {
       Rectangle()
         .fill(Color.red)
-        .frame(width: 320, height: 210)
         .cornerRadius(12)
       VStack {
         Spacer()
@@ -89,18 +90,18 @@ struct CardView: View {
         Spacer()
       }
     }
-      .shadow(radius: 8)
-      .frame(width: 320, height: 210)
-      .animation(.spring())
-      .offset(self.offset)
-      .gesture(longPress)
-      .scaleEffect(isLongPressed ? 1.1 : 1)
-      .gesture(TapGesture()
-      .onEnded {
-        withAnimation(.easeIn, {
-          self.revealed = !self.revealed
-        })
-      })
+    .padding()
+    .shadow(radius: 8)
+    .animation(.spring())
+    .offset(self.offset)
+    .gesture(longPress)
+    .scaleEffect(isLongPressed ? 1.1 : 1)
+    .gesture(TapGesture()
+              .onEnded {
+                withAnimation(.easeIn, {
+                  self.revealed = !self.revealed
+                })
+              })
   }
 }
 

@@ -45,16 +45,14 @@ struct WelcomeView: View {
         WelcomeBackgroundImage()
         VStack {
           Text(verbatim: "Hi, \(userManager.profile.name)")
+            .font(.body)
 
           WelcomeMessageView()
 
           Button(action: {
             self.showPractice = true
           }, label: {
-            HStack {
-              Image(systemName: "play")
-              Text(verbatim: "Start")
-            }
+            Label("Start", systemImage: "play")
           })
         }
       }

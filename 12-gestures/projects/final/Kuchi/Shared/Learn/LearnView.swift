@@ -39,15 +39,23 @@ struct LearnView: View {
   var body: some View {
     VStack {
       Spacer()
-      Text("Swipe left if you remembered"
-        + "\nSwipe right if you didn’t")
-        .font(.headline)
+      
+      Text(
+        "Swipe left if you remembered"
+        + "\nSwipe right if you didn’t"
+      )        .font(.headline)
+
       DeckView(
         onMemorized: { self.learningStore.score += 1 },
         deck: learningStore.deck
       )
+      .frame(height: 210)
+
       Spacer()
-       Text("Remembered \(self.learningStore.score)" + "/\(self.learningStore.deck.cards.count)")
+      Text(
+        "Remembered \(self.learningStore.score)" + "/\(self.learningStore.deck.cards.count)"
+       )
+      .font(.caption)
     }
   }
 }

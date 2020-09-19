@@ -79,6 +79,7 @@ struct CongratulationsView: View {
       .frame(height: 180)
       
       Text("You're awesome!")
+        .font(.headline)
         .fontWeight(.bold)
         .foregroundColor(.gray)
       
