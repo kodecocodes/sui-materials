@@ -34,7 +34,7 @@ struct FlightList: View {
   var body: some View {
     List(flights, id: \.id) { flight in
       NavigationLink(
-        "\(flight.flightName) \(flight.dirString) \(flight.otherAirport)",
+        flight.statusBoardName,
         destination: FlightDetails(flight: flight)
       )
     }
@@ -79,7 +79,7 @@ struct FlightStatusBoard: View {
     }.navigationTitle("Flight Status")
     .navigationBarItems(
       trailing: Toggle("Hide Past",
-                        isOn: $hidePast)
+                       isOn: $hidePast)
     )
   }
 }

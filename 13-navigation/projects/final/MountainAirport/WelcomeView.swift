@@ -63,8 +63,7 @@ struct WelcomeView: View {
           }
           // 1
           if let id = lastFlightInfo.lastFlightId,
-             let lastFlight = flightInfo.getFlightById(id)
-          {
+             let lastFlight = flightInfo.getFlightById(id) {
             Button(action: {
               // 2
               showNextFlight = true
