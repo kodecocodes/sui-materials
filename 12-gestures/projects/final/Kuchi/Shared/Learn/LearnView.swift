@@ -33,7 +33,7 @@
 import SwiftUI
 
 struct LearnView: View {
-  @ObservedObject var learningStore = LearningStore(deck: ChallengesViewModel().challenges)
+  @ObservedObject var learningStore = LearningStore(deck: ChallengesViewModel.challenges)
   @State var remainingCards: Int = 0
   
   init() {

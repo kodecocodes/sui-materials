@@ -58,9 +58,7 @@ struct HomeView: View {
         .tabItem({
           Label("Settings", systemImage: "gearshape.2")
         })
-        .tag(1)
-        .environment(\.questionsPerSession, challengesViewModel.numberOfQuestions)
-      
+        .tag(1)      
     }
     .accentColor(.orange)
   }

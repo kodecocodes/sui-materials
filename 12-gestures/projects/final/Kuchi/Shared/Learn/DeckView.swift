@@ -81,7 +81,7 @@ struct DeckView: View {
 struct DeckView_Previews: PreviewProvider {
   static var previews: some View {
     DeckView(
-      deck: FlashDeck(from: ChallengesViewModel().challenges),
+      deck: FlashDeck(from: ChallengesViewModel.challenges),
       onMemorized: { _ in }
     )
   }

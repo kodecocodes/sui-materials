@@ -67,7 +67,7 @@ struct ChallengeTest {
 }
 
 class ChallengesViewModel: ObservableObject {
-  let challenges: [Challenge] = [
+  static let challenges: [Challenge] = [
     Challenge(question: "はい", pronunciation: "Hai", answer: "Yes"),
     Challenge(question: "いいえ", pronunciation: "iie", answer: "No"),
     Challenge(question: "おねがい　します", pronunciation: "Onegai shimasu", answer: "Please"),
@@ -79,11 +79,11 @@ class ChallengesViewModel: ObservableObject {
     Challenge(question: "ごめんなさい", pronunciation: "Gomennasai", answer: "Sorry")
   ]
   
-  var allAnswers: [String] { return challenges.map { $0.answer }}
+  var allAnswers: [String] { return Self.challenges.map { $0.answer }}
   var correctAnswers: [Challenge] = []
   var wrongAnswers: [Challenge] = []
-  private(set) var numberOfQuestions = 6
-  
+  @AppStorage("numberOfQuestions") var numberOfQuestions = 6
+
   var numberOfAnswered: Int { return correctAnswers.count }
   @Published var currentChallenge: ChallengeTest?
   
@@ -128,7 +128,7 @@ class ChallengesViewModel: ObservableObject {
   }
   
   private func getRandomChallenges(count: Int) -> [ChallengeTest] {
-    let challenges = self.challenges.filter { $0.completed == false }
+    let challenges = Self.challenges.filter { $0.completed == false }
     var randomChallenges: Set<Challenge>
     
     // If there are not enough challenges, return them all

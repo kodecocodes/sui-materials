@@ -34,6 +34,7 @@ import SwiftUI
 
 struct ChallengeView: View {
   let challengeTest: ChallengeTest
+  @AppStorage("numberOfQuestions") var numberOfQuestions = 6
   @Binding var numberOfAnswered: Int
   @State var showAnswers = false
   
@@ -41,7 +42,7 @@ struct ChallengeView: View {
   @Environment(\.verticalSizeClass) var verticalSizeClass
   #endif
   
-  @Environment(\.questionsPerSession) var questionsPerSession
+  
   
   var compactBody: some View {
     VStack {
@@ -56,7 +57,7 @@ struct ChallengeView: View {
           ChoicesView(challengeTest: challengeTest)
         }
       }
-      ScoreView(numberOfQuestions: questionsPerSession, numberOfAnswered: $numberOfAnswered)
+      ScoreView(numberOfQuestions: $numberOfQuestions, numberOfAnswered: $numberOfAnswered)
     }
   }
   
@@ -68,7 +69,7 @@ struct ChallengeView: View {
         QuestionView(question: challengeTest.challenge.question)
           .frame(height: 300)
       }
-      ScoreView(numberOfQuestions: questionsPerSession, numberOfAnswered: $numberOfAnswered)
+      ScoreView(numberOfQuestions: $numberOfQuestions, numberOfAnswered: $numberOfAnswered)
       if showAnswers {
         Divider()
         ChoicesView(challengeTest: challengeTest)

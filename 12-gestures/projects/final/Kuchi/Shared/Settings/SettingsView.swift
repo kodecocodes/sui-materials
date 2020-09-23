@@ -33,6 +33,7 @@
 import SwiftUI
 
 struct SettingsView: View {
+  @AppStorage("numberOfQuestions") var numberOfQuestions = 6
   @AppStorage("appearance") var appearance: Appearance = .automatic
   
   var body: some View {
@@ -48,13 +49,25 @@ struct SettingsView: View {
           RadioOption("Automatic", systemImageName: "puzzlepiece", value: Appearance.automatic)
         }
       }
+      
+      Section(header: Text("Game")) {
+        VStack(alignment: .leading) {
+          Stepper(
+            "Number of Questions: \(numberOfQuestions)",
+            value: $numberOfQuestions, in: 3 ... 20)
+          Text("Any change will affect the next game")
+            .font(.caption2)
+            .foregroundColor(.secondary)
+        }
+      }
     }
+    .font(.caption)
   }
 }
 
 struct SettingsView_Previews: PreviewProvider {
   static var previews: some View {
     SettingsView()
-      .environment(\.colorScheme, .dark)
+      .environment(\.colorScheme, .light)
   }
 }
