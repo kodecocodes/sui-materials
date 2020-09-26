@@ -35,14 +35,17 @@ import SwiftUI
 struct HomeView: View {
   @EnvironmentObject var userManager: UserManager
   @EnvironmentObject var challengesViewModel: ChallengesViewModel
-  
+  @AppStorage("learningEnabled") var learningEnabled: Bool = true
+
   var body: some View {
     TabView {
-      LearnView()
-        .tabItem({
-          Label("Learn", systemImage: "bookmark")
-        })
-        .tag(0)
+      if learningEnabled {
+        LearnView()
+          .tabItem({
+            Label("Learn", systemImage: "bookmark")
+          })
+          .tag(0)
+      }
       
       PracticeView(
         challengeTest: $challengesViewModel.currentChallenge,
@@ -58,7 +61,7 @@ struct HomeView: View {
         .tabItem({
           Label("Settings", systemImage: "gearshape.2")
         })
-        .tag(1)      
+        .tag(2)      
     }
     .accentColor(.orange)
   }

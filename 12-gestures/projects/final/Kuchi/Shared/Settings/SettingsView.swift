@@ -35,6 +35,7 @@ import SwiftUI
 struct SettingsView: View {
   @AppStorage("numberOfQuestions") var numberOfQuestions = 6
   @AppStorage("appearance") var appearance: Appearance = .automatic
+  @AppStorage("learningEnabled") var learningEnabled: Bool = true
   
   var body: some View {
     List {
@@ -58,6 +59,10 @@ struct SettingsView: View {
           Text("Any change will affect the next game")
             .font(.caption2)
             .foregroundColor(.secondary)
+        }
+        
+        HStack {
+          Toggle("Learning Enabled", isOn: $learningEnabled)
         }
       }
     }
