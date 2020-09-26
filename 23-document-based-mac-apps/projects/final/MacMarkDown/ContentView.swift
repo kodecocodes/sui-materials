@@ -62,11 +62,10 @@ struct ContentView: View {
         }
       }
     }
-    .padding(1)
     .frame(minWidth: 400, idealWidth: 600, maxWidth: .infinity,
            minHeight: 300, idealHeight: 400, maxHeight: .infinity)
     .toolbar {
-      PreviewToolBarItems(previewState: $previewState)
+      PreviewToolBarItem(previewState: $previewState)
     }
   }
 }

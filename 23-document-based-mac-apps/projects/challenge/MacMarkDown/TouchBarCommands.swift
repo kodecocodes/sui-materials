@@ -34,7 +34,7 @@ import SwiftUI
 
 // Challenge 3: touch bar items
 
-struct TouchBarItems : View {
+struct TouchBarItems: View {
   let markdownCallback: (String) -> ()
 
   var body: some View {

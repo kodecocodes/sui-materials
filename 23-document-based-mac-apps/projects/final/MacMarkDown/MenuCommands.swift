@@ -32,7 +32,7 @@
 
 import SwiftUI
 
-struct MenuCommands : Commands {
+struct MenuCommands: Commands {
   @AppStorage("styleSheet") var styleSheet: StyleSheet = .github
 
   var body: some Commands {

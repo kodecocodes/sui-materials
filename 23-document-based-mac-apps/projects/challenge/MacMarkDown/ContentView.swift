@@ -62,7 +62,6 @@ struct ContentView: View {
         }
       }
     }
-    .padding(1)
     .frame(minWidth: 400, idealWidth: 600, maxWidth: .infinity,
            minHeight: 300, idealHeight: 400, maxHeight: .infinity)
     .toolbar {
@@ -74,7 +73,7 @@ struct ContentView: View {
         document.text += markdown
       }
 
-      PreviewToolBarItems(previewState: $previewState)
+      PreviewToolBarItem(previewState: $previewState)
     }
     // Challenge 3: Touchbar - in Xcode, choose Window > Touch Bar > Show Touch Bar to show
     .touchBar {

@@ -38,11 +38,11 @@ enum PreviewState {
   case web
 }
 
-struct PreviewToolBarItems : ToolbarContent {
+struct PreviewToolBarItem: ToolbarContent {
   @Binding var previewState: PreviewState
 
   var body: some ToolbarContent {
-    ToolbarItemGroup {
+    ToolbarItem {
       Picker("", selection: $previewState) {
         Image(systemName: "eye.slash").tag(PreviewState.hidden)
         Image(systemName: "doc.plaintext").tag(PreviewState.html)
@@ -60,13 +60,12 @@ struct ExportToolBarItems : ToolbarContent {
   let exportCallback: (Bool) -> ()
 
   var body: some ToolbarContent {
-    ToolbarItem {
+    ToolbarItemGroup {
       Button(action: { exportCallback(false) }) {
         Image(systemName: "arrow.up.doc")
       }
       .help("Export as HTML")
-    }
-    ToolbarItem {
+
       Button(action: { exportCallback(true) }) {
         Image(systemName: "arrow.up.doc.fill")
       }

@@ -38,11 +38,11 @@ enum PreviewState {
   case web
 }
 
-struct PreviewToolBarItems : ToolbarContent {
+struct PreviewToolBarItem: ToolbarContent {
   @Binding var previewState: PreviewState
 
   var body: some ToolbarContent {
-    ToolbarItemGroup {
+    ToolbarItem {
       Picker("", selection: $previewState) {
         Image(systemName: "eye.slash").tag(PreviewState.hidden)
         Image(systemName: "doc.plaintext").tag(PreviewState.html)
