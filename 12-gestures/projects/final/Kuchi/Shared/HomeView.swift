@@ -61,7 +61,7 @@ struct HomeView: View {
         .tabItem({
           Label("Settings", systemImage: "gearshape.2")
         })
-        .tag(2)      
+        .tag(2)
     }
     .accentColor(.orange)
   }

@@ -30,65 +30,26 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import SwiftUI
+import struct SwiftUI.Color
 
-enum DiscardedDirection {
-  case left
-  case right
-}
-
-struct DeckView: View {
-  @ObservedObject var deck: FlashDeck
-  @AppStorage("cardBackgroundColor") var cardBackgroundColorInt: Int = 0xFF0000FF
-  
-  let onMemorized: (_ memorized: Bool) -> Void
-  
-  init(deck: FlashDeck, onMemorized: @escaping (_ memorized: Bool) -> Void) {
-    self.onMemorized = onMemorized
-    self.deck = deck
-  }
-  
-  var body: some View {
-    ZStack {
-      ForEach(deck.cards.filter { $0.isActive }) { card in
-        self.getCardView(for: card)
-      }
-    }
-  }
-  
-  func getCardView(for card: FlashCard) -> CardView {
-    let activeCards = deck.cards.filter { $0.isActive == true }
-    if let lastCard = activeCards.last {
-      if lastCard == card {
-        return createCardView(for: card)
-      }
-    }
-    
-    let view = createCardView(for: card)
-    
-    return view
-  }
-  
-  func createCardView(for card: FlashCard) -> CardView {
-    let view = CardView(card, cardColor: Binding(
-        get: { Color(rgba: cardBackgroundColorInt) },
-        set: { newValue in cardBackgroundColorInt = newValue.asRgba }
-      ),
-      onDrag: { card, direction in
-        let memorized = direction == .left
-        self.onMemorized(memorized)
-      }
+extension Color {
+  init(rgba: Int) {
+    self.init(
+      .sRGB,
+      red: Double((rgba & 0xFF000000) >> 24) / 255,
+      green: Double((rgba & 0x00FF0000) >> 16) / 255,
+      blue: Double((rgba & 0x0000FF00) >> 8) / 255,
+      opacity: Double((rgba & 0x000000FF)) / 255
     )
-    
-    return view
-  }  
-}
-
-struct DeckView_Previews: PreviewProvider {
-  static var previews: some View {
-    DeckView(
-      deck: FlashDeck(from: ChallengesViewModel.challenges),
-      onMemorized: { _ in }
-    )
+  }
+  
+  var asRgba: Int {
+    let components = cgColor!.components!
+    let (r, g, b, a) = (components[0], components[1], components[2], components[3])
+    return
+      (Int(a * 255) << 0) +
+      (Int(b * 255) << 8) +
+      (Int(g * 255) << 16) +
+      (Int(r * 255) << 24)
   }
 }

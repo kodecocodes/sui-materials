@@ -37,6 +37,9 @@ struct SettingsView: View {
   @AppStorage("appearance") var appearance: Appearance = .automatic
   @AppStorage("learningEnabled") var learningEnabled: Bool = true
   
+  @AppStorage("cardBackgroundColor") var cardBackgroundColorInt: Int = 0xFF0000FF
+  @State var cardBackgroundColor: Color = .red
+  
   var body: some View {
     List {
       Text("Settings")
@@ -44,11 +47,21 @@ struct SettingsView: View {
         .padding(.bottom, 8)
       
       Section(header: Text("Appearance")) {
-        RadioPicker(selection: $appearance, label: Text("")) {
-          RadioOption("Light", systemImageName: "lightbulb", value: Appearance.light)
-          RadioOption("Dark", systemImageName: "lightbulb.fill", value: Appearance.dark)
-          RadioOption("Automatic", systemImageName: "puzzlepiece", value: Appearance.automatic)
+        VStack(alignment: .leading) {
+          RadioPicker(selection: $appearance, label: Text("")) {
+            RadioOption("Light", systemImageName: "lightbulb", value: Appearance.light)
+            RadioOption("Dark", systemImageName: "lightbulb.fill", value: Appearance.dark)
+            RadioOption("Automatic", systemImageName: "puzzlepiece", value: Appearance.automatic)
+          }
         }
+        
+        ColorPicker("Card Background Color", selection: Binding(
+          get: { cardBackgroundColor },
+          set: { newValue in
+            cardBackgroundColorInt = newValue.asRgba
+            cardBackgroundColor = newValue
+          }
+        ))
       }
       
       Section(header: Text("Game")) {

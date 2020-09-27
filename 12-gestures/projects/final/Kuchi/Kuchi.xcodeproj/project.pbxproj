@@ -66,6 +66,7 @@
 		57578FF924E9D943003465A4 /* ScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57578FB824E9D943003465A4 /* ScoreView.swift */; };
 		57578FFA24E9D943003465A4 /* ChoicesRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57578FB924E9D943003465A4 /* ChoicesRow.swift */; };
 		57578FFB24E9D943003465A4 /* ChoicesRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57578FB924E9D943003465A4 /* ChoicesRow.swift */; };
+		5775E112251EC00000512186 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5775E111251EC00000512186 /* Color+Extension.swift */; };
 		57885FB424EC6C34008338E4 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57885FB324EC6C34008338E4 /* SettingsView.swift */; };
 		57885FB524EC6C34008338E4 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57885FB324EC6C34008338E4 /* SettingsView.swift */; };
 		57885FB724EC740C008338E4 /* RadioOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57885FB624EC740C008338E4 /* RadioOption.swift */; };
@@ -107,6 +108,7 @@
 		57578FB724E9D943003465A4 /* ChallengeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeView.swift; sourceTree = "<group>"; };
 		57578FB824E9D943003465A4 /* ScoreView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreView.swift; sourceTree = "<group>"; };
 		57578FB924E9D943003465A4 /* ChoicesRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChoicesRow.swift; sourceTree = "<group>"; };
+		5775E111251EC00000512186 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 		57885FB324EC6C34008338E4 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		57885FB624EC740C008338E4 /* RadioOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioOption.swift; sourceTree = "<group>"; };
 		57885FBA24EC7838008338E4 /* RadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButton.swift; sourceTree = "<group>"; };
@@ -221,6 +223,14 @@
 			path = Practice;
 			sourceTree = "<group>";
 		};
+		5775E110251EBFE400512186 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				5775E111251EC00000512186 /* Color+Extension.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		57885FB224EC6C0E008338E4 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -245,6 +255,7 @@
 		57EF33FF24E89F91004ABEB2 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				5775E110251EBFE400512186 /* Utils */,
 				57578FA724E9D943003465A4 /* HomeView.swift */,
 				57EF340024E89F91004ABEB2 /* KuchiApp.swift */,
 				57578FA424E9D943003465A4 /* StarterView.swift */,
@@ -409,6 +420,7 @@
 				57578FD824E9D943003465A4 /* Settings.swift in Sources */,
 				57578FC824E9D943003465A4 /* CardView.swift in Sources */,
 				57578FCA24E9D943003465A4 /* LearnView.swift in Sources */,
+				5775E112251EC00000512186 /* Color+Extension.swift in Sources */,
 				57885FB424EC6C34008338E4 /* SettingsView.swift in Sources */,
 				57578FF424E9D943003465A4 /* PracticeView.swift in Sources */,
 				57578FBA24E9D943003465A4 /* WelcomeView.swift in Sources */,

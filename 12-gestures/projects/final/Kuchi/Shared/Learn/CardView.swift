@@ -37,6 +37,7 @@ struct CardView: View {
   @State var revealed = false
   @State var offset: CGSize = .zero
   @GestureState var isLongPressed = false
+  @Binding var cardColor: Color
   
   typealias CardDrag = (
     _ card: FlashCard,
@@ -47,10 +48,12 @@ struct CardView: View {
   
   init(
     _ card: FlashCard,
+    cardColor: Binding<Color>,
     onDrag dragged: @escaping CardDrag = {_,_  in }
   ) {
     self.flashCard = card
     self.dragged = dragged
+    self._cardColor = cardColor
   }
   
   var body: some View {
@@ -75,7 +78,7 @@ struct CardView: View {
     
     return ZStack {
       Rectangle()
-        .fill(Color.red)
+        .fill(cardColor)
         .cornerRadius(12)
       VStack {
         Spacer()
@@ -106,6 +109,8 @@ struct CardView: View {
 }
 
 struct CardView_Previews: PreviewProvider {
+  @State static var cardColor = Color.red
+  
   static var previews: some View {
     let card = FlashCard(
       card: Challenge(
@@ -114,6 +119,6 @@ struct CardView_Previews: PreviewProvider {
         answer: "Omena"
       )
     )
-    return CardView(card)
+    return CardView(card, cardColor: $cardColor)
   }
 }
