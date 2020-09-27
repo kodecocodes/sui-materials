@@ -28,26 +28,25 @@
 
 import SwiftUI
 
-struct FlightDetailHeader: View {
-  var flight: FlightInformation
-
-  var body: some View {
-    HStack {
-      FlightStatusIcon(flight: flight)
-        .frame(width: 40, height: 40)
-      VStack(alignment: .leading) {
-        Text("\(flight.dirString) \(flight.otherAirport)")
-        Text(flight.flightStatus)
-          .font(.subheadline)
-      }.font(.title2)
-    }
-  }
+struct AwardInformation {
+  public var awardView: AnyView
+  public var title: String
+  public var description: String
+  public var awarded: Bool
 }
 
-struct FlightDetailHeader_Previews: PreviewProvider {
-  static var previews: some View {
-    FlightDetailHeader(
-      flight: FlightData.generateTestFlight(date: Date())
-    )
+extension AwardInformation: Hashable {
+  static func == (lhs: AwardInformation, rhs: AwardInformation) -> Bool {
+    if lhs.title == rhs.title && lhs.description == rhs.description && lhs.awarded == rhs.awarded {
+      return true
+    }
+    
+    return false
+  }
+  
+  func hash(into hasher: inout Hasher) {
+    hasher.combine(title)
+    hasher.combine(description)
+    hasher.combine(awarded)
   }
 }

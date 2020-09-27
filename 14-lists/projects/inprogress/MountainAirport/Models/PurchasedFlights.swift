@@ -28,26 +28,51 @@
 
 import SwiftUI
 
-struct FlightDetailHeader: View {
-  var flight: FlightInformation
-
-  var body: some View {
-    HStack {
-      FlightStatusIcon(flight: flight)
-        .frame(width: 40, height: 40)
-      VStack(alignment: .leading) {
-        Text("\(flight.dirString) \(flight.otherAirport)")
-        Text(flight.flightStatus)
-          .font(.subheadline)
-      }.font(.title2)
+class PurchasedFlights: ObservableObject {
+  @Published var purchasedFlightIds: [Int]!
+  @AppStorage("PurchasedFlight") var purchasedFlightStorage = "" {
+    didSet {
+      purchasedFlightIds = getPurchasedFlights()
     }
   }
-}
 
-struct FlightDetailHeader_Previews: PreviewProvider {
-  static var previews: some View {
-    FlightDetailHeader(
-      flight: FlightData.generateTestFlight(date: Date())
-    )
+  init() {
+    purchasedFlightIds = getPurchasedFlights()
+  }
+
+  init(flightId: Int) {
+    purchasedFlightIds = [flightId]
+  }
+
+  init(flightIds: [Int]) {
+    purchasedFlightIds = flightIds
+  }
+
+  func isFlightPurchased(_ flight: FlightInformation) -> Bool {
+    let flightIds = purchasedFlightStorage.split(separator: ",").map { Int($0)! }
+    let matching = flightIds.filter { $0 == flight.id}
+    return matching.count > 0
+  }
+
+  func purchaseFlight(_ flight: FlightInformation) {
+    if !isFlightPurchased(flight) {
+      print("Saving flight: \(flight.id)")
+      var flights = purchasedFlightStorage.split(separator: ",").map { Int($0)! }
+      flights.append(flight.id)
+      purchasedFlightStorage = flights.map { String($0) }.joined(separator: ",")
+    }  }
+
+  func removePurchasedFlight(_ flight: FlightInformation) {
+    if isFlightPurchased(flight) {
+      print("Removing saved flight: \(flight.id)")
+      let flights = purchasedFlightStorage.split(separator: ",").map { Int($0)! }
+      let newFlights = flights.filter { $0 != flight.id }
+      purchasedFlightStorage = newFlights.map { String($0) }.joined(separator: ",")
+    }
+  }
+
+  func getPurchasedFlights() -> [Int] {
+    let flightIds = purchasedFlightStorage.split(separator: ",").map { Int($0)! }
+    return flightIds
   }
 }
