@@ -75,6 +75,8 @@
 		57885FBC24EC7838008338E4 /* RadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57885FBA24EC7838008338E4 /* RadioButton.swift */; };
 		57EF341324E89F92004ABEB2 /* KuchiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57EF340024E89F91004ABEB2 /* KuchiApp.swift */; };
 		57EF341424E89F92004ABEB2 /* KuchiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57EF340024E89F91004ABEB2 /* KuchiApp.swift */; };
+		57F3BC7C252151A400B06E37 /* LocalNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F3BC7B252151A400B06E37 /* LocalNotifications.swift */; };
+		57F3BC7D252151A400B06E37 /* LocalNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F3BC7B252151A400B06E37 /* LocalNotifications.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -118,6 +120,7 @@
 		57EF340F24E89F92004ABEB2 /* Kuchi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kuchi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		57EF341124E89F92004ABEB2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		57EF341224E89F92004ABEB2 /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
+		57F3BC7B252151A400B06E37 /* LocalNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotifications.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -238,6 +241,7 @@
 				57885FB624EC740C008338E4 /* RadioOption.swift */,
 				57885FBA24EC7838008338E4 /* RadioButton.swift */,
 				574D4B7124EDC001008B6614 /* RadioPicker.swift */,
+				57F3BC7B252151A400B06E37 /* LocalNotifications.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -397,6 +401,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57F3BC7C252151A400B06E37 /* LocalNotifications.swift in Sources */,
 				57578FBE24E9D943003465A4 /* LogoImage.swift in Sources */,
 				574D4B7224EDC001008B6614 /* RadioPicker.swift in Sources */,
 				57578FD624E9D943003465A4 /* Profile.swift in Sources */,
@@ -459,6 +464,7 @@
 				574D4B7324EDC001008B6614 /* RadioPicker.swift in Sources */,
 				57578FC924E9D943003465A4 /* CardView.swift in Sources */,
 				57578FCB24E9D943003465A4 /* LearnView.swift in Sources */,
+				57F3BC7D252151A400B06E37 /* LocalNotifications.swift in Sources */,
 				57578FF524E9D943003465A4 /* PracticeView.swift in Sources */,
 				57885FB524EC6C34008338E4 /* SettingsView.swift in Sources */,
 				57578FBB24E9D943003465A4 /* WelcomeView.swift in Sources */,
