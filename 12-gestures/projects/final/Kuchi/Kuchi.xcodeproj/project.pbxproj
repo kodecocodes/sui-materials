@@ -73,6 +73,7 @@
 		57885FB824EC740C008338E4 /* RadioOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57885FB624EC740C008338E4 /* RadioOption.swift */; };
 		57885FBB24EC7838008338E4 /* RadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57885FBA24EC7838008338E4 /* RadioButton.swift */; };
 		57885FBC24EC7838008338E4 /* RadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57885FBA24EC7838008338E4 /* RadioButton.swift */; };
+		57ABCC2225229FEC00C0EED9 /* Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57ABCC2125229FEC00C0EED9 /* Appearance.swift */; };
 		57EF341324E89F92004ABEB2 /* KuchiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57EF340024E89F91004ABEB2 /* KuchiApp.swift */; };
 		57EF341424E89F92004ABEB2 /* KuchiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57EF340024E89F91004ABEB2 /* KuchiApp.swift */; };
 		57F3BC7C252151A400B06E37 /* LocalNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F3BC7B252151A400B06E37 /* LocalNotifications.swift */; };
@@ -113,6 +114,7 @@
 		57885FB324EC6C34008338E4 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		57885FB624EC740C008338E4 /* RadioOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioOption.swift; sourceTree = "<group>"; };
 		57885FBA24EC7838008338E4 /* RadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButton.swift; sourceTree = "<group>"; };
+		57ABCC2125229FEC00C0EED9 /* Appearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appearance.swift; sourceTree = "<group>"; };
 		57EF340024E89F91004ABEB2 /* KuchiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KuchiApp.swift; sourceTree = "<group>"; };
 		57EF340724E89F92004ABEB2 /* Kuchi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kuchi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		57EF340A24E89F92004ABEB2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -230,6 +232,7 @@
 			children = (
 				57F3BC7B252151A400B06E37 /* LocalNotifications.swift */,
 				5775E111251EC00000512186 /* Color+Extension.swift */,
+				57ABCC2125229FEC00C0EED9 /* Appearance.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -405,6 +408,7 @@
 				574D4B7224EDC001008B6614 /* RadioPicker.swift in Sources */,
 				57578FD624E9D943003465A4 /* Profile.swift in Sources */,
 				57578FF024E9D943003465A4 /* CongratulationsView.swift in Sources */,
+				57ABCC2225229FEC00C0EED9 /* Appearance.swift in Sources */,
 				57578FF624E9D943003465A4 /* ChallengeView.swift in Sources */,
 				57578FDA24E9D943003465A4 /* StarterView.swift in Sources */,
 				57EF341324E89F92004ABEB2 /* KuchiApp.swift in Sources */,
