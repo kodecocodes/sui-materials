@@ -41,7 +41,8 @@ struct FlightRow: View {
   var body: some View {
     HStack {
       FlightStatusIcon(flight: flight)
-        .frame(width: 45.0)
+        .padding(5)
+        .clipShape(RoundedRectangle(cornerRadius: 7))
       VStack(alignment: .leading) {
         Text(flight.flightName)
           .font(.title2)

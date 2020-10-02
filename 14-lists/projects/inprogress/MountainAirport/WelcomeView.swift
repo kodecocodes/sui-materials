@@ -34,10 +34,8 @@ struct WelcomeView: View {
   @ObservedObject var lastFlightInfo = FlightNavigationInfo()
   
   var body: some View {
-    // 1
     NavigationView {
       ZStack(alignment: .topLeading) {
-        // 2
         Image("welcome-background")
           .resizable()
           .aspectRatio(contentMode: .fill)
@@ -45,27 +43,29 @@ struct WelcomeView: View {
         VStack(alignment: .leading) {
           NavigationLink(
             destination: FlightDetails(flight: flightInfo.flights.first!),
-            // 1
             isActive: $showNextFlight
-            // 2
           ) { }
-          // 3
           NavigationLink(
-            // 4
             destination: FlightStatusBoard(
               flights: flightInfo.getDaysFlights(Date()))
           ) {
-            // 5
             WelcomeButtonView(
               title: "Flight Status",
               subTitle: "Departure and arrival information"
             )
           }
-          // 1
+          NavigationLink(
+            destination: SearchFlights(
+              flightData: flightInfo.flights
+            )
+          ) {
+            WelcomeButtonView(
+              title: "Search Flights",
+              subTitle: "Search Upcoming Flights")
+          }
           if let id = lastFlightInfo.lastFlightId,
              let lastFlight = flightInfo.getFlightById(id) {
             Button(action: {
-              // 2
               showNextFlight = true
             }) {
               WelcomeButtonView(

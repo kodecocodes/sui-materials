@@ -87,7 +87,9 @@ class FlightData: ObservableObject {
       flights.append(contentsOf: generateFlights(startIndex: idx * 30, date: day, isFuture: idx > 0))
     }
 
-    return flights
+    return flights.sorted {
+      $0.localTime < $1.localTime
+    }
   }
 
   func generateFlights(startIndex: Int, date: Date, isFuture: Bool) -> [FlightInformation] {

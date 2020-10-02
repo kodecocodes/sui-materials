@@ -32,7 +32,7 @@ struct FlightList: View {
   var flights: [FlightInformation]
 
   var body: some View {
-    List(flights, id: \.id) { flight in
+    ForEach(flights, id: \.id) { flight in
       NavigationLink(
         destination: FlightDetails(flight: flight),
         label: {

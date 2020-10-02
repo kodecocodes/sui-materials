@@ -26,44 +26,11 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import SwiftUI
+import Foundation
 
-struct FlightRow: View {
-  var flight: FlightInformation
-  
-  var timeFormatter: DateFormatter {
-    let df = DateFormatter()
-    df.timeStyle = .short
-    df.dateStyle = .none
-    return df
-  }
-  
-  var body: some View {
-    HStack {
-      FlightStatusIcon(flight: flight)
-        .padding(5)
-        .clipShape(RoundedRectangle(cornerRadius: 7))
-      VStack(alignment: .leading) {
-        Text(flight.flightName)
-          .font(.title2)
-        HStack {
-          Text(flight.flightStatus)
-          Text(flight.localTime, formatter: timeFormatter)
-        }.foregroundColor(flight.statusColor)
-        HStack {
-          Text(flight.otherAirport)
-          Text("·")
-          Text("Gate \(flight.gate)")
-        }.foregroundColor(.gray)
-      }
-    }
-  }
-}
-
-struct FlightRow_Previews: PreviewProvider {
-  static var previews: some View {
-    FlightRow(
-      flight: FlightData.generateTestFlight(date: Date())
-    )
+extension Date {
+  var dateOnly: Date {
+    let dc = Calendar.current.dateComponents([.month, .day, .year], from: self)
+    return Calendar.current.date(from: dc)!
   }
 }
