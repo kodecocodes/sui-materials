@@ -1,15 +1,15 @@
 /// Copyright (c) 2020 Razeware LLC
-/// 
+///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
 /// in the Software without restriction, including without limitation the rights
 /// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 /// copies of the Software, and to permit persons to whom the Software is
 /// furnished to do so, subject to the following conditions:
-/// 
+///
 /// The above copyright notice and this permission notice shall be included in
 /// all copies or substantial portions of the Software.
-/// 
+///
 /// Notwithstanding the foregoing, you may not use, copy, modify, merge, publish,
 /// distribute, sublicense, create a derivative work, and/or sell copies of the
 /// Software in any work that is designed, intended, or marketed for pedagogical or
@@ -17,7 +17,7 @@
 /// or information technology.  Permission for such use, copying, modification,
 /// merger, publication, distribution, sublicensing, creation of derivative works,
 /// or sale is expressly withheld.
-/// 
+///
 /// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 /// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 /// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -28,55 +28,38 @@
 
 import SwiftUI
 
-struct FlightStatusBoard: View {
-  var flights: [FlightInformation]
-  @State private var hidePast = false
-  @AppStorage("FlightStatusCurrentTab") var selectedTab = 1
+struct SearchResultRow: View {
+  var flight: FlightInformation
 
-  var shownFlights: [FlightInformation] {
-    hidePast ?
-      flights.filter { $0.localTime >= Date() } :
-      flights
+  var timeFormatter: DateFormatter {
+    let df = DateFormatter()
+    df.timeStyle = .short
+    df.dateStyle = .medium
+    return df
   }
 
   var body: some View {
-    // 1
-    TabView(selection: $selectedTab) {
-      FlightList(
-        flights: shownFlights.filter { $0.direction == .arrival }
-      ).tabItem {
-        Image("descending-airplane")
-          .resizable()
-        Text("Arrivals")
-        // 2
-      }.tag(0)
-      FlightList(
-        flights: shownFlights
-      ).tabItem {
-        Image(systemName: "airplane")
-          .resizable()
-        Text("All")
-      }.tag(1)
-      FlightList(
-        flights: shownFlights.filter { $0.direction == .departure }
-      ).tabItem {
-        Image("ascending-airplane")
-        Text("Departures")
-      }.tag(2)
-    }.navigationTitle("Flight Status")
-    .navigationBarItems(
-      trailing: Toggle("Hide Past",
-                       isOn: $hidePast)
-    )
+    HStack {
+      FlightStatusIcon(flight: flight)
+        .padding(5)
+        .clipShape(RoundedRectangle(cornerRadius: 7.0))
+      VStack(alignment: .leading) {
+          Text(flight.flightName)
+            .font(.title3) +
+          Text(" \(flight.dirString) \(flight.otherAirport)")
+        HStack {
+          Text(flight.localTime, formatter: timeFormatter)
+            .foregroundColor(.gray)
+        }
+      }
+    }
   }
 }
 
-struct FlightStatusBoard_Previews: PreviewProvider {
+struct SearchResultRow_Previews: PreviewProvider {
   static var previews: some View {
-    NavigationView {
-      FlightStatusBoard(
-        flights: FlightData.generateTestFlights(date: Date())
-      )
-    }
+    SearchResultRow(
+      flight: FlightData.generateTestFlight(date: Date())
+    )
   }
 }

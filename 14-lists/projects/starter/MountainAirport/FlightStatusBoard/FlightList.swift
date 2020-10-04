@@ -45,8 +45,10 @@ struct FlightList: View {
 
 struct FlightList_Previews: PreviewProvider {
   static var previews: some View {
-    FlightList(
-      flights: FlightData.generateTestFlights(date: Date())
-    )
+    NavigationView {
+      FlightList(
+        flights: FlightData.generateTestFlights(date: Date())
+      )
+    }
   }
 }

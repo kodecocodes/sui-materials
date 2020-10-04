@@ -28,39 +28,53 @@
 
 import SwiftUI
 
-struct FlightList: View {
-  var flights: [FlightInformation]
+struct FlightInfoPanel: View {
+  var flight: FlightInformation
 
-  var nextFlightId: Int {
-    let targetDate = Calendar.current.date(byAdding: .hour, value: -6, to: Date())!
-    guard let flight = flights.first(where: { $0.localTime >= targetDate }) else {
-      return flights.last!.id
-    }
-    return flight.id
+  var timeFormatter: DateFormatter {
+    let df = DateFormatter()
+    df.timeStyle = .short
+    df.dateStyle = .none
+    return df
   }
   
   var body: some View {
-    ScrollViewReader { scrollProxy in
-      List(flights) { flight in
-        NavigationLink(
-          destination: FlightDetails(flight: flight),
-          label: {
-            FlightRow(flight: flight)
-          }
-        )
-      }.onAppear {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
-          print(nextFlightId)
-          scrollProxy.scrollTo(nextFlightId, anchor: .center)
+    HStack(alignment: .top) {
+      Image(systemName: "info.circle")
+        .resizable()
+        .frame(width: 35, height: 35, alignment: .leading)
+      VStack(alignment: .leading) {
+        Text("Flight Details")
+          .font(.title2)
+        if flight.direction == .arrival {
+          Text("Arriving at Gate \(flight.gate)")
+          Text("Flying from \(flight.otherAirport)")
+        } else {
+          Text("Departing from Gate \(flight.gate)")
+          Text("Flying to \(flight.otherAirport)")
+        }
+        Text(flight.flightStatus) + Text(" (\(timeFormatter.string(from: flight.localTime)))")
+        if flight.gate.hasPrefix("A") {
+          Image("terminal-a-map")
+            .resizable()
+            .frame(maxWidth: .infinity)
+            .aspectRatio(contentMode: .fit)
+        } else {
+          Image("terminal-b-map")
+            .resizable()
+            .frame(maxWidth: .infinity)
+            .aspectRatio(contentMode: .fit)
         }
       }
     }
+    
   }
 }
-struct FlightList_Previews: PreviewProvider {
+
+struct FlightInfoPanel_Previews: PreviewProvider {
   static var previews: some View {
-    FlightList(
-      flights: FlightData.generateTestFlights(date: Date())
+    FlightInfoPanel(
+      flight: FlightData.generateTestFlight(date: Date())
     )
   }
 }

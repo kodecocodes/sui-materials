@@ -43,7 +43,7 @@ struct SearchFlights: View {
       }
     }
     if !city.isEmpty {
-      matchingFlights = matchingFlights.filter { $0.otherAirport.contains(city) }
+      matchingFlights = matchingFlights.filter { $0.otherAirport.lowercased().contains(city.lowercased()) }
     }
 
     return matchingFlights
@@ -51,18 +51,14 @@ struct SearchFlights: View {
 
   var flightDates: [Date] {
     let allDates = matchingFlights.map { $0.localTime.dateOnly }
-    var uniqueDates = [Date]()
-    for flightDate in allDates {
-      if !uniqueDates.contains(flightDate) {
-        uniqueDates.append(flightDate)
-      }
-    }
-
+    let uniqueDates = Array(Set(allDates))
     return uniqueDates.sorted()
   }
 
   func flightsForDay(date: Date) -> [FlightInformation] {
-    matchingFlights.filter { Calendar.current.isDate($0.localTime, inSameDayAs: date) }
+    matchingFlights.filter {
+      Calendar.current.isDate($0.localTime, inSameDayAs: date)
+    }
   }
 
   var body: some View {
@@ -96,7 +92,7 @@ struct SearchFlights: View {
                   Spacer()
                   Text("Matching flights \(flightsForDay(date: date).count)")
                 }
-              ) {
+            ) {
               // 6
               ForEach(flightsForDay(date: date)) { flight in
                 SearchResultRow(flight: flight)
@@ -105,10 +101,10 @@ struct SearchFlights: View {
           }
           // 7
         }.listStyle(InsetGroupedListStyle())
-      }.padding()
-      Spacer()
-    }.navigationBarTitle("Search Flights")
-    .padding()
+        Spacer()
+      }.navigationBarTitle("Search Flights")
+      .padding()
+    }
   }
 }
 

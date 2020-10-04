@@ -28,38 +28,46 @@
 
 import SwiftUI
 
-struct SearchResultRow: View {
-  var flight: FlightInformation
+struct FlightList: View {
+  var flights: [FlightInformation]
 
-  var timeFormatter: DateFormatter {
-    let df = DateFormatter()
-    df.timeStyle = .short
-    df.dateStyle = .medium
-    return df
+  var nextFlightId: Int {
+    guard let flight = flights.first(
+            where: {
+              $0.localTime >= Date()
+            }
+    ) else {
+      return flights.last!.id
+    }
+    return flight.id
   }
 
   var body: some View {
-    HStack {
-      FlightStatusIcon(flight: flight)
-        .padding(5)
-        .clipShape(RoundedRectangle(cornerRadius: 7.0))
-      VStack(alignment: .leading) {
-          Text(flight.flightName)
-            .font(.title3) +
-          Text(" \(flight.dirString) \(flight.otherAirport)")
-        HStack {
-          Text(flight.localTime, formatter: timeFormatter)
-            .foregroundColor(.gray)
+    ScrollViewReader { scrollProxy in
+      List(flights) { flight in
+        NavigationLink(
+          destination: FlightDetails(flight: flight),
+          label: {
+            FlightRow(flight: flight)
+          }
+        )
+      }.onAppear {
+        // 1
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+          // 2
+          scrollProxy.scrollTo(nextFlightId, anchor: .center)
         }
       }
     }
   }
 }
 
-struct SearchResultRow_Previews: PreviewProvider {
+struct FlightList_Previews: PreviewProvider {
   static var previews: some View {
-    SearchResultRow(
-      flight: FlightData.generateTestFlight(date: Date())
-    )
+    NavigationView {
+      FlightList(
+        flights: FlightData.generateTestFlights(date: Date())
+      )
+    }
   }
 }

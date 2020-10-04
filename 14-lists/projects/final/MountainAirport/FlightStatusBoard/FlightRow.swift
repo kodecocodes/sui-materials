@@ -28,7 +28,7 @@
 
 import SwiftUI
 
-struct FlightInfoPanel: View {
+struct FlightRow: View {
   var flight: FlightInformation
 
   var timeFormatter: DateFormatter {
@@ -39,41 +39,30 @@ struct FlightInfoPanel: View {
   }
 
   var body: some View {
-    HStack(alignment: .top) {
-      Image(systemName: "info.circle")
-        .resizable()
-        .frame(width: 35, height: 35, alignment: .leading)
+    HStack {
+      FlightStatusIcon(flight: flight)
+        .padding(5)
+        .clipShape(RoundedRectangle(cornerRadius: 7))
       VStack(alignment: .leading) {
-        Text("Flight Details")
+        Text(flight.flightName)
           .font(.title2)
-        if flight.direction == .arrival {
-          Text("Arriving at Gate \(flight.gate)")
-          Text("Flying from \(flight.otherAirport)")
-        } else {
-          Text("Departing from Gate \(flight.gate)")
-          Text("Flying to \(flight.otherAirport)")
-        }
-        Text(flight.flightStatus) + Text(" (\(timeFormatter.string(from: flight.localTime)))")
-        if flight.gate.hasPrefix("A") {
-          Image("terminal-a-map")
-            .resizable()
-            .frame(maxWidth: .infinity)
-            .aspectRatio(contentMode: .fit)
-        } else {
-          Image("terminal-b-map")
-            .resizable()
-            .frame(maxWidth: .infinity)
-            .aspectRatio(contentMode: .fit)
-        }
+        HStack {
+          Text(flight.flightStatus)
+          Text(flight.localTime, formatter: timeFormatter)
+        }.foregroundColor(flight.statusColor)
+        HStack {
+          Text(flight.otherAirport)
+          Text("·")
+          Text("Gate \(flight.gate)")
+        }.foregroundColor(.gray)
       }
     }
-
   }
 }
 
-struct FlightInfoPanel_Previews: PreviewProvider {
+struct FlightRow_Previews: PreviewProvider {
   static var previews: some View {
-    FlightInfoPanel(
+    FlightRow(
       flight: FlightData.generateTestFlight(date: Date())
     )
   }

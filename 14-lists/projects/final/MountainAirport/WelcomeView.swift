@@ -34,8 +34,10 @@ struct WelcomeView: View {
   @ObservedObject var lastFlightInfo = FlightNavigationInfo()
   
   var body: some View {
+    // 1
     NavigationView {
       ZStack(alignment: .topLeading) {
+        // 2
         Image("welcome-background")
           .resizable()
           .aspectRatio(contentMode: .fill)
@@ -69,7 +71,6 @@ struct WelcomeView: View {
               showNextFlight = true
             }) {
               WelcomeButtonView(
-              // 3
                 title: "Last Flight \(lastFlight.flightName)",
                 subTitle: "Show Next Flight Departing or Arriving at Airport"
               )

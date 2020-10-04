@@ -43,7 +43,7 @@ struct SearchFlights: View {
       }
     }
     if !city.isEmpty {
-      matchingFlights = matchingFlights.filter { $0.otherAirport.contains(city) }
+      matchingFlights = matchingFlights.filter { $0.otherAirport.lowercased().contains(city.lowercased()) }
     }
 
     return matchingFlights
