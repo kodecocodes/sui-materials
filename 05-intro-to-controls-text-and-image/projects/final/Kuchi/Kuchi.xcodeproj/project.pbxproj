@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		57472F8C2533B85800F47C29 /* HorizontallyAlignedLabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57472F8B2533B85800F47C29 /* HorizontallyAlignedLabelStyle.swift */; };
+		57472F8D2533B85800F47C29 /* HorizontallyAlignedLabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57472F8B2533B85800F47C29 /* HorizontallyAlignedLabelStyle.swift */; };
 		57578FDE24E9D943003465A4 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57578FA724E9D943003465A4 /* HomeView.swift */; };
 		57578FDF24E9D943003465A4 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57578FA724E9D943003465A4 /* HomeView.swift */; };
 		57578FE224E9D943003465A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57578FAA24E9D943003465A4 /* Assets.xcassets */; };
@@ -21,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		57472F8B2533B85800F47C29 /* HorizontallyAlignedLabelStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontallyAlignedLabelStyle.swift; sourceTree = "<group>"; };
 		57578FA724E9D943003465A4 /* HomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		57578FAA24E9D943003465A4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		57578FAC24E9D943003465A4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -57,6 +60,7 @@
 			children = (
 				57578F9224E9D943003465A4 /* Components */,
 				57A447EF252BD68200CF7A3E /* WelcomeView.swift */,
+				57472F8B2533B85800F47C29 /* HorizontallyAlignedLabelStyle.swift */,
 			);
 			path = Welcome;
 			sourceTree = "<group>";
@@ -251,6 +255,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				57EF341324E89F92004ABEB2 /* KuchiApp.swift in Sources */,
+				57472F8C2533B85800F47C29 /* HorizontallyAlignedLabelStyle.swift in Sources */,
 				57A447F0252BD68200CF7A3E /* WelcomeView.swift in Sources */,
 				57578FDE24E9D943003465A4 /* HomeView.swift in Sources */,
 			);
@@ -261,6 +266,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				57EF341424E89F92004ABEB2 /* KuchiApp.swift in Sources */,
+				57472F8D2533B85800F47C29 /* HorizontallyAlignedLabelStyle.swift in Sources */,
 				57578FDF24E9D943003465A4 /* HomeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
