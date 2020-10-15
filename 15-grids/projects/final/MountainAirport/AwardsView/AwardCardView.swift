@@ -1,15 +1,15 @@
 /// Copyright (c) 2020 Razeware LLC
-/// 
+///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
 /// in the Software without restriction, including without limitation the rights
 /// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 /// copies of the Software, and to permit persons to whom the Software is
 /// furnished to do so, subject to the following conditions:
-/// 
+///
 /// The above copyright notice and this permission notice shall be included in
 /// all copies or substantial portions of the Software.
-/// 
+///
 /// Notwithstanding the foregoing, you may not use, copy, modify, merge, publish,
 /// distribute, sublicense, create a derivative work, and/or sell copies of the
 /// Software in any work that is designed, intended, or marketed for pedagogical or
@@ -17,7 +17,7 @@
 /// or information technology.  Permission for such use, copying, modification,
 /// merger, publication, distribution, sublicensing, creation of derivative works,
 /// or sale is expressly withheld.
-/// 
+///
 /// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 /// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 /// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -28,34 +28,28 @@
 
 import SwiftUI
 
-struct AwardDetails: View {
+struct AwardCardView: View {
   var award: AwardInformation
 
-  func imageSize(proxy: GeometryProxy) -> CGFloat {
-    let size = min(proxy.size.width, proxy.size.height)
-    return size * 0.8
-  }
-
   var body: some View {
-    VStack(alignment: .center) {
+    VStack {
       Image(award.imageName)
-        .resizable()
-        .aspectRatio(contentMode: .fit)
-        .padding()
+        .shadow(radius: 10)
       Text(award.title)
-        .font(.title)
-        .padding()
+        .font(.title3)
       Text(award.description)
-        .font(.body)
-        .padding()
+        .font(.footnote)
       Spacer()
-    }.padding()
-    .opacity(award.awarded ? 1.0 : 0.4)
-    .saturation(award.awarded ? 1 : 0)
+    }
+    .padding(10.0)
+    .background(LinearGradient(gradient: Gradient(colors: [Color.white, Color(red: 0.0, green: 0.5, blue: 1.0)]), startPoint: .bottomLeading, endPoint: .topTrailing)).background(Color.white)
+    .saturation(award.awarded ? 1.0 : 0.0)
+    .opacity(award.awarded ? 1.0 : 0.3)
+    .clipShape(RoundedRectangle(cornerRadius: 25.0))
   }
 }
 
-struct AwardDetails_Previews: PreviewProvider {
+struct AwardCardView_Previews: PreviewProvider {
   static var previews: some View {
     let award = AwardInformation(
       imageName: "first-visit-award",
@@ -63,17 +57,9 @@ struct AwardDetails_Previews: PreviewProvider {
       description: "Awarded the first time you open the app while at the airport.",
       awarded: true
     )
-
-    let award2 = AwardInformation(
-      imageName: "rainy-day-award",
-      title: "Rainy Day",
-      description: "Your flight was delayed because of weather.",
-      awarded: false
-    )
-
-    Group {
-      AwardDetails(award: award)
-      AwardDetails(award: award2)
-    }
+    AwardCardView(award: award)
+      .frame(width: 150, height: 220)
+      .padding()
+      .background(Color.black)
   }
 }

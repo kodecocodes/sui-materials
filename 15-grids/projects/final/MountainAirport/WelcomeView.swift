@@ -32,7 +32,7 @@ struct WelcomeView: View {
   @StateObject var flightInfo: FlightData = FlightData()
   @State var showNextFlight = false
   @ObservedObject var appEnvironment = AppEnvironment()
-  
+
   var body: some View {
     NavigationView {
       ZStack(alignment: .topLeading) {
@@ -54,7 +54,6 @@ struct WelcomeView: View {
               GridItem(.fixed(160))
               // 4
             ], spacing: 15
-
           ) {
             NavigationLink(
               destination: FlightStatusBoard(

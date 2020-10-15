@@ -61,5 +61,4 @@ class AppEnvironment: ObservableObject {
                                       title: "Welcome Home",
                                       description: "Your returned to the airport after leaving from it.",
                                       awarded: true))
-  }
-}
+  }}

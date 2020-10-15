@@ -14,11 +14,11 @@
 		A92AE318252785770076F3B9 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92AE317252785770076F3B9 /* DateExtensions.swift */; };
 		A92AE31D2527858D0076F3B9 /* DateFormatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92AE31C2527858D0076F3B9 /* DateFormatters.swift */; };
 		A92CC5E4250E7AEA0010BF40 /* FlightDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92CC5E2250E7AEA0010BF40 /* FlightDetails.swift */; };
+		A93AD0F6253364B400182D1B /* AwardDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = A93AD0F5253364B400182D1B /* AwardDetails.swift */; };
 		A951531F25215880001F6464 /* FlightDetailHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A951531E25215880001F6464 /* FlightDetailHeader.swift */; };
 		A951532225215903001F6464 /* FlightInfoPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A951532125215903001F6464 /* FlightInfoPanel.swift */; };
 		A95D27772524149400788411 /* SearchResultRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D27762524149300788411 /* SearchResultRow.swift */; };
-		A98E3DB9252F63FA00C4AAD9 /* AwardCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A98E3DB8252F63FA00C4AAD9 /* AwardCardView.swift */; };
-		A98E3DBC252F776500C4AAD9 /* AwardDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = A98E3DBB252F776500C4AAD9 /* AwardDetails.swift */; };
+		A98E3DC1252F838400C4AAD9 /* AwardCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A98E3DC0252F838400C4AAD9 /* AwardCardView.swift */; };
 		A998D86925212B8F00DC64A7 /* FlightList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A998D86825212B8F00DC64A7 /* FlightList.swift */; };
 		A998D86D25212BB200DC64A7 /* FlightRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A998D86C25212BB200DC64A7 /* FlightRow.swift */; };
 		A998D87025212BD200DC64A7 /* FlightStatusIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = A998D86F25212BD200DC64A7 /* FlightStatusIcon.swift */; };
@@ -46,11 +46,11 @@
 		A92AE317252785770076F3B9 /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		A92AE31C2527858D0076F3B9 /* DateFormatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatters.swift; sourceTree = "<group>"; };
 		A92CC5E2250E7AEA0010BF40 /* FlightDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlightDetails.swift; sourceTree = "<group>"; };
+		A93AD0F5253364B400182D1B /* AwardDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwardDetails.swift; sourceTree = "<group>"; };
 		A951531E25215880001F6464 /* FlightDetailHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightDetailHeader.swift; sourceTree = "<group>"; };
 		A951532125215903001F6464 /* FlightInfoPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightInfoPanel.swift; sourceTree = "<group>"; };
 		A95D27762524149300788411 /* SearchResultRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultRow.swift; sourceTree = "<group>"; };
-		A98E3DB8252F63FA00C4AAD9 /* AwardCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwardCardView.swift; sourceTree = "<group>"; };
-		A98E3DBB252F776500C4AAD9 /* AwardDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwardDetails.swift; sourceTree = "<group>"; };
+		A98E3DC0252F838400C4AAD9 /* AwardCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwardCardView.swift; sourceTree = "<group>"; };
 		A998D86825212B8F00DC64A7 /* FlightList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightList.swift; sourceTree = "<group>"; };
 		A998D86C25212BB200DC64A7 /* FlightRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightRow.swift; sourceTree = "<group>"; };
 		A998D86F25212BD200DC64A7 /* FlightStatusIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightStatusIcon.swift; sourceTree = "<group>"; };
@@ -159,8 +159,8 @@
 			isa = PBXGroup;
 			children = (
 				A9AB45A5252E697800DC8653 /* AwardsView.swift */,
-				A98E3DB8252F63FA00C4AAD9 /* AwardCardView.swift */,
-				A98E3DBB252F776500C4AAD9 /* AwardDetails.swift */,
+				A98E3DC0252F838400C4AAD9 /* AwardCardView.swift */,
+				A93AD0F5253364B400182D1B /* AwardDetails.swift */,
 			);
 			path = AwardsView;
 			sourceTree = "<group>";
@@ -261,11 +261,11 @@
 			files = (
 				A951532225215903001F6464 /* FlightInfoPanel.swift in Sources */,
 				A92AE318252785770076F3B9 /* DateExtensions.swift in Sources */,
-				A98E3DBC252F776500C4AAD9 /* AwardDetails.swift in Sources */,
+				A93AD0F6253364B400182D1B /* AwardDetails.swift in Sources */,
 				A9AB45A6252E697800DC8653 /* AwardsView.swift in Sources */,
 				A9D22597252403B50042062B /* SearchFlights.swift in Sources */,
 				A92CC5E4250E7AEA0010BF40 /* FlightDetails.swift in Sources */,
-				A98E3DB9252F63FA00C4AAD9 /* AwardCardView.swift in Sources */,
+				A98E3DC1252F838400C4AAD9 /* AwardCardView.swift in Sources */,
 				A9E462442509B44800128AB1 /* FlightInformation.swift in Sources */,
 				A9E462452509B44800128AB1 /* PurchasedFlights.swift in Sources */,
 				A92AE31D2527858D0076F3B9 /* DateFormatters.swift in Sources */,
