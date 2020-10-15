@@ -70,15 +70,16 @@ struct MacMarkDownDocument: FileDocument {
     text = string
   }
 
+  // swiftlint:disable force_unwrapping
   func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
     let data = text.data(using: .utf8)!
     return .init(regularFileWithContents: data)
   }
+  // swiftlint:enable force_unwrapping
 }
 
 
 extension MacMarkDownDocument {
-
   var completeHTML: String {
     return """
         <!DOCTYPE html>

@@ -44,7 +44,7 @@ struct MenuCommands: Commands {
 
       Divider()
     }
-    
+
     CommandMenu("Stylesheet") {
       Button("GitHub") {
         styleSheet = .github
@@ -67,9 +67,8 @@ struct MenuCommands: Commands {
   func showCheatSheet() {
     let cheatSheetAddress = "https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet"
     guard let url = URL(string: cheatSheetAddress) else {
-      fatalError()
+      fatalError("Invalid cheatsheet URL")
     }
     NSWorkspace.shared.open(url)
   }
 }
-

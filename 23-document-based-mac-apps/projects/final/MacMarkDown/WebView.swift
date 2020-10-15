@@ -37,21 +37,18 @@ final class WebView: NSViewRepresentable {
   @AppStorage("styleSheet") var styleSheet: StyleSheet = .github
 
   var html: String
-  
+
   init(html: String) {
     self.html = html
   }
 
   func makeNSView(context: Context) -> WKWebView {
     let webView = WKWebView()
-    webView.loadHTMLString(formattedHtml,
-                           baseURL: Bundle.main.resourceURL)
     return webView
   }
 
   func updateNSView(_ nsView: WKWebView, context: Context) {
-    nsView.loadHTMLString(formattedHtml,
-                          baseURL: Bundle.main.resourceURL)
+    nsView.loadHTMLString(formattedHtml, baseURL: Bundle.main.resourceURL)
   }
 
   var formattedHtml: String {

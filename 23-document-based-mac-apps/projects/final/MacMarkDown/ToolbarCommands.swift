@@ -44,9 +44,12 @@ struct PreviewToolBarItem: ToolbarContent {
   var body: some ToolbarContent {
     ToolbarItem {
       Picker("", selection: $previewState) {
-        Image(systemName: "eye.slash").tag(PreviewState.hidden)
-        Image(systemName: "doc.plaintext").tag(PreviewState.html)
-        Image(systemName: "doc.richtext").tag(PreviewState.web)
+        Image(systemName: "eye.slash")
+          .tag(PreviewState.hidden)
+        Image(systemName: "doc.plaintext")
+          .tag(PreviewState.html)
+        Image(systemName: "doc.richtext")
+          .tag(PreviewState.web)
       }
       .pickerStyle(SegmentedPickerStyle())
       .help("Hide preview, show HTML or web view")

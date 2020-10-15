@@ -55,22 +55,28 @@ struct ContentView: View {
       } else if previewState == .html {
         ScrollView {
           Text(document.html)
-            .frame(maxWidth: .infinity, maxHeight: .infinity,
+            .frame(minWidth: 200)
+            .frame(maxWidth: .infinity,
+                   maxHeight: .infinity,
                    alignment: .topLeading)
             .padding()
             .font(.system(size: CGFloat(editorFontSize)))
         }
       }
     }
-    .frame(minWidth: 400, idealWidth: 600, maxWidth: .infinity,
-           minHeight: 300, idealHeight: 400, maxHeight: .infinity)
+    .frame(minWidth: 400,
+           idealWidth: 600,
+           maxWidth: .infinity,
+           minHeight: 300,
+           idealHeight: 400,
+           maxHeight: .infinity)
     .toolbar {
       PreviewToolBarItem(previewState: $previewState)
     }
   }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct ContentViewPreviews: PreviewProvider {
   static var previews: some View {
     ContentView(document: .constant(MacMarkDownDocument()))
   }

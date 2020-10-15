@@ -44,9 +44,12 @@ struct PreviewToolBarItem: ToolbarContent {
   var body: some ToolbarContent {
     ToolbarItem {
       Picker("", selection: $previewState) {
-        Image(systemName: "eye.slash").tag(PreviewState.hidden)
-        Image(systemName: "doc.plaintext").tag(PreviewState.html)
-        Image(systemName: "doc.richtext").tag(PreviewState.web)
+        Image(systemName: "eye.slash")
+          .tag(PreviewState.hidden)
+        Image(systemName: "doc.plaintext")
+          .tag(PreviewState.html)
+        Image(systemName: "doc.richtext")
+          .tag(PreviewState.web)
       }
       .pickerStyle(SegmentedPickerStyle())
       .help("Hide preview, show HTML or web view")
@@ -56,19 +59,19 @@ struct PreviewToolBarItem: ToolbarContent {
 
 // Challenge 1: toolbar items for exporting HTML
 
-struct ExportToolBarItems : ToolbarContent {
-  let exportCallback: (Bool) -> ()
+struct ExportToolBarItems: ToolbarContent {
+  let exportCallback: (Bool) -> Void
 
   var body: some ToolbarContent {
     ToolbarItemGroup {
-      Button(action: { exportCallback(false) }) {
+      Button(action: { exportCallback(false) }, label: {
         Image(systemName: "arrow.up.doc")
-      }
+      })
       .help("Export as HTML")
 
-      Button(action: { exportCallback(true) }) {
+      Button(action: { exportCallback(true) }, label: {
         Image(systemName: "arrow.up.doc.fill")
-      }
+      })
       .help("Export as HTML with CSS")
     }
   }
@@ -76,8 +79,8 @@ struct ExportToolBarItems : ToolbarContent {
 
 // Challenge 2: toolbar items for Markdown snippets
 
-struct MarkdownToolBarItems : ToolbarContent {
-  let markdownCallback: (String) -> ()
+struct MarkdownToolBarItems: ToolbarContent {
+  let markdownCallback: (String) -> Void
 
   var body: some ToolbarContent {
     ToolbarItemGroup {

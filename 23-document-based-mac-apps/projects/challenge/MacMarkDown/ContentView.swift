@@ -34,18 +34,18 @@ import SwiftUI
 
 struct ContentView: View {
   @Binding var document: MacMarkDownDocument
-  
+
   @AppStorage("editorFontSize") var editorFontSize: Int = 14
   @AppStorage("styleSheet") var styleSheet: StyleSheet = .github
-  
+
   @State private var previewState = PreviewState.web
-  
+
   var body: some View {
     HSplitView {
       TextEditor(text: $document.text)
         .font(.system(size: CGFloat(editorFontSize)))
         .frame(minWidth: 200)
-      
+
       if previewState == .web {
         WebView(html: document.html)
           .frame(minWidth: 200)
@@ -55,21 +55,27 @@ struct ContentView: View {
       } else if previewState == .html {
         ScrollView {
           Text(document.html)
-            .frame(maxWidth: .infinity, maxHeight: .infinity,
+            .frame(minWidth: 200)
+            .frame(maxWidth: .infinity,
+                   maxHeight: .infinity,
                    alignment: .topLeading)
             .padding()
             .font(.system(size: CGFloat(editorFontSize)))
         }
       }
     }
-    .frame(minWidth: 400, idealWidth: 600, maxWidth: .infinity,
-           minHeight: 300, idealHeight: 400, maxHeight: .infinity)
+    .frame(minWidth: 400,
+           idealWidth: 600,
+           maxWidth: .infinity,
+           minHeight: 300,
+           idealHeight: 400,
+           maxHeight: .infinity)
     .toolbar {
       // Challenge 1: export html with or without CSS
       ExportToolBarItems(exportCallback: exportHtml(withCSS:))
 
       // Challenge 2: Markdown snippets
-      MarkdownToolBarItems() { markdown in
+      MarkdownToolBarItems { markdown in
         document.text += markdown
       }
 
@@ -77,38 +83,37 @@ struct ContentView: View {
     }
     // Challenge 3: Touchbar - in Xcode, choose Window > Touch Bar > Show Touch Bar to show
     .touchBar {
-      TouchBarItems() { markdown in
+      TouchBarItems { markdown in
         document.text += markdown
       }
     }
   }
-  
+
   func exportHtml(withCSS: Bool) {
     let panel = NSSavePanel()
     panel.nameFieldLabel = "Save HTML as:"
     panel.nameFieldStringValue = "Export.html"
     panel.canCreateDirectories = true
-    
+
     panel.begin { response in
       if response == NSApplication.ModalResponse.OK, let fileUrl = panel.url {
         writeExport(url: fileUrl, withCSS: withCSS)
       }
     }
   }
-  
+
   func writeExport(url: URL, withCSS: Bool) {
     let html = withCSS ? document.completeHTMLPlusCSS : document.completeHTML
-    
+
     do {
       try html.write(to: url, atomically: true, encoding: .utf8)
     } catch {
       print(error)
     }
   }
-  
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct ContentViewPreviews: PreviewProvider {
   static var previews: some View {
     ContentView(document: .constant(MacMarkDownDocument()))
   }

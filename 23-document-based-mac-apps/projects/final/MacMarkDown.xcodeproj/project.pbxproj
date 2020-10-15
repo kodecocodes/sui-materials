@@ -118,6 +118,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 26108D59250C5459009866ED /* Build configuration list for PBXNativeTarget "MacMarkDown" */;
 			buildPhases = (
+				26713A4525382BCF002F0B97 /* ShellScript */,
 				26108D43250C5457009866ED /* Sources */,
 				26108D44250C5457009866ED /* Frameworks */,
 				26108D45250C5457009866ED /* Resources */,
@@ -184,6 +185,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		26713A4525382BCF002F0B97 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ -f ~/com.raywenderlich.swiftlint.yml ]; then\n  if which swiftlint >/dev/null; then\n    swiftlint --no-cache --config ~/com.raywenderlich.swiftlint.yml\n  fi\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		26108D43250C5457009866ED /* Sources */ = {
