@@ -7,27 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		407CAC6722E69175009CE254 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407CAC6622E69175009CE254 /* AppDelegate.swift */; };
-		407CAC6922E69175009CE254 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407CAC6822E69175009CE254 /* SceneDelegate.swift */; };
-		407CAC6B22E69175009CE254 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407CAC6A22E69175009CE254 /* ContentView.swift */; };
-		407CAC6D22E69177009CE254 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 407CAC6C22E69177009CE254 /* Assets.xcassets */; };
-		407CAC7022E69177009CE254 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 407CAC6F22E69177009CE254 /* Preview Assets.xcassets */; };
-		407CAC7322E69177009CE254 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 407CAC7122E69177009CE254 /* LaunchScreen.storyboard */; };
+		CD405EFB2536AA700062B1CC /* RGBullsEyeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD405EFA2536AA700062B1CC /* RGBullsEyeApp.swift */; };
+		CD405EFD2536AA700062B1CC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD405EFC2536AA700062B1CC /* ContentView.swift */; };
+		CD405EFF2536AA720062B1CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD405EFE2536AA720062B1CC /* Assets.xcassets */; };
+		CD405F022536AA720062B1CC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD405F012536AA720062B1CC /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		407CAC6322E69175009CE254 /* RGBullsEye.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RGBullsEye.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		407CAC6622E69175009CE254 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		407CAC6822E69175009CE254 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		407CAC6A22E69175009CE254 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		407CAC6C22E69177009CE254 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		407CAC6F22E69177009CE254 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		407CAC7222E69177009CE254 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		407CAC7422E69177009CE254 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CD405EF72536AA700062B1CC /* RGBullsEye.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RGBullsEye.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD405EFA2536AA700062B1CC /* RGBullsEyeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGBullsEyeApp.swift; sourceTree = "<group>"; };
+		CD405EFC2536AA700062B1CC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		CD405EFE2536AA720062B1CC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CD405F012536AA720062B1CC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		CD405F032536AA720062B1CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		407CAC6022E69175009CE254 /* Frameworks */ = {
+		CD405EF42536AA700062B1CC /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -37,40 +33,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		407CAC5A22E69175009CE254 = {
+		CD405EEE2536AA700062B1CC = {
 			isa = PBXGroup;
 			children = (
-				407CAC6522E69175009CE254 /* RGBullsEye */,
-				407CAC6422E69175009CE254 /* Products */,
+				CD405EF92536AA700062B1CC /* RGBullsEye */,
+				CD405EF82536AA700062B1CC /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		407CAC6422E69175009CE254 /* Products */ = {
+		CD405EF82536AA700062B1CC /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				407CAC6322E69175009CE254 /* RGBullsEye.app */,
+				CD405EF72536AA700062B1CC /* RGBullsEye.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		407CAC6522E69175009CE254 /* RGBullsEye */ = {
+		CD405EF92536AA700062B1CC /* RGBullsEye */ = {
 			isa = PBXGroup;
 			children = (
-				407CAC6622E69175009CE254 /* AppDelegate.swift */,
-				407CAC6822E69175009CE254 /* SceneDelegate.swift */,
-				407CAC6A22E69175009CE254 /* ContentView.swift */,
-				407CAC6C22E69177009CE254 /* Assets.xcassets */,
-				407CAC7122E69177009CE254 /* LaunchScreen.storyboard */,
-				407CAC7422E69177009CE254 /* Info.plist */,
-				407CAC6E22E69177009CE254 /* Preview Content */,
+				CD405EFA2536AA700062B1CC /* RGBullsEyeApp.swift */,
+				CD405EFC2536AA700062B1CC /* ContentView.swift */,
+				CD405EFE2536AA720062B1CC /* Assets.xcassets */,
+				CD405F032536AA720062B1CC /* Info.plist */,
+				CD405F002536AA720062B1CC /* Preview Content */,
 			);
 			path = RGBullsEye;
 			sourceTree = "<group>";
 		};
-		407CAC6E22E69177009CE254 /* Preview Content */ = {
+		CD405F002536AA720062B1CC /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
-				407CAC6F22E69177009CE254 /* Preview Assets.xcassets */,
+				CD405F012536AA720062B1CC /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
 			sourceTree = "<group>";
@@ -78,13 +72,14 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		407CAC6222E69175009CE254 /* RGBullsEye */ = {
+		CD405EF62536AA700062B1CC /* RGBullsEye */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 407CAC7722E69177009CE254 /* Build configuration list for PBXNativeTarget "RGBullsEye" */;
+			buildConfigurationList = CD405F062536AA720062B1CC /* Build configuration list for PBXNativeTarget "RGBullsEye" */;
 			buildPhases = (
-				407CAC5F22E69175009CE254 /* Sources */,
-				407CAC6022E69175009CE254 /* Frameworks */,
-				407CAC6122E69175009CE254 /* Resources */,
+				CD405EF32536AA700062B1CC /* Sources */,
+				CD405EF42536AA700062B1CC /* Frameworks */,
+				CD405EF52536AA700062B1CC /* Resources */,
+				CD3D493125382939001D6A68 /* SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -92,25 +87,24 @@
 			);
 			name = RGBullsEye;
 			productName = RGBullsEye;
-			productReference = 407CAC6322E69175009CE254 /* RGBullsEye.app */;
+			productReference = CD405EF72536AA700062B1CC /* RGBullsEye.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		407CAC5B22E69175009CE254 /* Project object */ = {
+		CD405EEF2536AA700062B1CC /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1100;
-				LastUpgradeCheck = 1100;
-				ORGANIZATIONNAME = Razeware;
+				LastSwiftUpdateCheck = 1220;
+				LastUpgradeCheck = 1220;
 				TargetAttributes = {
-					407CAC6222E69175009CE254 = {
-						CreatedOnToolsVersion = 11.0;
+					CD405EF62536AA700062B1CC = {
+						CreatedOnToolsVersion = 12.2;
 					};
 				};
 			};
-			buildConfigurationList = 407CAC5E22E69175009CE254 /* Build configuration list for PBXProject "RGBullsEye" */;
+			buildConfigurationList = CD405EF22536AA700062B1CC /* Build configuration list for PBXProject "RGBullsEye" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -118,55 +112,63 @@
 				en,
 				Base,
 			);
-			mainGroup = 407CAC5A22E69175009CE254;
-			productRefGroup = 407CAC6422E69175009CE254 /* Products */;
+			mainGroup = CD405EEE2536AA700062B1CC;
+			productRefGroup = CD405EF82536AA700062B1CC /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				407CAC6222E69175009CE254 /* RGBullsEye */,
+				CD405EF62536AA700062B1CC /* RGBullsEye */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		407CAC6122E69175009CE254 /* Resources */ = {
+		CD405EF52536AA700062B1CC /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				407CAC7322E69177009CE254 /* LaunchScreen.storyboard in Resources */,
-				407CAC7022E69177009CE254 /* Preview Assets.xcassets in Resources */,
-				407CAC6D22E69177009CE254 /* Assets.xcassets in Resources */,
+				CD405F022536AA720062B1CC /* Preview Assets.xcassets in Resources */,
+				CD405EFF2536AA720062B1CC /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		CD3D493125382939001D6A68 /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ -f ~/com.raywenderlich.swiftlint.yml ]; then\n  if which swiftlint >/dev/null; then\n    swiftlint --config ~/com.raywenderlich.swiftlint.yml\n  fi\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
-		407CAC5F22E69175009CE254 /* Sources */ = {
+		CD405EF32536AA700062B1CC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				407CAC6722E69175009CE254 /* AppDelegate.swift in Sources */,
-				407CAC6922E69175009CE254 /* SceneDelegate.swift in Sources */,
-				407CAC6B22E69175009CE254 /* ContentView.swift in Sources */,
+				CD405EFD2536AA700062B1CC /* ContentView.swift in Sources */,
+				CD405EFB2536AA700062B1CC /* RGBullsEyeApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXVariantGroup section */
-		407CAC7122E69177009CE254 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				407CAC7222E69177009CE254 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
-
 /* Begin XCBuildConfiguration section */
-		407CAC7522E69177009CE254 /* Debug */ = {
+		CD405F042536AA720062B1CC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -192,6 +194,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -216,7 +219,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -226,7 +229,7 @@
 			};
 			name = Debug;
 		};
-		407CAC7622E69177009CE254 /* Release */ = {
+		CD405F052536AA720062B1CC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -252,6 +255,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -270,7 +274,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -280,14 +284,16 @@
 			};
 			name = Release;
 		};
-		407CAC7822E69177009CE254 /* Debug */ = {
+		CD405F072536AA720062B1CC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "RGBullsEye/Preview\\ Content";
+				DEVELOPMENT_ASSET_PATHS = "\"RGBullsEye/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = RGBullsEye/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -299,14 +305,16 @@
 			};
 			name = Debug;
 		};
-		407CAC7922E69177009CE254 /* Release */ = {
+		CD405F082536AA720062B1CC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "RGBullsEye/Preview\\ Content";
+				DEVELOPMENT_ASSET_PATHS = "\"RGBullsEye/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = RGBullsEye/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -321,25 +329,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		407CAC5E22E69175009CE254 /* Build configuration list for PBXProject "RGBullsEye" */ = {
+		CD405EF22536AA700062B1CC /* Build configuration list for PBXProject "RGBullsEye" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				407CAC7522E69177009CE254 /* Debug */,
-				407CAC7622E69177009CE254 /* Release */,
+				CD405F042536AA720062B1CC /* Debug */,
+				CD405F052536AA720062B1CC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		407CAC7722E69177009CE254 /* Build configuration list for PBXNativeTarget "RGBullsEye" */ = {
+		CD405F062536AA720062B1CC /* Build configuration list for PBXNativeTarget "RGBullsEye" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				407CAC7822E69177009CE254 /* Debug */,
-				407CAC7922E69177009CE254 /* Release */,
+				CD405F072536AA720062B1CC /* Debug */,
+				CD405F082536AA720062B1CC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 407CAC5B22E69175009CE254 /* Project object */;
+	rootObject = CD405EEF2536AA700062B1CC /* Project object */;
 }
