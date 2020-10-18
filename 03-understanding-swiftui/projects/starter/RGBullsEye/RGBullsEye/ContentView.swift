@@ -46,34 +46,41 @@ struct ContentView: View {
     let rDiff = rGuess - rTarget
     let gDiff = gGuess - gTarget
     let bDiff = bGuess - bTarget
-    let diff = sqrt(rDiff * rDiff + gDiff * gDiff + bDiff * bDiff)
-    return Int((1.0 - diff) * 100.0 + 0.5)
+    let diff = sqrt((rDiff * rDiff + gDiff * gDiff
+      + bDiff * bDiff) / 3.0)
+    return lround((1.0 - diff) * 100.0)
   }
 
   var body: some View {
     VStack {
-      HStack {
-        VStack {
-          Color(red: rTarget, green: gTarget, blue: bTarget)
-          Text("Match this color")
-        }
-        VStack {
-          Color(red: rGuess, green: gGuess, blue: bGuess)
-          Text("R: \(Int(rGuess * 255.0))"
-            + "  G: \(Int(gGuess * 255.0))"
-            + "  B: \(Int(bGuess * 255.0))")
-        }
+      Color(red: rTarget, green: gTarget, blue: bTarget)
+      if !showAlert {
+        Text("R: ??? G: ??? B: ???")
+          .padding()
+      } else {
+        Text("R: \(Int(rTarget * 255.0))"
+          + "  G: \(Int(gTarget * 255.0))"
+          + "  B: \(Int(bTarget * 255.0))")
+          .padding()
       }
+      Color(red: rGuess, green: gGuess, blue: bGuess)
+      Text("R: \(Int(rGuess * 255.0))"
+        + "  G: \(Int(gGuess * 255.0))"
+        + "  B: \(Int(bGuess * 255.0))")
+        .padding()
+      ColorSlider(value: $rGuess, textColor: .red)
+      ColorSlider(value: $gGuess, textColor: .green)
+      ColorSlider(value: $bGuess, textColor: .blue)
+      // swiftlint:disable:next multiple_closures_with_trailing_closure
       Button(action: { self.showAlert = true }) {
         Text("Hit Me!")
       }
       .alert(isPresented: $showAlert) {
-        Alert(title: Text("Your Score"), message: Text(String(computeScore())))
+        Alert(
+          title: Text("Your Score"),
+          message: Text(String(computeScore())))
       }
       .padding()
-      ColorSlider(value: $rGuess, textColor: .red)
-      ColorSlider(value: $gGuess, textColor: .green)
-      ColorSlider(value: $bGuess, textColor: .blue)
     }
   }
 }
@@ -81,20 +88,19 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
     ContentView(rGuess: 0.5, gGuess: 0.5, bGuess: 0.5)
-      .previewLayout(.fixed(width: 568, height: 320))
   }
 }
 
 struct ColorSlider: View {
   @Binding var value: Double
   var textColor: Color
+
   var body: some View {
     HStack {
       Text("0")
-        .foregroundColor(textColor)
       Slider(value: $value)
+        .accentColor(textColor)
       Text("255")
-        .foregroundColor(textColor)
     }
     .padding(.horizontal)
   }
