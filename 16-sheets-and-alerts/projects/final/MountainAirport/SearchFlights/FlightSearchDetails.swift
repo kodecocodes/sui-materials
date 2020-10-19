@@ -60,7 +60,8 @@ struct FlightSearchDetails: View {
             // 4
             Alert(title: Text("Contact Your Airline"),
                   message: Text("We cannot rebook this flight." +
-                    "Please contact the airline to reschedule this flight."))
+                    "Please contact the airline to reschedule" +
+                    "this flight."))
           }
         }
         // 1
@@ -68,7 +69,10 @@ struct FlightSearchDetails: View {
           Button("Check In for Flight", action: {
             // 2
             self.checkInFlight =
-              CheckInInfo(airline: self.flight.airline, flight: self.flight.number)
+              CheckInInfo(
+                airline: self.flight.airline,
+                flight: self.flight.number
+              )
             }
           )
           // 3
@@ -88,7 +92,8 @@ struct FlightSearchDetails: View {
                 }),
                 // 8
                 .default(Text("Check In"), action: {
-                  print("Check-in for \(flight.airline) \(flight.flight).")
+                  print("Check-in for \(flight.airline)" +
+                          " \(flight.flight).")
                 })
               ]
             )
