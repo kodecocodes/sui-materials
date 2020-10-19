@@ -38,7 +38,7 @@ struct ChoicesView : View {
   let challengeTest: ChallengeTest
   @State var challengeSolved = false
   @State var isChallengeResultAlertDisplayed = false
-  @EnvironmentObject var challengesViewModel: ChallengesViewModel
+  @ObservedObject var challengesViewModel = ChallengesViewModel()
   
   var body: some View {
     VStack(spacing: 25) {

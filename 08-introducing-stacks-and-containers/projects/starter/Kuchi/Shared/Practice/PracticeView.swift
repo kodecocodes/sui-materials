@@ -36,7 +36,6 @@ import SwiftUI
 struct PracticeView : View {
   @Binding var challengeTest: ChallengeTest?
   @Binding var userName: String
-  @Binding var numberOfAnswered: Int
   
   @ViewBuilder
   var body: some View {
@@ -56,6 +55,9 @@ struct PracticeView_Previews : PreviewProvider {
   )
   
   static var previews: some View {
-    return PracticeView(challengeTest: .constant(challengeTest), userName: .constant("Johnny Swift"), numberOfAnswered: $numberOfAnswered)
+    return PracticeView(
+      challengeTest: .constant(challengeTest),
+      userName: .constant("Johnny Swift")
+    )
   }
 }
