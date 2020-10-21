@@ -30,13 +30,35 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import SwiftUI
+import Foundation
 
-@main
-struct RGBullsEyeApp: App {
-  var body: some Scene {
-    WindowGroup {
-      ContentView(guess: RGB())
-    }
+public class BullsEyeGame: ObservableObject {
+  public var round = 0
+  public var startValue = 50
+  public var targetValue = 50
+  public var scoreRound = 0
+  public var scoreTotal = 0
+  
+  public init() {
+    startNewGame()
+  }
+  
+  public func startNewGame() {
+    round = 0
+    scoreTotal = 0
+    startNewRound()
+  }
+  
+  public func startNewRound() {
+    round += 1
+    scoreRound = 0
+    startValue = 50
+    targetValue = Int.random(in: 1...100)
+  }
+  
+  public func checkGuess(_ guess: Int) {
+    let difference = abs(targetValue - guess)
+    scoreRound = 100 - difference
+    scoreTotal = scoreTotal + scoreRound
   }
 }

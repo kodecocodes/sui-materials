@@ -36,7 +36,7 @@ import SwiftUI
 struct RGBullsEyeApp: App {
   var body: some Scene {
     WindowGroup {
-      ContentView(guess: RGB())
+      ContentView(rGuess: 0.5, gGuess: 0.5, bGuess: 0.5)
     }
   }
 }

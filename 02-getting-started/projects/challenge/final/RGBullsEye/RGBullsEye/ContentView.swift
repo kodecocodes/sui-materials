@@ -33,59 +33,84 @@
 import SwiftUI
 
 struct ContentView: View {
-  @State var game = Game()
-  @State var guess: RGB
-  @State var showScore = false
+  let rTarget = Double.random(in: 0..<1)
+  let gTarget = Double.random(in: 0..<1)
+  let bTarget = Double.random(in: 0..<1)
+  @State var rGuess: Double
+  @State var gGuess: Double
+  @State var bGuess: Double
+
+  @State var showAlert = false
+
+  func computeScore() -> Int {
+    let rDiff = rGuess - rTarget
+    let gDiff = gGuess - gTarget
+    let bDiff = bGuess - bTarget
+    let diff = sqrt((rDiff * rDiff + gDiff * gDiff
+      + bDiff * bDiff) / 3.0)
+    return lround((1.0 - diff) * 100.0)
+  }
 
   var body: some View {
     VStack {
-      Circle()
-        .fill(Color(rgbStruct: game.target))
-      if !showScore {
+      ColorCircle(red: rTarget, green: gTarget, blue: bTarget)
+      if !showAlert {
         Text("R: ??? G: ??? B: ???")
           .padding()
       } else {
-        Text(game.target.intString())
+        Text("R: \(Int(rTarget * 255.0))"
+          + "  G: \(Int(gTarget * 255.0))"
+          + "  B: \(Int(bTarget * 255.0))")
           .padding()
       }
-      Circle()
-        .fill(Color(rgbStruct: guess))
-      Text(guess.intString())
+      ColorCircle(red: rGuess, green: gGuess, blue: bGuess)
+      Text("R: \(Int(rGuess * 255.0))"
+        + "  G: \(Int(gGuess * 255.0))"
+        + "  B: \(Int(bGuess * 255.0))")
         .padding()
-      ColorSlider(value: $guess.red, trackColor: .red)
-      ColorSlider(value: $guess.green, trackColor: .green)
-      ColorSlider(value: $guess.blue, trackColor: .blue)
-      Button("Hit Me!") {
-        self.showScore = true
-        self.game.check(guess: guess)
+      ColorSlider(value: $rGuess, textColor: .red)
+      ColorSlider(value: $gGuess, textColor: .green)
+      ColorSlider(value: $bGuess, textColor: .blue)
+      // swiftlint:disable:next multiple_closures_with_trailing_closure
+      Button(action: { self.showAlert = true }) {
+        Text("Hit Me!")
       }
-      .alert(isPresented: $showScore) {
+      .alert(isPresented: $showAlert) {
         Alert(
           title: Text("Your Score"),
-          message: Text(String(game.scoreRound)),
-          dismissButton: .default(Text("OK")) {
-            self.game.startNewRound()
-            self.guess = RGB()
-          })
+          message: Text(String(computeScore())))
       }
+      .padding()
     }
   }
 }
 
 struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
-    ContentView(guess: RGB())
+    ContentView(rGuess: 0.5, gGuess: 0.5, bGuess: 0.5)
+  }
+}
+
+struct ColorCircle: View {
+  let red: Double
+  let green: Double
+  let blue: Double
+
+  var body: some View {
+    Circle()
+      .fill(Color(red: red, green: green, blue: blue))
   }
 }
 
 struct ColorSlider: View {
   @Binding var value: Double
-  var trackColor: Color
+  var textColor: Color
+
   var body: some View {
     HStack {
       Text("0")
       Slider(value: $value)
-        .accentColor(trackColor)
+        .accentColor(textColor)
       Text("255")
     }
     .padding(.horizontal)

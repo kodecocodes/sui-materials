@@ -30,13 +30,9 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import SwiftUI
+import UIKit
 
-@main
-struct RGBullsEyeApp: App {
-  var body: some Scene {
-    WindowGroup {
-      ContentView(guess: RGB())
-    }
-  }
+@UIApplicationMain
+class AppDelegate: UIResponder, UIApplicationDelegate {
+  var window: UIWindow?
 }
