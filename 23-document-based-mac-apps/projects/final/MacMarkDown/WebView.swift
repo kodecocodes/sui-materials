@@ -48,7 +48,9 @@ final class WebView: NSViewRepresentable {
   }
 
   func updateNSView(_ nsView: WKWebView, context: Context) {
-    nsView.loadHTMLString(formattedHtml, baseURL: Bundle.main.resourceURL)
+    nsView.loadHTMLString(
+      formattedHtml,
+      baseURL: Bundle.main.resourceURL)
   }
 
   var formattedHtml: String {
