@@ -31,7 +31,7 @@ import GameKit
 
 // Simple generator that wrapps GKRandom from GameKit to produce a seedable
 // random number generator. Not heavily tested, but it's enough for sample data
-public struct SeededRandomGenerator : RandomNumberGenerator {
+public struct SeededRandomGenerator: RandomNumberGenerator {
   private let gkrandom: GKRandom
 
   public mutating func next() -> UInt64 {
@@ -54,7 +54,7 @@ public struct SeededRandomGenerator : RandomNumberGenerator {
 }
 
 class FlightData: ObservableObject {
-  @Published var flights: [FlightInformation]!
+  @Published var flights: [FlightInformation] = []
   var canceledFlight: FlightInformation {
     flights.first { $0.status == .canceled }!
   }
@@ -83,6 +83,7 @@ class FlightData: ObservableObject {
     var flights = [FlightInformation]()
 
     for idx in 0...15 {
+      // swiftlint:disable:next force_unwrapping
       let day = Calendar.current.date(byAdding: .day, value: idx, to: Date())!
       flights.append(contentsOf: generateFlights(startIndex: idx * 30, date: day, isFuture: idx > 0))
     }
@@ -98,9 +99,13 @@ class FlightData: ObservableObject {
     return generateFlight(1, date: date, isFuture: isFuture)
   }
 
+  // swiftlint:disable:next function_body_length
   func generateFlight(_ idx: Int, date: Date, isFuture: Bool) -> FlightInformation {
     let airlines = ["US", "Southeast", "Pacific", "Overland"]
-    let airports = ["Charlotte", "Atlanta", "Chicago", "Dallas/Ft. Worth", "Detroit", "Miami", "Nashville", "New York-LGA", "Denver", "Phoenix", "Las Vegas"]
+    let airports = [
+      "Charlotte", "Atlanta", "Chicago", "Dallas/Ft. Worth", "Detroit",
+      "Miami", "Nashville", "New York-LGA", "Denver", "Phoenix", "Las Vegas"
+    ]
     let airportCoordinates = [
       (lat: 35.2144, long: -80.9473), (lat: 33.6407, long: -84.4277),
       (lat: 41.9742, long: -87.9073), (lat: 32.8998, long: -97.0403),
@@ -120,12 +125,14 @@ class FlightData: ObservableObject {
     let airportLocation = airportCoordinates[airportNum]
     let time = flightTime[airportNum]
     let number = "\(Int.random(in: 100..<1000, using: &generator))"
-    let t = Int.random(in: 0...1, using: &generator) % 2 == 0 ? "A" : "B"
-    let gate = "\(t)\(Int.random(in: 1...5, using: &generator))"
+    let terminal = Int.random(in: 0...1, using: &generator) % 2 == 0 ? "A" : "B"
+    let gate = "\(terminal)\(Int.random(in: 1...5, using: &generator))"
     let direction: FlightDirection = idx % 2 == 0 ? .arrival : .departure
     let hour = Int(Float(idx % 30) / 1.75) + 6
     let minute = Int.random(in: 0...11, using: &generator) * 5
-    let scheduled = Calendar.current.date(from: DateComponents(year: year, month: month, day: day, hour: hour, minute: minute, second: 0))!
+    let scheduled = Calendar.current
+      // swiftlint:disable:next force_unwrapping
+      .date(from: DateComponents(year: year, month: month, day: day, hour: hour, minute: minute, second: 0))!
     let statusRoll = Int.random(in: 0...100, using: &generator)
     var status: FlightStatus
     var newTime: Date?
@@ -139,7 +146,20 @@ class FlightData: ObservableObject {
       status = .canceled
       newTime = nil
     }
-    let newFlight = FlightInformation(recordId: idx, airline: airline, number: number, connection: airport, airportLocation: airportLocation, flightTime: time, scheduledTime: scheduled, currentTime: newTime, direction: direction, status: status, gate: gate)
+    let newFlight = FlightInformation(
+      recordId: idx,
+      airline: airline,
+      number: number,
+      connection: airport,
+      airportLocation: airportLocation,
+      flightTime: time,
+      scheduledTime: scheduled,
+      currentTime: newTime,
+      direction: direction,
+      status: status,
+      gate: gate
+    )
+    // swiftlint:disable force_unwrapping
     for daysAgo in (-10)...(-1) {
       let scheduledHour = Int(Float(idx) / 1.75) + 6
       let scheduledMinute = Int.random(in: 0...11, using: &generator) * 5
@@ -147,16 +167,32 @@ class FlightData: ObservableObject {
       let scheduledYear = Calendar.current.component(.year, from: historyDate)
       let scheduledMonth = Calendar.current.component(.month, from: historyDate)
       let scheduledDay = Calendar.current.component(.day, from: historyDate)
-      let historyScheduled = Calendar.current.date(from: DateComponents(year: scheduledYear, month: scheduledMonth, day: scheduledDay, hour: scheduledHour, minute: scheduledMinute, second: 0))!
-      let historyEntry = generateHistory(-daysAgo, id: idx, date: historyDate, direction: direction, scheduled: historyScheduled)
+      let historyScheduled = Calendar.current.date(
+        from: DateComponents(
+          year: scheduledYear,
+          month: scheduledMonth,
+          day: scheduledDay,
+          hour: scheduledHour,
+          minute: scheduledMinute,
+          second: 0
+        )
+      )!
+      let historyEntry =
+        generateHistory(-daysAgo, id: idx, date: historyDate, direction: direction, scheduled: historyScheduled)
       newFlight.history.insert(historyEntry, at: 0)
     }
+    // swiftlint:enable force_unwrapping
 
     return newFlight
   }
 
-  func generateHistory(_ day: Int, id: Int, date: Date,
-                              direction: FlightDirection, scheduled: Date) -> FlightHistory {
+  func generateHistory(
+    _ day: Int,
+    id: Int,
+    date: Date,
+    direction: FlightDirection,
+    scheduled: Date
+  ) -> FlightHistory {
     let statusRoll = Int.random(in: 0...100, using: &generator)
     var status: FlightStatus
     var newTime: Date?
@@ -174,7 +210,15 @@ class FlightData: ObservableObject {
       newTime = nil
     }
 
-    return FlightHistory(day, id:id, date: date, direction: direction, status: status, scheduledTime: scheduled, actualTime: newTime)
+    return FlightHistory(
+      day,
+      id: id,
+      date: date,
+      direction: direction,
+      status: status,
+      scheduledTime: scheduled,
+      actualTime: newTime
+    )
   }
 
   static func generateTestFlight(date: Date) -> FlightInformation {

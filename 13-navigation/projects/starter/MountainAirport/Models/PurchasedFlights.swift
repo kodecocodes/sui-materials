@@ -29,7 +29,7 @@
 import SwiftUI
 
 class PurchasedFlights: ObservableObject {
-  @Published var purchasedFlightIds: [Int]!
+  @Published var purchasedFlightIds: [Int] = []
   @AppStorage("PurchasedFlight") var purchasedFlightStorage = "" {
     didSet {
       purchasedFlightIds = getPurchasedFlights()
@@ -49,15 +49,15 @@ class PurchasedFlights: ObservableObject {
   }
 
   func isFlightPurchased(_ flight: FlightInformation) -> Bool {
-    let flightIds = purchasedFlightStorage.split(separator: ",").map { Int($0)! }
-    let matching = flightIds.filter { $0 == flight.id}
-    return matching.count > 0
+    let flightIds = purchasedFlightStorage.split(separator: ",").compactMap { Int($0) }
+    let matching = flightIds.filter { $0 == flight.id }
+    return matching.isEmpty == false
   }
 
   func purchaseFlight(_ flight: FlightInformation) {
     if !isFlightPurchased(flight) {
       print("Saving flight: \(flight.id)")
-      var flights = purchasedFlightStorage.split(separator: ",").map { Int($0)! }
+      var flights = purchasedFlightStorage.split(separator: ",").compactMap { Int($0) }
       flights.append(flight.id)
       purchasedFlightStorage = flights.map { String($0) }.joined(separator: ",")
     }  }
@@ -65,14 +65,14 @@ class PurchasedFlights: ObservableObject {
   func removePurchasedFlight(_ flight: FlightInformation) {
     if isFlightPurchased(flight) {
       print("Removing saved flight: \(flight.id)")
-      let flights = purchasedFlightStorage.split(separator: ",").map { Int($0)! }
+      let flights = purchasedFlightStorage.split(separator: ",").compactMap { Int($0) }
       let newFlights = flights.filter { $0 != flight.id }
       purchasedFlightStorage = newFlights.map { String($0) }.joined(separator: ",")
     }
   }
 
   func getPurchasedFlights() -> [Int] {
-    let flightIds = purchasedFlightStorage.split(separator: ",").map { Int($0)! }
+    let flightIds = purchasedFlightStorage.split(separator: ",").compactMap { Int($0) }
     return flightIds
   }
 }

@@ -29,8 +29,8 @@
 import SwiftUI
 
 struct WelcomeView: View {
-  @StateObject var flightInfo: FlightData = FlightData()
-  
+  @StateObject var flightInfo = FlightData()
+
   var body: some View {
     VStack(alignment: .leading) {
       ZStack(alignment: .topLeading) {

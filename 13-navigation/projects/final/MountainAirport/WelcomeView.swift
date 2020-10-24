@@ -29,51 +29,46 @@
 import SwiftUI
 
 struct WelcomeView: View {
-  @StateObject var flightInfo: FlightData = FlightData()
+  @StateObject var flightInfo = FlightData()
   @State var showNextFlight = false
   @ObservedObject var lastFlightInfo = FlightNavigationInfo()
-  
+
   var body: some View {
-    // 1
     NavigationView {
       ZStack(alignment: .topLeading) {
-        // 2
         Image("welcome-background")
           .resizable()
           .aspectRatio(contentMode: .fill)
           .frame(height: 250)
         VStack(alignment: .leading) {
           NavigationLink(
+            // swiftlint:disable:next force_unwrapping
             destination: FlightDetails(flight: flightInfo.flights.first!),
-            // 1
             isActive: $showNextFlight
-            // 2
           ) { }
-          // 3
           NavigationLink(
-            // 4
             destination: FlightStatusBoard(
               flights: flightInfo.getDaysFlights(Date()))
           ) {
-            // 5
             WelcomeButtonView(
               title: "Flight Status",
               subTitle: "Departure and arrival information"
             )
           }
-          // 1
-          if let id = lastFlightInfo.lastFlightId,
-             let lastFlight = flightInfo.getFlightById(id) {
+          if
+            let id = lastFlightInfo.lastFlightId,
+            let lastFlight = flightInfo.getFlightById(id) {
+            // swiftlint:disable multiple_closures_with_trailing_closure
+            // swiftlint:disable:next multiline_arguments
             Button(action: {
-              // 2
               showNextFlight = true
             }) {
               WelcomeButtonView(
-              // 3
                 title: "Last Flight \(lastFlight.flightName)",
                 subTitle: "Show Next Flight Departing or Arriving at Airport"
               )
             }
+            // swiftlint:enable multiple_closures_with_trailing_closure
           }
           Spacer()
         }.font(.title)
