@@ -35,7 +35,7 @@ import SwiftUI
 struct WelcomeView: View {
   @StateObject var flightInfo = FlightData()
   @State var showNextFlight = false
-  @ObservedObject var lastFlightInfo = FlightNavigationInfo()
+  @StateObject var lastFlightInfo = FlightNavigationInfo()
 
   var body: some View {
     NavigationView {
