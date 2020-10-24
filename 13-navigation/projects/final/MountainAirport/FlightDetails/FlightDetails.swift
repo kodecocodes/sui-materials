@@ -63,6 +63,7 @@ struct FlightDetails_Previews: PreviewProvider {
       FlightDetails(
         flight: FlightData.generateTestFlight(date: Date())
       )
+      .environmentObject(FlightNavigationInfo())
     }
   }
 }
