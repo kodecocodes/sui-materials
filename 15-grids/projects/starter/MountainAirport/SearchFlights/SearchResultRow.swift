@@ -32,10 +32,10 @@ struct SearchResultRow: View {
   var flight: FlightInformation
 
   var timeFormatter: DateFormatter {
-    let df = DateFormatter()
-    df.timeStyle = .short
-    df.dateStyle = .medium
-    return df
+    let tdf = DateFormatter()
+    tdf.timeStyle = .short
+    tdf.dateStyle = .medium
+    return tdf
   }
 
   var body: some View {
@@ -44,8 +44,8 @@ struct SearchResultRow: View {
         .padding(5)
         .clipShape(RoundedRectangle(cornerRadius: 7.0))
       VStack(alignment: .leading) {
-          Text(flight.flightName)
-            .font(.title3) +
+        Text(flight.flightName)
+          .font(.title3) +
           Text(" \(flight.dirString) \(flight.otherAirport)")
         HStack {
           Text(flight.localTime, formatter: timeFormatter)

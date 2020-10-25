@@ -44,12 +44,11 @@ struct AwardGrid: View {
       // 4
       ForEach(awards, id: \.self) { award in
         NavigationLink(
-          destination: AwardDetails(award: award),
-          label: {
-            AwardCardView(award: award)
-              .foregroundColor(.black)
-              .aspectRatio(0.67, contentMode: .fit)
-          })
+          destination: AwardDetails(award: award)) {
+          AwardCardView(award: award)
+            .foregroundColor(.black)
+            .aspectRatio(0.67, contentMode: .fit)
+        }
       }
     }
   }
@@ -76,17 +75,22 @@ struct AwardsView: View {
   var body: some View {
     ScrollView {
       LazyVGrid(columns: awardColumns, pinnedViews: .sectionHeaders) {
-        AwardGrid(title: "Awarded",
-                  awards: activeAwards)
-        AwardGrid(title: "Not Awarded",
-                  awards: inactiveAwards)
+        AwardGrid(
+          title: "Awarded",
+          awards: activeAwards
+        )
+        AwardGrid(
+          title: "Not Awarded",
+          awards: inactiveAwards
+        )
       }
     }.padding()
     .background(
       Image("background-view")
         .resizable()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-    ).navigationBarTitle("Your Awards")
+    )
+    .navigationBarTitle("Your Awards")
   }
 }
 

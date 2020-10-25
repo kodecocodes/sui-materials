@@ -42,7 +42,15 @@ struct AwardCardView: View {
       Spacer()
     }
     .padding(10.0)
-    .background(LinearGradient(gradient: Gradient(colors: [Color.white, Color(red: 0.0, green: 0.5, blue: 1.0)]), startPoint: .bottomLeading, endPoint: .topTrailing)).background(Color.white)
+    .background(
+      LinearGradient(
+        gradient: Gradient(
+          colors: [Color.white, Color(red: 0.0, green: 0.5, blue: 1.0)]
+        ),
+        startPoint: .bottomLeading,
+        endPoint: .topTrailing)
+    )
+    .background(Color.white)
     .saturation(award.awarded ? 1.0 : 0.0)
     .opacity(award.awarded ? 1.0 : 0.3)
     .clipShape(RoundedRectangle(cornerRadius: 25.0))

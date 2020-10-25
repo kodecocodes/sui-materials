@@ -177,13 +177,13 @@
 		E6E2AE7B22D8D08600A3455A /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				A9CF243025152C8300EA887E /* AppEnvironment.swift */,
 				A9E4623D2509B44700128AB1 /* AwardInformation.swift */,
 				A9E4623B2509B44600128AB1 /* FlightData.swift */,
 				A9E4623A2509B44500128AB1 /* FlightHistory.swift */,
 				A9E4623E2509B44700128AB1 /* FlightInformation.swift */,
 				A9E4623F2509B44800128AB1 /* PurchasedFlights.swift */,
 				A9E4623C2509B44600128AB1 /* SavedFlights.swift */,
-				A9CF243025152C8300EA887E /* AppEnvironment.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -195,6 +195,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 18D775D122AD944400AE281E /* Build configuration list for PBXNativeTarget "MountainAirport" */;
 			buildPhases = (
+				A938CC482545F8000089F2B7 /* ShellScript */,
 				18D775B922AD944300AE281E /* Sources */,
 				18D775BA22AD944300AE281E /* Frameworks */,
 				18D775BB22AD944300AE281E /* Resources */,
@@ -253,6 +254,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		A938CC482545F8000089F2B7 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ -f ~/com.raywenderlich.swiftlint.yml ]; then\n  if which swiftlint >/dev/null; then\n    swiftlint --no-cache --config ~/com.raywenderlich.swiftlint.yml\n  fi\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		18D775B922AD944300AE281E /* Sources */ = {

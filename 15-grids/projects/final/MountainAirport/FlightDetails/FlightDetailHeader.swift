@@ -30,7 +30,7 @@ import SwiftUI
 
 struct FlightDetailHeader: View {
   var flight: FlightInformation
-  
+
   var body: some View {
     HStack {
       FlightStatusIcon(flight: flight)

@@ -29,7 +29,7 @@
 import SwiftUI
 
 struct WelcomeView: View {
-  @StateObject var flightInfo: FlightData = FlightData()
+  @StateObject var flightInfo = FlightData()
   @State var showNextFlight = false
   @ObservedObject var appEnvironment = AppEnvironment()
 
@@ -41,6 +41,7 @@ struct WelcomeView: View {
           .aspectRatio(contentMode: .fill)
           .frame(height: 250)
         NavigationLink(
+          // swiftlint:disable:next force_unwrapping
           destination: FlightDetails(flight: flightInfo.flights.first!),
           isActive: $showNextFlight
         ) { }
@@ -85,8 +86,10 @@ struct WelcomeView: View {
                 subTitle: "Earn rewards for your airport interactions",
                 imageName: "star.fill")
             }
-            if let id = appEnvironment.lastFlightId,
-               let lastFlight = flightInfo.getFlightById(id) {
+            if
+              let id = appEnvironment.lastFlightId,
+              let lastFlight = flightInfo.getFlightById(id) {
+              // swiftlint:disable multiple_closures_with_trailing_closure
               Button(action: {
                 showNextFlight = true
               }) {
@@ -96,6 +99,7 @@ struct WelcomeView: View {
                   imageName: "suit.heart.fill"
                 )
               }
+              // swiftlint:enable multiple_closures_with_trailing_closure
             }
             Spacer()
           }.font(.title)

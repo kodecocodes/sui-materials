@@ -32,12 +32,12 @@ struct FlightInfoPanel: View {
   var flight: FlightInformation
 
   var timeFormatter: DateFormatter {
-    let df = DateFormatter()
-    df.timeStyle = .short
-    df.dateStyle = .none
-    return df
+    let tdf = DateFormatter()
+    tdf.timeStyle = .short
+    tdf.dateStyle = .none
+    return tdf
   }
-  
+
   var body: some View {
     HStack(alignment: .top) {
       Image(systemName: "info.circle")
@@ -67,7 +67,6 @@ struct FlightInfoPanel: View {
         }
       }
     }
-    
   }
 }
 

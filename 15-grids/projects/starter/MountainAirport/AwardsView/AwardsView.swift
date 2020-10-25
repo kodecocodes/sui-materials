@@ -39,12 +39,11 @@ struct AwardsView: View {
       LazyVStack {
         ForEach(awardArray, id: \.self) { award in
           NavigationLink(
-            destination: AwardDetails(award: award),
-            label: {
-              AwardCardView(award: award)
-                .foregroundColor(.black)
-                .frame(width: 150, height: 220)
-            })
+            destination: AwardDetails(award: award)) {
+            AwardCardView(award: award)
+              .foregroundColor(.black)
+              .frame(width: 150, height: 220)
+          }
         }
       }
     }.padding()
@@ -52,7 +51,8 @@ struct AwardsView: View {
       Image("background-view")
         .resizable()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-    ).navigationBarTitle("Your Awards")
+    )
+    .navigationBarTitle("Your Awards")
   }
 }
 
