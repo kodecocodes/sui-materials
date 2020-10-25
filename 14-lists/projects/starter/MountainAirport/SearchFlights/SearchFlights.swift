@@ -55,14 +55,14 @@ struct SearchFlights: View {
         .resizable()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
       VStack {
-        Picker(selection: $directionFilter,
-               label: Text("Flight Direction"),
-               content: {
-                Text("All").tag(FlightDirection.none)
-                Text("Arrivals").tag(FlightDirection.arrival)
-                Text("Departures").tag(FlightDirection.departure)
-               }
-        ).background(Color.white)
+        Picker(
+          selection: $directionFilter,
+          label: Text("Flight Direction")) {
+          Text("All").tag(FlightDirection.none)
+          Text("Arrivals").tag(FlightDirection.arrival)
+          Text("Departures").tag(FlightDirection.departure)
+        }
+        .background(Color.white)
         .pickerStyle(SegmentedPickerStyle())
         TextField(" Search cities", text: $city)
           .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -71,7 +71,6 @@ struct SearchFlights: View {
       }.navigationBarTitle("Search Flights")
       .padding()
     }
-
   }
 }
 

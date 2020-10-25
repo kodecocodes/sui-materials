@@ -18,6 +18,10 @@
 /// merger, publication, distribution, sublicensing, creation of derivative works,
 /// or sale is expressly withheld.
 ///
+/// This project and source code may use libraries or frameworks that are
+/// released under various Open-Source licenses. Use of those libraries and
+/// frameworks are governed by their own individual licenses.
+///
 /// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 /// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 /// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -29,7 +33,7 @@
 import SwiftUI
 
 struct AwardInformation {
-  public var awardView: AnyView
+  public var imageName: String
   public var title: String
   public var description: String
   public var awarded: Bool
@@ -40,10 +44,10 @@ extension AwardInformation: Hashable {
     if lhs.title == rhs.title && lhs.description == rhs.description && lhs.awarded == rhs.awarded {
       return true
     }
-    
+
     return false
   }
-  
+
   func hash(into hasher: inout Hasher) {
     hasher.combine(title)
     hasher.combine(description)

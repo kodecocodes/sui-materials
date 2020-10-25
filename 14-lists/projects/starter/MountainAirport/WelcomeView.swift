@@ -18,6 +18,10 @@
 /// merger, publication, distribution, sublicensing, creation of derivative works,
 /// or sale is expressly withheld.
 ///
+/// This project and source code may use libraries or frameworks that are
+/// released under various Open-Source licenses. Use of those libraries and
+/// frameworks are governed by their own individual licenses.
+///
 /// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 /// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 /// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -29,10 +33,10 @@
 import SwiftUI
 
 struct WelcomeView: View {
-  @StateObject var flightInfo: FlightData = FlightData()
+  @StateObject var flightInfo = FlightData()
   @State var showNextFlight = false
-  @ObservedObject var lastFlightInfo = FlightNavigationInfo()
-  
+  @StateObject var lastFlightInfo = FlightNavigationInfo()
+
   var body: some View {
     // 1
     NavigationView {
@@ -44,6 +48,7 @@ struct WelcomeView: View {
           .frame(height: 250)
         VStack(alignment: .leading) {
           NavigationLink(
+            // swiftlint:disable:next force_unwrapping
             destination: FlightDetails(flight: flightInfo.flights.first!),
             isActive: $showNextFlight
           ) { }
@@ -65,8 +70,10 @@ struct WelcomeView: View {
               title: "Search Flights",
               subTitle: "Search Upcoming Flights")
           }
-          if let id = lastFlightInfo.lastFlightId,
-             let lastFlight = flightInfo.getFlightById(id) {
+          if
+            let id = lastFlightInfo.lastFlightId,
+            let lastFlight = flightInfo.getFlightById(id) {
+            // swiftlint:disable multiple_closures_with_trailing_closure
             Button(action: {
               showNextFlight = true
             }) {
@@ -75,6 +82,7 @@ struct WelcomeView: View {
                 subTitle: "Show Next Flight Departing or Arriving at Airport"
               )
             }
+            // swiftlint:enable multiple_closures_with_trailing_closure
           }
           Spacer()
         }.font(.title)

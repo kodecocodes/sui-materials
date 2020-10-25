@@ -33,10 +33,11 @@ struct FlightList: View {
 
   var nextFlightId: Int {
     guard let flight = flights.first(
-            where: {
-              $0.localTime >= Date()
-            }
+      where: {
+        $0.localTime >= Date()
+      }
     ) else {
+      // swiftlint:disable:next force_unwrapping
       return flights.last!.id
     }
     return flight.id
@@ -46,11 +47,9 @@ struct FlightList: View {
     ScrollViewReader { scrollProxy in
       List(flights) { flight in
         NavigationLink(
-          destination: FlightDetails(flight: flight),
-          label: {
-            FlightRow(flight: flight)
-          }
-        )
+          destination: FlightDetails(flight: flight)) {
+          FlightRow(flight: flight)
+        }
       }.onAppear {
         // 1
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {

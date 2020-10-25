@@ -29,10 +29,10 @@
 import SwiftUI
 
 struct WelcomeView: View {
-  @StateObject var flightInfo: FlightData = FlightData()
+  @StateObject var flightInfo = FlightData()
   @State var showNextFlight = false
   @ObservedObject var lastFlightInfo = FlightNavigationInfo()
-  
+
   var body: some View {
     // 1
     NavigationView {
@@ -44,6 +44,7 @@ struct WelcomeView: View {
           .frame(height: 250)
         VStack(alignment: .leading) {
           NavigationLink(
+            // swiftlint:disable:next force_unwrapping
             destination: FlightDetails(flight: flightInfo.flights.first!),
             isActive: $showNextFlight
           ) { }
@@ -65,8 +66,10 @@ struct WelcomeView: View {
               title: "Search Flights",
               subTitle: "Search Upcoming Flights")
           }
-          if let id = lastFlightInfo.lastFlightId,
-             let lastFlight = flightInfo.getFlightById(id) {
+          if
+            let id = lastFlightInfo.lastFlightId,
+            let lastFlight = flightInfo.getFlightById(id) {
+            // swiftlint:disable multiple_closures_with_trailing_closure
             Button(action: {
               showNextFlight = true
             }) {
