@@ -47,24 +47,29 @@ struct FlightStatusBoard: View {
         Image("descending-airplane")
           .resizable()
         Text("Arrivals")
-      }.tag(0)
+      }
+      .tag(0)
       FlightList(
         flights: shownFlights
       ).tabItem {
         Image(systemName: "airplane")
           .resizable()
         Text("All")
-      }.tag(1)
+      }
+      .tag(1)
       FlightList(
         flights: shownFlights.filter { $0.direction == .departure }
       ).tabItem {
         Image("ascending-airplane")
         Text("Departures")
-      }.tag(2)
+      }
+      .tag(2)
     }.navigationTitle("Flight Status")
     .navigationBarItems(
-      trailing: Toggle("Hide Past",
-                       isOn: $hidePast)
+      trailing: Toggle(
+        "Hide Past",
+        isOn: $hidePast
+      )
     )
   }
 }

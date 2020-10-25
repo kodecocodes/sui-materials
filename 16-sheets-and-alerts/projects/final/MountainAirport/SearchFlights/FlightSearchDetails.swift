@@ -45,36 +45,37 @@ struct FlightSearchDetails: View {
         HStack {
           FlightDetailHeader(flight: flight)
           Spacer()
-          Button("Close", action: {
-              self.showModal = false
-          })
+          Button("Close") {
+            self.showModal = false
+          }
         }
         // 1
         if flight.status == .canceled {
           // 2
-          Button("Rebook Flight", action: {
+          Button("Rebook Flight") {
             rebookAlert = true
-          })
+          }
           // 3
           .alert(isPresented: $rebookAlert) {
             // 4
-            Alert(title: Text("Contact Your Airline"),
-                  message: Text("We cannot rebook this flight." +
-                    "Please contact the airline to reschedule" +
-                    "this flight."))
+            Alert(
+              title: Text("Contact Your Airline"),
+              message: Text(
+                "We cannot rebook this flight. Please contact the airline to reschedule this flight."
+              )
+            )
           }
         }
         // 1
         if flight.isCheckInAvailable {
-          Button("Check In for Flight", action: {
+          Button("Check In for Flight") {
             // 2
             self.checkInFlight =
               CheckInInfo(
                 airline: self.flight.airline,
                 flight: self.flight.number
               )
-            }
-          )
+          }
           // 3
           .actionSheet(item: $checkInFlight) { flight in
             // 4
@@ -92,8 +93,9 @@ struct FlightSearchDetails: View {
                 }),
                 // 8
                 .default(Text("Check In"), action: {
-                  print("Check-in for \(flight.airline)" +
-                          " \(flight.flight).")
+                  print(
+                    "Check-in for \(flight.airline) \(flight.flight)."
+                  )
                 })
               ]
             )
@@ -102,8 +104,9 @@ struct FlightSearchDetails: View {
         Button("On-Time History") {
           showFlightHistory.toggle()
         }
-        .popover(isPresented: $showFlightHistory,
-                 arrowEdge: .top) {
+        .popover(
+          isPresented: $showFlightHistory,
+          arrowEdge: .top) {
           FlightTimeHistory(flight: self.flight)
         }
         FlightInfoPanel(flight: flight)

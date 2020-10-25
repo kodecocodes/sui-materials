@@ -41,7 +41,8 @@ struct FlightStatusIcon: View {
           RoundedRectangle(cornerRadius: 2)
             .frame(width: 40, height: 40)
             .foregroundColor(.red)
-        ).frame(width: 40, height: 40)
+        )
+        .frame(width: 40, height: 40)
     } else if flight.direction == .arrival {
       Image(systemName: "airplane")
         .resizable()

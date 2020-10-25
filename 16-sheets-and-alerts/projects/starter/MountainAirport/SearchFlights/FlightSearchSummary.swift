@@ -32,10 +32,10 @@ struct FlightSearchSummary: View {
   var flight: FlightInformation
 
   var timeFormatter: DateFormatter {
-    let df = DateFormatter()
-    df.timeStyle = .short
-    df.dateStyle = .medium
-    return df
+    let tdf = DateFormatter()
+    tdf.timeStyle = .short
+    tdf.dateStyle = .medium
+    return tdf
   }
 
   var body: some View {

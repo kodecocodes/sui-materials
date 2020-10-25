@@ -32,10 +32,10 @@ struct FlightTimeHistory: View {
   var flight: FlightInformation
 
   var timeFormatter: RelativeDateTimeFormatter {
-    let tf = RelativeDateTimeFormatter()
-    tf.unitsStyle = .full
-    tf.dateTimeStyle = .named
-    return tf
+    let rtf = RelativeDateTimeFormatter()
+    rtf.unitsStyle = .full
+    rtf.dateTimeStyle = .named
+    return rtf
   }
 
   func relativeDate(_ date: Date) -> String {

@@ -58,7 +58,8 @@ struct WelcomeButtonView: View {
       Image("link-pattern")
         .resizable()
         .clipped()
-    ).shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+    )
+    .shadow(radius: 10)
   }
 }
 

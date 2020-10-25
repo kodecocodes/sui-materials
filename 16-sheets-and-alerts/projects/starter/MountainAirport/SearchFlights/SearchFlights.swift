@@ -67,21 +67,21 @@ struct SearchFlights: View {
         .resizable()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
       VStack {
-        Picker(selection: $directionFilter,
-               label: Text("Flight Direction"),
-               content: {
-                Text("All").tag(FlightDirection.none)
-                Text("Arrivals").tag(FlightDirection.arrival)
-                Text("Departures").tag(FlightDirection.departure)
-               }
-        ).background(Color.white)
+        Picker(
+          selection: $directionFilter,
+          label: Text("Flight Direction")) {
+          Text("All").tag(FlightDirection.none)
+          Text("Arrivals").tag(FlightDirection.arrival)
+          Text("Departures").tag(FlightDirection.departure)
+        }
+        .background(Color.white)
         .pickerStyle(SegmentedPickerStyle())
         TextField(" Search cities", text: $city)
           .textFieldStyle(RoundedBorderTextFieldStyle())
         // 1
         List {
           // 2
-          ForEach(flightDates, id:\.hashValue) { date in
+          ForEach(flightDates, id: \.hashValue) { date in
             // 3
             Section(
               // 4

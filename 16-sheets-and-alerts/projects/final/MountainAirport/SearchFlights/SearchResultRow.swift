@@ -49,8 +49,10 @@ struct SearchResultRow: View {
       },
       // 5
       content: {
-        FlightSearchDetails(flight: flight,
-                            showModal: $isPresented)
+        FlightSearchDetails(
+          flight: flight,
+          showModal: $isPresented
+        )
       }
     )
   }
