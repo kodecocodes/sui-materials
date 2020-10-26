@@ -72,6 +72,10 @@ class FlightInformation: NSObject {
     direction == .arrival ? "From" : "To"
   }
 
+  var statusBoardName: String {
+    "\(flightName) \(dirString) \(otherAirport)"
+  }
+
   var otherEndTime: Date {
     var multiplier: Int
     if direction == .arrival {
