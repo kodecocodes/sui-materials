@@ -32,85 +32,44 @@
 
 import SwiftUI
 
-struct RegisterView: View {
+struct WelcomeView: View {
   @EnvironmentObject var userManager: UserManager
-  @ObservedObject var keyboardHandler: KeyboardFollower
+  @ObservedObject var challengesViewModel = ChallengesViewModel()
+  @State var showPractice = false
   
-  init(keyboardHandler: KeyboardFollower) {
-    self.keyboardHandler = keyboardHandler
-  }
-  
+  @ViewBuilder
   var body: some View {
-    VStack {
-      Spacer()
-      
-      WelcomeMessageView()
-      
-      TextField("Type your name...", text: $userManager.profile.name)
-        .bordered()
-      
-      HStack {
-        Spacer()
-        Text("\(userManager.profile.name.count)")
-          .font(.caption)
-          .foregroundColor(
-            userManager.isUserNameValid() ? .green : .red)
-          .padding(.trailing)
-      }
-      .padding(.bottom)
-      
-      HStack {
-        Spacer()
-        
-        Toggle(isOn: $userManager.settings.rememberUser) {
-          Text("Remember me")
-            .font(.subheadline)
-            .foregroundColor(.gray)
-        }
-        .fixedSize()
-      }
-      
-      Button(action: self.registerUser) {
-        HStack {
-          Image(systemName: "checkmark")
-            .resizable()
-            .frame(width: 16, height: 16, alignment: .center)
-          Text("OK")
-            .font(.body)
-            .bold()
-        }
-      }
-      .bordered()
-      .disabled(!userManager.isUserNameValid())
-      
-      Spacer()
-    }
-    .padding(.bottom, keyboardHandler.keyboardHeight)
-    .edgesIgnoringSafeArea(keyboardHandler.isVisible ? .bottom : [])
-    .padding()
-    .background(WelcomeBackgroundImage())
-  }
-}
-
-// MARK: - Event Handlers
-extension RegisterView {
-  func registerUser() {
-    if userManager.settings.rememberUser {
-      userManager.persistProfile()
+    if showPractice {
+      PracticeView(
+        challengeTest: $challengesViewModel.currentChallenge,
+        userName: $userManager.profile.name
+      )
     } else {
-      userManager.clear()
+      ZStack {
+        WelcomeBackgroundImage()
+        
+        VStack {
+          Text(verbatim: "Hi, \(userManager.profile.name)")
+          
+          WelcomeMessageView()
+          
+          Button(action: {
+            self.showPractice = true
+          }, label: {
+            HStack {
+              Image(systemName: "play")
+              Text(verbatim: "Start")
+            }
+          })
+        }
+      }
     }
-    
-    userManager.persistSettings()
-    userManager.setRegistered()
   }
 }
 
-struct RegisterView_Previews: PreviewProvider {
-  static let user = UserManager(name: "Ray")
-  
+struct WelcomeView_Previews: PreviewProvider {
   static var previews: some View {
-    RegisterView(keyboardHandler: KeyboardFollower())
-      .environmentObject(user)
+    WelcomeView()
+      .environmentObject(UserManager())
   }
 }

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		571C66BC25439AF6002E497F /* ScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571C66BB25439AF6002E497F /* ScoreView.swift */; };
+		571C66BD25439AF6002E497F /* ScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571C66BB25439AF6002E497F /* ScoreView.swift */; };
 		573A7200253A5FE500B8D1BE /* StarterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573A71FF253A5FE500B8D1BE /* StarterView.swift */; };
 		573A7201253A5FE500B8D1BE /* StarterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573A71FF253A5FE500B8D1BE /* StarterView.swift */; };
 		573A720B253A5FF100B8D1BE /* PracticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573A7204253A5FF100B8D1BE /* PracticeView.swift */; };
@@ -58,6 +60,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		571C66BB25439AF6002E497F /* ScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreView.swift; sourceTree = "<group>"; };
 		573A71FF253A5FE500B8D1BE /* StarterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarterView.swift; sourceTree = "<group>"; };
 		573A7204253A5FF100B8D1BE /* PracticeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PracticeView.swift; sourceTree = "<group>"; };
 		573A7205253A5FF100B8D1BE /* QuestionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionView.swift; sourceTree = "<group>"; };
@@ -165,6 +168,7 @@
 				573A7208253A5FF100B8D1BE /* CongratulationsView.swift */,
 				573A7204253A5FF100B8D1BE /* PracticeView.swift */,
 				573A7205253A5FF100B8D1BE /* QuestionView.swift */,
+				571C66BB25439AF6002E497F /* ScoreView.swift */,
 			);
 			path = Practice;
 			sourceTree = "<group>";
@@ -357,6 +361,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				571C66BC25439AF6002E497F /* ScoreView.swift in Sources */,
 				573A720D253A5FF100B8D1BE /* QuestionView.swift in Sources */,
 				573A7200253A5FE500B8D1BE /* StarterView.swift in Sources */,
 				573A720B253A5FF100B8D1BE /* PracticeView.swift in Sources */,
@@ -397,6 +402,7 @@
 				5758869B25365A00006AD39D /* Profile.swift in Sources */,
 				57472F8D2533B85800F47C29 /* HorizontallyAlignedLabelStyle.swift in Sources */,
 				573A7210253A5FF100B8D1BE /* ChallengeView.swift in Sources */,
+				571C66BD25439AF6002E497F /* ScoreView.swift in Sources */,
 				57578FDF24E9D943003465A4 /* HomeView.swift in Sources */,
 				573A7201253A5FE500B8D1BE /* StarterView.swift in Sources */,
 				573A7214253A5FF100B8D1BE /* CongratulationsView.swift in Sources */,
