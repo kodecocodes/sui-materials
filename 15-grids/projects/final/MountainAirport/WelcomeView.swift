@@ -35,7 +35,7 @@ import SwiftUI
 struct WelcomeView: View {
   @StateObject var flightInfo = FlightData()
   @State var showNextFlight = false
-  @ObservedObject var appEnvironment = AppEnvironment()
+  @StateObject var appEnvironment = AppEnvironment()
 
   var body: some View {
     NavigationView {
@@ -94,6 +94,7 @@ struct WelcomeView: View {
               let id = appEnvironment.lastFlightId,
               let lastFlight = flightInfo.getFlightById(id) {
               // swiftlint:disable multiple_closures_with_trailing_closure
+              // swiftlint:disable:next multiline_arguments
               Button(action: {
                 showNextFlight = true
               }) {
