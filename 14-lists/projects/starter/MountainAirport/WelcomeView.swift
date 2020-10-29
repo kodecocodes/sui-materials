@@ -74,6 +74,7 @@ struct WelcomeView: View {
             let id = lastFlightInfo.lastFlightId,
             let lastFlight = flightInfo.getFlightById(id) {
             // swiftlint:disable multiple_closures_with_trailing_closure
+            // swiftlint:disable:next multiline_arguments
             Button(action: {
               showNextFlight = true
             }) {
