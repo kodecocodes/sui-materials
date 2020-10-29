@@ -51,9 +51,7 @@ struct FlightList: View {
           FlightRow(flight: flight)
         }
       }.onAppear {
-        // 1
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
-          // 2
           scrollProxy.scrollTo(nextFlightId, anchor: .center)
         }
       }

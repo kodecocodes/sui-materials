@@ -38,10 +38,8 @@ struct WelcomeView: View {
   @StateObject var lastFlightInfo = FlightNavigationInfo()
 
   var body: some View {
-    // 1
     NavigationView {
       ZStack(alignment: .topLeading) {
-        // 2
         Image("welcome-background")
           .resizable()
           .aspectRatio(contentMode: .fill)
