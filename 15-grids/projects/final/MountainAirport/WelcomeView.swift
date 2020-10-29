@@ -50,14 +50,10 @@ struct WelcomeView: View {
           isActive: $showNextFlight
         ) { }
         ScrollView {
-          // 1
           LazyVGrid(
-            // 2
             columns: [
-              // 3
               GridItem(.fixed(160)),
               GridItem(.fixed(160))
-              // 4
             ], spacing: 15
           ) {
             NavigationLink(

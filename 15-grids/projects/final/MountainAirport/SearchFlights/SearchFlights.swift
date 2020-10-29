@@ -82,15 +82,10 @@ struct SearchFlights: View {
         .pickerStyle(SegmentedPickerStyle())
         TextField(" Search cities", text: $city)
           .textFieldStyle(RoundedBorderTextFieldStyle())
-        // 1
         List {
-          // 2
           ForEach(flightDates, id: \.hashValue) { date in
-            // 3
             Section(
-              // 4
               header: Text(longDateFormatter.string(from: date)),
-              // 5
               footer:
                 HStack {
                   Spacer()
@@ -99,13 +94,11 @@ struct SearchFlights: View {
                   )
                 }
             ) {
-              // 6
               ForEach(flightsForDay(date: date)) { flight in
                 SearchResultRow(flight: flight)
               }
             }
           }
-          // 7
         }.listStyle(InsetGroupedListStyle())
         Spacer()
       }.navigationBarTitle("Search Flights")
