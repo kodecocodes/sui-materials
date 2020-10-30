@@ -47,11 +47,10 @@ struct AwardGrid: View {
     ) {
       // 4
       ForEach(awards, id: \.self) { award in
-        NavigationLink(
-          destination: AwardDetails(award: award)) {
-            AwardCardView(award: award)
-              .foregroundColor(.black)
-              .aspectRatio(0.67, contentMode: .fit)
+        NavigationLink(destination: AwardDetails(award: award)) {
+          AwardCardView(award: award)
+            .foregroundColor(.black)
+            .aspectRatio(0.67, contentMode: .fit)
         }
       }
     }

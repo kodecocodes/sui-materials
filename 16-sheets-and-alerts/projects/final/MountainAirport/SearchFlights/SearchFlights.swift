@@ -94,9 +94,7 @@ struct SearchFlights: View {
               footer:
                 HStack {
                   Spacer()
-                  Text(
-                    "Matching flights \(flightsForDay(date: date).count)"
-                  )
+                  Text("Matching flights \(flightsForDay(date: date).count)")
                 }
             ) {
               // 6
