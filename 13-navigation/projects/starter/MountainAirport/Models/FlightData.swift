@@ -84,7 +84,7 @@ class FlightData: ObservableObject {
   }
 
   func generateSchedule() -> [FlightInformation] {
-    var flights = [FlightInformation]()
+    var flights: [FlightInformation] = []
 
     for idx in 0...15 {
       // swiftlint:disable:next force_unwrapping
