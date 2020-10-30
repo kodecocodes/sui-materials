@@ -45,11 +45,14 @@ struct WelcomeView: View {
           .aspectRatio(contentMode: .fill)
           .frame(height: 250)
         VStack(alignment: .leading) {
-          NavigationLink(
-            // swiftlint:disable:next force_unwrapping
-            destination: FlightDetails(flight: flightInfo.flights.first!),
-            isActive: $showNextFlight
-          ) { }
+          if
+            let id = lastFlightInfo.lastFlightId,
+            let lastFlight = flightInfo.getFlightById(id) {
+            NavigationLink(
+              destination: FlightDetails(flight: lastFlight),
+              isActive: $showNextFlight
+            ) { }
+          }
           NavigationLink(
             destination: FlightStatusBoard(
               flights: flightInfo.getDaysFlights(Date()))
@@ -72,7 +75,6 @@ struct WelcomeView: View {
             let id = lastFlightInfo.lastFlightId,
             let lastFlight = flightInfo.getFlightById(id) {
             // swiftlint:disable multiple_closures_with_trailing_closure
-            // swiftlint:disable:next multiline_arguments
             Button(action: {
               showNextFlight = true
             }) {
