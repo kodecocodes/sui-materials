@@ -54,16 +54,16 @@ struct ContentView: View {
       ColorSlider(value: $guess.green, trackColor: .green)
       ColorSlider(value: $guess.blue, trackColor: .blue)
       Button("Hit Me!") {
-        self.showScore = true
-        self.game.check(guess: guess)
+        showScore = true
+        game.check(guess: guess)
       }
       .alert(isPresented: $showScore) {
         Alert(
           title: Text("Your Score"),
           message: Text(String(game.scoreRound)),
           dismissButton: .default(Text("OK")) {
-            self.game.startNewRound()
-            self.guess = RGB()
+            game.startNewRound()
+            guess = RGB()
           })
       }
     }
@@ -87,6 +87,7 @@ struct ColorCircle: View {
 struct ColorSlider: View {
   @Binding var value: Double
   var trackColor: Color
+
   var body: some View {
     HStack {
       Text("0")
