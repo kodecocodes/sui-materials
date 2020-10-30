@@ -58,45 +58,28 @@ struct WelcomeView: View {
               destination: FlightStatusBoard(
                 flights: flightInfo.getDaysFlights(Date()))
             ) {
-              WelcomeButtonView(
-                title: "Flight Status",
-                subTitle: "Departure and arrival information",
-                imageName: "airplane",
-                imageAngle: -45.0
-              )
+              FlightStatusButton()
             }
             NavigationLink(
               destination: SearchFlights(
                 flightData: flightInfo.flights
               )
             ) {
-              WelcomeButtonView(
-                title: "Search Flights",
-                subTitle: "Search upcoming flights",
-                imageName: "magnifyingglass"
-              )
+              SearchFlightsButton()
             }
             NavigationLink(
               destination: AwardsView()
             ) {
-              WelcomeButtonView(
-                title: "Your Awards",
-                subTitle: "Earn rewards for your airport interactions",
-                imageName: "star")
+              AwardsButton()
             }
             if
               let id = appEnvironment.lastFlightId,
               let lastFlight = flightInfo.getFlightById(id) {
               // swiftlint:disable multiple_closures_with_trailing_closure
-              // swiftlint:disable:next multiline_arguments
               Button(action: {
                 showNextFlight = true
               }) {
-                WelcomeButtonView(
-                  title: "Last Viewed Flight",
-                  subTitle: lastFlight.flightName,
-                  imageName: "suit.heart.fill"
-                )
+                LastViewedButton(name: lastFlight.flightName)
               }
               // swiftlint:enable multiple_closures_with_trailing_closure
             }
