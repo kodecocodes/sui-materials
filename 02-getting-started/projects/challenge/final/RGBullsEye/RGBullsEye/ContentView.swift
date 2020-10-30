@@ -78,9 +78,10 @@ struct ContentView_Previews: PreviewProvider {
 
 struct ColorCircle: View {
   let rgb: RGB
+
   var body: some View {
     Circle()
-      .fill(Color(red: rgb.red, green: rgb.green, blue: rgb.blue))
+      .fill(Color(rgbStruct: rgb))
   }
 }
 
