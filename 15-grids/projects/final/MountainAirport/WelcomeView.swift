@@ -59,36 +59,10 @@ struct WelcomeView: View {
               GridItem(.fixed(160))
             ], spacing: 15
           ) {
-            NavigationLink(
-              destination: FlightStatusBoard(
-                flights: flightInfo.getDaysFlights(Date()))
-            ) {
-              FlightStatusButton()
-            }
-            NavigationLink(
-              destination: SearchFlights(
-                flightData: flightInfo.flights
-              )
-            ) {
-              SearchFlightsButton()
-            }
-            NavigationLink(
-              destination: AwardsView()
-            ) {
-              AwardsButton()
-            }
-            if
-              let id = appEnvironment.lastFlightId,
-              let lastFlight = flightInfo.getFlightById(id) {
-              // swiftlint:disable multiple_closures_with_trailing_closure
-              Button(action: {
-                showNextFlight = true
-              }) {
-                LastViewedButton(name: lastFlight.flightName)
-              }
-              // swiftlint:enable multiple_closures_with_trailing_closure
-            }
-            Spacer()
+            FlightStatusButton(flightInfo: flightInfo)
+            SearchFlightsButton(flightInfo: flightInfo)
+            AwardsButton()
+            LastViewedButton(flightInfo: flightInfo, appEnvironment: appEnvironment, showNextFlight: $showNextFlight)
           }.font(.title)
           .foregroundColor(.white)
           .padding()
