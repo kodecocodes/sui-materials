@@ -44,11 +44,14 @@ struct WelcomeView: View {
           .resizable()
           .aspectRatio(contentMode: .fill)
           .frame(height: 250)
-        NavigationLink(
-          // swiftlint:disable:next force_unwrapping
-          destination: FlightDetails(flight: flightInfo.flights.first!),
-          isActive: $showNextFlight
-        ) { }
+        if
+          let id = appEnvironment.lastFlightId,
+          let lastFlight = flightInfo.getFlightById(id) {
+          NavigationLink(
+            destination: FlightDetails(flight: lastFlight),
+            isActive: $showNextFlight
+          ) { }
+        }
         ScrollView {
           VStack {
             NavigationLink(
