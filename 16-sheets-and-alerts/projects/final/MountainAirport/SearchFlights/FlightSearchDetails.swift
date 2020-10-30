@@ -53,15 +53,11 @@ struct FlightSearchDetails: View {
             self.showModal = false
           }
         }
-        // 1
         if flight.status == .canceled {
-          // 2
           Button("Rebook Flight") {
             rebookAlert = true
           }
-          // 3
           .alert(isPresented: $rebookAlert) {
-            // 4
             Alert(
               title: Text("Contact Your Airline"),
               message: Text(
@@ -70,32 +66,24 @@ struct FlightSearchDetails: View {
             )
           }
         }
-        // 1
         if flight.isCheckInAvailable {
           Button("Check In for Flight") {
-            // 2
             self.checkInFlight =
               CheckInInfo(
                 airline: self.flight.airline,
                 flight: self.flight.number
               )
           }
-          // 3
           .actionSheet(item: $checkInFlight) { flight in
-            // 4
             ActionSheet(
               title: Text("Check In"),
               message: Text("Check in for \(flight.airline)" +
                 "Flight \(flight.flight)"),
-              // 5
               buttons: [
-                // 6
                 .cancel(Text("Not Now")),
-                // 7
                 .destructive(Text("Reschedule"), action: {
                   print("Reschedule flight.")
                 }),
-                // 8
                 .default(Text("Check In"), action: {
                   print(
                     "Check-in for \(flight.airline) \(flight.flight)."

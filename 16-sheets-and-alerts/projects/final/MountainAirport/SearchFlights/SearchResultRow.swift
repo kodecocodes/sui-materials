@@ -37,21 +37,16 @@ struct SearchResultRow: View {
   @State private var isPresented = false
 
   var body: some View {
-    // 1
     Button(action: {
       isPresented.toggle()
     }, label: {
       FlightSearchSummary(flight: flight)
     })
-    // 2
     .sheet(
-      // 3
       isPresented: $isPresented,
-      // 4
       onDismiss: {
         print("Modal dismissed. State now: \(self.isPresented)")
       },
-      // 5
       content: {
         FlightSearchDetails(
           flight: flight,

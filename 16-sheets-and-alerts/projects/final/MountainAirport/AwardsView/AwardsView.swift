@@ -33,19 +33,15 @@
 import SwiftUI
 
 struct AwardGrid: View {
-  // 1
   var title: String
   var awards: [AwardInformation]
 
   var body: some View {
-    // 2
     Section(
-      // 3
       header: Text(title)
         .font(.title)
         .foregroundColor(.white)
     ) {
-      // 4
       ForEach(awards, id: \.self) { award in
         NavigationLink(destination: AwardDetails(award: award)) {
           AwardCardView(award: award)
