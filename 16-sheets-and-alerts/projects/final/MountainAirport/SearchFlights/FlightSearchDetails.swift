@@ -35,7 +35,7 @@ import SwiftUI
 struct FlightSearchDetails: View {
   var flight: FlightInformation
   @Binding var showModal: Bool
-  @State private var rebookAlert: Bool = false
+  @State private var rebookAlert = false
   @State private var checkInFlight: CheckInInfo?
   @State private var showFlightHistory = false
   @EnvironmentObject var lastFlightInfo: AppEnvironment
