@@ -28,21 +28,26 @@
 
 import SwiftUI
 
-struct AwardsButton: View {
+struct SearchFlightsButton: View {
+  @ObservedObject var flightInfo: FlightData
+
   var body: some View {
     NavigationLink(
-      destination: AwardsView()
+      destination: SearchFlights(
+        flightData: flightInfo.flights
+      )
     ) {
       WelcomeButtonView(
-        title: "Your Awards",
-        subTitle: "Earn rewards for your airport interactions",
-        imageName: "star")
+        title: "Search Flights",
+        subTitle: "Search upcoming flights",
+        imageName: "magnifyingglass"
+      )
     }
   }
 }
 
-struct AwardsButton_Previews: PreviewProvider {
+struct SearchFlightsButton_Previews: PreviewProvider {
   static var previews: some View {
-    AwardsButton()
+    SearchFlightsButton(flightInfo: FlightData())
   }
 }

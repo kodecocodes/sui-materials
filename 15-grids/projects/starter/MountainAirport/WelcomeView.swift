@@ -62,7 +62,6 @@ struct WelcomeView: View {
               appEnvironment: appEnvironment,
               showNextFlight: $showNextFlight
             )
-            Spacer()
           }.font(.title)
           .foregroundColor(.white)
           .padding()
