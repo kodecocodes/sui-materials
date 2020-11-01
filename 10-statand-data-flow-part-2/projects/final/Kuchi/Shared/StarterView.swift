@@ -41,7 +41,7 @@ struct StarterView: View {
       WelcomeView()
     } else {
       #if os(iOS)
-      RegisterView(keyboardHandler: KeyboardFollower())
+      RegisterView()
       #endif
       
       #if os(macOS)
