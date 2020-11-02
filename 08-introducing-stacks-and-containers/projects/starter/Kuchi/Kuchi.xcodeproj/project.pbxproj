@@ -130,13 +130,6 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
-		57578F9924E9D943003465A4 /* Learn */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Learn;
-			sourceTree = "<group>";
-		};
 		57578FA924E9D943003465A4 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -169,13 +162,6 @@
 			path = Practice;
 			sourceTree = "<group>";
 		};
-		57B3CA442536553D00888D62 /* Utils */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Utils;
-			sourceTree = "<group>";
-		};
 		57B3CA462536553D00888D62 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
@@ -184,13 +170,6 @@
 				5758869925365A00006AD39D /* UserManager.swift */,
 			);
 			path = Profile;
-			sourceTree = "<group>";
-		};
-		57B3CA482536553D00888D62 /* Settings */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Settings;
 			sourceTree = "<group>";
 		};
 		57B3CA58253655AF00888D62 /* Utils */ = {
@@ -218,12 +197,9 @@
 				573A71FF253A5FE500B8D1BE /* StarterView.swift */,
 				57578FA724E9D943003465A4 /* HomeView.swift */,
 				57EF340024E89F91004ABEB2 /* KuchiApp.swift */,
-				57578F9924E9D943003465A4 /* Learn */,
 				57578FB124E9D943003465A4 /* Practice */,
 				57B3CA462536553D00888D62 /* Profile */,
 				57578FA924E9D943003465A4 /* Resources */,
-				57B3CA482536553D00888D62 /* Settings */,
-				57B3CA442536553D00888D62 /* Utils */,
 				57578F9024E9D943003465A4 /* Welcome */,
 			);
 			path = Shared;
