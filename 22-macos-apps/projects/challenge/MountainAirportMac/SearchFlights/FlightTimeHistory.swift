@@ -35,50 +35,6 @@ import SwiftUI
 struct FlightTimeHistory: View {
   var flight: FlightInformation
 
-  //1
-  let minuteRange = CGFloat(75)
-
-  // 2
-  func minuteLength(_ minutes: Int, proxy: GeometryProxy) -> CGFloat {
-    // 3
-    let pointsPerMinute = proxy.size.width / minuteRange
-    // 4
-    return CGFloat(abs(minutes)) * pointsPerMinute
-  }
-
-  func minuteOffset(_ minutes: Int, proxy: GeometryProxy) -> CGFloat {
-    let pointsPerMinute = proxy.size.width / minuteRange
-    let offset = minutes < 0 ? 15 + minutes : 15
-    return CGFloat(offset) * pointsPerMinute
-  }
-
-  func chartGradient(_ history: FlightHistory) -> Gradient {
-    if history.status == .canceled {
-      return Gradient(
-        colors: [
-          Color.green,
-          Color.yellow,
-          Color.red,
-          Color(red: 0.5, green: 0, blue: 0)
-        ]
-      )
-    }
-
-    if history.timeDifference <= 0 {
-      return Gradient(colors: [Color.green])
-    }
-    if history.timeDifference <= 15 {
-      return Gradient(colors: [Color.green, Color.yellow])
-    }
-    return Gradient(colors: [Color.green, Color.yellow, Color.red])
-  }
-
-  func minuteLocation(_ minutes: Int, proxy: GeometryProxy) -> CGFloat {
-    let minMinutes = -15
-    let pointsPerMinute = proxy.size.width / minuteRange
-    let offset = CGFloat(minutes - minMinutes) * pointsPerMinute
-    return offset
-  }
 
   var body: some View {
     ZStack {
@@ -87,48 +43,11 @@ struct FlightTimeHistory: View {
         .aspectRatio(contentMode: .fill)
       VStack {
         Text("On Time History for \(flight.statusBoardName)")
-          .font(.title3)
+          .font(.title2)
           .padding(.top, 30)
-        ScrollView {
-          ForEach(flight.history, id: \.day) { history in
-            HStack {
-              Text("\(history.day) day(s) ago")
-                .frame(width: 110, alignment: .trailing)
-              // 1
-              GeometryReader { proxy in
-                Rectangle()
-                  // 1
-                  .fill(
-                    // 2
-                    LinearGradient(
-                      gradient: chartGradient(history),
-                      // 3
-                      startPoint: .leading,
-                      endPoint: .trailing
-                    )
-                  )
-                  // 2
-                  .frame(width: minuteLength(history.timeDifference, proxy: proxy))
-                  .offset(x: minuteOffset(history.timeDifference, proxy: proxy))
-                // 1
-                ForEach(-1..<6) { val in
-                  Rectangle()
-                    // 2
-                    .stroke(val == 0 ? Color.white : Color.gray, lineWidth: 1.0)
-                    // 3
-                    .frame(width: 1)
-                    // 4
-                    .offset(x: minuteLocation(val * 10, proxy: proxy))
-                }
-              }
-              // 3
-            }
-            .padding()
-            .background(
-              Color.white.opacity(0.2)
+        DelayBarChart(
+          flight: FlightData.generateTestFlight(date: Date())
             )
-          }
-        }
         HistoryPieChart(flightHistory: flight.history)
           .font(.footnote)
           .frame(width: 250, height: 250)

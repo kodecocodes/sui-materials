@@ -32,8 +32,19 @@
 
 import SwiftUI
 
+extension AnyTransition {
+  static var flightTerminalMapTransition: AnyTransition {
+    let insertion = AnyTransition.move(edge: .trailing)
+      .combined(with: .opacity)
+    let removal = AnyTransition.scale(scale: 0.0)
+      .combined(with: .opacity)
+    return .asymmetric(insertion: insertion, removal: removal)
+  }
+}
+
 struct FlightInfoPanel: View {
   var flight: FlightInformation
+  @State private var showTerminal = false
 
   var timeFormatter: DateFormatter {
     let tdf = DateFormatter()
@@ -58,17 +69,46 @@ struct FlightInfoPanel: View {
           Text("Flying to \(flight.otherAirport)")
         }
         Text(flight.flightStatus) + Text(" (\(timeFormatter.string(from: flight.localTime)))")
-        if flight.gate.hasPrefix("A") {
-          Image("terminal-a-map")
-            .resizable()
-            .frame(maxWidth: .infinity)
-            .aspectRatio(contentMode: .fit)
-        } else {
-          Image("terminal-b-map")
-            .resizable()
-            .frame(maxWidth: .infinity)
-            .aspectRatio(contentMode: .fit)
+        Button(action: {
+          withAnimation {
+            showTerminal.toggle()
+          }
+        }, label: {
+          HStack(alignment: .center) {
+            Image(systemName: "airplane.circle")
+              .resizable()
+              .frame(width: 30, height: 30)
+              .padding(.trailing, 10)
+              .rotationEffect(.degrees(showTerminal ? 90 : 270))
+              .animation(
+                .spring(
+                  response: 0.55,
+                  dampingFraction: 0.45,
+                  blendDuration: 0
+                )
+              )
+            Spacer()
+            Text(showTerminal ? "Hide Terminal Map" : "Show Terminal Map")
+            Spacer()
+            Image(systemName: "airplane.circle")
+              .resizable()
+              .frame(width: 30, height: 30)
+              .padding(.trailing, 10)
+              .rotationEffect(.degrees(showTerminal ? 90 : 270))
+              .animation(
+                .spring(
+                  response: 0.55,
+                  dampingFraction: 0.45,
+                  blendDuration: 0
+                )
+              )
+          }
+        })
+        if showTerminal {
+          FlightTerminalMap(flight: flight)
+            .transition(.flightTerminalMapTransition)
         }
+        Spacer()
       }
     }
   }

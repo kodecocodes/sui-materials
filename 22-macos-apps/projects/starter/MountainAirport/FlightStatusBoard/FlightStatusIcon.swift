@@ -34,7 +34,7 @@ import SwiftUI
 
 struct FlightStatusIcon: View {
   var flight: FlightInformation
-  
+
   var body: some View {
     if flight.status == .canceled {
       Image(systemName: "nosign")
