@@ -77,17 +77,8 @@ struct FlightInfoPanel: View {
           }
         })
         if showTerminal {
-          if flight.gate.hasPrefix("A") {
-            Image("terminal-a-map")
-              .resizable()
-              .frame(maxWidth: .infinity)
-              .aspectRatio(contentMode: .fit)
-          } else {
-            Image("terminal-b-map")
-              .resizable()
-              .frame(maxWidth: .infinity)
-              .aspectRatio(contentMode: .fit)
-          }
+          FlightTerminalMap(flight: flight)
+            //.transition(.flightTerminalMapTransition)
         }
         Spacer()
       }

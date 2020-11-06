@@ -186,6 +186,15 @@ class FlightInformation: NSObject {
     Calendar.current.isDateInToday(localTime)
   }
 
+  var terminalName: String {
+    gate.hasPrefix("A") ? "A" : "B"
+  }
+
+  var gateNumber: Int? {
+    let gateNumberString = gate.dropFirst()
+    return Int(gateNumberString)
+  }
+
   init(
     recordId: Int,
     airline: String,

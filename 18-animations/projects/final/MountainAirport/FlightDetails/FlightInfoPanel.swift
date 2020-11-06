@@ -106,7 +106,7 @@ struct FlightInfoPanel: View {
         })
         if showTerminal {
           FlightTerminalMap(flight: flight)
-            .transition(.flightTerminalMapTransition)
+            //.transition(.flightTerminalMapTransition)
         }
         Spacer()
       }

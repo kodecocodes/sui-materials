@@ -32,29 +32,11 @@
 
 import SwiftUI
 
-struct AwardGrid: View {
-  var title: String
-  var awards: [AwardInformation]
-
-  var body: some View {
-    Section(
-      header: Text(title)
-        .font(.title)
-        .foregroundColor(.white)
-    ) {
-      ForEach(awards, id: \.self) { award in
-        NavigationLink(destination: AwardDetails(award: award)) {
-          AwardCardView(award: award)
-            .foregroundColor(.black)
-            .aspectRatio(0.67, contentMode: .fit)
-        }
-      }
-    }
-  }
-}
-
 struct AwardsView: View {
   @EnvironmentObject var flightNavigation: AppEnvironment
+  @State var selectedAward: AwardInformation?
+  @Namespace var cardNamespace
+
   var awardArray: [AwardInformation] {
     flightNavigation.awardList
   }
@@ -72,18 +54,45 @@ struct AwardsView: View {
   }
 
   var body: some View {
-    ScrollView {
-      LazyVGrid(columns: awardColumns, pinnedViews: .sectionHeaders) {
-        AwardGrid(
-          title: "Awarded",
-          awards: activeAwards
+    ZStack {
+      // 1
+      if let award = selectedAward {
+        // 2
+        AwardDetails(award: award)
+          .background(Color.white)
+          .shadow(radius: 5.0)
+          .clipShape(RoundedRectangle(cornerRadius: 20.0))
+          // 3
+          .onTapGesture {
+            withAnimation {
+              selectedAward = nil
+            }
+          }
+        .matchedGeometryEffect(
+          id: award.hashValue,
+          in: cardNamespace,
+          anchor: .topLeading
         )
-        AwardGrid(
-          title: "Not Awarded",
-          awards: inactiveAwards
-        )
+      } else {
+        ScrollView {
+          LazyVGrid(columns: awardColumns) {
+            AwardGrid(
+              title: "Awarded",
+              awards: activeAwards,
+              selected: $selectedAward,
+              namespace: cardNamespace
+            )
+            AwardGrid(
+              title: "Not Awarded",
+              awards: inactiveAwards,
+              selected: $selectedAward,
+              namespace: cardNamespace
+            )
+          }
+        }
       }
-    }.padding()
+    }
+    .padding()
     .background(
       Image("background-view")
         .resizable()

@@ -17,11 +17,7 @@
 /// or information technology.  Permission for such use, copying, modification,
 /// merger, publication, distribution, sublicensing, creation of derivative works,
 /// or sale is expressly withheld.
-///
-/// This project and source code may use libraries or frameworks that are
-/// released under various Open-Source licenses. Use of those libraries and
-/// frameworks are governed by their own individual licenses.
-///
+/// 
 /// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 /// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 /// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -32,51 +28,46 @@
 
 import SwiftUI
 
-struct AwardsView: View {
-  @EnvironmentObject var flightNavigation: AppEnvironment
-  var awardArray: [AwardInformation] {
-    flightNavigation.awardList
-  }
-
-  var activeAwards: [AwardInformation] {
-    awardArray.filter { $0.awarded }
-  }
-
-  var inactiveAwards: [AwardInformation] {
-    awardArray.filter { !$0.awarded }
-  }
-
-  var awardColumns: [GridItem] {
-    [GridItem(.adaptive(minimum: 150, maximum: 170))]
-  }
+struct AwardGrid: View {
+  var title: String
+  var awards: [AwardInformation]
+  @Binding var selected: AwardInformation?
+  var namespace: Namespace.ID
 
   var body: some View {
-    ScrollView {
-      LazyVGrid(columns: awardColumns, pinnedViews: .sectionHeaders) {
-        AwardGrid(
-          title: "Awarded",
-          awards: activeAwards
-        )
-        AwardGrid(
-          title: "Not Awarded",
-          awards: inactiveAwards
-        )
+    Section(
+      header: Text(title)
+        .font(.title)
+        .foregroundColor(.white)
+    ) {
+      ForEach(awards, id: \.self) { award in
+        AwardCardView(award: award)
+          .foregroundColor(.black)
+          .aspectRatio(0.67, contentMode: .fit)
+          .onTapGesture {
+            withAnimation {
+              selected = award
+            }
+          }
+          .matchedGeometryEffect(
+            id: award.hashValue,
+            in: namespace,
+            anchor: .topLeading
+          )
       }
-    }.padding()
-    .background(
-      Image("background-view")
-        .resizable()
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-    )
-    .navigationTitle("Your Awards")
+    }
   }
 }
 
-struct AwardsView_Previews: PreviewProvider {
+struct AwardGrid_Previews: PreviewProvider {
+  @Namespace static var namespace
+
   static var previews: some View {
-    NavigationView {
-      AwardsView()
-    }.navigationViewStyle(StackNavigationViewStyle())
-    .environmentObject(AppEnvironment())
+    AwardGrid(
+      title: "Test",
+      awards: AppEnvironment().awardList,
+      selected: .constant(nil),
+      namespace: namespace
+    )
   }
 }
