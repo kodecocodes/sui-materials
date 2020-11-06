@@ -53,6 +53,7 @@ struct ContentView: View {
             document.refreshHtml()
           }
       } else if previewState == .html {
+        // swiftlint:disable indentation_width
         ScrollView {
           Text(document.html)
             .frame(minWidth: 200)
@@ -70,6 +71,8 @@ struct ContentView: View {
            minHeight: 300,
            idealHeight: 400,
            maxHeight: .infinity)
+    // swiftlint:enable indentation_width
+
     .toolbar {
       // Challenge 1: export html with or without CSS
       ExportToolBarItems(exportCallback: exportHtml(withCSS:))

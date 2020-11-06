@@ -63,7 +63,7 @@ struct MacMarkDownDocument: FileDocument {
 
   init(configuration: ReadConfiguration) throws {
     guard let data = configuration.file.regularFileContents,
-          let string = String(data: data, encoding: .utf8)
+      let string = String(data: data, encoding: .utf8)
     else {
       throw CocoaError(.fileReadCorruptFile)
     }
@@ -80,6 +80,8 @@ struct MacMarkDownDocument: FileDocument {
 
 
 extension MacMarkDownDocument {
+  // swiftlint:disable indentation_width
+
   var completeHTML: String {
     return """
         <!DOCTYPE html>
@@ -118,4 +120,6 @@ extension MacMarkDownDocument {
         </html>
         """
   }
+
+  // swiftlint:enable indentation_width
 }

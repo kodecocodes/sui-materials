@@ -53,6 +53,7 @@ final class WebView: NSViewRepresentable {
       baseURL: Bundle.main.resourceURL)
   }
 
+  // swiftlint:disable indentation_width
   var formattedHtml: String {
     return """
         <html>
@@ -65,4 +66,5 @@ final class WebView: NSViewRepresentable {
         </html>
         """
   }
+  // swiftlint:enable indentation_width
 }

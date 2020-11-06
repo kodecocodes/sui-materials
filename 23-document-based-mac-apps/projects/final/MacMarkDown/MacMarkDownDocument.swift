@@ -61,7 +61,7 @@ struct MacMarkDownDocument: FileDocument {
 
   init(configuration: ReadConfiguration) throws {
     guard let data = configuration.file.regularFileContents,
-          let string = String(data: data, encoding: .utf8)
+      let string = String(data: data, encoding: .utf8)
     else {
       throw CocoaError(.fileReadCorruptFile)
     }
