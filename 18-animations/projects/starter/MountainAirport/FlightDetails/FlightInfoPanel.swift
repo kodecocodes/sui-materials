@@ -63,11 +63,11 @@ struct FlightInfoPanel: View {
           showTerminal.toggle()
         }, label: {
           HStack(alignment: .center) {
-            if showTerminal {
-              Text("Hide Terminal Map")
-            } else {
-              Text("Show Terminal Map")
-            }
+            Text(
+              showTerminal ?
+                "Hide Terminal Map" :
+                "Show Terminal Map"
+            )
             Spacer()
             Image(systemName: "airplane.circle")
               .resizable()
@@ -78,7 +78,6 @@ struct FlightInfoPanel: View {
         })
         if showTerminal {
           FlightTerminalMap(flight: flight)
-            //.transition(.flightTerminalMapTransition)
         }
         Spacer()
       }

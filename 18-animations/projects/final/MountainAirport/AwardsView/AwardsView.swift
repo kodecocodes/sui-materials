@@ -68,11 +68,11 @@ struct AwardsView: View {
               selectedAward = nil
             }
           }
-        .matchedGeometryEffect(
-          id: award.hashValue,
-          in: cardNamespace,
-          anchor: .topLeading
-        )
+          .matchedGeometryEffect(
+            id: award.hashValue,
+            in: cardNamespace,
+            anchor: .topLeading
+          )
       } else {
         ScrollView {
           LazyVGrid(columns: awardColumns) {
@@ -92,13 +92,6 @@ struct AwardsView: View {
         }
       }
     }
-    .padding()
-    .background(
-      Image("background-view")
-        .resizable()
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-    )
-    .navigationTitle("Your Awards")
   }
 }
 

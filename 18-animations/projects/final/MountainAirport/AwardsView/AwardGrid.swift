@@ -41,19 +41,21 @@ struct AwardGrid: View {
         .foregroundColor(.white)
     ) {
       ForEach(awards, id: \.self) { award in
-        AwardCardView(award: award)
-          .foregroundColor(.black)
-          .aspectRatio(0.67, contentMode: .fit)
-          .onTapGesture {
-            withAnimation {
-              selected = award
+        NavigationLink(destination: AwardDetails(award: award)) {
+          AwardCardView(award: award)
+            .foregroundColor(.black)
+            .aspectRatio(0.67, contentMode: .fit)
+            .onTapGesture {
+              withAnimation {
+                selected = award
+              }
             }
-          }
-          .matchedGeometryEffect(
-            id: award.hashValue,
-            in: namespace,
-            anchor: .topLeading
-          )
+            .matchedGeometryEffect(
+              id: award.hashValue,
+              in: namespace,
+              anchor: .topLeading
+            )
+        }
       }
     }
   }
