@@ -105,7 +105,6 @@ struct ContentView_Previews: PreviewProvider {
       ContentView(guess: RGB())
         .previewDevice("iPhone 12 Pro Max ")
     }
-      //.preferredColorScheme(.dark)
   }
 }
 
