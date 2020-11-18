@@ -49,11 +49,8 @@ class SwiftCalcUITests: XCTestCase {
 
     let memoryButton = app.buttons["M+"]
     memoryButton.tap()
-    // 1
     let display = app.staticTexts["display"]
-    // 2
     let displayText = display.label
-    // 3
     XCTAssert(displayText == "0")
   }
 
@@ -91,15 +88,12 @@ class SwiftCalcUITests: XCTestCase {
     memoryButton.tap()
 
     let memoryDisplay = app.staticTexts["memoryDisplay"]
-    // 1
     XCTAssert(memoryDisplay.exists)
-    // 2
     #if targetEnvironment(macCatalyst)
     memoryDisplay.doubleTap()
     #else
     memoryDisplay.swipeLeft()
     #endif
-    // 3
     XCTAssertFalse(memoryDisplay.exists)
   }
 
