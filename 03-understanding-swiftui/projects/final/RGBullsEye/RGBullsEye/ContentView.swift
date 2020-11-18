@@ -103,7 +103,7 @@ struct ContentView_Previews: PreviewProvider {
         .previewDevice("iPhone 8")
       ContentView(guess: RGB())
       ContentView(guess: RGB())
-        .previewDevice("iPhone 12 Pro Max ")
+        .previewDevice("iPhone 12 Pro Max")
     }
   }
 }
