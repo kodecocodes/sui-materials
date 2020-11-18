@@ -39,8 +39,6 @@ struct NeuButtonStyle: ButtonStyle {
   func makeBody(configuration: Self.Configuration)
   -> some View {
     configuration.label
-      //.foregroundColor(Color(UIColor.systemBlue))
-      // Move frame and background modifiers here
       .opacity(configuration.isPressed ? 0.2 : 1)
       .frame(width: width, height: height)
       .background(
