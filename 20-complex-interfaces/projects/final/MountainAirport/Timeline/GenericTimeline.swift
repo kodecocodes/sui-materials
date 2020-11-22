@@ -118,7 +118,9 @@ struct GenericTimeline<Content, T>: View where Content: View {
 struct GenericTimeline_Previews: PreviewProvider {
   static var previews: some View {
     GenericTimeline(
-      events: FlightData.generateTestFlights(date: Date()),
+      events: FlightData.generateTestFlights(
+        date: Date()
+      ),
       timeProperty: \.localTime
     ) { flight in
       FlightCardView(flight: flight)

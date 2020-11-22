@@ -108,9 +108,12 @@ struct FlightCardView: View {
         return 1.0
       } else {
         // 5
-        let timeInFlight = minutesBetween(flight.localTime, and: now)
+        let timeInFlight = minutesBetween(
+          flight.localTime, and: now
+        )
         // 6
-        let fraction = Double(timeInFlight) / Double(flight.flightTime)
+        let fraction =
+          Double(timeInFlight) / Double(flight.flightTime)
         // 7
         return CGFloat(fraction)
       }
@@ -120,8 +123,11 @@ struct FlightCardView: View {
       } else if flight.localTime < now {
         return 1.0
       } else {
-        let timeInFlight = minutesBetween(flight.otherEndTime, and: now)
-        let fraction = Double(timeInFlight) / Double(flight.flightTime)
+        let timeInFlight = minutesBetween(
+          flight.otherEndTime, and: now
+        )
+        let fraction =
+          Double(timeInFlight) / Double(flight.flightTime)
         return CGFloat(fraction)
       }
     }

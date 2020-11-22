@@ -88,8 +88,14 @@ struct FlightMapView: UIViewRepresentable {
   }
 
   func updateUIView(_ view: MKMapView, context: Context) {
-    let startOverlay = MKCircle(center: startCoordinate, radius: 10000.0)
-    let endOverlay = MKCircle(center: endCoordinate, radius: 10000.0)
+    let startOverlay = MKCircle(
+      center: startCoordinate,
+      radius: 10000.0
+    )
+    let endOverlay = MKCircle(
+      center: endCoordinate,
+      radius: 10000.0
+    )
     let flightPath = MKGeodesicPolyline(
       coordinates: [startCoordinate, endCoordinate],
       count: 2
