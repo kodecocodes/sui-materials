@@ -29,7 +29,7 @@
 import SwiftUI
 
 @main
-struct MountainAirport: App {
+struct SwiftCalc: App {
   var body: some Scene {
     WindowGroup {
       SwiftCalcView()
