@@ -1,0 +1,11 @@
+[
+    { "original": "はい", "pronunciation": "hai", "translation": "yes" },
+    { "original": "いいえ", "pronunciation": "iie", "translation": "no" },
+    { "original": "おねがい　します", "pronunciation": "onegai shimasu", "translation": "please" },
+    { "original": "こんにちわ", "pronunciation": "konnichiwa", "translation": "hello" },
+    { "original": "はじめまして", "pronunciation": "hajimemashite", "translation": "nice to meet you" },
+    { "original": "もしもし", "pronunciation": "moshi moshi", "translation": "hello" },
+    { "original": "すみません", "pronunciation": "sumimasen", "translation": "excuse me" },
+    { "original": "ありがとう", "pronunciation": "Arigatō", "translation": "thank you" },
+    { "original": "ごめんなさい", "pronunciation": "gomenasai", "translation": "sorry" }
+]
