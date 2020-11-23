@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		409132982455428600B8614B /* Game in Frameworks */ = {isa = PBXBuildFile; productRef = 409132972455428600B8614B /* Game */; };
 		4091329A2455429300B8614B /* Game in Frameworks */ = {isa = PBXBuildFile; productRef = 409132992455429300B8614B /* Game */; };
 		CDC75D572306557C008B12CC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC75D562306557C008B12CC /* AppDelegate.swift */; };
 		CDC75D592306557C008B12CC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC75D582306557C008B12CC /* SceneDelegate.swift */; };
@@ -96,7 +95,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				409132982455428600B8614B /* Game in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -212,7 +210,6 @@
 			);
 			name = BullsEyePlus;
 			packageProductDependencies = (
-				409132972455428600B8614B /* Game */,
 			);
 			productName = BullsEyePlus;
 			productReference = CDC75D532306557C008B12CC /* BullsEyePlus.app */;
@@ -665,10 +662,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		409132972455428600B8614B /* Game */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = Game;
-		};
 		409132992455429300B8614B /* Game */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Game;
