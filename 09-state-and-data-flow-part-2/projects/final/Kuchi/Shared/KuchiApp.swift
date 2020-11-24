@@ -35,8 +35,7 @@ import SwiftUI
 @main
 struct KuchiApp: App {
   let userManager = UserManager()
-  
-<<<<<<< HEAD:10-statand-data-flow-part-2/projects/final/Kuchi/Shared/KuchiApp.swift
+
   init() {
     userManager.load()
   }
@@ -46,20 +45,6 @@ struct KuchiApp: App {
       StarterView()
         .environmentObject(userManager)
         .environmentObject(ChallengesViewModel())
-=======
-  @ViewBuilder
-  var body: some View {
-    if self.userViewModel.isRegistered {
-      WelcomeView()
-    } else {
-      #if os(iOS)
-      RegisterView(keyboardHandler: KeyboardFollower())
-      #endif
-      
-      #if os(macOS)
-      RegisterView()
-      #endif
->>>>>>> editions/3.0:08-state-and-data-flow-part-1/projects/starter/Kuchi/Shared/StarterView.swift
     }
   }
 }
