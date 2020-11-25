@@ -34,9 +34,9 @@ import SwiftUI
 
 struct ChallengeView: View {
   let challengeTest: ChallengeTest
-  
+
   @State var showAnswers = false
-  
+
   var body: some View {
     VStack {
       Button(action: {
@@ -47,7 +47,7 @@ struct ChallengeView: View {
       }
 
       ScoreView(numberOfQuestions: 5)
-      
+
       if showAnswers {
         Divider()
         ChoicesView(challengeTest: challengeTest)
@@ -69,7 +69,7 @@ struct ChallengeView_Previews: PreviewProvider {
     ),
     answers: ["Thank you", "Hello", "Goodbye"]
   )
-  
+
   static var previews: some View {
     // 2
     return ChallengeView(challengeTest: challengeTest)
