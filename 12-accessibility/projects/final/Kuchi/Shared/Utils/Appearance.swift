@@ -32,40 +32,23 @@
 
 import SwiftUI
 
-struct WelcomeView: View {
-  @EnvironmentObject var userManager: UserManager
-  @State var showPractice = false
+enum Appearance: Int, CaseIterable, Identifiable {
+  case light, dark, automatic
+  var id: Int { self.rawValue }
+  var name: String {
+    switch self {
+    case .light: return "Light"
+    case .dark: return "Dark"
+    case .automatic: return "Automatic"
+    }
+  }
   
-  @ViewBuilder
-  var body: some View {
-    if showPractice {
-      HomeView()
-    } else {
-      ZStack {
-        WelcomeBackgroundImage()
-        
-        VStack {
-          Text(verbatim: "Hi, \(userManager.profile.name)")
-          
-          WelcomeMessageView()
-          
-          Button(action: {
-            self.showPractice = true
-          }, label: {
-            HStack {
-              Image(systemName: "play")
-              Text(verbatim: "Start")
-            }
-          })
-        }
-      }
+  func getColorScheme() -> ColorScheme? {
+    switch self {
+    case .automatic: return nil
+    case .light: return .light
+    case .dark: return .dark
     }
   }
 }
 
-struct WelcomeView_Previews: PreviewProvider {
-  static var previews: some View {
-    WelcomeView()
-      .environmentObject(UserManager())
-  }
-}

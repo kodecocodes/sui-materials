@@ -17,7 +17,7 @@
 /// or information technology.  Permission for such use, copying, modification,
 /// merger, publication, distribution, sublicensing, creation of derivative works,
 /// or sale is expressly withheld.
-/// 
+///
 /// This project and source code may use libraries or frameworks that are
 /// released under various Open-Source licenses. Use of those libraries and
 /// frameworks are governed by their own individual licenses.
@@ -32,40 +32,65 @@
 
 import SwiftUI
 
-struct WelcomeView: View {
-  @EnvironmentObject var userManager: UserManager
-  @State var showPractice = false
-  
-  @ViewBuilder
-  var body: some View {
-    if showPractice {
-      HomeView()
-    } else {
-      ZStack {
-        WelcomeBackgroundImage()
-        
-        VStack {
-          Text(verbatim: "Hi, \(userManager.profile.name)")
-          
-          WelcomeMessageView()
-          
-          Button(action: {
-            self.showPractice = true
-          }, label: {
-            HStack {
-              Image(systemName: "play")
-              Text(verbatim: "Start")
-            }
-          })
-        }
-      }
-    }
-  }
-}
+class AppEnvironment: ObservableObject {
+  @Published var lastFlightId: Int?
+  @Published var awardList: [AwardInformation] = []
 
-struct WelcomeView_Previews: PreviewProvider {
-  static var previews: some View {
-    WelcomeView()
-      .environmentObject(UserManager())
-  }
-}
+  init() {
+    awardList.append(
+      AwardInformation(
+        imageName: "first-visit-award",
+        title: "First Visit",
+        description: "Awarded the first time you open the app while at the airport.",
+        awarded: true
+      )
+    )
+    awardList.append(
+      AwardInformation(
+        imageName: "overnight-award",
+        title: "Left Car Overnight",
+        description: "You left you car parked overnight in one of our parking lots.",
+        awarded: true
+      )
+    )
+    awardList.append(
+      AwardInformation(
+        imageName: "meal-award",
+        title: "Meal at Airport",
+        description: "You used the app to receive a discount at one of our restaurants.",
+        awarded: false
+      )
+    )
+    awardList.append(
+      AwardInformation(
+        imageName: "first-flight-award",
+        title: "First Flight",
+        description: "You checked in for a flight using the app for the first time.",
+        awarded: true
+      )
+    )
+    awardList.append(
+      AwardInformation(
+        imageName: "shopping-award",
+        title: "Almost Duty Free",
+        description: "You used the app to receive a discount at one of our vendors.",
+        awarded: true
+      )
+    )
+    awardList.append(
+      AwardInformation(
+        imageName: "rainy-day-award",
+        title: "Rainy Day",
+        description: "You flight was delayed because of weather.",
+        awarded: false
+      )
+    )
+    awardList.append(
+      AwardInformation(
+        imageName: "return-home-award",
+        title: "Welcome Home",
+        description: "Your returned to the airport after leaving from it.",
+        awarded: true
+      )
+    )
+  }}

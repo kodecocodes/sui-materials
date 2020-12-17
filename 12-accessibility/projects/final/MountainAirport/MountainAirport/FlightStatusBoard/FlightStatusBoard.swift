@@ -17,7 +17,7 @@
 /// or information technology.  Permission for such use, copying, modification,
 /// merger, publication, distribution, sublicensing, creation of derivative works,
 /// or sale is expressly withheld.
-/// 
+///
 /// This project and source code may use libraries or frameworks that are
 /// released under various Open-Source licenses. Use of those libraries and
 /// frameworks are governed by their own individual licenses.
@@ -32,40 +32,58 @@
 
 import SwiftUI
 
-struct WelcomeView: View {
-  @EnvironmentObject var userManager: UserManager
-  @State var showPractice = false
-  
-  @ViewBuilder
+struct FlightStatusBoard: View {
+  var flights: [FlightInformation]
+  @State private var hidePast = false
+  @AppStorage("FlightStatusCurrentTab") var selectedTab = 1
+
+  var shownFlights: [FlightInformation] {
+    hidePast ?
+      flights.filter { $0.localTime >= Date() } :
+      flights
+  }
+
   var body: some View {
-    if showPractice {
-      HomeView()
-    } else {
-      ZStack {
-        WelcomeBackgroundImage()
-        
-        VStack {
-          Text(verbatim: "Hi, \(userManager.profile.name)")
-          
-          WelcomeMessageView()
-          
-          Button(action: {
-            self.showPractice = true
-          }, label: {
-            HStack {
-              Image(systemName: "play")
-              Text(verbatim: "Start")
-            }
-          })
-        }
+    TabView(selection: $selectedTab) {
+      FlightList(
+        flights: shownFlights.filter { $0.direction == .arrival }
+      ).tabItem {
+        Image("descending-airplane")
+          .resizable()
+        Text("Arrivals")
       }
-    }
+      .tag(0)
+      FlightList(
+        flights: shownFlights
+      ).tabItem {
+        Image(systemName: "airplane")
+          .resizable()
+        Text("All")
+      }
+      .tag(1)
+      FlightList(
+        flights: shownFlights.filter { $0.direction == .departure }
+      ).tabItem {
+        Image("ascending-airplane")
+        Text("Departures")
+      }
+      .tag(2)
+    }.navigationTitle("Flight Status")
+    .navigationBarItems(
+      trailing: Toggle(
+        "Hide Past",
+        isOn: $hidePast
+      )
+    )
   }
 }
 
-struct WelcomeView_Previews: PreviewProvider {
+struct FlightStatusBoard_Previews: PreviewProvider {
   static var previews: some View {
-    WelcomeView()
-      .environmentObject(UserManager())
+    NavigationView {
+      FlightStatusBoard(
+        flights: FlightData.generateTestFlights(date: Date())
+      )
+    }
   }
 }

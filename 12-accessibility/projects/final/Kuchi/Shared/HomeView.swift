@@ -32,40 +32,54 @@
 
 import SwiftUI
 
-struct WelcomeView: View {
+struct HomeView: View {
   @EnvironmentObject var userManager: UserManager
-  @State var showPractice = false
+  @EnvironmentObject var challengesViewModel: ChallengesViewModel
+  @AppStorage("learningEnabled") var learningEnabled: Bool = true
   
-  @ViewBuilder
   var body: some View {
-    if showPractice {
-      HomeView()
-    } else {
-      ZStack {
-        WelcomeBackgroundImage()
-        
-        VStack {
-          Text(verbatim: "Hi, \(userManager.profile.name)")
-          
-          WelcomeMessageView()
-          
-          Button(action: {
-            self.showPractice = true
-          }, label: {
-            HStack {
-              Image(systemName: "play")
-              Text(verbatim: "Start")
+    TabView {
+      if learningEnabled {
+        LearnView()
+          .tabItem({
+            VStack {
+              Image(systemName: "bookmark")
+              Text("Learn")
             }
           })
-        }
+          .tag(0)
       }
+      
+      PracticeView(
+        challengeTest: $challengesViewModel.currentChallenge,
+        userName: $userManager.profile.name,
+        numberOfAnswered: .constant(challengesViewModel.numberOfAnswered)
+      )
+      .tabItem({
+        VStack {
+          Image(systemName: "rectangle.dock")
+          Text("Challenge")
+        }
+      })
+      .tag(1)
+
+      SettingsView()
+        .tabItem({
+          VStack {
+            Image(systemName: "gear")
+            Text("Settings")
+          }
+        })
+        .tag(2)
     }
+    .accentColor(.orange)
   }
 }
 
-struct WelcomeView_Previews: PreviewProvider {
+struct HomeView_Previews: PreviewProvider {
   static var previews: some View {
-    WelcomeView()
+    HomeView()
       .environmentObject(UserManager())
+      .environmentObject(ChallengesViewModel())    
   }
 }

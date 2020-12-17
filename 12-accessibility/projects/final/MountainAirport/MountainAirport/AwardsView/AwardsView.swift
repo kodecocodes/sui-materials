@@ -17,7 +17,7 @@
 /// or information technology.  Permission for such use, copying, modification,
 /// merger, publication, distribution, sublicensing, creation of derivative works,
 /// or sale is expressly withheld.
-/// 
+///
 /// This project and source code may use libraries or frameworks that are
 /// released under various Open-Source licenses. Use of those libraries and
 /// frameworks are governed by their own individual licenses.
@@ -32,40 +32,74 @@
 
 import SwiftUI
 
-struct WelcomeView: View {
-  @EnvironmentObject var userManager: UserManager
-  @State var showPractice = false
-  
-  @ViewBuilder
+struct AwardsView: View {
+  @EnvironmentObject var flightNavigation: AppEnvironment
+  @State var selectedAward: AwardInformation?
+  @Namespace var cardNamespace
+
+  var awardArray: [AwardInformation] {
+    flightNavigation.awardList
+  }
+
+  var activeAwards: [AwardInformation] {
+    awardArray.filter { $0.awarded }
+  }
+
+  var inactiveAwards: [AwardInformation] {
+    awardArray.filter { !$0.awarded }
+  }
+
+  var awardColumns: [GridItem] {
+    [GridItem(.adaptive(minimum: 150, maximum: 170))]
+  }
+
   var body: some View {
-    if showPractice {
-      HomeView()
-    } else {
-      ZStack {
-        WelcomeBackgroundImage()
-        
-        VStack {
-          Text(verbatim: "Hi, \(userManager.profile.name)")
-          
-          WelcomeMessageView()
-          
-          Button(action: {
-            self.showPractice = true
-          }, label: {
-            HStack {
-              Image(systemName: "play")
-              Text(verbatim: "Start")
+    ZStack {
+      // 1
+      if let award = selectedAward {
+        // 2
+        AwardDetails(award: award)
+          .background(Color.white)
+          .shadow(radius: 5.0)
+          .clipShape(RoundedRectangle(cornerRadius: 20.0))
+          // 3
+          .onTapGesture {
+            withAnimation {
+              selectedAward = nil
             }
-          })
+          }
+          .matchedGeometryEffect(
+            id: award.hashValue,
+            in: cardNamespace,
+            anchor: .topLeading
+          )
+      } else {
+        ScrollView {
+          LazyVGrid(columns: awardColumns) {
+            AwardGrid(
+              title: "Awarded",
+              awards: activeAwards,
+              selected: $selectedAward,
+              namespace: cardNamespace
+            )
+            AwardGrid(
+              title: "Not Awarded",
+              awards: inactiveAwards,
+              selected: $selectedAward,
+              namespace: cardNamespace
+            )
+          }
         }
       }
     }
   }
 }
 
-struct WelcomeView_Previews: PreviewProvider {
+struct AwardsView_Previews: PreviewProvider {
   static var previews: some View {
-    WelcomeView()
-      .environmentObject(UserManager())
+    NavigationView {
+      AwardsView()
+    }.navigationViewStyle(StackNavigationViewStyle())
+    .environmentObject(AppEnvironment())
   }
 }

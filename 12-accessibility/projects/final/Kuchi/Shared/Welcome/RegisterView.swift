@@ -32,40 +32,85 @@
 
 import SwiftUI
 
-struct WelcomeView: View {
+struct RegisterView: View {
   @EnvironmentObject var userManager: UserManager
-  @State var showPractice = false
-  
-  @ViewBuilder
+  @StateObject var keyboardHandler = KeyboardFollower()
+
   var body: some View {
-    if showPractice {
-      HomeView()
-    } else {
-      ZStack {
-        WelcomeBackgroundImage()
-        
-        VStack {
-          Text(verbatim: "Hi, \(userManager.profile.name)")
-          
-          WelcomeMessageView()
-          
-          Button(action: {
-            self.showPractice = true
-          }, label: {
-            HStack {
-              Image(systemName: "play")
-              Text(verbatim: "Start")
-            }
-          })
+    VStack {
+      Spacer()
+
+      WelcomeMessageView()
+
+      TextField("Type your name...", text: $userManager.profile.name)
+        .bordered()
+
+      HStack {
+        Spacer()
+        Text("\(userManager.profile.name.count)")
+          //.accessibilityHint(Text("letters in name"))
+          //.accessibilityInputLabels([(Text("letters in name"))])
+          .font(.caption)
+          .foregroundColor(
+            userManager.isUserNameValid() ? .green : .red)
+          .padding(.trailing)
+      }
+      .padding(.bottom)
+
+      HStack {
+        Spacer()
+
+        Toggle(isOn: $userManager.settings.rememberUser) {
+          Text("Remember me")
+            .font(.subheadline)
+            .foregroundColor(.gray)
+        }
+        .fixedSize()
+        .accessibilityValue(userManager.settings.rememberUser ? "on" : "off")
+      }
+
+      Button(action: self.registerUser) {
+        HStack {
+          Image(systemName: "checkmark")
+            .resizable()
+            .frame(width: 16, height: 16, alignment: .center)
+          Text("OK")
+            .font(.body)
+            .bold()
         }
       }
+      .bordered()
+      .disabled(!userManager.isUserNameValid())
+      .accessibilityValue(userManager.isUserNameValid() ? "enabled" : "disabled")
+
+      Spacer()
     }
+    .padding(.bottom, keyboardHandler.keyboardHeight)
+    .edgesIgnoringSafeArea(keyboardHandler.isVisible ? .bottom : [])
+    .padding()
+    .background(WelcomeBackgroundImage())
   }
 }
 
-struct WelcomeView_Previews: PreviewProvider {
+// MARK: - Event Handlers
+extension RegisterView {
+  func registerUser() {
+    if userManager.settings.rememberUser {
+      userManager.persistProfile()
+    } else {
+      userManager.clear()
+    }
+
+    userManager.persistSettings()
+    userManager.setRegistered()
+  }
+}
+
+struct RegisterView_Previews: PreviewProvider {
+  static let user = UserManager(name: "Ray")
+
   static var previews: some View {
-    WelcomeView()
-      .environmentObject(UserManager())
+    RegisterView(keyboardHandler: KeyboardFollower())
+      .environmentObject(user)
   }
 }

@@ -30,42 +30,19 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
+import Foundation
 import SwiftUI
 
-struct WelcomeView: View {
-  @EnvironmentObject var userManager: UserManager
-  @State var showPractice = false
-  
-  @ViewBuilder
-  var body: some View {
-    if showPractice {
-      HomeView()
-    } else {
-      ZStack {
-        WelcomeBackgroundImage()
-        
-        VStack {
-          Text(verbatim: "Hi, \(userManager.profile.name)")
-          
-          WelcomeMessageView()
-          
-          Button(action: {
-            self.showPractice = true
-          }, label: {
-            HStack {
-              Image(systemName: "play")
-              Text(verbatim: "Start")
-            }
-          })
-        }
-      }
-    }
+extension Color {
+  /// Create a Color view from an RGB object.
+  ///   - parameters:
+  ///     - rgb: The RGB object.
+  init(rgbStruct rgb: RGB) {
+    self.init(red: rgb.red, green: rgb.green, blue: rgb.blue)
   }
-}
 
-struct WelcomeView_Previews: PreviewProvider {
-  static var previews: some View {
-    WelcomeView()
-      .environmentObject(UserManager())
-  }
+  // Add Neumorphism colors to standard colors
+  static let element = Color("Element")
+  static let highlight = Color("Highlight")
+  static let shadow = Color("Shadow")
 }

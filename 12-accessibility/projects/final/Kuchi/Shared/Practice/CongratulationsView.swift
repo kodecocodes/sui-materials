@@ -1,15 +1,15 @@
 /// Copyright (c) 2020 Razeware LLC
-/// 
+///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
 /// in the Software without restriction, including without limitation the rights
 /// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 /// copies of the Software, and to permit persons to whom the Software is
 /// furnished to do so, subject to the following conditions:
-/// 
+///
 /// The above copyright notice and this permission notice shall be included in
 /// all copies or substantial portions of the Software.
-/// 
+///
 /// Notwithstanding the foregoing, you may not use, copy, modify, merge, publish,
 /// distribute, sublicense, create a derivative work, and/or sell copies of the
 /// Software in any work that is designed, intended, or marketed for pedagogical or
@@ -17,7 +17,7 @@
 /// or information technology.  Permission for such use, copying, modification,
 /// merger, publication, distribution, sublicensing, creation of derivative works,
 /// or sale is expressly withheld.
-/// 
+///
 /// This project and source code may use libraries or frameworks that are
 /// released under various Open-Source licenses. Use of those libraries and
 /// frameworks are governed by their own individual licenses.
@@ -32,40 +32,74 @@
 
 import SwiftUI
 
-struct WelcomeView: View {
-  @EnvironmentObject var userManager: UserManager
-  @State var showPractice = false
+struct CongratulationsView: View {
+  @EnvironmentObject var challengesViewModel: ChallengesViewModel
+  let avatarSize: CGFloat = 120
+  let userName: String
+
+  init(userName: String) {
+    self.userName = userName
+  }
   
-  @ViewBuilder
   var body: some View {
-    if showPractice {
-      HomeView()
-    } else {
+    VStack {
+      Spacer()
+      
+      Text("Congratulations!")
+        .font(.title)
+        .foregroundColor(.gray)
+      
       ZStack {
-        WelcomeBackgroundImage()
-        
-        VStack {
-          Text(verbatim: "Hi, \(userManager.profile.name)")
-          
-          WelcomeMessageView()
-          
-          Button(action: {
-            self.showPractice = true
-          }, label: {
-            HStack {
-              Image(systemName: "play")
-              Text(verbatim: "Start")
-            }
-          })
+        VStack(spacing: 0) {
+          Rectangle()
+            .frame(height: 90)
+            .foregroundColor(
+              Color(red: 0.5, green: 0, blue: 0).opacity(0.2))
+          Rectangle()
+            .frame(height: 90)
+            .foregroundColor(
+              Color(red: 0.6, green: 0.1, blue: 0.1).opacity(0.4))
         }
+        
+        Image(systemName: "person.fill")
+          .resizable()
+          .padding()
+          .frame(width: avatarSize, height: avatarSize)
+          .background(Color.white.opacity(0.5))
+          .cornerRadius(avatarSize / 2, antialiased: true)
+          .shadow(radius: 4)
+        
+        VStack() {
+          Spacer()
+          Text(userName)
+            .font(.largeTitle)
+            .foregroundColor(.white)
+            .fontWeight(.bold)
+            .shadow(radius: 7)
+        }
+        .padding()
       }
+      .frame(height: 180)
+      
+      Text("You’re awesome!")
+        .fontWeight(.bold)
+        .foregroundColor(.gray)
+      
+      Spacer()
+      
+      Button(action: {
+        self.challengesViewModel.restart()
+      }, label: {
+        Text("Play Again")
+      })
+      .padding(.top)
     }
   }
 }
 
-struct WelcomeView_Previews: PreviewProvider {
+struct CongratulationsView_Previews: PreviewProvider {
   static var previews: some View {
-    WelcomeView()
-      .environmentObject(UserManager())
+    CongratulationsView(userName: "Johnny Swift")
+      .environmentObject(ChallengesViewModel())
   }
 }

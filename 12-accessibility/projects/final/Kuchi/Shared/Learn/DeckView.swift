@@ -32,40 +32,62 @@
 
 import SwiftUI
 
-struct WelcomeView: View {
-  @EnvironmentObject var userManager: UserManager
-  @State var showPractice = false
+enum DiscardedDirection {
+  case left
+  case right
+}
+
+struct DeckView: View {
+  @ObservedObject var deck: FlashDeck
+  @AppStorage("cardBackgroundColor") var cardBackgroundColorInt: Int = 0xFF0000FF
   
-  @ViewBuilder
+  let onMemorized: () -> Void
+  
+  init(deck: FlashDeck, onMemorized: @escaping () -> Void) {
+    self.onMemorized = onMemorized
+    self.deck = deck
+  }
+  
   var body: some View {
-    if showPractice {
-      HomeView()
-    } else {
-      ZStack {
-        WelcomeBackgroundImage()
-        
-        VStack {
-          Text(verbatim: "Hi, \(userManager.profile.name)")
-          
-          WelcomeMessageView()
-          
-          Button(action: {
-            self.showPractice = true
-          }, label: {
-            HStack {
-              Image(systemName: "play")
-              Text(verbatim: "Start")
-            }
-          })
-        }
+    ZStack {
+      ForEach(deck.cards.filter { $0.isActive }) { card in
+        self.getCardView(for: card)
       }
     }
   }
+  
+  func getCardView(for card: FlashCard) -> CardView {
+    let activeCards = deck.cards.filter { $0.isActive == true }
+    if let lastCard = activeCards.last {
+      if lastCard == card {
+        return createCardView(for: card)
+      }
+    }
+    
+    let view = createCardView(for: card)
+    
+    return view
+  }
+  
+  func createCardView(for card: FlashCard) -> CardView {
+    let view = CardView(card, cardColor: Binding(
+        get: { Color(rgba: cardBackgroundColorInt) },
+        set: { newValue in cardBackgroundColorInt = newValue.asRgba }
+      ),
+      onDrag: { card, direction in
+        self.onMemorized()
+      }
+    )
+    
+    return view
+  }
 }
 
-struct WelcomeView_Previews: PreviewProvider {
+struct DeckView_Previews: PreviewProvider {
   static var previews: some View {
-    WelcomeView()
-      .environmentObject(UserManager())
+    DeckView(
+      deck: FlashDeck(from: ChallengesViewModel.challenges),
+      onMemorized: {}
+    )
   }
 }

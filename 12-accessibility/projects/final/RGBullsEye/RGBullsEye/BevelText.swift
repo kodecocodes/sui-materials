@@ -32,40 +32,36 @@
 
 import SwiftUI
 
-struct WelcomeView: View {
-  @EnvironmentObject var userManager: UserManager
-  @State var showPractice = false
-  
-  @ViewBuilder
+struct BevelText: View {
+  let text: String
+  let width: CGFloat
+  let height: CGFloat
+
   var body: some View {
-    if showPractice {
-      HomeView()
-    } else {
-      ZStack {
-        WelcomeBackgroundImage()
-        
-        VStack {
-          Text(verbatim: "Hi, \(userManager.profile.name)")
-          
-          WelcomeMessageView()
-          
-          Button(action: {
-            self.showPractice = true
-          }, label: {
-            HStack {
-              Image(systemName: "play")
-              Text(verbatim: "Start")
-            }
-          })
+    Text(text)
+      .frame(width: width, height: height)
+      .background(
+        ZStack {
+          Capsule()
+            .fill(Color.element)
+            .northWestShadow(radius: 3, offset: 1)
+          Capsule()
+            .inset(by: 3)
+            .fill(Color.element)
+            .southEastShadow(radius: 1, offset: 1)
         }
-      }
-    }
+      )
   }
 }
 
-struct WelcomeView_Previews: PreviewProvider {
+struct BevelText_Previews: PreviewProvider {
   static var previews: some View {
-    WelcomeView()
-      .environmentObject(UserManager())
+    ZStack {
+      Color.element
+      BevelText(
+        text: "R: ??? G: ??? B: ???", width: 200, height: 48)
+    }
+    .frame(width: 300, height: 100)
+    .previewLayout(.sizeThatFits)
   }
 }

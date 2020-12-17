@@ -58,6 +58,7 @@ struct WelcomeView: View {
             }
           })
         }
+        .accessibilityElement(children: .combine)
       }
     }
   }

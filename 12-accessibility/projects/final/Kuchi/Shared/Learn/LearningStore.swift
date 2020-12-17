@@ -30,42 +30,26 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import SwiftUI
+import Foundation
 
-struct WelcomeView: View {
-  @EnvironmentObject var userManager: UserManager
-  @State var showPractice = false
-  
-  @ViewBuilder
-  var body: some View {
-    if showPractice {
-      HomeView()
-    } else {
-      ZStack {
-        WelcomeBackgroundImage()
-        
-        VStack {
-          Text(verbatim: "Hi, \(userManager.profile.name)")
-          
-          WelcomeMessageView()
-          
-          Button(action: {
-            self.showPractice = true
-          }, label: {
-            HStack {
-              Image(systemName: "play")
-              Text(verbatim: "Start")
-            }
-          })
-        }
-      }
-    }
+class LearningStore: ObservableObject {
+  @Published var deck: FlashDeck
+  @Published var card: FlashCard?
+  @Published var score = 0
+
+  init(deck: [Challenge]) {
+    self.deck = FlashDeck(from: deck)
+    self.card = getNextCard()
   }
-}
-
-struct WelcomeView_Previews: PreviewProvider {
-  static var previews: some View {
-    WelcomeView()
-      .environmentObject(UserManager())
+  
+  func getNextCard() -> FlashCard? {
+    guard let card = self.deck.cards.last else {
+      return nil
+    }
+    
+    self.card = card
+    self.deck.cards.removeLast()
+    
+    return self.card
   }
 }

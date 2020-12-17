@@ -18,10 +18,6 @@
 /// merger, publication, distribution, sublicensing, creation of derivative works,
 /// or sale is expressly withheld.
 /// 
-/// This project and source code may use libraries or frameworks that are
-/// released under various Open-Source licenses. Use of those libraries and
-/// frameworks are governed by their own individual licenses.
-///
 /// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 /// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 /// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -32,40 +28,48 @@
 
 import SwiftUI
 
-struct WelcomeView: View {
-  @EnvironmentObject var userManager: UserManager
-  @State var showPractice = false
-  
-  @ViewBuilder
+struct AwardGrid: View {
+  var title: String
+  var awards: [AwardInformation]
+  @Binding var selected: AwardInformation?
+  var namespace: Namespace.ID
+
   var body: some View {
-    if showPractice {
-      HomeView()
-    } else {
-      ZStack {
-        WelcomeBackgroundImage()
-        
-        VStack {
-          Text(verbatim: "Hi, \(userManager.profile.name)")
-          
-          WelcomeMessageView()
-          
-          Button(action: {
-            self.showPractice = true
-          }, label: {
-            HStack {
-              Image(systemName: "play")
-              Text(verbatim: "Start")
+    Section(
+      header: Text(title)
+        .font(.title)
+        .foregroundColor(.white)
+    ) {
+      ForEach(awards, id: \.self) { award in
+        NavigationLink(destination: AwardDetails(award: award)) {
+          AwardCardView(award: award)
+            .foregroundColor(.black)
+            .aspectRatio(0.67, contentMode: .fit)
+            .onTapGesture {
+              withAnimation {
+                selected = award
+              }
             }
-          })
+            .matchedGeometryEffect(
+              id: award.hashValue,
+              in: namespace,
+              anchor: .topLeading
+            )
         }
       }
     }
   }
 }
 
-struct WelcomeView_Previews: PreviewProvider {
+struct AwardGrid_Previews: PreviewProvider {
+  @Namespace static var namespace
+
   static var previews: some View {
-    WelcomeView()
-      .environmentObject(UserManager())
+    AwardGrid(
+      title: "Test",
+      awards: AppEnvironment().awardList,
+      selected: .constant(nil),
+      namespace: namespace
+    )
   }
 }

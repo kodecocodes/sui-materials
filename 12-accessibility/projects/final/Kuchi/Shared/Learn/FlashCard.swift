@@ -30,42 +30,17 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import SwiftUI
+import Foundation
 
-struct WelcomeView: View {
-  @EnvironmentObject var userManager: UserManager
-  @State var showPractice = false
-  
-  @ViewBuilder
-  var body: some View {
-    if showPractice {
-      HomeView()
-    } else {
-      ZStack {
-        WelcomeBackgroundImage()
-        
-        VStack {
-          Text(verbatim: "Hi, \(userManager.profile.name)")
-          
-          WelcomeMessageView()
-          
-          Button(action: {
-            self.showPractice = true
-          }, label: {
-            HStack {
-              Image(systemName: "play")
-              Text(verbatim: "Start")
-            }
-          })
-        }
-      }
-    }
-  }
+struct FlashCard: Identifiable {
+  let id = UUID()
+  var card: Challenge
+  var isActive = true
 }
 
-struct WelcomeView_Previews: PreviewProvider {
-  static var previews: some View {
-    WelcomeView()
-      .environmentObject(UserManager())
+extension FlashCard: Equatable {
+  static func == (lhs: FlashCard, rhs: FlashCard) -> Bool {
+    return lhs.card.question == rhs.card.question
+      && lhs.card.answer == rhs.card.answer
   }
 }

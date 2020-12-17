@@ -30,42 +30,26 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import SwiftUI
+import struct SwiftUI.Color
 
-struct WelcomeView: View {
-  @EnvironmentObject var userManager: UserManager
-  @State var showPractice = false
-  
-  @ViewBuilder
-  var body: some View {
-    if showPractice {
-      HomeView()
-    } else {
-      ZStack {
-        WelcomeBackgroundImage()
-        
-        VStack {
-          Text(verbatim: "Hi, \(userManager.profile.name)")
-          
-          WelcomeMessageView()
-          
-          Button(action: {
-            self.showPractice = true
-          }, label: {
-            HStack {
-              Image(systemName: "play")
-              Text(verbatim: "Start")
-            }
-          })
-        }
-      }
-    }
+extension Color {
+  init(rgba: Int) {
+    self.init(
+      .sRGB,
+      red: Double((rgba & 0xFF000000) >> 24) / 255,
+      green: Double((rgba & 0x00FF0000) >> 16) / 255,
+      blue: Double((rgba & 0x0000FF00) >> 8) / 255,
+      opacity: Double((rgba & 0x000000FF)) / 255
+    )
   }
-}
-
-struct WelcomeView_Previews: PreviewProvider {
-  static var previews: some View {
-    WelcomeView()
-      .environmentObject(UserManager())
+  
+  var asRgba: Int {
+    let components = cgColor!.components!
+    let (r, g, b, a) = (components[0], components[1], components[2], components[3])
+    return
+      (Int(a * 255) << 0) +
+      (Int(b * 255) << 8) +
+      (Int(g * 255) << 16) +
+      (Int(r * 255) << 24)
   }
 }

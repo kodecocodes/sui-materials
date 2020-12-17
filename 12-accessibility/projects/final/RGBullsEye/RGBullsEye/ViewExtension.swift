@@ -32,40 +32,39 @@
 
 import SwiftUI
 
-struct WelcomeView: View {
-  @EnvironmentObject var userManager: UserManager
-  @State var showPractice = false
-  
-  @ViewBuilder
-  var body: some View {
-    if showPractice {
-      HomeView()
-    } else {
-      ZStack {
-        WelcomeBackgroundImage()
-        
-        VStack {
-          Text(verbatim: "Hi, \(userManager.profile.name)")
-          
-          WelcomeMessageView()
-          
-          Button(action: {
-            self.showPractice = true
-          }, label: {
-            HStack {
-              Image(systemName: "play")
-              Text(verbatim: "Start")
-            }
-          })
-        }
-      }
-    }
+extension View {
+  /// Simulate shining a light on the northwest edge of a view.
+  /// Light shadow on the northwest edge, dark shadow on the southeast edge.
+  ///   - parameters:
+  ///     - radius: The size of the shadow
+  ///     - offset: The value used for (-x, -y) and (x, y) offsets
+  func northWestShadow(
+    radius: CGFloat = 16,
+    offset: CGFloat = 6
+  ) -> some View {
+    return self
+      .shadow(
+        color: .highlight,
+        radius: radius,
+        x: -offset,
+        y: -offset)
+      .shadow(
+        color: .shadow, radius: radius, x: offset, y: offset)
   }
-}
 
-struct WelcomeView_Previews: PreviewProvider {
-  static var previews: some View {
-    WelcomeView()
-      .environmentObject(UserManager())
+  /// Simulate shining a light on the southeast edge of a view.
+  /// Light shadow on the southeast edge, dark shadow on the northwest edge.
+  ///   - parameters:
+  ///     - radius: The size of the shadow
+  ///     - offset: The value used for (-x, -y) and (x, y) offsets
+  func southEastShadow(
+    radius: CGFloat = 16,
+    offset: CGFloat = 6
+  ) -> some View {
+    return self
+      .shadow(
+        color: .shadow, radius: radius, x: -offset, y: -offset)
+      .shadow(
+        color: .highlight, radius: radius, x: offset, y: offset)
   }
 }

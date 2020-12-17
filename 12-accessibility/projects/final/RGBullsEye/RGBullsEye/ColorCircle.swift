@@ -32,40 +32,30 @@
 
 import SwiftUI
 
-struct WelcomeView: View {
-  @EnvironmentObject var userManager: UserManager
-  @State var showPractice = false
-  
-  @ViewBuilder
+struct ColorCircle: View {
+  let rgb: RGB
+  let size: CGFloat
+
   var body: some View {
-    if showPractice {
-      HomeView()
-    } else {
-      ZStack {
-        WelcomeBackgroundImage()
-        
-        VStack {
-          Text(verbatim: "Hi, \(userManager.profile.name)")
-          
-          WelcomeMessageView()
-          
-          Button(action: {
-            self.showPractice = true
-          }, label: {
-            HStack {
-              Image(systemName: "play")
-              Text(verbatim: "Start")
-            }
-          })
-        }
-      }
+    ZStack {
+      Circle()
+        .fill(Color.element)
+        .northWestShadow()
+      Circle()
+        .fill(Color(red: rgb.red, green: rgb.green, blue: rgb.blue))
+        .padding(20)
     }
+    .frame(width: size, height: size)
   }
 }
 
-struct WelcomeView_Previews: PreviewProvider {
+struct ColorCircle_Previews: PreviewProvider {
   static var previews: some View {
-    WelcomeView()
-      .environmentObject(UserManager())
+    ZStack {
+      Color.element
+      ColorCircle(rgb: RGB(), size: 200)
+    }
+    .frame(width: 300, height: 300)
+    .previewLayout(.sizeThatFits)
   }
 }

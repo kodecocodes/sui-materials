@@ -32,40 +32,27 @@
 
 import SwiftUI
 
-struct WelcomeView: View {
-  @EnvironmentObject var userManager: UserManager
-  @State var showPractice = false
-  
-  @ViewBuilder
-  var body: some View {
-    if showPractice {
-      HomeView()
-    } else {
-      ZStack {
-        WelcomeBackgroundImage()
-        
-        VStack {
-          Text(verbatim: "Hi, \(userManager.profile.name)")
-          
-          WelcomeMessageView()
-          
-          Button(action: {
-            self.showPractice = true
-          }, label: {
-            HStack {
-              Image(systemName: "play")
-              Text(verbatim: "Start")
-            }
-          })
-        }
-      }
-    }
-  }
-}
+struct NeuButtonStyle: ButtonStyle {
+  let width: CGFloat
+  let height: CGFloat
 
-struct WelcomeView_Previews: PreviewProvider {
-  static var previews: some View {
-    WelcomeView()
-      .environmentObject(UserManager())
+  func makeBody(configuration: Self.Configuration)
+  -> some View {
+    configuration.label
+      .opacity(configuration.isPressed ? 0.2 : 1)
+      .frame(width: width, height: height)
+      .background(
+        Group {
+          if configuration.isPressed {
+            Capsule()
+              .fill(Color.element)
+              .southEastShadow()
+          } else {
+            Capsule()
+              .fill(Color.element)
+              .northWestShadow()
+          }
+        }
+      )
   }
 }
