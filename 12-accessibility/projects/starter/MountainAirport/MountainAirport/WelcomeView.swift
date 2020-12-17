@@ -44,6 +44,7 @@ struct WelcomeView: View {
           .resizable()
           .aspectRatio(contentMode: .fill)
           .frame(height: 250)
+          .accessibilityHidden(true)
         if
           let id = appEnvironment.lastFlightId,
           let lastFlight = flightInfo.getFlightById(id) {
