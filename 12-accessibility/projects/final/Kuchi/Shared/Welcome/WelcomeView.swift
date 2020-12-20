@@ -60,6 +60,7 @@ struct WelcomeView: View {
         }
         .accessibilityElement(children: .combine)
       }
+      .accessibilityHint(Text("starts Kuchi"))
     }
   }
 }

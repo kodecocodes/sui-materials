@@ -80,7 +80,6 @@ struct DeckView: View {
         }
       }
     )
-    
     return view
   }
 }

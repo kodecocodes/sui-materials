@@ -36,6 +36,7 @@ struct WelcomeBackgroundImage: View {
   var body: some View {
     Image("welcome-background")
       .resizable()
+      .accessibilityHidden(true)
       .aspectRatio(1 / 1, contentMode: .fill)
       .edgesIgnoringSafeArea(.all)
       .saturation(0.5)

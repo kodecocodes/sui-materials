@@ -36,6 +36,7 @@ struct LogoImage: View {
   var body: some View {
     Image(systemName: "table")
       .resizable()
+      .accessibilityHidden(true)
       .frame(width: 30, height: 30)
       .overlay(Circle().stroke(Color.gray, lineWidth: 1))
       .background(Color(white: 0.9))

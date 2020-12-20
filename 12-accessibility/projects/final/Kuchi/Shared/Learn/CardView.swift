@@ -90,6 +90,12 @@ struct CardView: View {
         }
         Spacer()
       }
+      .gesture(TapGesture()
+                .onEnded {
+                  withAnimation(.easeIn, {
+                    self.revealed = !self.revealed
+                  })
+                })
     }
     .shadow(radius: 8)
     .frame(width: 320, height: 210)
@@ -97,12 +103,6 @@ struct CardView: View {
     .offset(self.offset)
     .gesture(longPress)
     .scaleEffect(isLongPressed ? 1.1 : 1)
-    .gesture(TapGesture()
-      .onEnded {
-        withAnimation(.easeIn, {
-          self.revealed = !self.revealed
-        })
-    })
   }
 }
 
