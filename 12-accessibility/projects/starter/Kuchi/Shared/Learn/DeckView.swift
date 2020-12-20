@@ -75,7 +75,9 @@ struct DeckView: View {
         set: { newValue in cardBackgroundColorInt = newValue.asRgba }
       ),
       onDrag: { card, direction in
-        self.onMemorized()
+        if direction == .left {
+          self.onMemorized()
+        }
       }
     )
     
