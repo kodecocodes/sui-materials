@@ -57,10 +57,22 @@ struct RGB {
       (rDiff * rDiff + gDiff * gDiff + bDiff * bDiff) / 3.0)
   }
 
+  var rInt: Int {
+    Int(red * 255.0)
+  }
+  var gInt: Int {
+    Int(green * 255.0)
+  }
+  var bInt: Int {
+    Int(blue * 255.0)
+  }
+
   /// Create a String representing the integer values of an RGB object.
-  func intString() -> String {
-    "R: \(Int(red * 255.0))"
-      + "  G: \(Int(green * 255.0))"
-      + "  B: \(Int(blue * 255.0))"
+  var intString: String {
+    "R \(rInt) G \(gInt) B \(bInt)"
+  }
+
+  var accString: String {
+    "Red \(rInt), Green \(gInt), Blue \(bInt)."
   }
 }

@@ -35,17 +35,17 @@ import SwiftUI
 struct LearnView: View {
   @StateObject var learningStore =
     LearningStore(deck: ChallengesViewModel.challenges)
-  
+
   var body: some View {
     VStack {
       Spacer()
-      Text("Swipe left if you remembered"
-            + "\nSwipe right if you didn’t")
+      Text(
+        "Swipe left if you remembered"
+          + "\nSwipe right if you didn’t")
         .font(.headline)
-      DeckView(
-        deck: learningStore.deck,
-        onMemorized: { self.learningStore.score += 1 }
-      )
+      DeckView(deck: learningStore.deck) {
+        learningStore.score += 1
+      }
       Spacer()
       Text("Remembered \(self.learningStore.score)" + "/\(self.learningStore.deck.cards.count)")
     }

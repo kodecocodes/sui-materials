@@ -145,11 +145,11 @@
 			isa = PBXGroup;
 			children = (
 				5734DEF025785178001FDDF0 /* LearnView.swift */,
-				5734DEF525785A23001FDDF0 /* FlashCard.swift */,
+				57495BD62579A18500C4DC80 /* DeckView.swift */,
+				57495BCF2579A08300C4DC80 /* CardView.swift */,
 				57495BC525799B2300C4DC80 /* FlashDeck.swift */,
 				57495BCA25799DC100C4DC80 /* LearningStore.swift */,
-				57495BCF2579A08300C4DC80 /* CardView.swift */,
-				57495BD62579A18500C4DC80 /* DeckView.swift */,
+				5734DEF525785A23001FDDF0 /* FlashCard.swift */,
 			);
 			path = Learn;
 			sourceTree = "<group>";

@@ -53,12 +53,14 @@ struct ContentView: View {
             size: geometry.size.width * circleSize)
           if !showScore {
             BevelText(
-              text: "R: ??? G: ??? B: ???",
+              text: "R ??? G ??? B ???",
               width: geometry.size.width * labelWidth,
               height: geometry.size.height * labelHeight)
+              .accessibility(
+                label: Text("Red, green, blue target values you must guess"))
           } else {
             BevelText(
-              text: game.target.intString(),
+              text: game.target.intString,
               width: geometry.size.width * labelWidth,
               height: geometry.size.height * labelHeight)
           }
@@ -66,24 +68,30 @@ struct ContentView: View {
             rgb: guess,
             size: geometry.size.width * circleSize)
           BevelText(
-            text: guess.intString(),
+            text: guess.intString,
             width: geometry.size.width * labelWidth,
             height: geometry.size.height * labelHeight)
+            .accessibility(label: Text("Your guess: " + guess.accString))
+            .accessibility(sortPriority: 2)
           ColorSlider(value: $guess.red, trackColor: .red)
+            .accessibility(sortPriority: 5)
           ColorSlider(value: $guess.green, trackColor: .green)
+            .accessibility(sortPriority: 4)
           ColorSlider(value: $guess.blue, trackColor: .blue)
+            .accessibility(sortPriority: 3)
           Button("Hit Me!") {
             self.showScore = true
             self.game.check(guess: guess)
           }
+          .accessibility(sortPriority: 1)
           .buttonStyle(
             NeuButtonStyle(
               width: geometry.size.width * buttonWidth,
               height: geometry.size.height * labelHeight))
           .alert(isPresented: $showScore) {
             Alert(
-              title: Text("Your Score"),
-              message: Text(String(game.scoreRound)),
+              title: Text("You scored \(game.scoreRound)"),
+              message: Text("Target values: " + game.target.intString),
               dismissButton: .default(Text("OK")) {
                 self.game.startNewRound()
                 self.guess = RGB()
@@ -114,9 +122,14 @@ struct ColorSlider: View {
   var body: some View {
     HStack {
       Text("0")
+        .accessibility(hidden: true)
       Slider(value: $value)
         .accentColor(trackColor)
+        .accessibility(
+          value: Text(
+            String(describing: trackColor) + String(Int(value * 255))))
       Text("255")
+        .accessibility(hidden: true)
     }
     .font(.subheadline)
     .padding(.horizontal)

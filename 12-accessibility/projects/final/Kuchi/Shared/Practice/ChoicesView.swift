@@ -51,6 +51,7 @@ struct ChoicesView : View {
         }).alert(isPresented: self.$isChallengeResultAlertDisplayed, content: {
           self.challengeOutcomeAlert()
         })
+        //.accessibility(label: Text(""))
         Divider()
       }
     }
