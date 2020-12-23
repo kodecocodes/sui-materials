@@ -52,32 +52,26 @@ struct CardView: View {
     self._cardColor = cardColor
   }
 
-  // Antonio's suggestion for a11y
   func discardCard(to direction: DiscardedDirection) {
     let width: CGFloat
     switch direction {
     case .left: width = -1000
     case .right: width = 1000
     }
-
-    self.offset = .init(width: width, height: 0)
-    dragged(self.flashCard, direction)
+    offset = .init(width: width, height: 0)
+    dragged(flashCard, direction)
   }
 
   var body: some View {
     let drag = DragGesture()
-      .onChanged { self.offset = $0.translation }
+      .onChanged { offset = $0.translation }
       .onEnded {
         if $0.translation.width < -100 {
           discardCard(to: .left)
-// self.offset = .init(width: -1000, height: 0)
-// self.dragged(self.flashCard, .left)
         } else if $0.translation.width > 100 {
           discardCard(to: .right)
-// self.offset = .init(width: 1000, height: 0)
-// self.dragged(self.flashCard, .right)
         } else {
-          self.offset = .zero
+          offset = .zero
         }
       }
     
@@ -109,7 +103,6 @@ struct CardView: View {
       .shadow(radius: 8)
       .frame(width: 320, height: 210)
       .animation(.spring())
-      .offset(self.offset)
       .gesture(
         TapGesture()
           .onEnded {
@@ -120,18 +113,26 @@ struct CardView: View {
       )
       .simultaneousGesture(longPress)
       .scaleEffect(isLongPressed ? 1.1 : 1)
-      HStack(spacing: 75) {
-        Button("Yes") {
-          discardCard(to: .left)
+
+      HStack(spacing: 50) {
+        Button { discardCard(to: .left) } label: {
+          Image(systemName: "arrowshape.turn.up.left.circle")
         }
-        //Button("Show") { revealed = true }
-        Button("No") {
-          discardCard(to: .right)
+        VStack {
+          Text("Show answer?")
+            .font(.footnote)
+          Toggle("", isOn: $revealed)
+            .labelsHidden()
+            .toggleStyle(SwitchToggleStyle(tint: Color.red))
+        }
+        Button { discardCard(to: .right) } label: {
+          Image(systemName: "arrowshape.turn.up.right.circle")
         }
       }
-      .padding(.vertical)
-      .font(.title)
+      .padding()
+      .font(.largeTitle)
     }
+    .offset(offset)
   }
 }
 

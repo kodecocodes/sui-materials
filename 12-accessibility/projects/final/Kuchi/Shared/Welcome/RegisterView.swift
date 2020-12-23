@@ -49,7 +49,6 @@ struct RegisterView: View {
         Spacer()
         Text("\(userManager.profile.name.count)")
           .accessibilityHint(Text("letters in name"))
-          //.accessibilityInputLabels([(Text("letters in name"))])
           .font(.caption)
           .foregroundColor(
             userManager.isUserNameValid() ? .green : .red)
@@ -76,14 +75,13 @@ struct RegisterView: View {
           Text("OK")
             .font(.body)
             .bold()
-            .accessibility(label: Text("OK registers user"))
+            .accessibilityLabel(Text("OK registers user"))
             .accessibilityHint(Text("name needs 3 or more letters to enable button"))
         }
       }
       .bordered()
       .disabled(!userManager.isUserNameValid())
       .accessibilityValue(userManager.isUserNameValid() ? "enabled" : "disabled")
-
       Spacer()
     }
     .padding(.bottom, keyboardHandler.keyboardHeight)

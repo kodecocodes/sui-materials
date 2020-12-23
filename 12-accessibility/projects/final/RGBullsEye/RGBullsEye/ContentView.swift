@@ -56,8 +56,8 @@ struct ContentView: View {
               text: "R ??? G ??? B ???",
               width: geometry.size.width * labelWidth,
               height: geometry.size.height * labelHeight)
-              .accessibility(
-                label: Text("Red, green, blue target values you must guess"))
+              .accessibilityLabel(
+                Text("Target red, green, blue values you must guess"))
           } else {
             BevelText(
               text: game.target.intString,
@@ -71,8 +71,8 @@ struct ContentView: View {
             text: guess.intString,
             width: geometry.size.width * labelWidth,
             height: geometry.size.height * labelHeight)
-            .accessibility(label: Text("Your guess: " + guess.accString))
-            .accessibility(sortPriority: 2)
+            .accessibilityLabel(Text("Your guess: " + guess.accString))
+            .accessibilitySortPriority(2)
           ColorSlider(value: $guess.red, trackColor: .red)
             .accessibility(sortPriority: 5)
           ColorSlider(value: $guess.green, trackColor: .green)
@@ -122,14 +122,14 @@ struct ColorSlider: View {
   var body: some View {
     HStack {
       Text("0")
-        .accessibility(hidden: true)
+        .accessibilityHidden(true)
       Slider(value: $value)
         .accentColor(trackColor)
-        .accessibility(
-          value: Text(
+        .accessibilityValue(
+          Text(
             String(describing: trackColor) + String(Int(value * 255))))
       Text("255")
-        .accessibility(hidden: true)
+        .accessibilityHidden(true)
     }
     .font(.subheadline)
     .padding(.horizontal)

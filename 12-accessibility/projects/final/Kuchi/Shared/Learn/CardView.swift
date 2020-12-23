@@ -51,58 +51,88 @@ struct CardView: View {
     self.dragged = dragged
     self._cardColor = cardColor
   }
+
+  func discardCard(to direction: DiscardedDirection) {
+    let width: CGFloat
+    switch direction {
+    case .left: width = -1000
+    case .right: width = 1000
+    }
+    offset = .init(width: width, height: 0)
+    dragged(flashCard, direction)
+  }
   
   var body: some View {
     let drag = DragGesture()
-      .onChanged { self.offset = $0.translation }
+      .onChanged { offset = $0.translation }
       .onEnded {
         if $0.translation.width < -100 {
-          self.offset = .init(width: -1000, height: 0)
-          self.dragged(self.flashCard, .left)
+          discardCard(to: .left)
         } else if $0.translation.width > 100 {
-          self.offset = .init(width: 1000, height: 0)
-          self.dragged(self.flashCard, .right)
+          discardCard(to: .right)
         } else {
-          self.offset = .zero
+          offset = .zero
         }
       }
     
     let longPress = LongPressGesture()
-      .updating($isLongPressed) { value, state, transition in
+      .updating($isLongPressed) { value, state, _ in
         state = value
       }
       .simultaneously(with: drag)
     
-    return ZStack {
-      Rectangle()
-        .fill(cardColor)
-        .frame(width: 320, height: 210)
-        .cornerRadius(12)
-      VStack {
-        Spacer()
-        Text(flashCard.card.question)
-          .font(.largeTitle)
-          .foregroundColor(.white)
-        if self.revealed {
-          Text(flashCard.card.answer)
-            .font(.caption)
+    return VStack {
+      ZStack {
+        Rectangle()
+          .fill(cardColor)
+          .frame(width: 320, height: 210)
+          .cornerRadius(12)
+        VStack {
+          Spacer()
+          Text(flashCard.card.question)
+            .font(.largeTitle)
             .foregroundColor(.white)
+          if self.revealed {
+            Text(flashCard.card.answer)
+              .font(.caption)
+              .foregroundColor(.white)
+          }
+          Spacer()
         }
-        Spacer()
+        .gesture(
+          TapGesture()
+            .onEnded {
+              withAnimation(.easeIn, {
+                self.revealed = !self.revealed
+              })
+            })
       }
-      .gesture(TapGesture()
-                .onEnded {
-                  withAnimation(.easeIn, {
-                    self.revealed = !self.revealed
-                  })
-                })
+      .shadow(radius: 8)
+      .frame(width: 320, height: 210)
+      .animation(.spring())
+      .gesture(longPress)
+      .scaleEffect(isLongPressed ? 1.1 : 1)
+      HStack(spacing: 50) {
+        Button { discardCard(to: .left) } label: {
+          Image(systemName: "arrowshape.turn.up.left.circle")
+            .accessibilityLabel(Text("Swipe left"))
+        }
+        VStack {
+          Text("Show answer?")
+            .font(.footnote)
+          Toggle("Show answer?", isOn: $revealed)
+            .labelsHidden()
+            .toggleStyle(SwitchToggleStyle(tint: Color.red))
+        }
+        Button { discardCard(to: .right) } label: {
+          Image(systemName: "arrowshape.turn.up.right.circle")
+            .accessibilityLabel(Text("Swipe right"))
+        }
+      }
+      .padding()
+      .font(.largeTitle)
     }
-    .shadow(radius: 8)
-    .frame(width: 320, height: 210)
-    .animation(.spring())
-    .offset(self.offset)
-    .gesture(longPress)
-    .scaleEffect(isLongPressed ? 1.1 : 1)
+    .offset(offset)
   }
 }
 
