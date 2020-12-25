@@ -43,7 +43,7 @@ struct WelcomeMessageView: View {
           .font(.largeTitle)
           .bold()
       }
-      .accessibilityElement(children: .combine)
+      //.accessibilityElement(children: .combine)
       .foregroundColor(.red)
       .lineLimit(2)
       .multilineTextAlignment(.leading)
