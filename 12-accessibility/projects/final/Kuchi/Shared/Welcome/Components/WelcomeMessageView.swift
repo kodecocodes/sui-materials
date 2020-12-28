@@ -43,6 +43,8 @@ struct WelcomeMessageView: View {
           .font(.largeTitle)
           .bold()
       }
+      // could use .font(Font...)
+      //.environment(\.legibilityWeight, .bold)  // doesn't make text bold
       //.accessibilityElement(children: .combine)
       .foregroundColor(.red)
       .lineLimit(2)
@@ -58,5 +60,6 @@ struct WelcomeMessageView: View {
 struct WelcomeMessageView_Previews: PreviewProvider {
   static var previews: some View {
     WelcomeMessageView()
+      .environment(\.sizeCategory, .accessibilityExtraExtraLarge)
   }
 }

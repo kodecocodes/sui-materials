@@ -92,7 +92,7 @@ struct CardView: View {
           Text(flashCard.card.question)
             .font(.largeTitle)
             .foregroundColor(.white)
-          if self.revealed {
+          if revealed {
             Text(flashCard.card.answer)
               .font(.caption)
               .foregroundColor(.white)
@@ -103,7 +103,7 @@ struct CardView: View {
           TapGesture()
             .onEnded {
               withAnimation(.easeIn, {
-                self.revealed = !self.revealed
+                revealed.toggle()
               })
             })
       }

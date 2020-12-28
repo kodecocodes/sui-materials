@@ -11,19 +11,31 @@ struct ContentView: View {
   @State var showName = false
 
   var body: some View {
-    VStack {
-      Spacer()
-      Text("Hello, world!")
-        .padding()
-      if showName {
-        Text("Audrey")
+    ZStack {
+      VStack {
+        Text("Hello, world!")
+          .padding()
+        if showName {
+          Text("Audrey")
+        }
       }
-      Spacer()
-      Button("Show") { showName.toggle() }
-        .padding()
+      .gesture(
+        TapGesture()
+          .onEnded {
+            withAnimation(.easeIn, {
+              showName.toggle()
+            })
+          })
+      VStack {
+        Spacer()
+        Toggle("Show", isOn: $showName)
+        Button("Show") { showName.toggle() }
+      }
+      .padding()
     }
   }
 }
+
 
 struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
