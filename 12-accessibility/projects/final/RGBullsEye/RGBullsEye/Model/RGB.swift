@@ -67,7 +67,7 @@ struct RGB {
     Int(blue * 255.0)
   }
 
-  /// Create a String representing the integer values of an RGB object.
+  /// A String representing the integer values of an RGB instance.
   var intString: String {
     "R \(rInt) G \(gInt) B \(bInt)"
   }

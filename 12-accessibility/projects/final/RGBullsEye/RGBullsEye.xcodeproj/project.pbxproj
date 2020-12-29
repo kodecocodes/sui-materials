@@ -14,6 +14,8 @@
 		CD405EFD2536AA700062B1CC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD405EFC2536AA700062B1CC /* ContentView.swift */; };
 		CD405EFF2536AA720062B1CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD405EFE2536AA720062B1CC /* Assets.xcassets */; };
 		CD405F022536AA720062B1CC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD405F012536AA720062B1CC /* Preview Assets.xcassets */; };
+		CD7BFE83259AABE900B779D7 /* SuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7BFE82259AABE900B779D7 /* SuccessView.swift */; };
+		CD7BFE94259AB5CA00B779D7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD7BFE92259AB5CA00B779D7 /* LaunchScreen.storyboard */; };
 		CDB7B713255B8C850020D090 /* NeuButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB7B712255B8C850020D090 /* NeuButtonStyle.swift */; };
 		CDB7B716255B903C0020D090 /* BevelText.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB7B715255B903C0020D090 /* BevelText.swift */; };
 		CDF0F612255793D500C3DE7E /* ColorCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF0F611255793D500C3DE7E /* ColorCircle.swift */; };
@@ -30,6 +32,8 @@
 		CD405EFE2536AA720062B1CC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CD405F012536AA720062B1CC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CD405F032536AA720062B1CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CD7BFE82259AABE900B779D7 /* SuccessView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuccessView.swift; sourceTree = "<group>"; };
+		CD7BFE93259AB5CA00B779D7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CDB7B712255B8C850020D090 /* NeuButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeuButtonStyle.swift; sourceTree = "<group>"; };
 		CDB7B715255B903C0020D090 /* BevelText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BevelText.swift; sourceTree = "<group>"; };
 		CDF0F611255793D500C3DE7E /* ColorCircle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorCircle.swift; sourceTree = "<group>"; };
@@ -68,12 +72,14 @@
 			children = (
 				CD405EFA2536AA700062B1CC /* RGBullsEyeApp.swift */,
 				CD405EFC2536AA700062B1CC /* ContentView.swift */,
+				CD7BFE82259AABE900B779D7 /* SuccessView.swift */,
 				CDF0F611255793D500C3DE7E /* ColorCircle.swift */,
 				CDB7B712255B8C850020D090 /* NeuButtonStyle.swift */,
 				CDB7B715255B903C0020D090 /* BevelText.swift */,
 				CDF0F61625579AA000C3DE7E /* ViewExtension.swift */,
 				CDF08BAC253E84F10061DB4A /* Model */,
 				CD405EFE2536AA720062B1CC /* Assets.xcassets */,
+				CD7BFE92259AB5CA00B779D7 /* LaunchScreen.storyboard */,
 				CD405F032536AA720062B1CC /* Info.plist */,
 				CD405F002536AA720062B1CC /* Preview Content */,
 			);
@@ -156,6 +162,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD7BFE94259AB5CA00B779D7 /* LaunchScreen.storyboard in Resources */,
 				CD405F022536AA720062B1CC /* Preview Assets.xcassets in Resources */,
 				CD405EFF2536AA720062B1CC /* Assets.xcassets in Resources */,
 			);
@@ -191,6 +198,7 @@
 			files = (
 				CD405EFD2536AA700062B1CC /* ContentView.swift in Sources */,
 				CD25DEBF253C26A200A218D4 /* Game.swift in Sources */,
+				CD7BFE83259AABE900B779D7 /* SuccessView.swift in Sources */,
 				CDB7B716255B903C0020D090 /* BevelText.swift in Sources */,
 				CD405EFB2536AA700062B1CC /* RGBullsEyeApp.swift in Sources */,
 				CDF0F61725579AA000C3DE7E /* ViewExtension.swift in Sources */,
@@ -202,6 +210,17 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		CD7BFE92259AB5CA00B779D7 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CD7BFE93259AB5CA00B779D7 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		CD405F042536AA720062B1CC /* Debug */ = {

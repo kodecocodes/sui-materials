@@ -58,7 +58,7 @@ struct ContentView: View {
               height: geometry.size.height * labelHeight)
           } else {
             BevelText(
-              text: game.target.intString(),
+              text: game.target.intString,
               width: geometry.size.width * labelWidth,
               height: geometry.size.height * labelHeight)
           }
@@ -66,15 +66,15 @@ struct ContentView: View {
             rgb: guess,
             size: geometry.size.width * circleSize)
           BevelText(
-            text: guess.intString(),
+            text: guess.intString,
             width: geometry.size.width * labelWidth,
             height: geometry.size.height * labelHeight)
           ColorSlider(value: $guess.red, trackColor: .red)
           ColorSlider(value: $guess.green, trackColor: .green)
           ColorSlider(value: $guess.blue, trackColor: .blue)
           Button("Hit Me!") {
-            self.showScore = true
-            self.game.check(guess: guess)
+            showScore = true
+            game.check(guess: guess)
           }
           .buttonStyle(
             NeuButtonStyle(
@@ -85,8 +85,8 @@ struct ContentView: View {
               title: Text("Your Score"),
               message: Text(String(game.scoreRound)),
               dismissButton: .default(Text("OK")) {
-                self.game.startNewRound()
-                self.guess = RGB()
+                game.startNewRound()
+                guess = RGB()
               })
           }
         }
@@ -98,13 +98,8 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
-    Group {
-      ContentView(guess: RGB())
-        .previewDevice("iPhone 8")
-      ContentView(guess: RGB())
-      ContentView(guess: RGB())
-        .previewDevice("iPhone 12 Pro Max")
-    }
+    ContentView(guess: RGB())
+      .previewDevice("iPhone 12 Pro")
   }
 }
 

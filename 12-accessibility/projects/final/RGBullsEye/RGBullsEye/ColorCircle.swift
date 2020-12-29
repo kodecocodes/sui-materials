@@ -42,7 +42,7 @@ struct ColorCircle: View {
         .fill(Color.element)
         .northWestShadow()
       Circle()
-        .fill(Color(red: rgb.red, green: rgb.green, blue: rgb.blue))
+        .fill(Color(rgbStruct: rgb))
         .padding(20)
     }
     .frame(width: size, height: size)

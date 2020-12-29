@@ -53,7 +53,7 @@ struct ContentView: View {
             size: geometry.size.width * circleSize)
           if !showScore {
             BevelText(
-              text: "R ??? G ??? B ???",
+              text: "R: ??? G: ??? B: ???",
               width: geometry.size.width * labelWidth,
               height: geometry.size.height * labelHeight)
               .accessibilityLabel(
@@ -74,29 +74,36 @@ struct ContentView: View {
             .accessibilityLabel(Text("Your guess: " + guess.accString))
             .accessibilitySortPriority(2)
           ColorSlider(value: $guess.red, trackColor: .red)
-            .accessibility(sortPriority: 5)
+            .accessibilitySortPriority(5)
           ColorSlider(value: $guess.green, trackColor: .green)
-            .accessibility(sortPriority: 4)
+            .accessibilitySortPriority(4)
           ColorSlider(value: $guess.blue, trackColor: .blue)
-            .accessibility(sortPriority: 3)
+            .accessibilitySortPriority(3)
           Button("Hit Me!") {
-            self.showScore = true
-            self.game.check(guess: guess)
+            showScore = true
+            game.check(guess: guess)
           }
-          .accessibility(sortPriority: 1)
+          .accessibilitySortPriority(1)
           .buttonStyle(
             NeuButtonStyle(
               width: geometry.size.width * buttonWidth,
               height: geometry.size.height * labelHeight))
-          .alert(isPresented: $showScore) {
-            Alert(
-              title: Text("You scored \(game.scoreRound)"),
-              message: Text("Target values: " + game.target.intString),
-              dismissButton: .default(Text("OK")) {
-                self.game.startNewRound()
-                self.guess = RGB()
-              })
+          .sheet(isPresented: $showScore) {
+            SuccessView(
+              game: $game,
+              score: game.scoreRound,
+              target: game.target,
+              guess: $guess)
           }
+          //          .alert(isPresented: $showScore) {
+          //            Alert(
+          //              title: Text("You scored \(game.scoreRound)"),
+          //              message: Text("Target values: " + game.target.accString),
+          //              dismissButton: .default(Text("OK")) {
+          //                game.startNewRound()
+          //                guess = RGB()
+          //              })
+          //          }
         }
         .font(.headline)
       }
@@ -106,13 +113,8 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
-    Group {
-      ContentView(guess: RGB())
-        .previewDevice("iPhone 8")
-      ContentView(guess: RGB())
-      ContentView(guess: RGB())
-        .previewDevice("iPhone 12 Pro Max")
-    }
+    ContentView(guess: RGB())
+      .previewDevice("iPhone 12 Pro")
   }
 }
 
