@@ -114,22 +114,18 @@ struct CardView: View {
       .simultaneousGesture(longPress)
       .scaleEffect(isLongPressed ? 1.1 : 1)
 
-      HStack(spacing: 50) {
+      HStack {
         Button { discardCard(to: .left) } label: {
           Image(systemName: "arrowshape.turn.up.left.circle")
+            .accessibilityLabel(Text("Swipe left"))
         }
-        VStack {
-          Text("Show answer?")
-            .font(.footnote)
-          Toggle("", isOn: $revealed)
-            .labelsHidden()
-            .toggleStyle(SwitchToggleStyle(tint: Color.red))
-        }
+        Spacer()
         Button { discardCard(to: .right) } label: {
           Image(systemName: "arrowshape.turn.up.right.circle")
+            .accessibilityLabel(Text("Swipe right"))
         }
       }
-      .padding()
+      .padding(45)
       .font(.largeTitle)
     }
     .offset(offset)
