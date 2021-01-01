@@ -40,14 +40,14 @@ enum DiscardedDirection {
 struct DeckView: View {
   @ObservedObject var deck: FlashDeck
   @AppStorage("cardBackgroundColor") var cardBackgroundColorInt: Int = 0xFF0000FF
-  
+
   let onMemorized: () -> Void
 
   init(deck: FlashDeck, onMemorized: @escaping () -> Void) {
     self.onMemorized = onMemorized
     self.deck = deck
   }
-  
+
   var body: some View {
     ZStack {
       ForEach(deck.cards.filter { $0.isActive }) { card in
@@ -55,7 +55,7 @@ struct DeckView: View {
       }
     }
   }
-  
+
   func getCardView(for card: FlashCard) -> CardView {
     let activeCards = deck.cards.filter { $0.isActive == true }
     if let lastCard = activeCards.last {
@@ -68,7 +68,7 @@ struct DeckView: View {
 
     return view
   }
-  
+
   func createCardView(for card: FlashCard) -> CardView {
     let view = CardView(
       card,

@@ -42,9 +42,9 @@ struct WelcomeView: View {
       ZStack(alignment: .topLeading) {
         Image("welcome-background")
           .resizable()
+          .accessibilityHidden(true)
           .aspectRatio(contentMode: .fill)
           .frame(height: 250)
-          .accessibilityHidden(true)
         if
           let id = appEnvironment.lastFlightId,
           let lastFlight = flightInfo.getFlightById(id) {
@@ -82,9 +82,11 @@ struct WelcomeView: View {
               let id = appEnvironment.lastFlightId,
               let lastFlight = flightInfo.getFlightById(id) {
               // swiftlint:disable multiple_closures_with_trailing_closure
-              Button(action: {
+              Button(
+                action: {
                 showNextFlight = true
-              }) {
+                }
+              ) {
                 LastViewedButton(name: lastFlight.flightName)
               }
             }

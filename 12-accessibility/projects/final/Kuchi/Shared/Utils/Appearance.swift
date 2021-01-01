@@ -42,7 +42,7 @@ enum Appearance: Int, CaseIterable, Identifiable {
     case .automatic: return "Automatic"
     }
   }
-  
+
   func getColorScheme() -> ColorScheme? {
     switch self {
     case .automatic: return nil
@@ -51,4 +51,3 @@ enum Appearance: Int, CaseIterable, Identifiable {
     }
   }
 }
-

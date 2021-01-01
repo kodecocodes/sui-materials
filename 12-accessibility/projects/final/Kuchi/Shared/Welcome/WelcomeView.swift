@@ -35,7 +35,7 @@ import SwiftUI
 struct WelcomeView: View {
   @EnvironmentObject var userManager: UserManager
   @State var showPractice = false
-  
+
   @ViewBuilder
   var body: some View {
     if showPractice {
@@ -43,20 +43,18 @@ struct WelcomeView: View {
     } else {
       ZStack {
         WelcomeBackgroundImage()
-        
+
         VStack {
           Text(verbatim: "Hi, \(userManager.profile.name)")
-          
           WelcomeMessageView()
-          
-          Button(action: {
-            self.showPractice = true
-          }, label: {
-            HStack {
-              Image(systemName: "play")
-              Text(verbatim: "Start")
-            }
-          })
+          // swiftlint:disable multiline_arguments
+          // swiftlint:disable multiple_closures_with_trailing_closure
+          Button {
+            showPractice = true
+          } label: {
+            Image(systemName: "play")
+            Text(verbatim: "Start")
+          }
         }
         .accessibilityElement(children: .combine)
       }

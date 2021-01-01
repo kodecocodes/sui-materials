@@ -30,6 +30,6 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-struct Settings : Codable {
+struct Settings: Codable {
   var rememberUser: Bool = false
 }

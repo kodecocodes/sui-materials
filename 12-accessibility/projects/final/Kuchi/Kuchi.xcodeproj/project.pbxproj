@@ -145,11 +145,11 @@
 			isa = PBXGroup;
 			children = (
 				5734DEF025785178001FDDF0 /* LearnView.swift */,
-				5734DEF525785A23001FDDF0 /* FlashCard.swift */,
+				57495BD62579A18500C4DC80 /* DeckView.swift */,
+				57495BCF2579A08300C4DC80 /* CardView.swift */,
 				57495BC525799B2300C4DC80 /* FlashDeck.swift */,
 				57495BCA25799DC100C4DC80 /* LearningStore.swift */,
-				57495BCF2579A08300C4DC80 /* CardView.swift */,
-				57495BD62579A18500C4DC80 /* DeckView.swift */,
+				5734DEF525785A23001FDDF0 /* FlashCard.swift */,
 			);
 			path = Learn;
 			sourceTree = "<group>";
@@ -310,7 +310,7 @@
 				57EF340324E89F92004ABEB2 /* Sources */,
 				57EF340424E89F92004ABEB2 /* Frameworks */,
 				57EF340524E89F92004ABEB2 /* Resources */,
-				4070CB1A2589D185000D8C07 /* ShellScript */,
+				4070CB1A2589D185000D8C07 /* SwiftLInt */,
 			);
 			buildRules = (
 			);
@@ -398,7 +398,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		4070CB1A2589D185000D8C07 /* ShellScript */ = {
+		4070CB1A2589D185000D8C07 /* SwiftLInt */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -407,14 +407,14 @@
 			);
 			inputPaths = (
 			);
+			name = SwiftLInt;
 			outputFileListPaths = (
 			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "
-";
+			shellScript = "if [ -f ~/com.raywenderlich.swiftlint.yml ]; then\n  if which swiftlint >/dev/null; then\n    swiftlint --config ~/com.raywenderlich.swiftlint.yml\n  fi\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -551,6 +551,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -604,6 +605,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -617,7 +619,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 35ERK77LXE;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = iOS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -625,7 +627,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.audrey.Kuchi;
+				PRODUCT_BUNDLE_IDENTIFIER = com.raywenderlich.Kuchi;
 				PRODUCT_NAME = Kuchi;
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.0;
@@ -639,7 +641,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 35ERK77LXE;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = iOS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -647,7 +649,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.audrey.Kuchi;
+				PRODUCT_BUNDLE_IDENTIFIER = com.raywenderlich.Kuchi;
 				PRODUCT_NAME = Kuchi;
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.0;

@@ -47,7 +47,7 @@ struct SettingsView: View {
       Text("Settings")
         .font(.largeTitle)
         .padding(.bottom, 8)
-      
+
       Section(header: Text("Appearance")) {
         VStack(alignment: .leading) {
           Picker("", selection: $appearance) {
@@ -56,7 +56,7 @@ struct SettingsView: View {
             }
           }
           .pickerStyle(SegmentedPickerStyle())
-          
+
           ColorPicker(
             "Card Background Color",
             selection: Binding(
@@ -69,7 +69,7 @@ struct SettingsView: View {
           )
         }
       }
-      
+
       Section(header: Text("Game")) {
         VStack(alignment: .leading) {
           Stepper(
@@ -81,10 +81,10 @@ struct SettingsView: View {
             .font(.caption2)
             .foregroundColor(.secondary)
         }
-        
+
         Toggle("Learning Enabled", isOn: $learningEnabled)
       }
-      
+
       Section(header: Text("Notifications")) {
         HStack {
           Toggle("Daily Reminder", isOn: Binding(
@@ -116,7 +116,7 @@ struct SettingsView: View {
       cardBackgroundColor = Color(rgba: cardBackgroundColorInt)
     }
   }
-  
+
   func configureNotification() {
     if dailyReminderEnabled {
       LocalNotifications.shared.createReminder(time: dailyReminderTime)

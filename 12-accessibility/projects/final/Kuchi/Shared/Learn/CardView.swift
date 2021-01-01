@@ -45,7 +45,7 @@ struct CardView: View {
   init(
     _ card: FlashCard,
     cardColor: Binding<Color>,
-    onDrag dragged: @escaping CardDrag = {_,_  in }
+    onDrag dragged: @escaping CardDrag = { _, _ in }
   ) {
     self.flashCard = card
     self.dragged = dragged
@@ -61,7 +61,7 @@ struct CardView: View {
     offset = .init(width: width, height: 0)
     dragged(flashCard, direction)
   }
-  
+
   var body: some View {
     let drag = DragGesture()
       .onChanged { offset = $0.translation }
@@ -74,14 +74,14 @@ struct CardView: View {
           offset = .zero
         }
       }
-    
+
     let longPress = LongPressGesture()
       .updating($isLongPressed) { value, state, _ in
         state = value
       }
       .simultaneously(with: drag)
-    
-    return VStack {
+
+    VStack {
       ZStack {
         Rectangle()
           .fill(cardColor)
@@ -92,44 +92,40 @@ struct CardView: View {
           Text(flashCard.card.question)
             .font(.largeTitle)
             .foregroundColor(.white)
-          if revealed {
+          if self.revealed {
             Text(flashCard.card.answer)
               .font(.caption)
               .foregroundColor(.white)
           }
           Spacer()
         }
-        .gesture(
-          TapGesture()
-            .onEnded {
-              withAnimation(.easeIn, {
-                revealed.toggle()
-              })
-            })
       }
       .shadow(radius: 8)
       .frame(width: 320, height: 210)
       .animation(.spring())
-      .gesture(longPress)
+      .gesture(
+        TapGesture()
+          .onEnded {
+            withAnimation(.easeIn) {
+              revealed.toggle()
+            }
+          }
+      )
+      .simultaneousGesture(longPress)
       .scaleEffect(isLongPressed ? 1.1 : 1)
-      HStack(spacing: 50) {
+      // swiftlint:disable multiple_closures_with_trailing_closure
+      HStack {
         Button { discardCard(to: .left) } label: {
           Image(systemName: "arrowshape.turn.up.left.circle")
-            .accessibilityLabel(Text("Swipe left"))
+            .accessibilityLabel(Text("Swipes left"))
         }
-        VStack {
-          Text("Show answer?")
-            .font(.footnote)
-          Toggle("Show answer?", isOn: $revealed)
-            .labelsHidden()
-            .toggleStyle(SwitchToggleStyle(tint: Color.red))
-        }
+        Spacer()
         Button { discardCard(to: .right) } label: {
           Image(systemName: "arrowshape.turn.up.right.circle")
-            .accessibilityLabel(Text("Swipe right"))
+            .accessibilityLabel(Text("Swipes right"))
         }
       }
-      .padding()
+      .padding(45)
       .font(.largeTitle)
     }
     .offset(offset)
@@ -138,7 +134,7 @@ struct CardView: View {
 
 struct CardView_Previews: PreviewProvider {
   @State static var cardColor = Color.red
-  
+
   static var previews: some View {
     let card = FlashCard(
       card: Challenge(

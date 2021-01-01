@@ -69,11 +69,9 @@ struct FlightInfoPanel: View {
           Text("Flying to \(flight.otherAirport)")
         }
         Text(flight.flightStatus) + Text(" (\(timeFormatter.string(from: flight.localTime)))")
-        Button(action: {
-          withAnimation {
-            showTerminal.toggle()
-          }
-        }, label: {
+        Button(
+          action: { withAnimation { showTerminal.toggle() } },
+          label: {
           HStack(alignment: .center) {
             Image(systemName: "airplane.circle")
               .resizable()
@@ -110,7 +108,8 @@ struct FlightInfoPanel: View {
                 )
               )
           }
-        })
+          }
+        )
         if showTerminal {
           FlightTerminalMap(flight: flight)
         }

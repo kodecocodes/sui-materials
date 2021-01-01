@@ -35,7 +35,7 @@ import SwiftUI
 struct ScoreView: View {
   @Binding var numberOfQuestions: Int
   @Binding var numberOfAnswered: Int
-  
+
   var body: some View {
     HStack {
       Text("\(numberOfAnswered)/\(numberOfQuestions)")

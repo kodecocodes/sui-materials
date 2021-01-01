@@ -36,7 +36,7 @@ import SwiftUI
 struct KuchiApp: App {
   let userManager = UserManager()
   @AppStorage("appearance") var appearance: Appearance = .automatic
-  
+
   init() {
     userManager.load()
   }

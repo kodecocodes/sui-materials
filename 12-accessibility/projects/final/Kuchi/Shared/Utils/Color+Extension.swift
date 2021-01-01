@@ -42,14 +42,14 @@ extension Color {
       opacity: Double((rgba & 0x000000FF)) / 255
     )
   }
-  
+
   var asRgba: Int {
-    let components = cgColor!.components!
-    let (r, g, b, a) = (components[0], components[1], components[2], components[3])
+    guard let components = cgColor?.components else { return 0 }
+    let (red, green, blue, alpha) = (components[0], components[1], components[2], components[3])
     return
-      (Int(a * 255) << 0) +
-      (Int(b * 255) << 8) +
-      (Int(g * 255) << 16) +
-      (Int(r * 255) << 24)
+      (Int(alpha * 255) << 0) +
+      (Int(blue * 255) << 8) +
+      (Int(green * 255) << 16) +
+      (Int(red * 255) << 24)
   }
 }

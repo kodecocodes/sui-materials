@@ -34,6 +34,7 @@ import SwiftUI
 
 struct WelcomeMessageView: View {
   var body: some View {
+    // swiftlint:disable multiline_arguments
     Label {
       VStack(alignment: .leading) {
         Text("Welcome to")
@@ -47,6 +48,8 @@ struct WelcomeMessageView: View {
       .lineLimit(2)
       .multilineTextAlignment(.leading)
       .padding(.horizontal)
+      // swiftlint:disable multiple_closures_with_trailing_closure
+
     } icon: {
       LogoImage()
     }

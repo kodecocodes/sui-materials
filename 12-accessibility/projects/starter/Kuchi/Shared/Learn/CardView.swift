@@ -74,60 +74,44 @@ struct CardView: View {
           offset = .zero
         }
       }
-    
+
     let longPress = LongPressGesture()
       .updating($isLongPressed) { value, state, _ in
         state = value
       }
       .simultaneously(with: drag)
-    
-    return VStack {
-      ZStack {
-        Rectangle()
-          .fill(cardColor)
-          .frame(width: 320, height: 210)
-          .cornerRadius(12)
-        VStack {
-          Spacer()
-          Text(flashCard.card.question)
-            .font(.largeTitle)
-            .foregroundColor(.white)
-          if self.revealed {
-            Text(flashCard.card.answer)
-              .font(.caption)
-              .foregroundColor(.white)
-          }
-          Spacer()
-        }
-      }
-      .shadow(radius: 8)
-      .frame(width: 320, height: 210)
-      .animation(.spring())
-      .gesture(
-        TapGesture()
-          .onEnded {
-            withAnimation(.easeIn) {
-              revealed.toggle()
-            }
-          }
-      )
-      .simultaneousGesture(longPress)
-      .scaleEffect(isLongPressed ? 1.1 : 1)
 
-      HStack {
-        Button { discardCard(to: .left) } label: {
-          Image(systemName: "arrowshape.turn.up.left.circle")
-            .accessibilityLabel(Text("Swipe left"))
+    ZStack {
+      Rectangle()
+        .fill(cardColor)
+        .frame(width: 320, height: 210)
+        .cornerRadius(12)
+      VStack {
+        Spacer()
+        Text(flashCard.card.question)
+          .font(.largeTitle)
+          .foregroundColor(.white)
+        if self.revealed {
+          Text(flashCard.card.answer)
+            .font(.caption)
+            .foregroundColor(.white)
         }
         Spacer()
-        Button { discardCard(to: .right) } label: {
-          Image(systemName: "arrowshape.turn.up.right.circle")
-            .accessibilityLabel(Text("Swipe right"))
-        }
       }
-      .padding(45)
-      .font(.largeTitle)
     }
+    .shadow(radius: 8)
+    .frame(width: 320, height: 210)
+    .animation(.spring())
+    .gesture(
+      TapGesture()
+        .onEnded {
+          withAnimation(.easeIn) {
+            revealed.toggle()
+          }
+        }
+    )
+    .simultaneousGesture(longPress)
+    .scaleEffect(isLongPressed ? 1.1 : 1)
     .offset(offset)
   }
 }

@@ -34,6 +34,7 @@ import SwiftUI
 
 struct WelcomeMessageView: View {
   var body: some View {
+    // swiftlint:disable multiline_arguments
     Label {
       VStack(alignment: .leading) {
         Text("Welcome to")
@@ -43,13 +44,12 @@ struct WelcomeMessageView: View {
           .font(.largeTitle)
           .bold()
       }
-      // could use .font(Font...)
-      //.environment(\.legibilityWeight, .bold)  // doesn't make text bold
-      //.accessibilityElement(children: .combine)
       .foregroundColor(.red)
       .lineLimit(2)
       .multilineTextAlignment(.leading)
       .padding(.horizontal)
+      // swiftlint:disable multiple_closures_with_trailing_closure
+
     } icon: {
       LogoImage()
     }
@@ -60,6 +60,5 @@ struct WelcomeMessageView: View {
 struct WelcomeMessageView_Previews: PreviewProvider {
   static var previews: some View {
     WelcomeMessageView()
-      .environment(\.sizeCategory, .accessibilityExtraExtraLarge)
   }
 }
