@@ -1,4 +1,4 @@
-/// Copyright (c) 2020 Razeware LLC
+/// Copyright (c) 2021 Razeware LLC
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -58,7 +58,7 @@ struct ContentView: View {
               height: geometry.size.height * labelHeight)
           } else {
             BevelText(
-              text: game.target.intString(),
+              text: game.target.intString,
               width: geometry.size.width * labelWidth,
               height: geometry.size.height * labelHeight)
           }
@@ -66,7 +66,7 @@ struct ContentView: View {
             rgb: guess,
             size: geometry.size.width * circleSize)
           BevelText(
-            text: guess.intString(),
+            text: guess.intString,
             width: geometry.size.width * labelWidth,
             height: geometry.size.height * labelHeight)
           ColorSlider(value: $guess.red, trackColor: .red)

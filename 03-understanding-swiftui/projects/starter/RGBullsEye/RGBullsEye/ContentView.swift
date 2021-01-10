@@ -44,11 +44,11 @@ struct ContentView: View {
         Text("R: ??? G: ??? B: ???")
           .padding()
       } else {
-        Text(game.target.intString())
+        Text(game.target.intString)
           .padding()
       }
       ColorCircle(rgb: guess, size: 200)
-      Text(guess.intString())
+      Text(guess.intString)
         .padding()
       ColorSlider(value: $guess.red, trackColor: .red)
       ColorSlider(value: $guess.green, trackColor: .green)
