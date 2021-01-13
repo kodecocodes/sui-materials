@@ -34,7 +34,6 @@ import SwiftUI
 
 struct WelcomeMessageView: View {
   var body: some View {
-    // swiftlint:disable multiline_arguments
     Label {
       VStack(alignment: .leading) {
         Text("Welcome to")

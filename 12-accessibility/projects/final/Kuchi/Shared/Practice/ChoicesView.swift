@@ -43,7 +43,6 @@ struct ChoicesView: View {
   var body: some View {
     VStack(spacing: 25) {
       ForEach(0 ..< challengeTest.answers.count) { index in
-        // swiftlint:disable multiline_arguments
         // swiftlint:disable trailing_closure
         // swiftlint:disable multiple_closures_with_trailing_closure
         Button {
@@ -111,6 +110,7 @@ struct ChoicesView_Previews: PreviewProvider {
 
   static var previews: some View {
     challengesViewModel.generateRandomChallenge()
+    // swiftlint:disable:next force_unwrapping
     return ChoicesView(challengeTest: challengesViewModel.currentChallenge!)
   }
 }

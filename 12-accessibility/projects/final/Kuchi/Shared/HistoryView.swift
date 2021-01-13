@@ -39,6 +39,7 @@ struct History: Hashable {
   static func random() -> History {
     let date = Date.init(timeIntervalSinceNow: -TimeInterval.random(in: 0...1000000))
 
+    // swiftlint:disable:next force_unwrapping
     let challenge = ChallengesViewModel.challenges.randomElement()!
 
     return History(

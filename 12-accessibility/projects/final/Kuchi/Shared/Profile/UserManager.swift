@@ -36,10 +36,10 @@ import Foundation
 
 final class UserManager: ObservableObject {
   @Published
-  var profile: Profile = Profile()
+  var profile = Profile()
 
   @Published
-  var settings: Settings = Settings()
+  var settings = Settings()
 
   @Published
   var isRegistered: Bool

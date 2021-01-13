@@ -45,7 +45,6 @@ struct ChallengeView: View {
     if verticalSizeClass == .compact {
       VStack {
         HStack {
-          // swiftlint:disable multiline_arguments
           // swiftlint:disable multiple_closures_with_trailing_closure
           Button(action: {
             showAnswers.toggle()

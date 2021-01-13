@@ -47,7 +47,6 @@ struct WelcomeView: View {
         VStack {
           Text(verbatim: "Hi, \(userManager.profile.name)")
           WelcomeMessageView()
-          // swiftlint:disable multiline_arguments
           // swiftlint:disable multiple_closures_with_trailing_closure
           Button {
             showPractice = true

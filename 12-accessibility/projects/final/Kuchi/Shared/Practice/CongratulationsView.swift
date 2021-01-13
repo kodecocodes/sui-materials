@@ -86,7 +86,6 @@ struct CongratulationsView: View {
         .foregroundColor(.gray)
 
       Spacer()
-      // swiftlint:disable multiline_arguments
       Button(action: {
         self.challengesViewModel.restart()
       }, label: {
