@@ -95,15 +95,6 @@ struct ContentView: View {
               target: game.target,
               guess: $guess)
           }
-          //          .alert(isPresented: $showScore) {
-          //            Alert(
-          //              title: Text("You scored \(game.scoreRound)"),
-          //              message: Text("Target values: " + game.target.accString),
-          //              dismissButton: .default(Text("OK")) {
-          //                game.startNewRound()
-          //                guess = RGB()
-          //              })
-          //          }
         }
         .font(.headline)
       }
