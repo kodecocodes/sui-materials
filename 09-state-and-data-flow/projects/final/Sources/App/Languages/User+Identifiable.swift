@@ -1,3 +1,0 @@
-extension User: Identifiable {
-    
-}
