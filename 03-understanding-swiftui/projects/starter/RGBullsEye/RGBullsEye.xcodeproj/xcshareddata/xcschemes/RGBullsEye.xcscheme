@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1100"
+   LastUpgradeVersion = "1220"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "407CAC6222E69175009CE254"
+               BlueprintIdentifier = "CD405EF62536AA700062B1CC"
                BuildableName = "RGBullsEye.app"
                BlueprintName = "RGBullsEye"
                ReferencedContainer = "container:RGBullsEye.xcodeproj">
@@ -44,7 +44,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "407CAC6222E69175009CE254"
+            BlueprintIdentifier = "CD405EF62536AA700062B1CC"
             BuildableName = "RGBullsEye.app"
             BlueprintName = "RGBullsEye"
             ReferencedContainer = "container:RGBullsEye.xcodeproj">
@@ -61,7 +61,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "407CAC6222E69175009CE254"
+            BlueprintIdentifier = "CD405EF62536AA700062B1CC"
             BuildableName = "RGBullsEye.app"
             BlueprintName = "RGBullsEye"
             ReferencedContainer = "container:RGBullsEye.xcodeproj">
