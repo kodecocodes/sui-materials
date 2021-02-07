@@ -30,11 +30,20 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import Foundation
+import SwiftUI
 
-enum StyleSheet: String, CaseIterable {
-  case github
-  case lopash
-  case solarizeddark
-  case ulysses
+@main
+struct MacMarkDownApp: App {
+  var body: some Scene {
+    DocumentGroup(newDocument: MacMarkDownDocument()) { file in
+      ContentView(document: file.$document)
+    }
+    .commands {
+      MenuCommands()
+    }
+
+    Settings {
+      SettingsView()
+    }
+  }
 }

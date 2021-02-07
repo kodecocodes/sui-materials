@@ -14,10 +14,17 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+<<<<<<< HEAD:20-building-a-mac-app/projects/final/MacMarkDown.xcodeproj/xcshareddata/xcschemes/MacMarkDown.xcscheme
+               BlueprintIdentifier = "26108D46250C5457009866ED"
+               BuildableName = "MacMarkDown.app"
+               BlueprintName = "MacMarkDown"
+               ReferencedContainer = "container:MacMarkDown.xcodeproj">
+=======
                BlueprintIdentifier = "CD405EF62536AA700062B1CC"
                BuildableName = "RGBullsEye.app"
                BlueprintName = "RGBullsEye"
                ReferencedContainer = "container:RGBullsEye.xcodeproj">
+>>>>>>> editions/3.0:03-understanding-swiftui/projects/final/RGBullsEye/RGBullsEye.xcodeproj/xcshareddata/xcschemes/RGBullsEye.xcscheme
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -44,10 +51,17 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
+<<<<<<< HEAD:20-building-a-mac-app/projects/final/MacMarkDown.xcodeproj/xcshareddata/xcschemes/MacMarkDown.xcscheme
+            BlueprintIdentifier = "26108D46250C5457009866ED"
+            BuildableName = "MacMarkDown.app"
+            BlueprintName = "MacMarkDown"
+            ReferencedContainer = "container:MacMarkDown.xcodeproj">
+=======
             BlueprintIdentifier = "CD405EF62536AA700062B1CC"
             BuildableName = "RGBullsEye.app"
             BlueprintName = "RGBullsEye"
             ReferencedContainer = "container:RGBullsEye.xcodeproj">
+>>>>>>> editions/3.0:03-understanding-swiftui/projects/final/RGBullsEye/RGBullsEye.xcodeproj/xcshareddata/xcschemes/RGBullsEye.xcscheme
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -61,10 +75,17 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
+<<<<<<< HEAD:20-building-a-mac-app/projects/final/MacMarkDown.xcodeproj/xcshareddata/xcschemes/MacMarkDown.xcscheme
+            BlueprintIdentifier = "26108D46250C5457009866ED"
+            BuildableName = "MacMarkDown.app"
+            BlueprintName = "MacMarkDown"
+            ReferencedContainer = "container:MacMarkDown.xcodeproj">
+=======
             BlueprintIdentifier = "CD405EF62536AA700062B1CC"
             BuildableName = "RGBullsEye.app"
             BlueprintName = "RGBullsEye"
             ReferencedContainer = "container:RGBullsEye.xcodeproj">
+>>>>>>> editions/3.0:03-understanding-swiftui/projects/final/RGBullsEye/RGBullsEye.xcodeproj/xcshareddata/xcschemes/RGBullsEye.xcscheme
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

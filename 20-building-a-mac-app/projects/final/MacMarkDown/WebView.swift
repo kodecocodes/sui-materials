@@ -30,11 +30,41 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import Foundation
+import SwiftUI
+import WebKit
 
-enum StyleSheet: String, CaseIterable {
-  case github
-  case lopash
-  case solarizeddark
-  case ulysses
+final class WebView: NSViewRepresentable {
+  @AppStorage("styleSheet") var styleSheet: StyleSheet = .github
+
+  var html: String
+
+  init(html: String) {
+    self.html = html
+  }
+
+  func makeNSView(context: Context) -> WKWebView {
+    let webView = WKWebView()
+    return webView
+  }
+
+  func updateNSView(_ nsView: WKWebView, context: Context) {
+    nsView.loadHTMLString(
+      formattedHtml,
+      baseURL: Bundle.main.resourceURL)
+  }
+
+  // swiftlint:disable indentation_width
+  var formattedHtml: String {
+    return """
+        <html>
+        <head>
+           <link href="\(styleSheet).css" rel="stylesheet">
+        </head>
+        <body>
+           \(html)
+        </body>
+        </html>
+        """
+  }
+  // swiftlint:enable indentation_width
 }

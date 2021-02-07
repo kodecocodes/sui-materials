@@ -30,11 +30,48 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import Foundation
+import SwiftUI
+import UniformTypeIdentifiers
+import MarkdownKit
 
-enum StyleSheet: String, CaseIterable {
-  case github
-  case lopash
-  case solarizeddark
-  case ulysses
+extension UTType {
+  static var markdownText: UTType {
+    UTType(importedAs: "net.daringfireball.markdown")
+  }
+}
+
+struct MacMarkDownDocument: FileDocument {
+  var text: String
+  var html: String {
+    let markdown = MarkdownParser.standard.parse(text)
+    return HtmlGenerator.standard.generate(doc: markdown)
+  }
+
+  init(text: String = "# Hello, MacMarkDown!") {
+    self.text = text
+  }
+
+  mutating func refreshHtml() {
+    let tempText = text
+    text = ""
+    text = tempText
+  }
+
+  static var readableContentTypes: [UTType] { [.markdownText] }
+
+  init(configuration: ReadConfiguration) throws {
+    guard let data = configuration.file.regularFileContents,
+      let string = String(data: data, encoding: .utf8)
+    else {
+      throw CocoaError(.fileReadCorruptFile)
+    }
+    text = string
+  }
+
+  // swiftlint:disable force_unwrapping
+  func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
+    let data = text.data(using: .utf8)!
+    return .init(regularFileWithContents: data)
+  }
+  // swiftlint:enable force_unwrapping
 }

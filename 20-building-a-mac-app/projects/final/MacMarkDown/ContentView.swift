@@ -33,62 +33,53 @@
 import SwiftUI
 
 struct ContentView: View {
-  @State var game = Game()
-  @State var guess: RGB
-  @State var showScore = false
+  @Binding var document: MacMarkDownDocument
+
+  @AppStorage("editorFontSize") var editorFontSize: Int = 14
+  @AppStorage("styleSheet") var styleSheet: StyleSheet = .github
+
+  @State private var previewState = PreviewState.web
 
   var body: some View {
-    VStack {
-      Circle()
-        .fill(Color(rgbStruct: game.target))
-      if !showScore {
-        Text("R: ??? G: ??? B: ???")
-          .padding()
-      } else {
-        Text(game.target.intString())
-          .padding()
+    HSplitView {
+      TextEditor(text: $document.text)
+        .font(.system(size: CGFloat(editorFontSize)))
+        .frame(minWidth: 200)
+
+      if previewState == .web {
+        WebView(html: document.html)
+          .frame(minWidth: 200)
+          .onChange(of: styleSheet) { _ in
+            document.refreshHtml()
+          }
+      } else if previewState == .html {
+        // swiftlint:disable indentation_width
+        ScrollView {
+          Text(document.html)
+            .frame(minWidth: 200)
+            .frame(maxWidth: .infinity,
+                   maxHeight: .infinity,
+                   alignment: .topLeading)
+            .padding()
+            .font(.system(size: CGFloat(editorFontSize)))
+        }
       }
-      Circle()
-        .fill(Color(rgbStruct: guess))
-      Text(guess.intString())
-        .padding()
-      ColorSlider(value: $guess.red, trackColor: .red)
-      ColorSlider(value: $guess.green, trackColor: .green)
-      ColorSlider(value: $guess.blue, trackColor: .blue)
-      Button("Hit Me!") {
-        showScore = true
-        game.check(guess: guess)
-      }
-      .alert(isPresented: $showScore) {
-        Alert(
-          title: Text("Your Score"),
-          message: Text(String(game.scoreRound)),
-          dismissButton: .default(Text("OK")) {
-            game.startNewRound()
-            guess = RGB()
-          })
-      }
+    }
+    .frame(minWidth: 400,
+           idealWidth: 600,
+           maxWidth: .infinity,
+           minHeight: 300,
+           idealHeight: 400,
+           maxHeight: .infinity)
+    // swiftlint:enable indentation_width
+    .toolbar {
+      PreviewToolBarItem(previewState: $previewState)
     }
   }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct ContentViewPreviews: PreviewProvider {
   static var previews: some View {
-    ContentView(guess: RGB())
-  }
-}
-
-struct ColorSlider: View {
-  @Binding var value: Double
-  var trackColor: Color
-
-  var body: some View {
-    HStack {
-      Text("0")
-      Slider(value: $value)
-        .accentColor(trackColor)
-      Text("255")
-    }
-    .padding(.horizontal)
+    ContentView(document: .constant(MacMarkDownDocument()))
   }
 }

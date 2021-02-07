@@ -30,11 +30,45 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import Foundation
+import SwiftUI
 
-enum StyleSheet: String, CaseIterable {
-  case github
-  case lopash
-  case solarizeddark
-  case ulysses
+struct MenuCommands: Commands {
+  @AppStorage("styleSheet") var styleSheet: StyleSheet = .github
+
+  var body: some Commands {
+    CommandGroup(before: CommandGroupPlacement.help) {
+      Button("Markdown Cheatsheet") {
+        showCheatSheet()
+      }
+      .keyboardShortcut("/", modifiers: .command)
+
+      Divider()
+    }
+
+    CommandMenu("Stylesheet") {
+      Button("GitHub") {
+        styleSheet = .github
+      }.keyboardShortcut("1", modifiers: .command)
+
+      Button("Lopash") {
+        styleSheet = .lopash
+      }.keyboardShortcut("2", modifiers: .command)
+
+      Button("Solarized Dark") {
+        styleSheet = .solarizeddark
+      }.keyboardShortcut("3", modifiers: .command)
+
+      Button("Ulysses") {
+        styleSheet = .ulysses
+      }.keyboardShortcut("4", modifiers: .command)
+    }
+  }
+
+  func showCheatSheet() {
+    let cheatSheetAddress = "https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet"
+    guard let url = URL(string: cheatSheetAddress) else {
+      fatalError("Invalid cheatsheet URL")
+    }
+    NSWorkspace.shared.open(url)
+  }
 }

@@ -30,11 +30,29 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import Foundation
+import SwiftUI
 
-enum StyleSheet: String, CaseIterable {
-  case github
-  case lopash
-  case solarizeddark
-  case ulysses
+enum PreviewState {
+  case hidden
+  case html
+  case web
+}
+
+struct PreviewToolBarItem: ToolbarContent {
+  @Binding var previewState: PreviewState
+
+  var body: some ToolbarContent {
+    ToolbarItem {
+      Picker("", selection: $previewState) {
+        Image(systemName: "eye.slash")
+          .tag(PreviewState.hidden)
+        Image(systemName: "doc.plaintext")
+          .tag(PreviewState.html)
+        Image(systemName: "doc.richtext")
+          .tag(PreviewState.web)
+      }
+      .pickerStyle(SegmentedPickerStyle())
+      .help("Hide preview, show HTML or web view")
+    }
+  }
 }
