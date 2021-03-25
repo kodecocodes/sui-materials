@@ -32,36 +32,20 @@
 
 import SwiftUI
 
-struct SearchResultRow: View {
-  var flight: FlightInformation
-  @State private var isPresented = false
-
-  var body: some View {
-    Button(
-      action: {
-        isPresented.toggle()
-      }, label: {
-        FlightSearchSummary(flight: flight)
-      })
-      .sheet(
-        isPresented: $isPresented,
-        onDismiss: {
-          print("Modal dismissed. State now: \(self.isPresented)")
-        },
-        content: {
-          FlightSearchDetails(
-            flight: flight,
-            showModal: $isPresented
-          )
-        }
-      )
-  }
+struct WelcomeBackgroundImage: View {
+    var body: some View {
+        Image("welcome-background")
+            .resizable()
+            .aspectRatio(1 / 1, contentMode: .fill)
+            .edgesIgnoringSafeArea(.all)
+            .saturation(0.5)
+            .blur(radius: 5)
+            .opacity(0.08)
+    }
 }
 
-struct SearchResultRow_Previews: PreviewProvider {
-  static var previews: some View {
-    SearchResultRow(
-      flight: FlightData.generateTestFlight(date: Date())
-    ).environmentObject(AppEnvironment())
-  }
+struct WelcomeBackgroundImage_Previews: PreviewProvider {
+    static var previews: some View {
+        WelcomeBackgroundImage()
+    }
 }
