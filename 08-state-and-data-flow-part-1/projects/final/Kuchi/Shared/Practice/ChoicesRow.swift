@@ -32,19 +32,18 @@
 
 import SwiftUI
 
-struct SettingsView: View {
-  @AppStorage("editorFontSize") var editorFontSize: Int = 14
-
-  var body: some View {
-    Stepper(value: $editorFontSize, in: 10 ... 30) {
-      Text("Font size: \(editorFontSize)")
+/// Displays the choice available for the practice question.
+struct ChoicesRow : View {
+    var choice: String
+    
+    var body: some View {
+        Text(choice)
+            .font(.largeTitle)
     }
-    .frame(width: 260, height: 80)
-  }
 }
 
-struct SettingsViewPreviews: PreviewProvider {
-  static var previews: some View {
-    SettingsView()
-  }
+struct ChoicesRow_Previews : PreviewProvider {
+    static var previews: some View {
+        ChoicesRow(choice: "Hello")
+    }
 }

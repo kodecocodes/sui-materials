@@ -32,19 +32,18 @@
 
 import SwiftUI
 
-@main
-struct KuchiApp: App {
-  let userManager = UserManager()
-
+struct StarterView: View {
+  @EnvironmentObject var userViewModel: UserManager
+  
   @ViewBuilder
   var body: some View {
     if self.userViewModel.isRegistered {
       WelcomeView()
     } else {
       #if os(iOS)
-      RegisterView()
+      RegisterView(keyboardHandler: KeyboardFollower())
       #endif
-
+      
       #if os(macOS)
       RegisterView()
       #endif
@@ -52,8 +51,9 @@ struct KuchiApp: App {
   }
 }
 
-struct KuchiApp_Previews: PreviewProvider {
+struct StarterView_Previews: PreviewProvider {
   static var previews: some View {
-    RegisterView(keyboardHandler: KeyboardFollower())
+    StarterView()
+      .environmentObject(UserManager())
   }
 }
