@@ -31,7 +31,7 @@ import SwiftUI
 struct FlightTerminalMap: View {
   var flight: FlightInformation
   @State private var showPath = false
-  
+
   let gateAPaths = [
     [
       CGPoint(x: 360, y: 128),
@@ -59,7 +59,7 @@ struct FlightTerminalMap: View {
       CGPoint(x: 46, y: 187)
     ]
   ]
-  
+
   let gateBPaths = [
     [
       CGPoint(x: 0, y: 128),
@@ -87,7 +87,7 @@ struct FlightTerminalMap: View {
       CGPoint(x: 315, y: 185)
     ]
   ]
-  
+
   func gatePath(_ proxy: GeometryProxy) -> [CGPoint] {
     if let gateNumber = flight.gateNumber {
       var pathPoints: [CGPoint]
@@ -96,7 +96,7 @@ struct FlightTerminalMap: View {
       } else {
         pathPoints = gateBPaths[gateNumber - 1]
       }
-      
+
       let ratioX = proxy.size.width / 360.0
       let ratioY = proxy.size.height / 480.0
       var points: [CGPoint] = []
@@ -108,14 +108,14 @@ struct FlightTerminalMap: View {
       }
       return points
     }
-    
+
     return []
   }
-  
+
   var mapName: String {
     "terminal-\(flight.terminalName)-map".lowercased()
   }
-  
+
   var body: some View {
     Image(mapName)
       .resizable()
@@ -141,13 +141,13 @@ struct FlightTerminalMap_Previews: PreviewProvider {
     flight.gate = "A3"
     return flight
   }
-  
+
   static var testGateB: FlightInformation {
     let flight = FlightData.generateTestFlight(date: Date())
     flight.gate = "B4"
     return flight
   }
-  
+
   static var previews: some View {
     Group {
       FlightTerminalMap(flight: testGateA)

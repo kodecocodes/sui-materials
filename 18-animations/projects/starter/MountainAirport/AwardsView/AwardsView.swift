@@ -34,7 +34,7 @@ import SwiftUI
 
 struct AwardsView: View {
   @EnvironmentObject var flightNavigation: AppEnvironment
-  
+
   var awardArray: [AwardInformation] {
     flightNavigation.awardList
   }

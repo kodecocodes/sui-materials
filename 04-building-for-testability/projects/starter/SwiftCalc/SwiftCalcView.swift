@@ -279,7 +279,7 @@ struct SwiftCalcView: View {
 
           Button(action: {
             let val = Double(display) ?? 0.0
-            display =  "\(-val)"
+            display = "\(-val)"
           }, label: {
             Text("±")
           })
