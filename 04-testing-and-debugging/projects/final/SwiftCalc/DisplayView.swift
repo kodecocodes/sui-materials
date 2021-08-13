@@ -28,11 +28,23 @@
 
 import SwiftUI
 
+extension Color {
+  // Return a random color
+  static var random: Color {
+    return Color(
+      red: .random(in: 0...1),
+      green: .random(in: 0...1),
+      blue: .random(in: 0...1)
+    )
+  }
+}
 
 struct DisplayView: View {
   @Binding var display: String
 
   var body: some View {
+    let _ = Self._printChanges()
+
     HStack {
       if display.isEmpty {
         Text("0")
@@ -63,6 +75,7 @@ struct DisplayView: View {
           )
       }
     }
+    .background(Color.random)
   }
 }
 
