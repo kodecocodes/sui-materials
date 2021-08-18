@@ -1,4 +1,4 @@
-/// Copyright (c) 2020 Razeware LLC
+/// Copyright (c) 2021 Razeware LLC
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -42,6 +42,7 @@ extension UTType {
 
 struct MacMarkDownDocument: FileDocument {
   var text: String
+
   var html: String {
     let markdown = MarkdownParser.standard.parse(text)
     return HtmlGenerator.standard.generate(doc: markdown)
@@ -49,12 +50,6 @@ struct MacMarkDownDocument: FileDocument {
 
   init(text: String = "# Hello, MacMarkDown!") {
     self.text = text
-  }
-
-  mutating func refreshHtml() {
-    let tempText = text
-    text = ""
-    text = tempText
   }
 
   static var readableContentTypes: [UTType] { [.markdownText] }

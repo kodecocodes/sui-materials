@@ -1,4 +1,4 @@
-/// Copyright (c) 2020 Razeware LLC
+/// Copyright (c) 2021 Razeware LLC
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -33,8 +33,8 @@
 import SwiftUI
 import WebKit
 
-final class WebView: NSViewRepresentable {
-  @AppStorage("styleSheet") var styleSheet: StyleSheet = .github
+struct WebView: NSViewRepresentable {
+  @AppStorage("styleSheet") var styleSheet: StyleSheet = .raywenderlich
 
   var html: String
 
@@ -43,8 +43,7 @@ final class WebView: NSViewRepresentable {
   }
 
   func makeNSView(context: Context) -> WKWebView {
-    let webView = WKWebView()
-    return webView
+    WKWebView()
   }
 
   func updateNSView(_ nsView: WKWebView, context: Context) {

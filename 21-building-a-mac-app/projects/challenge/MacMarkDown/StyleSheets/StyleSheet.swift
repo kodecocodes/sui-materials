@@ -1,4 +1,4 @@
-/// Copyright (c) 2020 Razeware LLC
+/// Copyright (c) 2021 Razeware LLC
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -30,11 +30,27 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import Foundation
+import SwiftUI
 
 enum StyleSheet: String, CaseIterable {
-  case github
-  case lopash
-  case solarizeddark
-  case ulysses
+  case raywenderlich = "Ray Wenderlich"
+  case github = "GitHub"
+  case lopash = "Lopash"
+  case solarizeddark = "Solarized Dark"
+  case ulysses = "Ulysses"
+
+  var shortcutKey: KeyEquivalent {
+    switch self {
+    case .raywenderlich:
+      return "1"
+    case .github:
+      return "2"
+    case .lopash:
+      return "3"
+    case .solarizeddark:
+      return "4"
+    case .ulysses:
+      return "5"
+    }
+  }
 }
