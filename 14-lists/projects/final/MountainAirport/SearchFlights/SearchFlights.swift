@@ -30,9 +30,9 @@ import SwiftUI
 
 struct SearchFlights: View {
   var flightData: [FlightInformation]
-  @State private var city = ""
   @State private var date = Date()
   @State private var directionFilter: FlightDirection = .none
+  @State private var city = ""
 
   var matchingFlights: [FlightInformation] {
     var matchingFlights = flightData
@@ -43,7 +43,9 @@ struct SearchFlights: View {
       }
     }
     if !city.isEmpty {
-      matchingFlights = matchingFlights.filter { $0.otherAirport.lowercased().contains(city.lowercased()) }
+      matchingFlights = matchingFlights.filter {
+        $0.otherAirport.lowercased().contains(city.lowercased())
+      }
     }
 
     return matchingFlights
@@ -76,8 +78,6 @@ struct SearchFlights: View {
         }
         .background(Color.white)
         .pickerStyle(SegmentedPickerStyle())
-        TextField(" Search cities", text: $city)
-          .textFieldStyle(RoundedBorderTextFieldStyle())
         List {
           ForEach(flightDates, id: \.hashValue) { date in
             Section(
@@ -95,7 +95,9 @@ struct SearchFlights: View {
           }
         }.listStyle(InsetGroupedListStyle())
         Spacer()
-      }.navigationBarTitle("Search Flights")
+      }
+      .searchable(text: $city)
+      .navigationBarTitle("Search Flights")
       .padding()
     }
   }
