@@ -55,41 +55,45 @@ struct FlightStatusBoard: View {
   }
 
   var body: some View {
-    Text("Last updated: \(lastUpdateString(Date()))")
-      .font(.footnote)
-    TabView(selection: $selectedTab) {
-      FlightList(
-        flights: shownFlights.filter { $0.direction == .arrival },
-        highlightedIds: $highlightedIds
-      ).tabItem {
-        Image("descending-airplane")
-          .resizable()
-        Text("Arrivals")
-      }
-      .badge(shownFlights.filter { $0.direction == .arrival }.count)
-      .tag(0)
-      FlightList(
-        flights: shownFlights, highlightedIds: $highlightedIds
-      ).tabItem {
-        Image(systemName: "airplane")
-          .resizable()
-        Text("All")
-      }
-      .badge(shortDateString)
-      .tag(1)
-      FlightList(
-        flights: shownFlights.filter { $0.direction == .departure },
-        highlightedIds: $highlightedIds
-      ).tabItem {
-        Image("ascending-airplane")
-        Text("Departures")
-      }
-      .badge(shownFlights.filter { $0.direction == .departure }.count)
-      .tag(2)
-    }// 1
-    .refreshable {
+    // 1
+    TimelineView(.everyMinute) { context in
       // 2
-      await flights = FlightData.refreshFlights()
+      Text("Last updated: \(lastUpdateString(context.date))")
+        .font(.footnote)
+      TabView(selection: $selectedTab) {
+        FlightList(
+          flights: shownFlights.filter { $0.direction == .arrival },
+          highlightedIds: $highlightedIds
+        ).tabItem {
+          Image("descending-airplane")
+            .resizable()
+          Text("Arrivals")
+        }
+        .badge(shownFlights.filter { $0.direction == .arrival }.count)
+        .tag(0)
+        FlightList(
+          flights: shownFlights, highlightedIds: $highlightedIds
+        ).tabItem {
+          Image(systemName: "airplane")
+            .resizable()
+          Text("All")
+        }
+        .badge(shortDateString)
+        .tag(1)
+        FlightList(
+          flights: shownFlights.filter { $0.direction == .departure },
+          highlightedIds: $highlightedIds
+        ).tabItem {
+          Image("ascending-airplane")
+          Text("Departures")
+        }
+        .badge(shownFlights.filter { $0.direction == .departure }.count)
+        .tag(2)
+      }// 1
+      .refreshable {
+        // 2
+        await flights = FlightData.refreshFlights()
+      }
     }
     .navigationTitle("Flight Status")
     .navigationBarItems(
