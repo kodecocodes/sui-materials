@@ -32,6 +32,10 @@ struct FlightList: View {
   var flights: [FlightInformation]
   @Binding var highlightedIds: [Int]
 
+  func rowHighlighted(_ flightId: Int) -> Bool {
+    return highlightedIds.contains { $0 == flightId }
+  }
+
   var nextFlightId: Int {
     guard let flight = flights.first(
       where: {
@@ -42,10 +46,6 @@ struct FlightList: View {
       return flights.last!.id
     }
     return flight.id
-  }
-
-  func rowHighlighted(_ flightId: Int) -> Bool {
-    return highlightedIds.contains { $0 == flightId }
   }
 
   var body: some View {
@@ -77,7 +77,7 @@ struct FlightList_Previews: PreviewProvider {
     NavigationView {
       FlightList(
         flights: FlightData.generateTestFlights(date: Date()),
-        highlightedIds: .constant([21])
+        highlightedIds: .constant([15])
       )
     }
   }

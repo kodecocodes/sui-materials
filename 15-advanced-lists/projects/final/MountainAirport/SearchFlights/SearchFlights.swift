@@ -89,7 +89,6 @@ struct SearchFlights: View {
             }
           }
         }
-        .listStyle(InsetGroupedListStyle())
         .overlay(
           Group {
             if runningSearch {
@@ -105,32 +104,34 @@ struct SearchFlights: View {
             }
           }
         )
-        .searchable(text: $city) {
-          // 1
-          ForEach(FlightData.citiesContaining(city), id: \.self) { city in
-            // 2
-            Text(city).searchCompletion(city)
-          }
+        .listStyle(InsetGroupedListStyle())
+        Spacer()
+      }
+      .searchable(text: $city, prompt: "City Name") {
+        // 1
+        ForEach(FlightData.citiesContaining(city), id: \.self) { city in
+          // 2
+          Text(city).searchCompletion(city)
         }
-        .onSubmit(of: .search) {
+      }
+      // 1
+      .onSubmit(of: .search) {
+        Task {
+          runningSearch = true
+          await flightData = FlightData.searchFlightsForCity(city)
+          runningSearch = false
+        }
+      }
+      .onChange(of: city) { newText in
+        if newText.isEmpty {
           Task {
             runningSearch = true
             await flightData = FlightData.searchFlightsForCity(city)
             runningSearch = false
           }
         }
-        .onChange(of: city) { newText in
-          if newText.isEmpty {
-            Task {
-              runningSearch = true
-              await flightData = FlightData.searchFlightsForCity(city)
-              runningSearch = false
-            }
-          }
-        }
-        Spacer()
       }
-      .navigationTitle("Search Flights")
+      .navigationBarTitle("Search Flights")
       .padding()
     }
   }
