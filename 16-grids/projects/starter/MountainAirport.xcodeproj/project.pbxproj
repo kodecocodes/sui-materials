@@ -38,6 +38,7 @@
 		A9E462432509B44800128AB1 /* AwardInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E4623D2509B44700128AB1 /* AwardInformation.swift */; };
 		A9E462442509B44800128AB1 /* FlightInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E4623E2509B44700128AB1 /* FlightInformation.swift */; };
 		A9E462452509B44800128AB1 /* PurchasedFlights.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E4623F2509B44800128AB1 /* PurchasedFlights.swift */; };
+		A9F1484D26E6657A00A1B9BF /* HighlightActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F1484C26E6657A00A1B9BF /* HighlightActionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -74,6 +75,7 @@
 		A9E4623D2509B44700128AB1 /* AwardInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AwardInformation.swift; sourceTree = "<group>"; };
 		A9E4623E2509B44700128AB1 /* FlightInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlightInformation.swift; sourceTree = "<group>"; };
 		A9E4623F2509B44800128AB1 /* PurchasedFlights.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchasedFlights.swift; sourceTree = "<group>"; };
+		A9F1484C26E6657A00A1B9BF /* HighlightActionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightActionView.swift; sourceTree = "<group>"; };
 		E6064A3C23285EBF00472924 /* MountainAirport.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MountainAirport.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -163,6 +165,7 @@
 				A998D86825212B8F00DC64A7 /* FlightList.swift */,
 				A998D86C25212BB200DC64A7 /* FlightRow.swift */,
 				A998D86F25212BD200DC64A7 /* FlightStatusIcon.swift */,
+				A9F1484C26E6657A00A1B9BF /* HighlightActionView.swift */,
 			);
 			path = FlightStatusBoard;
 			sourceTree = "<group>";
@@ -305,6 +308,7 @@
 				A9E462452509B44800128AB1 /* PurchasedFlights.swift in Sources */,
 				A92AE31D2527858D0076F3B9 /* DateFormatters.swift in Sources */,
 				A952E06F254C8263004687A2 /* SearchFlightsButton.swift in Sources */,
+				A9F1484D26E6657A00A1B9BF /* HighlightActionView.swift in Sources */,
 				A9E462412509B44800128AB1 /* FlightData.swift in Sources */,
 				A998D86925212B8F00DC64A7 /* FlightList.swift in Sources */,
 				A9CF242D2515240B00EA887E /* WelcomeButtonView.swift in Sources */,
@@ -388,7 +392,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -443,7 +447,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -465,7 +469,7 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = MountainAirport/Info.plist;
-				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -490,7 +494,7 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = MountainAirport/Info.plist;
-				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
