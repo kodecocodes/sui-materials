@@ -15,6 +15,7 @@
 		A92AE31D2527858D0076F3B9 /* DateFormatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92AE31C2527858D0076F3B9 /* DateFormatters.swift */; };
 		A92CC5E4250E7AEA0010BF40 /* FlightDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92CC5E2250E7AEA0010BF40 /* FlightDetails.swift */; };
 		A93AD0F6253364B400182D1B /* AwardDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = A93AD0F5253364B400182D1B /* AwardDetails.swift */; };
+		A9484BF626E6A665009F0C97 /* HighlightActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9484BF526E6A665009F0C97 /* HighlightActionView.swift */; };
 		A951531F25215880001F6464 /* FlightDetailHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A951531E25215880001F6464 /* FlightDetailHeader.swift */; };
 		A951532225215903001F6464 /* FlightInfoPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A951532125215903001F6464 /* FlightInfoPanel.swift */; };
 		A95D27772524149400788411 /* SearchResultRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D27762524149300788411 /* SearchResultRow.swift */; };
@@ -50,6 +51,7 @@
 		A92AE31C2527858D0076F3B9 /* DateFormatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatters.swift; sourceTree = "<group>"; };
 		A92CC5E2250E7AEA0010BF40 /* FlightDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlightDetails.swift; sourceTree = "<group>"; };
 		A93AD0F5253364B400182D1B /* AwardDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwardDetails.swift; sourceTree = "<group>"; };
+		A9484BF526E6A665009F0C97 /* HighlightActionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighlightActionView.swift; sourceTree = "<group>"; };
 		A951531E25215880001F6464 /* FlightDetailHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightDetailHeader.swift; sourceTree = "<group>"; };
 		A951532125215903001F6464 /* FlightInfoPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightInfoPanel.swift; sourceTree = "<group>"; };
 		A95D27762524149300788411 /* SearchResultRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultRow.swift; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 		A998D86725212B6D00DC64A7 /* FlightStatusBoard */ = {
 			isa = PBXGroup;
 			children = (
+				A9484BF526E6A665009F0C97 /* HighlightActionView.swift */,
 				A9CF241F2515097D00EA887E /* FlightStatusBoard.swift */,
 				A998D86825212B8F00DC64A7 /* FlightList.swift */,
 				A998D86C25212BB200DC64A7 /* FlightRow.swift */,
@@ -290,6 +293,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A9CB5E20253A5AEE004253E8 /* FlightTimeHistory.swift in Sources */,
+				A9484BF626E6A665009F0C97 /* HighlightActionView.swift in Sources */,
 				A9CB5E17253A5070004253E8 /* FlightSearchDetails.swift in Sources */,
 				A951532225215903001F6464 /* FlightInfoPanel.swift in Sources */,
 				A92AE318252785770076F3B9 /* DateExtensions.swift in Sources */,
@@ -384,7 +388,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -439,7 +443,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -461,7 +465,7 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = MountainAirport/Info.plist;
-				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -486,7 +490,7 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = MountainAirport/Info.plist;
-				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
