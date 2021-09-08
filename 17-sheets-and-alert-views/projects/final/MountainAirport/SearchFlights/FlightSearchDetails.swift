@@ -81,14 +81,14 @@ struct FlightSearchDetails: View {
                 "Flight \(flight.flight)"),
               buttons: [
                 .cancel(Text("Not Now")),
-                .destructive(Text("Reschedule"), action: {
+                .destructive(Text("Reschedule")) {
                   print("Reschedule flight.")
-                }),
-                .default(Text("Check In"), action: {
+                },
+                .default(Text("Check In")) {
                   print(
                     "Check-in for \(flight.airline) \(flight.flight)."
                   )
-                })
+                }
               ]
             )
           }
