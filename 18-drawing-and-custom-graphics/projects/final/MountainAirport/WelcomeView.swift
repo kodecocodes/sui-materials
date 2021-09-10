@@ -44,14 +44,11 @@ struct WelcomeView: View {
           .resizable()
           .aspectRatio(contentMode: .fill)
           .frame(height: 250)
-        if
-          let id = appEnvironment.lastFlightId,
-          let lastFlight = flightInfo.getFlightById(id) {
-          NavigationLink(
-            destination: FlightDetails(flight: lastFlight),
-            isActive: $showNextFlight
-          ) { }
-        }
+        NavigationLink(
+          // swiftlint:disable:next force_unwrapping
+          destination: FlightDetails(flight: flightInfo.flights.first!),
+          isActive: $showNextFlight
+        ) { }
         ScrollView {
           LazyVGrid(
             columns: [
@@ -63,19 +60,31 @@ struct WelcomeView: View {
               destination: FlightStatusBoard(
                 flights: flightInfo.getDaysFlights(Date()))
             ) {
-              FlightStatusButton()
+              WelcomeButtonView(
+                title: "Flight Status",
+                subTitle: "Departure and arrival information",
+                imageName: "airplane",
+                imageAngle: -45.0
+              )
             }
             NavigationLink(
               destination: SearchFlights(
                 flightData: flightInfo.flights
               )
             ) {
-              SearchFlightsButton()
+              WelcomeButtonView(
+                title: "Search Flights",
+                subTitle: "Search upcoming flights",
+                imageName: "magnifyingglass"
+              )
             }
             NavigationLink(
               destination: AwardsView()
             ) {
-              AwardsButton()
+              WelcomeButtonView(
+                title: "Your Awards",
+                subTitle: "Earn rewards for your airport interactions",
+                imageName: "star.fill")
             }
             if
               let id = appEnvironment.lastFlightId,
@@ -84,8 +93,13 @@ struct WelcomeView: View {
               Button(action: {
                 showNextFlight = true
               }) {
-                LastViewedButton(name: lastFlight.flightName)
+                WelcomeButtonView(
+                  title: "Last Viewed Flight",
+                  subTitle: lastFlight.flightName,
+                  imageName: "suit.heart.fill"
+                )
               }
+              // swiftlint:enable multiple_closures_with_trailing_closure
             }
             Spacer()
           }.font(.title)

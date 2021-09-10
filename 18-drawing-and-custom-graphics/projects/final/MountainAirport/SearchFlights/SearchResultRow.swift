@@ -46,7 +46,7 @@ struct SearchResultRow: View {
       .sheet(
         isPresented: $isPresented,
         onDismiss: {
-          print("Modal dismissed. State now: \(self.isPresented)")
+          print("Modal dismissed. State now: \(isPresented)")
         },
         content: {
           FlightSearchDetails(
