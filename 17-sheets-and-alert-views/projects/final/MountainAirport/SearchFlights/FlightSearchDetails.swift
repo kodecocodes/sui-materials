@@ -80,11 +80,11 @@ struct FlightSearchDetails: View {
             showCheckIn = true
           }
           // 1
-          .alert("Check In", isPresented: $showCheckIn, presenting: checkInFlight) { flight in
+          .confirmationDialog("Check In", isPresented: $showCheckIn, presenting: checkInFlight) { checkIn in
             // 2
             Button("Check In") {
               print(
-                "Check-in for \(flight.airline) \(flight.flight)."
+                "Check-in for \(checkIn.airline) \(checkIn.flight)."
               )
             }
             // 3
@@ -94,9 +94,9 @@ struct FlightSearchDetails: View {
             // 4
             Button("Not Now", role: .cancel) { }
             // 5
-          } message: { flight in
-            Text("Check in for \(flight.airline)" +
-              "Flight \(flight.flight)")
+          } message: { checkIn in
+            Text("Check in for \(checkIn.airline)" +
+              "Flight \(checkIn.flight)")
           }
         }
         Button("On-Time History") {
