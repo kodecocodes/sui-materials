@@ -36,14 +36,14 @@ struct FlightTimeHistory: View {
   var flight: FlightInformation
 
   // 1
-  let minuteRange = CGFloat(75)
+  let minuteRange = 75.0
 
   // 2
   func minuteLength(_ minutes: Int, proxy: GeometryProxy) -> CGFloat {
     // 3
     let pointsPerMinute = proxy.size.width / minuteRange
     // 4
-    return CGFloat(abs(minutes)) * pointsPerMinute
+    return Double(abs(minutes)) * pointsPerMinute
   }
 
   func minuteOffset(_ minutes: Int, proxy: GeometryProxy) -> CGFloat {
