@@ -50,6 +50,10 @@ struct WelcomeView: View {
           isActive: $showNextFlight
         ) { }
         ScrollView {
+          WelcomeAnimation()
+            .foregroundColor(.white)
+            .frame(height: 40)
+            .padding()
           LazyVGrid(
             columns: [
               GridItem(.fixed(160)),
