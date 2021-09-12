@@ -85,7 +85,7 @@ class FlightHistory: NSObject {
   }
 
   func calcOffset(_ width: CGFloat) -> CGFloat {
-    CGFloat(CGFloat(day - 1) * width)
+    CGFloat(day - 1) * width
   }
 
   init(_ day: Int, id: Int, date: Date, direction: FlightDirection, status: FlightStatus, scheduledTime: Date, actualTime: Date?) {

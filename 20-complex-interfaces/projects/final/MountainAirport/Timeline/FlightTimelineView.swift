@@ -28,7 +28,7 @@
 
 import SwiftUI
 
-struct TimelineView: View {
+struct FlightTimelineView: View {
   var flights: [FlightInformation]
 
   var body: some View {
@@ -36,13 +36,11 @@ struct TimelineView: View {
       Image("background-view")
         .resizable()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-      ScrollView {
-        VStack {
-          ForEach(flights) { flight in
-            FlightCardView(flight: flight)
-          }
+        GenericTimeline(
+          events: flights,
+          timeProperty: \.localTime) { flight in
+          FlightCardView(flight: flight)
         }
-      }
       .padding()
     }
     .foregroundColor(.white)
@@ -53,7 +51,7 @@ struct TimelineView: View {
 struct TimelineView_Previews: PreviewProvider {
   static var previews: some View {
     NavigationView {
-      TimelineView(
+      FlightTimelineView(
         flights: FlightData.generateTestFlights(
           date: Date()
         )

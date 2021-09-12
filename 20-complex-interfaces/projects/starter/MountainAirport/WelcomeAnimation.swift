@@ -1,15 +1,15 @@
-/// Copyright (c) 2020 Razeware LLC
-///
+/// Copyright (c) 2021 Razeware LLC
+/// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
 /// in the Software without restriction, including without limitation the rights
 /// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 /// copies of the Software, and to permit persons to whom the Software is
 /// furnished to do so, subject to the following conditions:
-///
+/// 
 /// The above copyright notice and this permission notice shall be included in
 /// all copies or substantial portions of the Software.
-///
+/// 
 /// Notwithstanding the foregoing, you may not use, copy, modify, merge, publish,
 /// distribute, sublicense, create a derivative work, and/or sell copies of the
 /// Software in any work that is designed, intended, or marketed for pedagogical or
@@ -17,11 +17,7 @@
 /// or information technology.  Permission for such use, copying, modification,
 /// merger, publication, distribution, sublicensing, creation of derivative works,
 /// or sale is expressly withheld.
-///
-/// This project and source code may use libraries or frameworks that are
-/// released under various Open-Source licenses. Use of those libraries and
-/// frameworks are governed by their own individual licenses.
-///
+/// 
 /// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 /// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 /// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -32,52 +28,40 @@
 
 import SwiftUI
 
-struct AwardDetails: View {
-  var award: AwardInformation
-
-  func imageSize(proxy: GeometryProxy) -> Double {
-    let size = min(proxy.size.width, proxy.size.height)
-    return size * 0.8
-  }
+struct WelcomeAnimation: View {
+  private var startTime = Date()
+  private let animationLength = 5.0
 
   var body: some View {
-    VStack(alignment: .center) {
-      Image(award.imageName)
-        .resizable()
-        .aspectRatio(contentMode: .fit)
-        .padding()
-      Text(award.title)
-        .font(.title)
-        .padding()
-      Text(award.description)
-        .font(.body)
-        .padding()
-      Spacer()
-    }.padding()
-    .opacity(award.awarded ? 1.0 : 0.4)
-    .saturation(award.awarded ? 1 : 0)
+    TimelineView(.animation) { timelineContext in
+      Canvas { graphicContext, size in
+        // swiftlint:disable force_unwrapping
+        let planeSymbol = graphicContext.resolveSymbol(id: 0)!
+        // swiftlint:enable force_unwrapping
+
+        // 1
+        let timePosition = (timelineContext.date.timeIntervalSince(startTime))
+          .truncatingRemainder(dividingBy: animationLength)
+        // 2
+        let xPosition = timePosition / animationLength * size.width
+        // 3
+        graphicContext.draw(
+          planeSymbol,
+          at: .init(x: xPosition, y: size.height / 2.0)
+        )
+      } symbols: {
+        Image(systemName: "airplane")
+          .resizable()
+          .aspectRatio(1.0, contentMode: .fit)
+          .frame(height: 40)
+          .tag(0)
+      }
+    }
   }
 }
 
-struct AwardDetails_Previews: PreviewProvider {
+struct WelcomeAnimation_Previews: PreviewProvider {
   static var previews: some View {
-    let award = AwardInformation(
-      imageName: "first-visit-award",
-      title: "First Visit",
-      description: "Awarded the first time you open the app while at the airport.",
-      awarded: true
-    )
-
-    let award2 = AwardInformation(
-      imageName: "rainy-day-award",
-      title: "Rainy Day",
-      description: "Your flight was delayed because of weather.",
-      awarded: false
-    )
-
-    Group {
-      AwardDetails(award: award)
-      AwardDetails(award: award2)
-    }
+    WelcomeAnimation()
   }
 }
