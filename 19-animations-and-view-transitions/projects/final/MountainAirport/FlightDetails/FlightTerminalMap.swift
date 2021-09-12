@@ -131,7 +131,7 @@ struct FlightTerminalMap: View {
           WalkPath(points: gatePath(proxy))
             .trim(to: showPath ? 1.0 : 0.0)
             .stroke(Color.white, lineWidth: 3.0)
-            .animation(walkingAnimation)
+            .animation(walkingAnimation, value: showPath)
         }
       )
       .onAppear {
