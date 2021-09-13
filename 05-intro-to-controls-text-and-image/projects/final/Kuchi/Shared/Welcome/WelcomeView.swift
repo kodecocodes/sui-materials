@@ -1,4 +1,4 @@
-/// Copyright (c) 2020 Razeware LLC
+/// Copyright (c) 2021 Razeware LLC
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -42,7 +42,7 @@ struct WelcomeView: View {
         .saturation(0.5)
         .blur(radius: 5)
         .opacity(0.08)
-            
+      
       Label {
         VStack(alignment: .leading) {
           Text("Welcome to")
@@ -53,8 +53,7 @@ struct WelcomeView: View {
             .bold()
         }
         .foregroundColor(.red)
-        .lineLimit(2)
-        .multilineTextAlignment(.leading)
+        .lineLimit(1)
         .padding(.horizontal)
       } icon: {
         Image(systemName: "table")
