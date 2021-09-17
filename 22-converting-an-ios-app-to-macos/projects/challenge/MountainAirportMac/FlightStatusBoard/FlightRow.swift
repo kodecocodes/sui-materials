@@ -1,4 +1,4 @@
-/// Copyright (c) 2020 Razeware LLC
+/// Copyright (c) 2021 Razeware LLC
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -42,15 +42,10 @@ struct FlightRow: View {
     return tdf
   }
 
-  // Challenge 1: 
-  // By making this full width and with a background color, the entire row becomes clickable.
-  // added some more leading spacing to the icon and a Spacer at the end of the HStack.
-
   var body: some View {
     HStack {
       FlightStatusIcon(flight: flight)
         .padding(5)
-        .padding(.leading, 5)
         .clipShape(RoundedRectangle(cornerRadius: 7))
       VStack(alignment: .leading) {
         Text(flight.flightName)
@@ -65,12 +60,7 @@ struct FlightRow: View {
           Text("Gate \(flight.gate)")
         }.foregroundColor(.gray)
       }
-      Spacer()
     }
-    .frame(maxWidth: .infinity)
-    .padding(.vertical, 6)
-    .background(Color(white: 0, opacity: 0.1))
-    .cornerRadius(10)
   }
 }
 

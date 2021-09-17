@@ -1,4 +1,4 @@
-/// Copyright (c) 2020 Razeware LLC
+/// Copyright (c) 2021 Razeware LLC
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -36,6 +36,7 @@ struct FlightSearchDetails: View {
   var flight: FlightInformation
   @Binding var showModal: Bool
   @State private var rebookAlert = false
+  @State private var checkinAlert = false
   @State private var checkInFlight: CheckInInfo?
   @State private var showFlightHistory = false
   @SceneStorage("lastViewedFlightID") var lastViewedFlightID: Int?
@@ -68,28 +69,43 @@ struct FlightSearchDetails: View {
           }
         }
         if flight.isCheckInAvailable {
-          // swiftlint:disable:next trailing_closure
           Button("Check In for Flight") {
             self.checkInFlight =
-              CheckInInfo(
-                airline: self.flight.airline,
-                flight: self.flight.number
-              )
+            CheckInInfo(
+              airline: self.flight.airline,
+              flight: self.flight.number
+            )
+            checkinAlert = true
           }
-          // Challenge 2: check in
-          // swiftlint:disable multiline_arguments
-          // swiftlint:disable indentation_width
-          .alert(item: $checkInFlight, content: { flight in
-            Alert(title: Text("Check In"),
-                  message: Text("Check in for \(flight.airline)" +
-                                  "Flight \(flight.flight)"),
-                  primaryButton: .default(Text("Check In"), action: {
-                    print("Check-in for \(flight.airline) \(flight.flight).")
-                  }),
-                  secondaryButton: .cancel())
-          })
-          // swiftlint:enable multiline_arguments
-          // swiftlint:enable indentation_width
+
+          // Challenge 2
+          .alert(
+            Text("Check In"),
+            isPresented: $checkinAlert,
+            presenting: checkInFlight
+          ) { flight in
+            Button {
+              print(
+                "Check-in for \(flight.airline) \(flight.flight)."
+              )
+            } label: {
+              Text(
+                "Check in for \(flight.airline)" +
+                "Flight \(flight.flight)")
+            }
+            Button(role: .destructive) {
+              print("Reschedule flight.")
+            } label: {
+              Text("Reschedule")
+            }
+            Button(role: .cancel) {} label: {
+              Text("Not Now")
+            }
+          } message: { flight in
+            Text(
+              "Check in for \(flight.airline)" +
+              "Flight \(flight.flight)?")
+          }
         }
         Button("On-Time History") {
           showFlightHistory.toggle()
@@ -97,7 +113,7 @@ struct FlightSearchDetails: View {
         .popover(
           isPresented: $showFlightHistory,
           arrowEdge: .top) {
-          FlightTimeHistory(flight: self.flight)
+            FlightTimeHistory(flight: self.flight)
         }
         FlightInfoPanel(flight: flight)
           .foregroundColor(.white)
@@ -112,8 +128,8 @@ struct FlightSearchDetails: View {
     }.onAppear {
       lastViewedFlightID = flight.id
     }
-    // Challenge 1: set a fixed height for this view
-    .frame(height: 600)
+    // Challenge 1 - part 2
+    .frame(maxHeight: 600)
   }
 }
 

@@ -1,4 +1,4 @@
-/// Copyright (c) 2020 Razeware LLC
+/// Copyright (c) 2021 Razeware LLC
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -64,13 +64,13 @@ struct AwardCardView: View {
       .opacity(award.awarded ? 1.0 : 0.3)
       .clipShape(RoundedRectangle(cornerRadius: 25.0))
     })
-    .buttonStyle(PlainButtonStyle())
-    .sheet(
-      isPresented: $isPresented,
-      content: {
-        AwardDetails(award: award)
-      }
-    )
+      .buttonStyle(.plain)
+      .sheet(
+        isPresented: $isPresented,
+        content: {
+          AwardDetails(award: award)
+        }
+      )
   }
 }
 

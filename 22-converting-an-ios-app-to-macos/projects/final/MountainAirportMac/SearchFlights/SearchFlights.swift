@@ -1,4 +1,4 @@
-/// Copyright (c) 2020 Razeware LLC
+/// Copyright (c) 2021 Razeware LLC
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -74,12 +74,12 @@ struct SearchFlights: View {
         Picker(
           selection: $directionFilter,
           label: Text("Flight Direction")) {
-          Text("All").tag(FlightDirection.none)
-          Text("Arrivals").tag(FlightDirection.arrival)
-          Text("Departures").tag(FlightDirection.departure)
+            Text("All").tag(FlightDirection.none)
+            Text("Arrivals").tag(FlightDirection.arrival)
+            Text("Departures").tag(FlightDirection.departure)
         }
-        .background(Color.white)
-        .pickerStyle(SegmentedPickerStyle())
+          .background(Color.white)
+          .pickerStyle(SegmentedPickerStyle())
         TextField(" Search cities", text: $city)
           .textFieldStyle(RoundedBorderTextFieldStyle())
         List {
@@ -97,10 +97,10 @@ struct SearchFlights: View {
               }
             }
           }
-        }.listStyle(InsetListStyle())
+        }.listStyle(.inset)
         Spacer()
       }.navigationTitle("Search Flights")
-      .padding()
+        .padding()
     }
   }
 }

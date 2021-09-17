@@ -1,4 +1,4 @@
-/// Copyright (c) 2020 Razeware LLC
+/// Copyright (c) 2021 Razeware LLC
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -70,10 +70,10 @@ struct FlightSearchDetails: View {
         if flight.isCheckInAvailable {
           Button("Check In for Flight") {
             self.checkInFlight =
-              CheckInInfo(
-                airline: self.flight.airline,
-                flight: self.flight.number
-              )
+            CheckInInfo(
+              airline: self.flight.airline,
+              flight: self.flight.number
+            )
           }
           //          .actionSheet(item: $checkInFlight) { flight in
           //            ActionSheet(
@@ -100,7 +100,7 @@ struct FlightSearchDetails: View {
         .popover(
           isPresented: $showFlightHistory,
           arrowEdge: .top) {
-          FlightTimeHistory(flight: self.flight)
+            FlightTimeHistory(flight: self.flight)
         }
         FlightInfoPanel(flight: flight)
           .foregroundColor(.white)

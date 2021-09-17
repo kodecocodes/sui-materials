@@ -1,4 +1,4 @@
-/// Copyright (c) 2020 Razeware LLC
+/// Copyright (c) 2021 Razeware LLC
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -51,7 +51,7 @@ struct WelcomeView: View {
     VStack {
       Button(action: { displayState = .flightBoard }, label: {
         FlightStatusButton()
-      }).buttonStyle(PlainButtonStyle())
+      }).buttonStyle(.plain)
 
       Button(action: { displayState = .searchFlights }, label: {
         SearchFlightsButton()
@@ -59,7 +59,7 @@ struct WelcomeView: View {
 
       Button(action: { displayState = .awards }, label: {
         AwardsButton()
-      }).buttonStyle(PlainButtonStyle())
+      }).buttonStyle(.plain)
 
       if let lastFlight = lastViewedFlight {
         Button(action: {
@@ -67,17 +67,19 @@ struct WelcomeView: View {
           showNextFlight = true
         }, label: {
           LastViewedButton(name: lastFlight.flightName)
-        }).buttonStyle(PlainButtonStyle())
+        }).buttonStyle(.plain)
       }
       Spacer()
     }
     .padding()
-    // swiftlint:disable multiline_arguments
-    // swiftlint:disable indentation_width
-    .frame(minWidth: 190, idealWidth: 190, maxWidth: 190,
-           minHeight: 630, idealHeight: 630, maxHeight: .infinity)
-    // swiftlint:enable multiline_arguments
-    // swiftlint:enable indentation_width
+    .frame(
+      minWidth: 190,
+      idealWidth: 190,
+      maxWidth: 190,
+      minHeight: 630,
+      idealHeight: 630,
+      maxHeight: .infinity
+    )
     .background(
       Image("welcome-background")
         .resizable()
