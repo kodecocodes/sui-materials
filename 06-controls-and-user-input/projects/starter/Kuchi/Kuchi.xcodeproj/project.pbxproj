@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5712CCAC26F68A8A000243C2 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5712CCA926F68A8A000243C2 /* UserManager.swift */; };
+		5712CCAD26F68A8A000243C2 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5712CCA926F68A8A000243C2 /* UserManager.swift */; };
+		5712CCAE26F68A8A000243C2 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5712CCAA26F68A8A000243C2 /* Profile.swift */; };
+		5712CCAF26F68A8A000243C2 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5712CCAA26F68A8A000243C2 /* Profile.swift */; };
+		5712CCB026F68A8A000243C2 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5712CCAB26F68A8A000243C2 /* Settings.swift */; };
+		5712CCB126F68A8A000243C2 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5712CCAB26F68A8A000243C2 /* Settings.swift */; };
 		57578FDE24E9D943003465A4 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57578FA724E9D943003465A4 /* HomeView.swift */; };
 		57578FDF24E9D943003465A4 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57578FA724E9D943003465A4 /* HomeView.swift */; };
 		57578FE224E9D943003465A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57578FAA24E9D943003465A4 /* Assets.xcassets */; };
@@ -24,6 +30,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5712CCA926F68A8A000243C2 /* UserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
+		5712CCAA26F68A8A000243C2 /* Profile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		5712CCAB26F68A8A000243C2 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		57578FA724E9D943003465A4 /* HomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		57578FAA24E9D943003465A4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		57578FAC24E9D943003465A4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -56,6 +65,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5712CCA826F68A8A000243C2 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				5712CCA926F68A8A000243C2 /* UserManager.swift */,
+				5712CCAA26F68A8A000243C2 /* Profile.swift */,
+				5712CCAB26F68A8A000243C2 /* Settings.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 		57578FA924E9D943003465A4 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -96,6 +115,7 @@
 		57EF33FF24E89F91004ABEB2 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				5712CCA826F68A8A000243C2 /* Profile */,
 				579CB98926EA18AA0009C09F /* Welcome */,
 				57578FA724E9D943003465A4 /* HomeView.swift */,
 				57EF340024E89F91004ABEB2 /* KuchiApp.swift */,
@@ -232,8 +252,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				57EF341324E89F92004ABEB2 /* KuchiApp.swift in Sources */,
+				5712CCAE26F68A8A000243C2 /* Profile.swift in Sources */,
 				579CB98B26EA1BE30009C09F /* WelcomeView.swift in Sources */,
 				57F8DD6926EEC01300153B9F /* HorizontallyAlignedLabelStyle.swift in Sources */,
+				5712CCB026F68A8A000243C2 /* Settings.swift in Sources */,
+				5712CCAC26F68A8A000243C2 /* UserManager.swift in Sources */,
 				57578FDE24E9D943003465A4 /* HomeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -243,8 +266,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				57EF341424E89F92004ABEB2 /* KuchiApp.swift in Sources */,
+				5712CCAF26F68A8A000243C2 /* Profile.swift in Sources */,
 				579CB98C26EA1BE30009C09F /* WelcomeView.swift in Sources */,
 				57F8DD6A26EEC01300153B9F /* HorizontallyAlignedLabelStyle.swift in Sources */,
+				5712CCB126F68A8A000243C2 /* Settings.swift in Sources */,
+				5712CCAD26F68A8A000243C2 /* UserManager.swift in Sources */,
 				57578FDF24E9D943003465A4 /* HomeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
