@@ -31,7 +31,7 @@
 /// THE SOFTWARE.
 
 /// Profile of the learner using the app.
-struct Profile : Codable {
+struct Profile: Codable {
   /// (Selected) name of the learner.
   var name: String
   

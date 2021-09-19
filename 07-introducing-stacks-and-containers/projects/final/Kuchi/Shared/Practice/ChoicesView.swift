@@ -39,7 +39,7 @@ struct ChoicesView : View {
   @State var challengeSolved = false
   @State var isChallengeResultAlertDisplayed = false
   @ObservedObject var challengesViewModel = ChallengesViewModel()
-  
+
   var body: some View {
     VStack(spacing: 25) {
       ForEach(0 ..< challengeTest.answers.count) { index in
@@ -102,7 +102,7 @@ struct ChoicesView : View {
   }
 }
 
-struct ChoicesView_Previews : PreviewProvider {
+struct ChoicesView_Previews: PreviewProvider {
   static let challengesViewModel = ChallengesViewModel()
   
   static var previews: some View {

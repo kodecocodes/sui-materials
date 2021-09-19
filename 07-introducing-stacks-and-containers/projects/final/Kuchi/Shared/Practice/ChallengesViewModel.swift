@@ -41,7 +41,7 @@ struct Challenge {
   var succeeded: Bool = false
 }
 
-extension Challenge : Hashable {
+extension Challenge: Hashable {
   func hash(into hasher: inout Hasher) {
     question.hash(into: &hasher)
   }

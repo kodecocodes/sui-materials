@@ -67,7 +67,9 @@ struct HistoryView: View {
     Text("History")
       .foregroundColor(.white)
       .font(.title)
+      #if os(iOS)
       .frame(width: UIScreen.main.bounds.width, height: 50)
+      #endif
       .background(Color.gray)
   }
   
@@ -102,7 +104,9 @@ struct HistoryView: View {
       }
     }
     .padding()
+    #if os(iOS)
     .frame(width: UIScreen.main.bounds.width)
+    #endif
   }
   
   var body: some View {
