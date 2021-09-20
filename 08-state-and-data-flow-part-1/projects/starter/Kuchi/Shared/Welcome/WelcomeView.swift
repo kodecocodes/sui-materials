@@ -53,14 +53,14 @@ struct WelcomeView: View {
           
           WelcomeMessageView()
           
-          Button(action: {
+          Button {
             self.showPractice = true
-          }, label: {
+          } label: {
             HStack {
               Image(systemName: "play")
               Text(verbatim: "Start")
             }
-          })
+          }
         }
       }
     }

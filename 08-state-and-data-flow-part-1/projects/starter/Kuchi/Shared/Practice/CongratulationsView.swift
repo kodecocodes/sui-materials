@@ -33,8 +33,7 @@
 import SwiftUI
 
 struct CongratulationsView: View {
-  @ObservedObject
-  var challengesViewModel = ChallengesViewModel()
+  @ObservedObject var challengesViewModel = ChallengesViewModel()
   
   let avatarSize: CGFloat = 120
   let userName: String
@@ -71,7 +70,7 @@ struct CongratulationsView: View {
           .cornerRadius(avatarSize / 2, antialiased: true)
           .shadow(radius: 4)
         
-        VStack() {
+        VStack {
           Spacer()
           Text(userName)
             .font(.largeTitle)
@@ -89,11 +88,11 @@ struct CongratulationsView: View {
       
       Spacer()
       
-      Button(action: {
+      Button {
         self.challengesViewModel.restart()
-      }, label: {
+      } label: {
         Text("Play Again")
-      })
+      }
         .padding(.top)
     }
   }

@@ -43,12 +43,12 @@ struct ChoicesView : View {
   var body: some View {
     VStack(spacing: 25) {
       ForEach(0 ..< challengeTest.answers.count) { index in
-        Button(action: {
+        Button {
           self.challengeSolved = self.checkAnswer(at: index)
           self.isChallengeResultAlertDisplayed = true
-        }, label: {
+        } label: {
           ChoicesRow(choice: self.challengeTest.answers[index])
-        }).alert(isPresented: self.$isChallengeResultAlertDisplayed, content: {
+        }.alert(isPresented: self.$isChallengeResultAlertDisplayed, content: {
           self.challengeOutcomeAlert()
         })
         Divider()
