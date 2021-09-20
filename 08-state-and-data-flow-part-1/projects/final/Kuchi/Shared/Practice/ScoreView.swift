@@ -1,4 +1,4 @@
-/// Copyright (c) 2020 Razeware LLC
+/// Copyright (c) 2021 Razeware LLC
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -34,9 +34,7 @@ import SwiftUI
 
 struct ScoreView: View {
   let numberOfQuestions: Int
-  
-  @State
-  var numberOfAnswered: Int = 0
+  @State var numberOfAnswered: Int = 0
   
   var body: some View {
     HStack {
@@ -52,6 +50,6 @@ struct ScoreView_Previews: PreviewProvider {
   @State static var numberOfAnswered: Int = 0
   
   static var previews: some View {
-    ScoreView(numberOfQuestions: 5)    
+    ScoreView(numberOfQuestions: 5)
   }
 }
