@@ -43,6 +43,10 @@ struct AwardCardView: View {
         .font(.title3)
       Text(award.description)
         .font(.footnote)
+      AwardStars(stars: award.stars)
+        .foregroundColor(.yellow)
+        .shadow(color: .black, radius: 5)
+        .offset(x: -5.0)
       Spacer()
     }
     .padding(10.0)
@@ -67,7 +71,8 @@ struct AwardCardView_Previews: PreviewProvider {
       imageName: "first-visit-award",
       title: "First Visit",
       description: "Awarded the first time you open the app while at the airport.",
-      awarded: true
+      awarded: true,
+      stars: 2
     )
     AwardCardView(award: award)
       .frame(width: 150, height: 220)
