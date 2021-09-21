@@ -92,7 +92,7 @@ struct CongratulationsView: View {
         self.challengesViewModel.restart()
       } label: {
         Text("Play Again")
-      })
+      }
         .padding(.top)
     }
   }
