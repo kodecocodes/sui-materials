@@ -1,4 +1,4 @@
-/// Copyright (c) 2020 Razeware LLC
+/// Copyright (c) 2021 Razeware LLC
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -35,18 +35,18 @@ import SwiftUI
 struct History: Hashable {
   let date: Date
   let challenge: Challenge
-
+  
   static func random() -> History {
     let date = Date.init(timeIntervalSinceNow: -TimeInterval.random(in: 0...1000000))
-
+    
     let challenge = ChallengesViewModel.challenges.randomElement()!
-
+    
     return History(
       date: date,
       challenge: challenge
     )
   }
-
+  
   static func random(count: Int) -> [History] {
     return (0 ..< count)
       .map({ _ in self.random() })
@@ -62,15 +62,17 @@ struct HistoryView: View {
     formatter.timeStyle = .short
     return formatter
   }()
-
+  
   var header: some View {
     Text("History")
       .foregroundColor(.white)
       .font(.title)
+      #if os(iOS)
       .frame(width: UIScreen.main.bounds.width, height: 50)
+      #endif
       .background(Color.gray)
   }
-
+  
   func getElement(_ element: History) -> some View {
     VStack(alignment: .center) {
       Text("\(dateFormatter.string(from: element.date))")
@@ -84,7 +86,7 @@ struct HistoryView: View {
           Text(element.challenge.question)
             .font(.body)
         }
-
+        
         VStack {
           Text("Answer:")
             .font(.caption)
@@ -92,7 +94,7 @@ struct HistoryView: View {
           Text(element.challenge.answer)
             .font(.body)
         }
-
+        
         VStack {
           Text("Guessed")
             .font(.caption)
@@ -102,9 +104,11 @@ struct HistoryView: View {
       }
     }
     .padding()
+    #if os(iOS)
     .frame(width: UIScreen.main.bounds.width)
+    #endif
   }
-
+  
   var body: some View {
     ScrollView {
       LazyVStack(spacing: 0, pinnedViews: [.sectionHeaders]) {

@@ -1,4 +1,4 @@
-/// Copyright (c) 2020 Razeware LLC
+/// Copyright (c) 2021 Razeware LLC
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -52,7 +52,7 @@ struct Challenge {
   var succeeded: Bool = false
 }
 
-extension Challenge : Hashable {
+extension Challenge: Hashable {
   func hash(into hasher: inout Hasher) {
     question.hash(into: &hasher)
   }
