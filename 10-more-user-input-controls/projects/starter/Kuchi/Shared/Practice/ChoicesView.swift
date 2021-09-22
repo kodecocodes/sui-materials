@@ -1,4 +1,4 @@
-/// Copyright (c) 2020 Razeware LLC
+/// Copyright (c) 2021 Razeware LLC
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -39,16 +39,16 @@ struct ChoicesView : View {
   @State var challengeSolved = false
   @State var isChallengeResultAlertDisplayed = false
   @EnvironmentObject var challengesViewModel: ChallengesViewModel
-  
+
   var body: some View {
     VStack(spacing: 25) {
       ForEach(0 ..< challengeTest.answers.count) { index in
-        Button(action: {
+        Button {
           self.challengeSolved = self.checkAnswer(at: index)
           self.isChallengeResultAlertDisplayed = true
-        }, label: {
+        } label: {
           ChoicesRow(choice: self.challengeTest.answers[index])
-        }).alert(isPresented: self.$isChallengeResultAlertDisplayed, content: {
+        }.alert(isPresented: self.$isChallengeResultAlertDisplayed, content: {
           self.challengeOutcomeAlert()
         })
         Divider()
@@ -102,7 +102,7 @@ struct ChoicesView : View {
   }
 }
 
-struct ChoicesView_Previews : PreviewProvider {
+struct ChoicesView_Previews: PreviewProvider {
   static let challengesViewModel = ChallengesViewModel()
   
   static var previews: some View {
