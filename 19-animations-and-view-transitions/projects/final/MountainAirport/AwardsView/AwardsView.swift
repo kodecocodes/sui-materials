@@ -73,6 +73,8 @@ struct AwardsView: View {
             in: cardNamespace,
             anchor: .topLeading
           )
+          // 4
+          .navigationTitle(award.title)
       } else {
         ScrollView {
           LazyVGrid(columns: awardColumns) {
@@ -90,6 +92,7 @@ struct AwardsView: View {
             )
           }
         }
+        .navigationTitle("Your Awards")
       }
     }
   }

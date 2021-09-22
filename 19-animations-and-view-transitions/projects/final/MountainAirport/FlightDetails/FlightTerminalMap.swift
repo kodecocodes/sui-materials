@@ -117,9 +117,8 @@ struct FlightTerminalMap: View {
   }
 
   var walkingAnimation: Animation {
-    Animation
-      .linear(duration: 3.0)
-      .repeatForever(autoreverses: false)
+    .linear(duration: 3.0)
+    .repeatForever(autoreverses: false)
   }
 
   var body: some View {

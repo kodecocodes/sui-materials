@@ -115,6 +115,7 @@ struct FlightInfoPanel: View {
         })
         if showTerminal {
           FlightTerminalMap(flight: flight)
+            .transition(.buttonNameTransition)
         }
         Spacer()
       }

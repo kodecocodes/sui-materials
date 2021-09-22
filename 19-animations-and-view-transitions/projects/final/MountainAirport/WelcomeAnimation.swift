@@ -35,9 +35,9 @@ struct WelcomeAnimation: View {
   var body: some View {
     TimelineView(.animation) { timelineContext in
       Canvas { graphicContext, size in
-        // swiftlint:disable force_unwrapping
-        let planeSymbol = graphicContext.resolveSymbol(id: 0)!
-        // swiftlint:enable force_unwrapping
+        guard let planeSymbol = graphicContext.resolveSymbol(id: 0) else {
+          return
+        }
 
         // 1
         let timePosition = (timelineContext.date.timeIntervalSince(startTime))

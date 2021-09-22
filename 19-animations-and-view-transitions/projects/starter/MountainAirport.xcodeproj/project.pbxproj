@@ -23,6 +23,7 @@
 		A952E0A1254C891C004687A2 /* LastViewedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A952E09D254C891C004687A2 /* LastViewedButton.swift */; };
 		A95D27772524149400788411 /* SearchResultRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D27762524149300788411 /* SearchResultRow.swift */; };
 		A97A0713254F12B0002963BF /* HistoryPieChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97A0712254F12B0002963BF /* HistoryPieChart.swift */; };
+		A987ED8026FB9A3C00B33B37 /* AwardStars.swift in Sources */ = {isa = PBXBuildFile; fileRef = A987ED7F26FB9A3C00B33B37 /* AwardStars.swift */; };
 		A98E3C51255596B200C1974E /* AwardGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = A98E3C50255596B200C1974E /* AwardGrid.swift */; };
 		A98E3DC1252F838400C4AAD9 /* AwardCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A98E3DC0252F838400C4AAD9 /* AwardCardView.swift */; };
 		A998D86925212B8F00DC64A7 /* FlightList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A998D86825212B8F00DC64A7 /* FlightList.swift */; };
@@ -68,6 +69,7 @@
 		A952E09D254C891C004687A2 /* LastViewedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastViewedButton.swift; sourceTree = "<group>"; };
 		A95D27762524149300788411 /* SearchResultRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultRow.swift; sourceTree = "<group>"; };
 		A97A0712254F12B0002963BF /* HistoryPieChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryPieChart.swift; sourceTree = "<group>"; };
+		A987ED7F26FB9A3C00B33B37 /* AwardStars.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AwardStars.swift; sourceTree = "<group>"; };
 		A98E3C50255596B200C1974E /* AwardGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwardGrid.swift; sourceTree = "<group>"; };
 		A98E3DC0252F838400C4AAD9 /* AwardCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwardCardView.swift; sourceTree = "<group>"; };
 		A998D86825212B8F00DC64A7 /* FlightList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightList.swift; sourceTree = "<group>"; };
@@ -190,6 +192,7 @@
 		A9AB45A4252E695A00DC8653 /* AwardsView */ = {
 			isa = PBXGroup;
 			children = (
+				A987ED7F26FB9A3C00B33B37 /* AwardStars.swift */,
 				A9AB45A5252E697800DC8653 /* AwardsView.swift */,
 				A98E3DC0252F838400C4AAD9 /* AwardCardView.swift */,
 				A93AD0F5253364B400182D1B /* AwardDetails.swift */,
@@ -348,6 +351,7 @@
 				A9E462432509B44800128AB1 /* AwardInformation.swift in Sources */,
 				A9DA2758250BCF9200A2262A /* MountainAirport.swift in Sources */,
 				A9E462402509B44800128AB1 /* FlightHistory.swift in Sources */,
+				A987ED8026FB9A3C00B33B37 /* AwardStars.swift in Sources */,
 				A998D86D25212BB200DC64A7 /* FlightRow.swift in Sources */,
 				A998D87025212BD200DC64A7 /* FlightStatusIcon.swift in Sources */,
 				A9CF243125152C8300EA887E /* AppEnvironment.swift in Sources */,

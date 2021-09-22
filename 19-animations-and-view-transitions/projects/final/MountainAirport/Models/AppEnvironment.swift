@@ -1,15 +1,15 @@
 /// Copyright (c) 2020 Razeware LLC
-/// 
+///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
 /// in the Software without restriction, including without limitation the rights
 /// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 /// copies of the Software, and to permit persons to whom the Software is
 /// furnished to do so, subject to the following conditions:
-/// 
+///
 /// The above copyright notice and this permission notice shall be included in
 /// all copies or substantial portions of the Software.
-/// 
+///
 /// Notwithstanding the foregoing, you may not use, copy, modify, merge, publish,
 /// distribute, sublicense, create a derivative work, and/or sell copies of the
 /// Software in any work that is designed, intended, or marketed for pedagogical or
@@ -29,7 +29,6 @@
 /// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
-
 import SwiftUI
 
 class AppEnvironment: ObservableObject {
@@ -42,7 +41,8 @@ class AppEnvironment: ObservableObject {
         imageName: "first-visit-award",
         title: "First Visit",
         description: "Awarded the first time you open the app while at the airport.",
-        awarded: true
+        awarded: true,
+        stars: 1
       )
     )
     awardList.append(
@@ -50,7 +50,8 @@ class AppEnvironment: ObservableObject {
         imageName: "overnight-award",
         title: "Left Car Overnight",
         description: "You left you car parked overnight in one of our parking lots.",
-        awarded: true
+        awarded: true,
+        stars: 2
       )
     )
     awardList.append(
@@ -58,7 +59,8 @@ class AppEnvironment: ObservableObject {
         imageName: "meal-award",
         title: "Meal at Airport",
         description: "You used the app to receive a discount at one of our restaurants.",
-        awarded: false
+        awarded: false,
+        stars: 2
       )
     )
     awardList.append(
@@ -66,7 +68,8 @@ class AppEnvironment: ObservableObject {
         imageName: "first-flight-award",
         title: "First Flight",
         description: "You checked in for a flight using the app for the first time.",
-        awarded: true
+        awarded: true,
+        stars: 3
       )
     )
     awardList.append(
@@ -74,7 +77,8 @@ class AppEnvironment: ObservableObject {
         imageName: "shopping-award",
         title: "Almost Duty Free",
         description: "You used the app to receive a discount at one of our vendors.",
-        awarded: true
+        awarded: true,
+        stars: 2
       )
     )
     awardList.append(
@@ -82,7 +86,8 @@ class AppEnvironment: ObservableObject {
         imageName: "rainy-day-award",
         title: "Rainy Day",
         description: "You flight was delayed because of weather.",
-        awarded: false
+        awarded: false,
+        stars: 3
       )
     )
     awardList.append(
@@ -90,7 +95,9 @@ class AppEnvironment: ObservableObject {
         imageName: "return-home-award",
         title: "Welcome Home",
         description: "Your returned to the airport after leaving from it.",
-        awarded: true
+        awarded: true,
+        stars: 2
       )
     )
-  }}
+  }
+}

@@ -23,6 +23,7 @@
 		A952E0A1254C891C004687A2 /* LastViewedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A952E09D254C891C004687A2 /* LastViewedButton.swift */; };
 		A95D27772524149400788411 /* SearchResultRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D27762524149300788411 /* SearchResultRow.swift */; };
 		A97A0713254F12B0002963BF /* HistoryPieChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97A0712254F12B0002963BF /* HistoryPieChart.swift */; };
+		A987ED8226FB9B3C00B33B37 /* AwardStars.swift in Sources */ = {isa = PBXBuildFile; fileRef = A987ED8126FB9B3C00B33B37 /* AwardStars.swift */; };
 		A98E3C51255596B200C1974E /* AwardGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = A98E3C50255596B200C1974E /* AwardGrid.swift */; };
 		A98E3DC1252F838400C4AAD9 /* AwardCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A98E3DC0252F838400C4AAD9 /* AwardCardView.swift */; };
 		A998D86925212B8F00DC64A7 /* FlightList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A998D86825212B8F00DC64A7 /* FlightList.swift */; };
@@ -69,6 +70,7 @@
 		A952E09D254C891C004687A2 /* LastViewedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastViewedButton.swift; sourceTree = "<group>"; };
 		A95D27762524149300788411 /* SearchResultRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultRow.swift; sourceTree = "<group>"; };
 		A97A0712254F12B0002963BF /* HistoryPieChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryPieChart.swift; sourceTree = "<group>"; };
+		A987ED8126FB9B3C00B33B37 /* AwardStars.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwardStars.swift; sourceTree = "<group>"; };
 		A98E3C50255596B200C1974E /* AwardGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwardGrid.swift; sourceTree = "<group>"; };
 		A98E3DC0252F838400C4AAD9 /* AwardCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwardCardView.swift; sourceTree = "<group>"; };
 		A998D86825212B8F00DC64A7 /* FlightList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightList.swift; sourceTree = "<group>"; };
@@ -197,6 +199,7 @@
 				A98E3DC0252F838400C4AAD9 /* AwardCardView.swift */,
 				A93AD0F5253364B400182D1B /* AwardDetails.swift */,
 				A98E3C50255596B200C1974E /* AwardGrid.swift */,
+				A987ED8126FB9B3C00B33B37 /* AwardStars.swift */,
 			);
 			path = AwardsView;
 			sourceTree = "<group>";
@@ -358,6 +361,7 @@
 				A95D27772524149400788411 /* SearchResultRow.swift in Sources */,
 				A951531F25215880001F6464 /* FlightDetailHeader.swift in Sources */,
 				A952E09E254C891C004687A2 /* FlightStatusButton.swift in Sources */,
+				A987ED8226FB9B3C00B33B37 /* AwardStars.swift in Sources */,
 				18D775C522AD944300AE281E /* WelcomeView.swift in Sources */,
 				A9E462422509B44800128AB1 /* SavedFlights.swift in Sources */,
 			);
