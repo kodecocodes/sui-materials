@@ -35,7 +35,7 @@ import SwiftUI
 struct FlightTimeHistory: View {
   var flight: FlightInformation
 
-  //1
+  // 1
   let minuteRange = CGFloat(75)
 
   // 2
