@@ -1,4 +1,4 @@
-/// Copyright (c) 2020 Razeware LLC
+/// Copyright (c) 2021 Razeware LLC
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -18,10 +18,6 @@
 /// merger, publication, distribution, sublicensing, creation of derivative works,
 /// or sale is expressly withheld.
 ///
-/// This project and source code may use libraries or frameworks that are
-/// released under various Open-Source licenses. Use of those libraries and
-/// frameworks are governed by their own individual licenses.
-///
 /// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 /// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 /// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -32,50 +28,43 @@
 
 import SwiftUI
 
-struct AwardCardView: View {
-  var award: AwardInformation
+struct AwardStars: View {
+  var stars: Int = 3
 
   var body: some View {
-    VStack {
-      Image(award.imageName)
-        .shadow(radius: 10)
-      Text(award.title)
-        .font(.title3)
-      Text(award.description)
-        .font(.footnote)
-      AwardStars(stars: award.stars)
-        .foregroundColor(.yellow)
-        .shadow(color: .black, radius: 5)
-        .offset(x: -5.0)
-      Spacer()
+    Canvas { gContext, size in
+      // 1
+      guard let starSymbol = gContext.resolveSymbol(id: 0) else {
+        return
+      }
+
+      // 1
+      let centerOffset = (size.width - (20 * Double(stars))) / 2.0
+      // 2
+      gContext.translateBy(x: centerOffset, y: size.height / 2.0)
+      // 1
+      for star in 0..<stars {
+        // 2
+        let starXPosition = Double(star) * 20.0
+        // 3
+        let point = CGPoint(x: starXPosition + 8, y: 0)
+        // 4
+        gContext.draw(starSymbol, at: point, anchor: .leading)
+      }
+      // 2
+    } symbols: {
+      // 3
+      Image(systemName: "star.fill")
+        .resizable()
+        .frame(width: 15, height: 15)
+        // 4
+        .tag(0)
     }
-    .padding(10.0)
-    .background(
-      LinearGradient(
-        gradient: Gradient(
-          colors: [Color.white, Color(red: 0.0, green: 0.5, blue: 1.0)]
-        ),
-        startPoint: .bottomLeading,
-        endPoint: .topTrailing)
-    )
-    .background(Color.white)
-    .saturation(award.awarded ? 1.0 : 0.0)
-    .opacity(award.awarded ? 1.0 : 0.3)
-    .clipShape(RoundedRectangle(cornerRadius: 25.0))
   }
 }
 
-struct AwardCardView_Previews: PreviewProvider {
+struct AwardStars_Previews: PreviewProvider {
   static var previews: some View {
-    let award = AwardInformation(
-      imageName: "first-visit-award",
-      title: "First Visit",
-      description: "Awarded the first time you open the app while at the airport.",
-      awarded: true
-    )
-    AwardCardView(award: award)
-      .frame(width: 150, height: 220)
-      .padding()
-      .background(Color.black)
+    AwardStars()
   }
 }
