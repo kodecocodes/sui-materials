@@ -91,7 +91,7 @@ struct FlightTimeHistory: View {
           .padding(.top, 30)
         ScrollView {
           DelayBarChart(
-            flight: FlightData.generateTestFlight(date: Date())
+            flight: flight
           )
         }
         HistoryPieChart(flightHistory: flight.history)
