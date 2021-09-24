@@ -86,6 +86,22 @@ struct WelcomeView: View {
               )
             }
             NavigationLink(
+              destination: FlightTimelineView(
+                flights: flightInfo.flights.filter {
+                  Calendar.current.isDate(
+                    $0.localTime,
+                    inSameDayAs: Date()
+                  )
+                }
+              )
+            ) {
+              WelcomeButtonView(
+                title: "Flight Timeline",
+                subTitle: "View today's flights in timeline",
+                imageName: "timelapse"
+              )
+            }
+            NavigationLink(
               destination: AwardsView()
             ) {
               WelcomeButtonView(
