@@ -35,7 +35,7 @@ import SwiftUI
 struct AwardDetails: View {
   var award: AwardInformation
 
-  func imageSize(proxy: GeometryProxy) -> CGFloat {
+  func imageSize(proxy: GeometryProxy) -> Double {
     let size = min(proxy.size.width, proxy.size.height)
     return size * 0.8
   }

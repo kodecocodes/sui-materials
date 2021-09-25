@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2020 Razeware LLC
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -60,7 +60,6 @@ struct FlightStatusIcon: View {
               Color(red: 0.89, green: 0.33, blue: 0.69)
             )
         )
-        .frame(width: 40, height: 40)
     } else if flight.direction == .departure {
       Image(systemName: "airplane")
         .resizable()
@@ -74,7 +73,6 @@ struct FlightStatusIcon: View {
               Color(red: 0.19, green: 0.15, blue: 0.91)
             )
         )
-        .frame(width: 40, height: 40)
     }
   }
 }

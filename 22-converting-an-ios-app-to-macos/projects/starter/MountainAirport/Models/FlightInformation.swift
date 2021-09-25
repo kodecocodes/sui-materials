@@ -31,6 +31,7 @@
 /// THE SOFTWARE.
 
 import SwiftUI
+import MapKit
 
 enum FlightDirection {
   case none
@@ -122,6 +123,26 @@ class FlightInformation: NSObject {
     return timeFormatter.string(from: time)
   }
 
+  var localAirportLocation: CLLocationCoordinate2D {
+    CLLocationCoordinate2D(latitude: 35.655, longitude: -83.4411)
+  }
+
+  var startingAirportLocation: CLLocationCoordinate2D {
+    if direction == .arrival {
+      return CLLocationCoordinate2D(latitude: otherCoordinates.lat, longitude: otherCoordinates.long)
+    } else {
+      return localAirportLocation
+    }
+  }
+
+  var endingAirportLocation: CLLocationCoordinate2D {
+    if direction == .arrival {
+      return localAirportLocation
+    } else {
+      return CLLocationCoordinate2D(latitude: otherCoordinates.lat, longitude: otherCoordinates.long)
+    }
+  }
+
   var flightStatus: String {
     let now = Date()
 
@@ -184,6 +205,15 @@ class FlightInformation: NSObject {
 
   var isToday: Bool {
     Calendar.current.isDateInToday(localTime)
+  }
+
+  var terminalName: String {
+    gate.hasPrefix("A") ? "A" : "B"
+  }
+
+  var gateNumber: Int? {
+    let gateNumberString = gate.dropFirst()
+    return Int(gateNumberString)
   }
 
   init(

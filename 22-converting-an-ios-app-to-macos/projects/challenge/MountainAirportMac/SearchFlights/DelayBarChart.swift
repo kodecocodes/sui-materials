@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2020 Razeware LLC
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -17,10 +17,6 @@
 /// or information technology.  Permission for such use, copying, modification,
 /// merger, publication, distribution, sublicensing, creation of derivative works,
 /// or sale is expressly withheld.
-///
-/// This project and source code may use libraries or frameworks that are
-/// released under various Open-Source licenses. Use of those libraries and
-/// frameworks are governed by their own individual licenses.
 ///
 /// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 /// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -82,46 +78,44 @@ struct DelayBarChart: View {
   }
 
   var body: some View {
-    ScrollView {
-      LazyVStack {
-        ForEach(flight.history, id: \.day) { history in
-          HStack {
-            Text("\(history.day) day(s) ago")
-              .frame(width: 110, alignment: .trailing)
-            GeometryReader { proxy in
-              Rectangle()
-                .fill(
-                  LinearGradient(
-                    gradient: chartGradient(history),
-                    startPoint: .leading,
-                    endPoint: .trailing
-                  )
+    VStack {
+      ForEach(flight.history, id: \.day) { history in
+        HStack {
+          Text("\(history.day) day(s) ago")
+            .frame(width: 110, alignment: .trailing)
+          GeometryReader { proxy in
+            Rectangle()
+              .fill(
+                LinearGradient(
+                  gradient: chartGradient(history),
+                  startPoint: .leading,
+                  endPoint: .trailing
                 )
-                .frame(
-                  width: showBars ?
+              )
+              .frame(
+                width: showBars ?
                   minuteLength(history.timeDifference, proxy: proxy) :
-                    0
-                )
-                .offset(
-                  x: showBars ?
+                  0
+              )
+              .offset(
+                x: showBars ?
                   minuteOffset(history.timeDifference, proxy: proxy) :
-                    minuteOffset(0, proxy: proxy)
-                )
-                .animation(barAnimation(history.day), value: showBars)
-              ForEach(-1..<6) { val in
-                Rectangle()
-                  .stroke(val == 0 ? Color.white : Color.gray, lineWidth: 1.0)
-                  .frame(width: 1)
-                  .offset(x: minuteLocation(val * 10, proxy: proxy))
-              }
+                  minuteOffset(0, proxy: proxy)
+              )
+              .animation(barAnimation(history.day), value: showBars)
+            ForEach(-1..<6) { val in
+              Rectangle()
+                .stroke(val == 0 ? Color.white : Color.gray, lineWidth: 1.0)
+                .frame(width: 1)
+                .offset(x: minuteLocation(val * 10, proxy: proxy))
             }
           }
         }
-        .padding()
-        .background(
-          Color.white.opacity(0.2)
-        )
       }
+      .padding()
+      .background(
+        Color.white.opacity(0.2)
+      )
     }
     .onAppear {
       showBars = true
@@ -134,8 +128,8 @@ struct DelayBarChart_Previews: PreviewProvider {
     DelayBarChart(
       flight: FlightData.generateTestFlight(date: Date())
     )
-      .background(
-        Color.gray.opacity(0.4)
-      )
+    .background(
+      Color.gray.opacity(0.4)
+    )
   }
 }

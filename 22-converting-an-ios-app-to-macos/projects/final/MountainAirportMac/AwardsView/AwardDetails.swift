@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2020 Razeware LLC
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -36,7 +36,7 @@ struct AwardDetails: View {
   var award: AwardInformation
   @Environment(\.dismiss) var dismiss
 
-  func imageSize(proxy: GeometryProxy) -> CGFloat {
+  func imageSize(proxy: GeometryProxy) -> Double {
     let size = min(proxy.size.width, proxy.size.height)
     return size * 0.8
   }
@@ -50,8 +50,7 @@ struct AwardDetails: View {
         }, label: {
           Image(systemName: "xmark.circle")
             .font(.largeTitle)
-        })
-          .buttonStyle(.plain)
+        }).buttonStyle(.plain)
       }
 
       Image(award.imageName)

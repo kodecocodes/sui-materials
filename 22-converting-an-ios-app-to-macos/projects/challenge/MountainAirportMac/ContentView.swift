@@ -69,6 +69,14 @@ struct ContentView: View {
         SearchFlights(flightData: flightInfo.flights)
       case .awards:
         AwardsView()
+      case .timeline:
+        FlightTimelineView(
+          flights: flightInfo.flights.filter {
+            Calendar.current.isDate(
+              $0.localTime,
+              inSameDayAs: Date()
+            )
+          })
       case .lastFlight:
         FlightDetails(flight: lastViewedFlight)
       }

@@ -53,6 +53,10 @@ struct WelcomeView: View {
           ) { }
         }
         ScrollView {
+          WelcomeAnimation()
+            .foregroundColor(.white)
+            .frame(height: 40)
+            .padding()
           LazyVGrid(
             columns: [
               GridItem(.fixed(160)),
@@ -77,6 +81,18 @@ struct WelcomeView: View {
             ) {
               AwardsButton()
             }
+            NavigationLink(
+              destination: FlightTimelineView(
+                flights: flightInfo.flights.filter {
+                  Calendar.current.isDate(
+                    $0.localTime,
+                    inSameDayAs: Date()
+                  )
+                }
+              )
+            ) {
+              TimelineButton()
+            }
             if
               let id = appEnvironment.lastFlightId,
               let lastFlight = flightInfo.getFlightById(id) {
@@ -86,6 +102,7 @@ struct WelcomeView: View {
               }) {
                 LastViewedButton(name: lastFlight.flightName)
               }
+              // swiftlint:enable multiple_closures_with_trailing_closure
             }
             Spacer()
           }.font(.title)

@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2020 Razeware LLC
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -36,9 +36,9 @@ struct FlightSearchDetails: View {
   var flight: FlightInformation
   @Binding var showModal: Bool
   @State private var rebookAlert = false
-  @State private var checkinAlert = false
   @State private var checkInFlight: CheckInInfo?
   @State private var showFlightHistory = false
+  @State private var showCheckIn = false
   @SceneStorage("lastViewedFlightID") var lastViewedFlightID: Int?
 
   var body: some View {
@@ -52,68 +52,58 @@ struct FlightSearchDetails: View {
             .foregroundColor(.white)
           Spacer()
           Button("Close") {
-            self.showModal = false
+            showModal = false
           }
         }
         if flight.status == .canceled {
           Button("Rebook Flight") {
             rebookAlert = true
           }
-          .alert(isPresented: $rebookAlert) {
-            Alert(
-              title: Text("Contact Your Airline"),
-              message: Text(
-                "We cannot rebook this flight. Please contact the airline to reschedule this flight."
-              )
+          // 1
+          .alert("Contact Your Airline", isPresented: $rebookAlert) {
+            // 2
+            Button("OK", role: .cancel) {
+            }
+            // 3
+          } message: {
+            Text(
+              "We cannot rebook this flight. Please contact the airline to reschedule this flight."
             )
           }
         }
         if flight.isCheckInAvailable {
           Button("Check In for Flight") {
-            self.checkInFlight =
+            checkInFlight =
             CheckInInfo(
-              airline: self.flight.airline,
-              flight: self.flight.number
+              airline: flight.airline,
+              flight: flight.number
             )
-            checkinAlert = true
+            showCheckIn = true
           }
-
-          // Challenge 2
-          .alert(
-            Text("Check In"),
-            isPresented: $checkinAlert,
-            presenting: checkInFlight
-          ) { flight in
-            Button {
+          // 1
+          .confirmationDialog("Check In", isPresented: $showCheckIn, presenting: checkInFlight) { checkIn in
+            // 2
+            Button("Check In") {
               print(
-                "Check-in for \(flight.airline) \(flight.flight)."
+                "Check-in for \(checkIn.airline) \(checkIn.flight)."
               )
-            } label: {
-              Text(
-                "Check in for \(flight.airline)" +
-                "Flight \(flight.flight)")
             }
-            Button(role: .destructive) {
+            // 3
+            Button("Reschedule", role: .destructive) {
               print("Reschedule flight.")
-            } label: {
-              Text("Reschedule")
             }
-            Button(role: .cancel) {} label: {
-              Text("Not Now")
-            }
-          } message: { flight in
-            Text(
-              "Check in for \(flight.airline)" +
-              "Flight \(flight.flight)?")
+            // 4
+            Button("Not Now", role: .cancel) { }
+            // 5
+          } message: { checkIn in
+            Text("Check in for \(checkIn.airline) Flight \(checkIn.flight)")
           }
         }
         Button("On-Time History") {
           showFlightHistory.toggle()
         }
-        .popover(
-          isPresented: $showFlightHistory,
-          arrowEdge: .top) {
-            FlightTimeHistory(flight: self.flight)
+        .popover(isPresented: $showFlightHistory) {
+          FlightTimeHistory(flight: flight)
         }
         FlightInfoPanel(flight: flight)
           .foregroundColor(.white)
@@ -128,7 +118,8 @@ struct FlightSearchDetails: View {
     }.onAppear {
       lastViewedFlightID = flight.id
     }
-    // Challenge 1 - part 2
+    .interactiveDismissDisabled()
+    // Challenge - part 2
     .frame(maxHeight: 600)
   }
 }

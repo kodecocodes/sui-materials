@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2020 Razeware LLC
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -42,6 +42,12 @@ struct FlightRow: View {
     return tdf
   }
 
+  var relativeTimeFormatter: RelativeDateTimeFormatter {
+    let rdf = RelativeDateTimeFormatter()
+    rdf.unitsStyle = .abbreviated
+    return rdf
+  }
+
   var body: some View {
     HStack {
       FlightStatusIcon(flight: flight)
@@ -53,6 +59,9 @@ struct FlightRow: View {
         HStack {
           Text(flight.flightStatus)
           Text(flight.localTime, formatter: timeFormatter)
+          Text("(") +
+          Text(flight.localTime, formatter: relativeTimeFormatter) +
+          Text(")")
         }.foregroundColor(flight.statusColor)
         HStack {
           Text(flight.otherAirport)

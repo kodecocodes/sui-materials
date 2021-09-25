@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2020 Razeware LLC
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -18,10 +18,6 @@
 /// merger, publication, distribution, sublicensing, creation of derivative works,
 /// or sale is expressly withheld.
 ///
-/// This project and source code may use libraries or frameworks that are
-/// released under various Open-Source licenses. Use of those libraries and
-/// frameworks are governed by their own individual licenses.
-///
 /// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 /// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 /// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -34,26 +30,144 @@ import SwiftUI
 
 struct FlightTerminalMap: View {
   var flight: FlightInformation
+  @State private var showPath = false
+
+  let gateAPaths = [
+    [
+      CGPoint(x: 360, y: 128),
+      CGPoint(x: 225, y: 128),
+      CGPoint(x: 225, y: 70)
+    ],
+    [
+      CGPoint(x: 360, y: 128),
+      CGPoint(x: 172, y: 128),
+      CGPoint(x: 172, y: 70)
+    ],
+    [
+      CGPoint(x: 360, y: 128),
+      CGPoint(x: 116, y: 128),
+      CGPoint(x: 116, y: 70)
+    ],
+    [
+      CGPoint(x: 360, y: 128),
+      CGPoint(x: 46, y: 128)
+    ],
+    [
+      CGPoint(x: 360, y: 128),
+      CGPoint(x: 116, y: 128),
+      CGPoint(x: 116, y: 187),
+      CGPoint(x: 46, y: 187)
+    ]
+  ]
+
+  let gateBPaths = [
+    [
+      CGPoint(x: 0, y: 128),
+      CGPoint(x: 142, y: 128),
+      CGPoint(x: 142, y: 70)
+    ],
+    [
+      CGPoint(x: 0, y: 128),
+      CGPoint(x: 197, y: 128),
+      CGPoint(x: 197, y: 70)
+    ],
+    [
+      CGPoint(x: 0, y: 128),
+      CGPoint(x: 252, y: 128),
+      CGPoint(x: 252, y: 70)
+    ],
+    [
+      CGPoint(x: 0, y: 128),
+      CGPoint(x: 315, y: 128)
+    ],
+    [
+      CGPoint(x: 0, y: 128),
+      CGPoint(x: 252, y: 128),
+      CGPoint(x: 252, y: 185),
+      CGPoint(x: 315, y: 185)
+    ]
+  ]
+
+  func gatePath(_ proxy: GeometryProxy) -> [CGPoint] {
+    if let gateNumber = flight.gateNumber {
+      var pathPoints: [CGPoint]
+      if flight.terminalName == "A" {
+        pathPoints = gateAPaths[gateNumber - 1]
+      } else {
+        pathPoints = gateBPaths[gateNumber - 1]
+      }
+
+      let ratioX = proxy.size.width / 360.0
+      let ratioY = proxy.size.height / 480.0
+      var points: [CGPoint] = []
+      for pnt in pathPoints {
+        let newPoint = CGPoint(
+          x: pnt.x * ratioX, y: pnt.y * ratioY
+        )
+        points.append(newPoint)
+      }
+      return points
+    }
+
+    return []
+  }
+
+  var mapName: String {
+    "terminal-\(flight.terminalName)-map".lowercased()
+  }
+
+  var walkingAnimation: Animation {
+    Animation
+      .linear(duration: 3.0)
+      .repeatForever(autoreverses: false)
+  }
 
   var body: some View {
-    if flight.gate.hasPrefix("A") {
-      Image("terminal-a-map")
-        .resizable()
-        .frame(maxWidth: .infinity)
-        .aspectRatio(contentMode: .fit)
-    } else {
-      Image("terminal-b-map")
-        .resizable()
-        .frame(maxWidth: .infinity)
-        .aspectRatio(contentMode: .fit)
+    Image(mapName)
+      .resizable()
+      .aspectRatio(contentMode: .fit)
+      .overlay(
+        GeometryReader { proxy in
+          WalkPath(points: gatePath(proxy))
+            .trim(to: showPath ? 1.0 : 0.0)
+            .stroke(Color.white, lineWidth: 3.0)
+            .animation(walkingAnimation, value: showPath)
+        }
+      )
+      .onAppear {
+        showPath = true
+      }
+  }
+}
+
+struct WalkPath: Shape {
+  var points: [CGPoint]
+
+  func path(in rect: CGRect) -> Path {
+    return Path { path in
+      guard points.count > 1 else { return }
+      path.addLines(points)
     }
   }
 }
 
 struct FlightTerminalMap_Previews: PreviewProvider {
+  static var testGateA: FlightInformation {
+    let flight = FlightData.generateTestFlight(date: Date())
+    flight.gate = "A3"
+    return flight
+  }
+
+  static var testGateB: FlightInformation {
+    let flight = FlightData.generateTestFlight(date: Date())
+    flight.gate = "B4"
+    return flight
+  }
+
   static var previews: some View {
-    FlightTerminalMap(
-      flight: FlightData.generateTestFlight(date: Date())
-    )
+    Group {
+      FlightTerminalMap(flight: testGateA)
+      FlightTerminalMap(flight: testGateB)
+    }
   }
 }

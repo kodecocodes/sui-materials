@@ -49,5 +49,6 @@ enum DisplayState: Int {
   case flightBoard
   case searchFlights
   case awards
+  case timeline
   case lastFlight
 }
