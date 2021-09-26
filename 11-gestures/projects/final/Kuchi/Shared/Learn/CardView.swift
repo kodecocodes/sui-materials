@@ -1,4 +1,4 @@
-/// Copyright (c) 2020 Razeware LLC
+/// Copyright (c) 2021 Razeware LLC
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -33,23 +33,19 @@
 import SwiftUI
 
 struct CardView: View {
-  typealias CardDrag = (_ card: FlashCard, _ direction: DiscardedDirection) -> Void
-
-  let dragged: CardDrag
   let flashCard: FlashCard
+  @Binding var cardColor: Color
   @State var revealed = false
   @State var offset: CGSize = .zero
   @GestureState var isLongPressed = false
-  @Binding var cardColor: Color
-
-  init(
-    _ card: FlashCard,
-    cardColor: Binding<Color>,
-    onDrag dragged: @escaping CardDrag = {_,_  in }
-  ) {
+  
+  typealias CardDrag = (_ card: FlashCard, _ direction: DiscardedDirection) -> Void
+  let dragged: CardDrag
+  
+  init(_ card: FlashCard, cardColor: Binding<Color>, onDrag dragged: @escaping CardDrag = {_,_  in } ) {
     self.flashCard = card
-    self.dragged = dragged
     self._cardColor = cardColor
+    self.dragged = dragged
   }
   
   var body: some View {
@@ -93,14 +89,15 @@ struct CardView: View {
     }
     .shadow(radius: 8)
     .frame(width: 320, height: 210)
-    .animation(.spring())
+    .animation(.spring(), value: self.offset)
     .offset(self.offset)
     .gesture(longPress)
     .scaleEffect(isLongPressed ? 1.1 : 1)
+    .animation(.easeInOut(duration: 0.3), value: self.isLongPressed)
     .simultaneousGesture(TapGesture()
       .onEnded {
         withAnimation(.easeIn, {
-          self.revealed = !self.revealed
+          self.revealed.toggle()
         })
     })
   }
@@ -112,9 +109,9 @@ struct CardView_Previews: PreviewProvider {
   static var previews: some View {
     let card = FlashCard(
       card: Challenge(
-        question: "Apple",
-        pronunciation: "Apple",
-        answer: "Omena"
+        question: "こんにちわ",
+        pronunciation: "Konnichiwa",
+        answer: "Hello"
       )
     )
     return CardView(card, cardColor: $cardColor)

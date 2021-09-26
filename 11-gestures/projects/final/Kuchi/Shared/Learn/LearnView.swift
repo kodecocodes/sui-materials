@@ -1,4 +1,4 @@
-/// Copyright (c) 2020 Razeware LLC
+/// Copyright (c) 2021 Razeware LLC
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -33,21 +33,25 @@
 import SwiftUI
 
 struct LearnView: View {
-  @StateObject var learningStore =
-    LearningStore(deck: ChallengesViewModel.challenges)
+  @StateObject var learningStore = LearningStore(deck: ChallengesViewModel.challenges)
   
   var body: some View {
     VStack {
       Spacer()
+      
       Text("Swipe left if you remembered"
-            + "\nSwipe right if you didn’t")
+           + "\nSwipe right if you didn’t")
         .font(.headline)
+      
       DeckView(
         deck: learningStore.deck,
         onMemorized: { self.learningStore.score += 1 }
       )
+      
       Spacer()
-      Text("Remembered \(self.learningStore.score)" + "/\(self.learningStore.deck.cards.count)")
+      
+      Text("Remembered \(self.learningStore.score)"
+        + "/\(self.learningStore.deck.cards.count)")
     }
   }
 }
