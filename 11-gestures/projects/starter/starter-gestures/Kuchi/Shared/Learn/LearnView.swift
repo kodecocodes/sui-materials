@@ -33,7 +33,7 @@
 import SwiftUI
 
 struct LearnView: View {
-  @ObservedObject var learningStore = LearningStore(deck: ChallengesViewModel.challenges)
+  @StateObject var learningStore = LearningStore(deck: ChallengesViewModel.challenges)
   
   var body: some View {
     VStack {
