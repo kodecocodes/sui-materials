@@ -1,4 +1,4 @@
-/// Copyright (c) 2020 Razeware LLC
+/// Copyright (c) 2021 Razeware LLC
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -34,20 +34,19 @@ import SwiftUI
 
 struct ChallengeView: View {
   let challengeTest: ChallengeTest
-
+  
   @State var showAnswers = false
   @Binding var numberOfAnswered: Int
   @Environment(\.verticalSizeClass) var verticalSizeClass
   @AppStorage("numberOfQuestions") var numberOfQuestions = 6
-
+  
   @ViewBuilder
   var body: some View {
     if verticalSizeClass == .compact {
       VStack {
         HStack {
-          // swiftlint:disable multiple_closures_with_trailing_closure
           Button(action: {
-            showAnswers.toggle()
+            self.showAnswers = !self.showAnswers
           }) {
             QuestionView(
               question: challengeTest.challenge.question)
@@ -65,7 +64,7 @@ struct ChallengeView: View {
     } else {
       VStack {
         Button(action: {
-          showAnswers.toggle()
+          self.showAnswers = !self.showAnswers
         }) {
           QuestionView(
             question: challengeTest.challenge.question)
@@ -89,7 +88,6 @@ struct ChallengeView: View {
 
 struct ChallengeView_Previews: PreviewProvider {
   @State static var numberOfAnswered: Int = 0
-
   static let challengeTest = ChallengeTest(
     challenge: Challenge(
       question: "おねがい　します",
@@ -98,7 +96,7 @@ struct ChallengeView_Previews: PreviewProvider {
     ),
     answers: ["Thank you", "Hello", "Goodbye"]
   )
-
+  
   static var previews: some View {
     return ChallengeView(
       challengeTest: challengeTest,

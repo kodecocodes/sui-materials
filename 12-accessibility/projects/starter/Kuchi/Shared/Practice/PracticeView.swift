@@ -1,4 +1,4 @@
-/// Copyright (c) 2020 Razeware LLC
+/// Copyright (c) 2021 Razeware LLC
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -37,11 +37,11 @@ struct PracticeView: View {
   @Binding var challengeTest: ChallengeTest?
   @Binding var userName: String
   @Binding var numberOfAnswered: Int
-
+  
   @ViewBuilder
   var body: some View {
-    if let challengeTest = challengeTest {
-      ChallengeView(challengeTest: challengeTest, numberOfAnswered: $numberOfAnswered)
+    if challengeTest != nil {
+      ChallengeView(challengeTest: challengeTest!, numberOfAnswered: $numberOfAnswered)
     } else {
       CongratulationsView(userName: userName)
     }
@@ -54,11 +54,12 @@ struct PracticeView_Previews: PreviewProvider {
     challenge: Challenge(question: "おねがい　します", pronunciation: "Onegai shimasu", answer: "Please"),
     answers: ["Thank you", "Hello", "Goodbye"]
   )
-
+  
   static var previews: some View {
     return PracticeView(
       challengeTest: .constant(challengeTest),
       userName: .constant("Johnny Swift"),
-      numberOfAnswered: $numberOfAnswered)
+      numberOfAnswered: $numberOfAnswered
+    )
   }
 }
