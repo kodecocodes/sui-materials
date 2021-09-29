@@ -1,15 +1,15 @@
-/// Copyright (c) 2020 Razeware LLC
-/// 
+/// Copyright (c) 2021 Razeware LLC
+///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
 /// in the Software without restriction, including without limitation the rights
 /// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 /// copies of the Software, and to permit persons to whom the Software is
 /// furnished to do so, subject to the following conditions:
-/// 
+///
 /// The above copyright notice and this permission notice shall be included in
 /// all copies or substantial portions of the Software.
-/// 
+///
 /// Notwithstanding the foregoing, you may not use, copy, modify, merge, publish,
 /// distribute, sublicense, create a derivative work, and/or sell copies of the
 /// Software in any work that is designed, intended, or marketed for pedagogical or
@@ -17,7 +17,7 @@
 /// or information technology.  Permission for such use, copying, modification,
 /// merger, publication, distribution, sublicensing, creation of derivative works,
 /// or sale is expressly withheld.
-/// 
+///
 /// This project and source code may use libraries or frameworks that are
 /// released under various Open-Source licenses. Use of those libraries and
 /// frameworks are governed by their own individual licenses.
@@ -34,7 +34,7 @@ import SwiftUI
 
 struct RegisterView: View {
   @EnvironmentObject var userManager: UserManager
-  @StateObject var keyboardHandler = KeyboardFollower()
+  @FocusState var nameFieldFocused: Bool
 
   var body: some View {
     VStack {
@@ -43,15 +43,16 @@ struct RegisterView: View {
       WelcomeMessageView()
 
       TextField("Type your name", text: $userManager.profile.name)
+        .focused($nameFieldFocused)
+        .submitLabel(.done)
+        .onSubmit(registerUser)
         .bordered()
 
       HStack {
         Spacer()
         Text("\(userManager.profile.name.count)")
-          .accessibilityLabel(
-            Text("name has \(userManager.profile.name.count) letters"))
-          .accessibilityHint(
-            Text("name needs 3 or more letters to enable OK button"))
+          .accessibilityLabel("name has \(userManager.profile.name.count) letters")
+          .accessibilityHint("name needs 3 or more letters to enable OK button")
           .font(.caption)
           .foregroundColor(
             userManager.isUserNameValid() ? .green : .red)
@@ -80,17 +81,15 @@ struct RegisterView: View {
             .bold()
         }
       }
-      .accessibilityLabel(Text("OK registers user"))
+      .accessibilityLabel("OK registers user")
+      .accessibilityHint("name needs 3 or more letters to enable this button")
       .accessibilityValue(
         userManager.isUserNameValid() ? "enabled" : "disabled")
-      .accessibilityHint(
-        Text("name needs 3 or more letters to enable this button"))
       .bordered()
       .disabled(!userManager.isUserNameValid())
+
       Spacer()
     }
-    .padding(.bottom, keyboardHandler.keyboardHeight)
-    .edgesIgnoringSafeArea(keyboardHandler.isVisible ? .bottom : [])
     .padding()
     .background(WelcomeBackgroundImage())
   }
@@ -99,6 +98,8 @@ struct RegisterView: View {
 // MARK: - Event Handlers
 extension RegisterView {
   func registerUser() {
+    nameFieldFocused = false
+
     if userManager.settings.rememberUser {
       userManager.persistProfile()
     } else {
@@ -114,7 +115,7 @@ struct RegisterView_Previews: PreviewProvider {
   static let user = UserManager(name: "Ray")
 
   static var previews: some View {
-    RegisterView(keyboardHandler: KeyboardFollower())
+    RegisterView()
       .environmentObject(user)
   }
 }

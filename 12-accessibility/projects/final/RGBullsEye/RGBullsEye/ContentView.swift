@@ -1,4 +1,4 @@
-/// Copyright (c) 2020 Razeware LLC
+/// Copyright (c) 2021 Razeware LLC
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -37,41 +37,40 @@ struct ContentView: View {
   @State var guess: RGB
   @State var showScore = false
 
-  let circleSize: CGFloat = 0.5
-  let labelWidth: CGFloat = 0.53
+  let circleSize: CGFloat = 0.275
   let labelHeight: CGFloat = 0.06
+  let labelWidth: CGFloat = 0.53
   let buttonWidth: CGFloat = 0.87
 
   var body: some View {
-    GeometryReader { geometry in
+    GeometryReader { proxy in
       ZStack {
         Color.element
           .edgesIgnoringSafeArea(.all)
         VStack {
           ColorCircle(
             rgb: game.target,
-            size: geometry.size.width * circleSize)
+            size: proxy.size.height * circleSize)
           if !showScore {
             BevelText(
               text: "R: ??? G: ??? B: ???",
-              width: geometry.size.width * labelWidth,
-              height: geometry.size.height * labelHeight)
-              .accessibilityLabel(
-                Text("Target red, green, blue values you must guess"))
+              width: proxy.size.width * labelWidth,
+              height: proxy.size.height * labelHeight)
+              .accessibilityLabel("Target red, green, blue, values you must guess")
           } else {
             BevelText(
               text: game.target.intString,
-              width: geometry.size.width * labelWidth,
-              height: geometry.size.height * labelHeight)
+              width: proxy.size.width * labelWidth,
+              height: proxy.size.height * labelHeight)
           }
           ColorCircle(
             rgb: guess,
-            size: geometry.size.width * circleSize)
+            size: proxy.size.height * circleSize)
           BevelText(
             text: guess.intString,
-            width: geometry.size.width * labelWidth,
-            height: geometry.size.height * labelHeight)
-            .accessibilityLabel(Text("Your guess: " + guess.accString))
+            width: proxy.size.width * labelWidth,
+            height: proxy.size.height * labelHeight)
+            .accessibilityLabel("Your guess: " + guess.accString)
             .accessibilitySortPriority(2)
             ColorSlider(value: $guess.red, trackColor: .red)
               .accessibilitySortPriority(5)
@@ -86,8 +85,8 @@ struct ContentView: View {
           .accessibilitySortPriority(1)
           .buttonStyle(
             NeuButtonStyle(
-              width: geometry.size.width * buttonWidth,
-              height: geometry.size.height * labelHeight))
+              width: proxy.size.width * buttonWidth,
+              height: proxy.size.height * labelHeight))
           .sheet(isPresented: $showScore) {
             SuccessView(
               game: $game,
@@ -104,8 +103,13 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
-    ContentView(guess: RGB())
-      .previewDevice("iPhone 12 Pro")
+    Group {
+      ContentView(guess: RGB())
+        .previewDevice("iPhone 8")
+      ContentView(guess: RGB())
+      ContentView(guess: RGB())
+        .previewDevice("iPhone 12 Pro Max")
+    }
   }
 }
 
@@ -119,8 +123,8 @@ struct ColorSlider: View {
       Slider(value: $value)
         .accentColor(trackColor)
         .accessibilityValue(
-          Text(
-            String(describing: trackColor) + String(Int(value * 255))))
+            String(describing: trackColor) +
+            String(Int(value * 255)))
       Text("255")
         .accessibilityHidden(true)
     }

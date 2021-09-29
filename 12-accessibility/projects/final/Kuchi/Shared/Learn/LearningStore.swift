@@ -1,4 +1,4 @@
-/// Copyright (c) 2020 Razeware LLC
+/// Copyright (c) 2021 Razeware LLC
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -41,15 +41,15 @@ class LearningStore: ObservableObject {
     self.deck = FlashDeck(from: deck)
     self.card = getNextCard()
   }
-
+  
   func getNextCard() -> FlashCard? {
     guard let card = self.deck.cards.last else {
       return nil
     }
-
+    
     self.card = card
     self.deck.cards.removeLast()
-
+    
     return self.card
   }
 }

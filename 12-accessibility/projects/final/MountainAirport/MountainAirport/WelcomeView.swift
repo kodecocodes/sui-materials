@@ -1,4 +1,4 @@
-/// Copyright (c) 2020 Razeware LLC
+/// Copyright (c) 2021 Razeware LLC
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -54,6 +54,10 @@ struct WelcomeView: View {
           ) { }
         }
         ScrollView {
+          WelcomeAnimation()
+            .foregroundColor(.white)
+            .frame(height: 40)
+            .padding()
           LazyVGrid(
             columns: [
               GridItem(.fixed(160)),
@@ -78,17 +82,28 @@ struct WelcomeView: View {
             ) {
               AwardsButton()
             }
+            NavigationLink(
+              destination: FlightTimelineView(
+                flights: flightInfo.flights.filter {
+                  Calendar.current.isDate(
+                    $0.localTime,
+                    inSameDayAs: Date()
+                  )
+                }
+              )
+            ) {
+              TimelineButton()
+            }
             if
               let id = appEnvironment.lastFlightId,
               let lastFlight = flightInfo.getFlightById(id) {
               // swiftlint:disable multiple_closures_with_trailing_closure
-              Button(
-                action: {
+              Button(action: {
                 showNextFlight = true
-                }
-              ) {
+              }) {
                 LastViewedButton(name: lastFlight.flightName)
               }
+              // swiftlint:enable multiple_closures_with_trailing_closure
             }
             Spacer()
           }.font(.title)

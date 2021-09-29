@@ -1,4 +1,4 @@
-/// Copyright (c) 2020 Razeware LLC
+/// Copyright (c) 2021 Razeware LLC
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -18,10 +18,6 @@
 /// merger, publication, distribution, sublicensing, creation of derivative works,
 /// or sale is expressly withheld.
 ///
-/// This project and source code may use libraries or frameworks that are
-/// released under various Open-Source licenses. Use of those libraries and
-/// frameworks are governed by their own individual licenses.
-///
 /// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 /// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 /// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -30,32 +26,19 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import UIKit
+import SwiftUI
 
-class KeyboardFollower: ObservableObject {
-  @Published var keyboardHeight: CGFloat = 0
-  @Published var isVisible = false
-
-  init() {
-    NotificationCenter.default.addObserver(
-      self,
-      selector: #selector(keyboardVisibilityChanged),
-      name: UIResponder.keyboardWillChangeFrameNotification,
-      object: nil)
+struct TimelineButton: View {
+  var body: some View {
+    WelcomeButtonView(
+      title: "Flight Timeline",
+      subTitle: "Flight Timeline",
+      imageName: "timelapse")
   }
+}
 
-//  deinit {
-//    NotificationCenter.default.removeObserver(
-//      self,
-//      name: UIResponder.keyboardWillChangeFrameNotification,
-//      object: nil)
-//  }
-
-  @objc private func keyboardVisibilityChanged(_ notification: Notification) {
-    guard let userInfo = notification.userInfo else { return }
-    guard let keyboardEndFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
-
-    isVisible = keyboardEndFrame.minY < UIScreen.main.bounds.height
-    keyboardHeight = isVisible ? keyboardEndFrame.height : 0
+struct TimelineButton_Previews: PreviewProvider {
+  static var previews: some View {
+    TimelineButton()
   }
 }
