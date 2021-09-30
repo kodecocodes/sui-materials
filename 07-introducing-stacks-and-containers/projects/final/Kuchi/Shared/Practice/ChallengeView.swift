@@ -40,7 +40,7 @@ struct ChallengeView: View {
   var body: some View {
     VStack {
       Button(action: {
-        self.showAnswers.toggle()
+        showAnswers.toggle()
       }) {
         QuestionView(question: challengeTest.challenge.question)
           .frame(height: 300)

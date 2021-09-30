@@ -37,7 +37,7 @@ struct StarterView: View {
   
   @ViewBuilder
   var body: some View {
-    if self.userViewModel.isRegistered {
+    if userViewModel.isRegistered {
       WelcomeView()
     } else {
       RegisterView()
