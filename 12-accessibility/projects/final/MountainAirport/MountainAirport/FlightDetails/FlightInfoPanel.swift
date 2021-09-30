@@ -1,4 +1,4 @@
-/// Copyright (c) 2020 Razeware LLC
+/// Copyright (c) 2021 Razeware LLC
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -69,9 +69,11 @@ struct FlightInfoPanel: View {
           Text("Flying to \(flight.otherAirport)")
         }
         Text(flight.flightStatus) + Text(" (\(timeFormatter.string(from: flight.localTime)))")
-        Button(
-          action: { withAnimation { showTerminal.toggle() } },
-          label: {
+        Button(action: {
+          withAnimation {
+            showTerminal.toggle()
+          }
+        }, label: {
           HStack(alignment: .center) {
             Image(systemName: "airplane.circle")
               .resizable()
@@ -83,7 +85,8 @@ struct FlightInfoPanel: View {
                   response: 0.55,
                   dampingFraction: 0.45,
                   blendDuration: 0
-                )
+                ),
+                value: showTerminal
               )
             Spacer()
             Group {
@@ -105,11 +108,11 @@ struct FlightInfoPanel: View {
                   response: 0.55,
                   dampingFraction: 0.45,
                   blendDuration: 0
-                )
+                ),
+                value: showTerminal
               )
           }
-          }
-        )
+        })
         if showTerminal {
           FlightTerminalMap(flight: flight)
         }

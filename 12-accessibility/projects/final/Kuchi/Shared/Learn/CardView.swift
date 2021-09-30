@@ -1,4 +1,4 @@
-/// Copyright (c) 2020 Razeware LLC
+/// Copyright (c) 2021 Razeware LLC
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -33,23 +33,20 @@
 import SwiftUI
 
 struct CardView: View {
-  typealias CardDrag = (_ card: FlashCard, _ direction: DiscardedDirection) -> Void
-
-  let dragged: CardDrag
   let flashCard: FlashCard
+  @Binding var cardColor: Color
   @State var revealed = false
   @State var offset: CGSize = .zero
   @GestureState var isLongPressed = false
-  @Binding var cardColor: Color
-
-  init(
-    _ card: FlashCard,
-    cardColor: Binding<Color>,
-    onDrag dragged: @escaping CardDrag = { _, _ in }
-  ) {
+  @AccessibilityFocusState var isQuestionFocused: Bool
+  
+  typealias CardDrag = (_ card: FlashCard, _ direction: DiscardedDirection) -> Void
+  let dragged: CardDrag
+  
+  init(_ card: FlashCard, cardColor: Binding<Color>, onDrag dragged: @escaping CardDrag = {_,_  in } ) {
     self.flashCard = card
-    self.dragged = dragged
     self._cardColor = cardColor
+    self.dragged = dragged
   }
 
   func discardCard(to direction: DiscardedDirection) {
@@ -61,27 +58,29 @@ struct CardView: View {
     offset = .init(width: width, height: 0)
     dragged(flashCard, direction)
   }
-
+  
   var body: some View {
     let drag = DragGesture()
-      .onChanged { offset = $0.translation }
+      .onChanged { self.offset = $0.translation }
       .onEnded {
         if $0.translation.width < -100 {
-          discardCard(to: .left)
+          self.offset = .init(width: -1000, height: 0)
+          self.dragged(self.flashCard, .left)
         } else if $0.translation.width > 100 {
-          discardCard(to: .right)
+          self.offset = .init(width: 1000, height: 0)
+          self.dragged(self.flashCard, .right)
         } else {
-          offset = .zero
+          self.offset = .zero
         }
       }
-
+    
     let longPress = LongPressGesture()
-      .updating($isLongPressed) { value, state, _ in
+      .updating($isLongPressed) { value, state, transition in
         state = value
       }
       .simultaneously(with: drag)
-
-    VStack {
+    
+    return VStack {
       ZStack {
         Rectangle()
           .fill(cardColor)
@@ -102,45 +101,55 @@ struct CardView: View {
       }
       .shadow(radius: 8)
       .frame(width: 320, height: 210)
-      .animation(.spring())
-      .gesture(
-        TapGesture()
-          .onEnded {
-            withAnimation(.easeIn) {
-              revealed.toggle()
-            }
-          }
-      )
-      .simultaneousGesture(longPress)
+      .animation(.spring(), value: self.offset)
+      .offset(self.offset)
+      .gesture(longPress)
       .scaleEffect(isLongPressed ? 1.1 : 1)
-      // swiftlint:disable multiple_closures_with_trailing_closure
-      HStack {
-        Button { discardCard(to: .left) } label: {
-          Image(systemName: "arrowshape.turn.up.left.circle")
-            .accessibilityLabel(Text("Swipes left"))
+      .animation(.easeInOut(duration: 0.3), value: self.isLongPressed)
+      .simultaneousGesture(TapGesture()
+        .onEnded {
+          withAnimation(.easeIn, {
+            self.revealed.toggle()
+          })
+    })
+      if UIAccessibility.isVoiceOverRunning {
+        HStack {
+          Button { discardCard(to: .left) } label: {
+            Image(systemName: "checkmark.circle.fill")
+              .foregroundColor(.green)
+              .accessibilityLabel("Remembered")
+          }
+          Spacer()
+          Button { isQuestionFocused = true } label: {
+            Image(systemName: "questionmark.circle.fill")
+              .accessibilityLabel("Read question")
+          }
+          Spacer()
+          Button { discardCard(to: .right) } label: {
+            Image(systemName: "xmark.circle.fill")
+              .foregroundColor(.red)
+              .accessibilityLabel("Forgot")
+          }
         }
-        Spacer()
-        Button { discardCard(to: .right) } label: {
-          Image(systemName: "arrowshape.turn.up.right.circle")
-            .accessibilityLabel(Text("Swipes right"))
-        }
+        .padding(45)
+        .font(.largeTitle)
+        .offset(self.offset)
+      } else {
+        EmptyView()
       }
-      .padding(45)
-      .font(.largeTitle)
     }
-    .offset(offset)
   }
 }
 
 struct CardView_Previews: PreviewProvider {
   @State static var cardColor = Color.red
-
+  
   static var previews: some View {
     let card = FlashCard(
       card: Challenge(
-        question: "Apple",
-        pronunciation: "Apple",
-        answer: "Omena"
+        question: "こんにちわ",
+        pronunciation: "Konnichiwa",
+        answer: "Hello"
       )
     )
     return CardView(card, cardColor: $cardColor)

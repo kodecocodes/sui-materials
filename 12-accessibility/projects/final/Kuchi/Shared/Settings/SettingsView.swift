@@ -1,4 +1,4 @@
-/// Copyright (c) 2020 Razeware LLC
+/// Copyright (c) 2021 Razeware LLC
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -47,29 +47,22 @@ struct SettingsView: View {
       Text("Settings")
         .font(.largeTitle)
         .padding(.bottom, 8)
-
+      
       Section(header: Text("Appearance")) {
         VStack(alignment: .leading) {
           Picker("", selection: $appearance) {
             ForEach(Appearance.allCases) { appearance in
               Text(appearance.name).tag(appearance)
-            }
-          }
+            }          }
           .pickerStyle(SegmentedPickerStyle())
-
+          
           ColorPicker(
             "Card Background Color",
-            selection: Binding(
-              get: { cardBackgroundColor },
-              set: { newValue in
-                cardBackgroundColorInt = newValue.asRgba
-                cardBackgroundColor = newValue
-              }
-            )
+            selection: $cardBackgroundColor
           )
         }
       }
-
+      
       Section(header: Text("Game")) {
         VStack(alignment: .leading) {
           Stepper(
@@ -81,42 +74,31 @@ struct SettingsView: View {
             .font(.caption2)
             .foregroundColor(.secondary)
         }
-
+        
         Toggle("Learning Enabled", isOn: $learningEnabled)
       }
-
+      
       Section(header: Text("Notifications")) {
         HStack {
-          Toggle("Daily Reminder", isOn: Binding(
-            get: { dailyReminderEnabled },
-            set: { newValue in
-              dailyReminderEnabled = newValue
-              configureNotification()
-            }
-          ))
-          DatePicker(
-            "",
-            selection: Binding(
-              get: { dailyReminderTime },
-              set: { newValue in
-                dailyReminderTimeShadow = newValue.timeIntervalSince1970
-                dailyReminderTime = newValue
-                configureNotification()
-              }
-            ),
-            displayedComponents: .hourAndMinute
-          )
-          .datePickerStyle(CompactDatePickerStyle())
-          .disabled(dailyReminderEnabled == false)
+          Toggle("Daily Reminder", isOn: $dailyReminderEnabled)
+          DatePicker("", selection: $dailyReminderTime, displayedComponents: .hourAndMinute)
         }
       }
-    }
-    .onAppear {
-      dailyReminderTime = Date(timeIntervalSince1970: dailyReminderTimeShadow)
-      cardBackgroundColor = Color(rgba: cardBackgroundColorInt)
+      .onChange(of: dailyReminderEnabled, perform: { _ in configureNotification() })
+      .onChange(of: dailyReminderTime, perform: { newValue in
+        dailyReminderTimeShadow = newValue.timeIntervalSince1970
+        configureNotification()
+      })
+      .onChange(of: cardBackgroundColor, perform: { newValue in
+        cardBackgroundColorInt = newValue.asRgba
+      })
+      .onAppear {
+        dailyReminderTime = Date(timeIntervalSince1970: dailyReminderTimeShadow)
+        cardBackgroundColor = Color(rgba: cardBackgroundColorInt)
+      }
     }
   }
-
+  
   func configureNotification() {
     if dailyReminderEnabled {
       LocalNotifications.shared.createReminder(time: dailyReminderTime)
