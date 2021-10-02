@@ -49,7 +49,7 @@ struct History: Hashable {
   
   static func random(count: Int) -> [History] {
     return (0 ..< count)
-      .map({ _ in self.random() })
+      .map({ _ in random() })
       .sorted(by: { $0.date < $1.date })
   }
 }

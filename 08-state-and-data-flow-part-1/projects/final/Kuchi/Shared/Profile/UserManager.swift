@@ -50,7 +50,7 @@ final class UserManager: ObservableObject {
   
   init(name: String) {
     isRegistered = name.isEmpty == false
-    self.profile.name = name
+    profile.name = name
   }
   
   func setRegistered() {
