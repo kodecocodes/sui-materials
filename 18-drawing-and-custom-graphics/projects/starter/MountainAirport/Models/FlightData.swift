@@ -48,12 +48,12 @@ public struct SeededRandomGenerator: RandomNumberGenerator {
   }
 
   init(seed: UInt64) {
-    self.gkrandom = GKMersenneTwisterRandomSource(seed: seed)
+    gkrandom = GKMersenneTwisterRandomSource(seed: seed)
   }
 
   init() {
     let seed = UInt64.random(in: UInt64.min ... UInt64.max)
-    self.gkrandom = GKMersenneTwisterRandomSource(seed: seed)
+    gkrandom = GKMersenneTwisterRandomSource(seed: seed)
   }
 }
 
