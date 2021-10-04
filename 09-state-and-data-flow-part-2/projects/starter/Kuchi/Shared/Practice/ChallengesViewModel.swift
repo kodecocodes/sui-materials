@@ -106,8 +106,8 @@ class ChallengesViewModel: ObservableObject {
   }
   
   func restart() {
-    self.correctAnswers = []
-    self.wrongAnswers = []
+    correctAnswers = []
+    wrongAnswers = []
     generateRandomChallenge()
   }
   

@@ -89,7 +89,7 @@ struct CongratulationsView: View {
       Spacer()
       
       Button {
-        self.challengesViewModel.restart()
+        challengesViewModel.restart()
       } label: {
         Text("Play Again")
       }

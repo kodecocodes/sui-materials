@@ -44,12 +44,12 @@ struct ChoicesView : View {
     VStack(spacing: 25) {
       ForEach(0 ..< challengeTest.answers.count) { index in
         Button {
-          self.challengeSolved = self.checkAnswer(at: index)
-          self.isChallengeResultAlertDisplayed = true
+          challengeSolved = checkAnswer(at: index)
+          isChallengeResultAlertDisplayed = true
         } label: {
-          ChoicesRow(choice: self.challengeTest.answers[index])
-        }.alert(isPresented: self.$isChallengeResultAlertDisplayed, content: {
-          self.challengeOutcomeAlert()
+          ChoicesRow(choice: challengeTest.answers[index])
+        }.alert(isPresented: $isChallengeResultAlertDisplayed, content: {
+          challengeOutcomeAlert()
         })
         Divider()
       }
@@ -61,8 +61,8 @@ struct ChoicesView : View {
     
     if challengeSolved {
       let dismissButton = Alert.Button.default(Text("OK")) {
-        self.isChallengeResultAlertDisplayed = false
-        self.challengesViewModel.generateRandomChallenge()
+        isChallengeResultAlertDisplayed = false
+        challengesViewModel.generateRandomChallenge()
       }
       
       alert = Alert(
@@ -72,7 +72,7 @@ struct ChoicesView : View {
       )
     } else {
       let dismissButton = Alert.Button.default(Text("OK")) {
-        self.isChallengeResultAlertDisplayed = false
+        isChallengeResultAlertDisplayed = false
       }
       
       alert = Alert(
@@ -91,10 +91,10 @@ struct ChoicesView : View {
     
     if challengeTest.isAnswerCorrect(answer) {
       challengeSolved = true
-      challengesViewModel.saveCorrectAnswer(for: self.challengeTest.challenge)
+      challengesViewModel.saveCorrectAnswer(for: challengeTest.challenge)
     } else {
       challengeSolved = false
-      challengesViewModel.saveWrongAnswer(for: self.challengeTest.challenge)
+      challengesViewModel.saveWrongAnswer(for: challengeTest.challenge)
     }
     
     isChallengeResultAlertDisplayed = true
