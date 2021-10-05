@@ -37,7 +37,7 @@ struct Profile: Codable {
   
   /// Initializes a new `Profile` with an empty `name`.
   init() {
-    self.name = ""
+    name = ""
   }
   
   /// Initializes a new `Profile` with a specified name.

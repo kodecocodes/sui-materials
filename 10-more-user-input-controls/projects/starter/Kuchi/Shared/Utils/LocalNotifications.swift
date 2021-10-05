@@ -40,7 +40,7 @@ class LocalNotifications {
   var userNotificationCenter: UNUserNotificationCenter { UNUserNotificationCenter.current() }
 
   private init() {
-    self.userNotificationCenter.getNotificationSettings { settings in
+    userNotificationCenter.getNotificationSettings { settings in
       let permission = settings.authorizationStatus
       
       switch permission {
@@ -61,7 +61,7 @@ class LocalNotifications {
   
   func createReminder(time: Date) {
     deleteReminder()
-    self.userNotificationCenter.getNotificationSettings { settings in
+    userNotificationCenter.getNotificationSettings { settings in
       let content = UNMutableNotificationContent()
       content.title = "Kuchi"
       content.subtitle = "It's time to practice!"
@@ -89,13 +89,13 @@ class LocalNotifications {
   }
   
   func deleteReminder() {
-    self.userNotificationCenter.removeAllDeliveredNotifications()
+    userNotificationCenter.removeAllDeliveredNotifications()
   }
   
   func requestLocalNotificationPermission(completion: @escaping (_ granted: Bool) -> Void) {
     let options: UNAuthorizationOptions = [.alert, .sound]
     
-    self.userNotificationCenter.requestAuthorization(options: options) { granted, error in
+    userNotificationCenter.requestAuthorization(options: options) { granted, error in
       DispatchQueue.main.async {
         if let error = error {
           print(error)

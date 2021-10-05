@@ -46,7 +46,7 @@ struct ChallengeView: View {
       VStack {
         HStack {
           Button(action: {
-            self.showAnswers = !self.showAnswers
+            showAnswers = !showAnswers
           }) {
             QuestionView(
               question: challengeTest.challenge.question)
@@ -64,7 +64,7 @@ struct ChallengeView: View {
     } else {
       VStack {
         Button(action: {
-          self.showAnswers = !self.showAnswers
+          showAnswers = !showAnswers
         }) {
           QuestionView(
             question: challengeTest.challenge.question)

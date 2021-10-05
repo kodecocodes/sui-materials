@@ -69,7 +69,7 @@ struct RegisterView: View {
         .fixedSize()
       }
 
-      Button(action: self.registerUser) {
+      Button(action: registerUser) {
         HStack {
           Image(systemName: "checkmark")
             .resizable()
