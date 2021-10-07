@@ -43,23 +43,23 @@ struct CardView: View {
   let dragged: CardDrag
   
   init(_ card: FlashCard, cardColor: Binding<Color>, onDrag dragged: @escaping CardDrag = {_,_  in } ) {
-    self.flashCard = card
-    self._cardColor = cardColor
+    flashCard = card
+    _cardColor = cardColor
     self.dragged = dragged
   }
   
   var body: some View {
     let drag = DragGesture()
-      .onChanged { self.offset = $0.translation }
+      .onChanged { offset = $0.translation }
       .onEnded {
         if $0.translation.width < -100 {
-          self.offset = .init(width: -1000, height: 0)
-          self.dragged(self.flashCard, .left)
+          offset = .init(width: -1000, height: 0)
+          dragged(flashCard, .left)
         } else if $0.translation.width > 100 {
-          self.offset = .init(width: 1000, height: 0)
-          self.dragged(self.flashCard, .right)
+          offset = .init(width: 1000, height: 0)
+          dragged(flashCard, .right)
         } else {
-          self.offset = .zero
+          offset = .zero
         }
       }
     
@@ -79,7 +79,7 @@ struct CardView: View {
         Text(flashCard.card.question)
           .font(.largeTitle)
           .foregroundColor(.white)
-        if self.revealed {
+        if revealed {
           Text(flashCard.card.answer)
             .font(.caption)
             .foregroundColor(.white)
@@ -89,15 +89,15 @@ struct CardView: View {
     }
     .shadow(radius: 8)
     .frame(width: 320, height: 210)
-    .animation(.spring(), value: self.offset)
-    .offset(self.offset)
+    .animation(.spring(), value: offset)
+    .offset(offset)
     .gesture(longPress)
     .scaleEffect(isLongPressed ? 1.1 : 1)
-    .animation(.easeInOut(duration: 0.3), value: self.isLongPressed)
+    .animation(.easeInOut(duration: 0.3), value: isLongPressed)
     .simultaneousGesture(TapGesture()
       .onEnded {
         withAnimation(.easeIn, {
-          self.revealed.toggle()
+          revealed.toggle()
         })
     })
   }

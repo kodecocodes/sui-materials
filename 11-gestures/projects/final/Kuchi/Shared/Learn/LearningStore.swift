@@ -39,16 +39,16 @@ class LearningStore: ObservableObject {
 
   init(deck: [Challenge]) {
     self.deck = FlashDeck(from: deck)
-    self.card = getNextCard()
+    card = getNextCard()
   }
   
   func getNextCard() -> FlashCard? {
-    guard let card = self.deck.cards.last else {
+    guard let card = deck.cards.last else {
       return nil
     }
     
     self.card = card
-    self.deck.cards.removeLast()
+    deck.cards.removeLast()
     
     return self.card
   }

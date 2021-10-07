@@ -37,8 +37,8 @@ struct CardView: View {
   @Binding var cardColor: Color
   
   init(_ card: FlashCard, cardColor: Binding<Color>) {
-    self.flashCard = card
-    self._cardColor = cardColor
+    flashCard = card
+    _cardColor = cardColor
   }
   
   var body: some View {

@@ -50,7 +50,7 @@ struct DeckView: View {
   var body: some View {
     ZStack {
       ForEach(deck.cards.filter { $0.isActive }) { card in
-        self.getCardView(for: card)
+        getCardView(for: card)
       }
     }
   }
@@ -75,7 +75,7 @@ struct DeckView: View {
       ),
       onDrag: { card, direction in
         if direction == .left {
-          self.onMemorized()
+          onMemorized()
         }
       }
     )
