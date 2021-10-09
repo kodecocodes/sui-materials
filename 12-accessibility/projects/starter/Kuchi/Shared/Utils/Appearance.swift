@@ -35,7 +35,7 @@ import SwiftUI
 enum Appearance: Int, CaseIterable, Identifiable {
   case light, dark, automatic
 
-  var id: Int { self.rawValue }
+  var id: Int { rawValue }
 
   var name: String {
     switch self {

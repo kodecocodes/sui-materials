@@ -49,13 +49,13 @@ struct LearnView: View {
       
       DeckView(
         deck: learningStore.deck,
-        onMemorized: { self.learningStore.score += 1 }
+        onMemorized: { learningStore.score += 1 }
       )
       
       Spacer()
       
-      Text("Remembered \(self.learningStore.score)"
-        + "/\(self.learningStore.deck.cards.count)")
+      Text("Remembered \(learningStore.score)"
+        + "/\(learningStore.deck.cards.count)")
     }
   }
 }
