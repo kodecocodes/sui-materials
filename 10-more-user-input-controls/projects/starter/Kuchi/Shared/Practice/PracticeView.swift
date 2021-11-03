@@ -1,4 +1,4 @@
-/// Copyright (c) 2020 Razeware LLC
+/// Copyright (c) 2021 Razeware LLC
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -33,7 +33,7 @@
 import SwiftUI
 
 /// Displays the practice view with question and potential answers (choices).
-struct PracticeView : View {
+struct PracticeView: View {
   @Binding var challengeTest: ChallengeTest?
   @Binding var userName: String
   @Binding var numberOfAnswered: Int
@@ -41,19 +41,15 @@ struct PracticeView : View {
   @ViewBuilder
   var body: some View {
     if challengeTest != nil {
-      ChallengeView(
-        challengeTest: challengeTest!,
-        numberOfAnswered: $numberOfAnswered
-      )
+      ChallengeView(challengeTest: challengeTest!, numberOfAnswered: $numberOfAnswered)
     } else {
       CongratulationsView(userName: userName)
     }
   }
 }
 
-struct PracticeView_Previews : PreviewProvider {
+struct PracticeView_Previews: PreviewProvider {
   @State static var numberOfAnswered: Int = 0
-  
   static let challengeTest = ChallengeTest(
     challenge: Challenge(question: "おねがい　します", pronunciation: "Onegai shimasu", answer: "Please"),
     answers: ["Thank you", "Hello", "Goodbye"]
@@ -64,6 +60,6 @@ struct PracticeView_Previews : PreviewProvider {
       challengeTest: .constant(challengeTest),
       userName: .constant("Johnny Swift"),
       numberOfAnswered: $numberOfAnswered
-    )    
+    )
   }
 }

@@ -1,4 +1,4 @@
-/// Copyright (c) 2020 Razeware LLC
+/// Copyright (c) 2021 Razeware LLC
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -52,7 +52,7 @@ struct Challenge {
   var succeeded: Bool = false
 }
 
-extension Challenge : Hashable {
+extension Challenge: Hashable {
   func hash(into hasher: inout Hasher) {
     question.hash(into: &hasher)
   }
@@ -82,7 +82,7 @@ class ChallengesViewModel: ObservableObject {
   var allAnswers: [String] { return Self.challenges.map { $0.answer }}
   var correctAnswers: [Challenge] = []
   var wrongAnswers: [Challenge] = []
-  @AppStorage("numberOfQuestions") var numberOfQuestions = 6
+  @AppStorage("numberOfQuestions") private(set) var numberOfQuestions = 6
 
   var numberOfAnswered: Int { return correctAnswers.count }
   @Published var currentChallenge: ChallengeTest?
@@ -119,8 +119,8 @@ class ChallengesViewModel: ObservableObject {
   }
   
   func restart() {
-    self.correctAnswers = []
-    self.wrongAnswers = []
+    correctAnswers = []
+    wrongAnswers = []
     generateRandomChallenge()
   }
   

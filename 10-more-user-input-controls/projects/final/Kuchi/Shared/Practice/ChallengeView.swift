@@ -1,4 +1,4 @@
-/// Copyright (c) 2020 Razeware LLC
+/// Copyright (c) 2021 Razeware LLC
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -46,7 +46,7 @@ struct ChallengeView: View {
       VStack {
         HStack {
           Button(action: {
-            self.showAnswers = !self.showAnswers
+            showAnswers = !showAnswers
           }) {
             QuestionView(
               question: challengeTest.challenge.question)
@@ -64,7 +64,7 @@ struct ChallengeView: View {
     } else {
       VStack {
         Button(action: {
-          self.showAnswers = !self.showAnswers
+          showAnswers = !showAnswers
         }) {
           QuestionView(
             question: challengeTest.challenge.question)
@@ -88,7 +88,6 @@ struct ChallengeView: View {
 
 struct ChallengeView_Previews: PreviewProvider {
   @State static var numberOfAnswered: Int = 0
-  
   static let challengeTest = ChallengeTest(
     challenge: Challenge(
       question: "おねがい　します",

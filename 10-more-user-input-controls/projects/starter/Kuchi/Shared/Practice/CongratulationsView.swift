@@ -1,4 +1,4 @@
-/// Copyright (c) 2020 Razeware LLC
+/// Copyright (c) 2021 Razeware LLC
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -33,8 +33,8 @@
 import SwiftUI
 
 struct CongratulationsView: View {
-  let avatarSize: CGFloat = 120
   @EnvironmentObject var challengesViewModel: ChallengesViewModel
+  let avatarSize: CGFloat = 120
   let userName: String
 
   init(userName: String) {
@@ -69,7 +69,7 @@ struct CongratulationsView: View {
           .cornerRadius(avatarSize / 2, antialiased: true)
           .shadow(radius: 4)
         
-        VStack() {
+        VStack {
           Spacer()
           Text(userName)
             .font(.largeTitle)
@@ -87,12 +87,12 @@ struct CongratulationsView: View {
       
       Spacer()
       
-      Button(action: {
+      Button {
         self.challengesViewModel.restart()
-      }, label: {
+      } label: {
         Text("Play Again")
-      })
-      .padding(.top)
+      }
+        .padding(.top)
     }
   }
 }
