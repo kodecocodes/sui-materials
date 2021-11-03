@@ -1,4 +1,4 @@
-/// Copyright (c) 2020 Razeware LLC
+/// Copyright (c) 2021 Razeware LLC
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -40,7 +40,6 @@ enum DiscardedDirection {
 struct DeckView: View {
   @ObservedObject var deck: FlashDeck
   @AppStorage("cardBackgroundColor") var cardBackgroundColorInt: Int = 0xFF0000FF
-  
   let onMemorized: () -> Void
   
   init(deck: FlashDeck, onMemorized: @escaping () -> Void) {
@@ -51,7 +50,7 @@ struct DeckView: View {
   var body: some View {
     ZStack {
       ForEach(deck.cards.filter { $0.isActive }) { card in
-        self.getCardView(for: card)
+        getCardView(for: card)
       }
     }
   }
@@ -76,11 +75,11 @@ struct DeckView: View {
       ),
       onDrag: { card, direction in
         if direction == .left {
-          self.onMemorized()
+          onMemorized()
         }
       }
     )
-    
+      
     return view
   }
 }

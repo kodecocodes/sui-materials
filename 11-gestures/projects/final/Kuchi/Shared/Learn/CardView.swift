@@ -1,4 +1,4 @@
-/// Copyright (c) 2020 Razeware LLC
+/// Copyright (c) 2021 Razeware LLC
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -33,37 +33,33 @@
 import SwiftUI
 
 struct CardView: View {
-  typealias CardDrag = (_ card: FlashCard, _ direction: DiscardedDirection) -> Void
-
-  let dragged: CardDrag
   let flashCard: FlashCard
+  @Binding var cardColor: Color
   @State var revealed = false
   @State var offset: CGSize = .zero
   @GestureState var isLongPressed = false
-  @Binding var cardColor: Color
-
-  init(
-    _ card: FlashCard,
-    cardColor: Binding<Color>,
-    onDrag dragged: @escaping CardDrag = {_,_  in }
-  ) {
-    self.flashCard = card
+  
+  typealias CardDrag = (_ card: FlashCard, _ direction: DiscardedDirection) -> Void
+  let dragged: CardDrag
+  
+  init(_ card: FlashCard, cardColor: Binding<Color>, onDrag dragged: @escaping CardDrag = {_,_  in } ) {
+    flashCard = card
+    _cardColor = cardColor
     self.dragged = dragged
-    self._cardColor = cardColor
   }
   
   var body: some View {
     let drag = DragGesture()
-      .onChanged { self.offset = $0.translation }
+      .onChanged { offset = $0.translation }
       .onEnded {
         if $0.translation.width < -100 {
-          self.offset = .init(width: -1000, height: 0)
-          self.dragged(self.flashCard, .left)
+          offset = .init(width: -1000, height: 0)
+          dragged(flashCard, .left)
         } else if $0.translation.width > 100 {
-          self.offset = .init(width: 1000, height: 0)
-          self.dragged(self.flashCard, .right)
+          offset = .init(width: 1000, height: 0)
+          dragged(flashCard, .right)
         } else {
-          self.offset = .zero
+          offset = .zero
         }
       }
     
@@ -83,7 +79,7 @@ struct CardView: View {
         Text(flashCard.card.question)
           .font(.largeTitle)
           .foregroundColor(.white)
-        if self.revealed {
+        if revealed {
           Text(flashCard.card.answer)
             .font(.caption)
             .foregroundColor(.white)
@@ -93,14 +89,15 @@ struct CardView: View {
     }
     .shadow(radius: 8)
     .frame(width: 320, height: 210)
-    .animation(.spring())
-    .offset(self.offset)
+    .animation(.spring(), value: offset)
+    .offset(offset)
     .gesture(longPress)
     .scaleEffect(isLongPressed ? 1.1 : 1)
+    .animation(.easeInOut(duration: 0.3), value: isLongPressed)
     .simultaneousGesture(TapGesture()
       .onEnded {
         withAnimation(.easeIn, {
-          self.revealed = !self.revealed
+          revealed.toggle()
         })
     })
   }
@@ -112,9 +109,9 @@ struct CardView_Previews: PreviewProvider {
   static var previews: some View {
     let card = FlashCard(
       card: Challenge(
-        question: "Apple",
-        pronunciation: "Apple",
-        answer: "Omena"
+        question: "こんにちわ",
+        pronunciation: "Konnichiwa",
+        answer: "Hello"
       )
     )
     return CardView(card, cardColor: $cardColor)
