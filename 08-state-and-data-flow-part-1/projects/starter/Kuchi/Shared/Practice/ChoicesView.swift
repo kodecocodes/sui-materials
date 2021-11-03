@@ -1,4 +1,4 @@
-/// Copyright (c) 2020 Razeware LLC
+/// Copyright (c) 2021 Razeware LLC
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -39,17 +39,17 @@ struct ChoicesView : View {
   @State var challengeSolved = false
   @State var isChallengeResultAlertDisplayed = false
   @ObservedObject var challengesViewModel = ChallengesViewModel()
-  
+
   var body: some View {
     VStack(spacing: 25) {
       ForEach(0 ..< challengeTest.answers.count) { index in
-        Button(action: {
-          self.challengeSolved = self.checkAnswer(at: index)
-          self.isChallengeResultAlertDisplayed = true
-        }, label: {
-          ChoicesRow(choice: self.challengeTest.answers[index])
-        }).alert(isPresented: self.$isChallengeResultAlertDisplayed, content: {
-          self.challengeOutcomeAlert()
+        Button {
+          challengeSolved = checkAnswer(at: index)
+          isChallengeResultAlertDisplayed = true
+        } label: {
+          ChoicesRow(choice: challengeTest.answers[index])
+        }.alert(isPresented: $isChallengeResultAlertDisplayed, content: {
+          challengeOutcomeAlert()
         })
         Divider()
       }
@@ -61,8 +61,8 @@ struct ChoicesView : View {
     
     if challengeSolved {
       let dismissButton = Alert.Button.default(Text("OK")) {
-        self.isChallengeResultAlertDisplayed = false
-        self.challengesViewModel.generateRandomChallenge()
+        isChallengeResultAlertDisplayed = false
+        challengesViewModel.generateRandomChallenge()
       }
       
       alert = Alert(
@@ -72,7 +72,7 @@ struct ChoicesView : View {
       )
     } else {
       let dismissButton = Alert.Button.default(Text("OK")) {
-        self.isChallengeResultAlertDisplayed = false
+        isChallengeResultAlertDisplayed = false
       }
       
       alert = Alert(
@@ -86,15 +86,15 @@ struct ChoicesView : View {
   }
   
   func checkAnswer(at index: Int) -> Bool {
-    let answer = self.challengeTest.answers[index]
+    let answer = challengeTest.answers[index]
     let challengeSolved: Bool
     
     if challengeTest.isAnswerCorrect(answer) {
       challengeSolved = true
-      challengesViewModel.saveCorrectAnswer(for: self.challengeTest.challenge)
+      challengesViewModel.saveCorrectAnswer(for: challengeTest.challenge)
     } else {
       challengeSolved = false
-      challengesViewModel.saveWrongAnswer(for: self.challengeTest.challenge)
+      challengesViewModel.saveWrongAnswer(for: challengeTest.challenge)
     }
     
     isChallengeResultAlertDisplayed = true
@@ -102,7 +102,7 @@ struct ChoicesView : View {
   }
 }
 
-struct ChoicesView_Previews : PreviewProvider {
+struct ChoicesView_Previews: PreviewProvider {
   static let challengesViewModel = ChallengesViewModel()
   
   static var previews: some View {
