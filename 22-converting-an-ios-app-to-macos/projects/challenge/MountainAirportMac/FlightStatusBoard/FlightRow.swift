@@ -42,15 +42,16 @@ struct FlightRow: View {
     return tdf
   }
 
-  // Challenge 1: 
-  // By making this full width and with a background color, the entire row becomes clickable.
-  // added some more leading spacing to the icon and a Spacer at the end of the HStack.
+  var relativeTimeFormatter: RelativeDateTimeFormatter {
+    let rdf = RelativeDateTimeFormatter()
+    rdf.unitsStyle = .abbreviated
+    return rdf
+  }
 
   var body: some View {
     HStack {
       FlightStatusIcon(flight: flight)
         .padding(5)
-        .padding(.leading, 5)
         .clipShape(RoundedRectangle(cornerRadius: 7))
       VStack(alignment: .leading) {
         Text(flight.flightName)
@@ -58,6 +59,9 @@ struct FlightRow: View {
         HStack {
           Text(flight.flightStatus)
           Text(flight.localTime, formatter: timeFormatter)
+          Text("(") +
+          Text(flight.localTime, formatter: relativeTimeFormatter) +
+          Text(")")
         }.foregroundColor(flight.statusColor)
         HStack {
           Text(flight.otherAirport)
@@ -65,12 +69,7 @@ struct FlightRow: View {
           Text("Gate \(flight.gate)")
         }.foregroundColor(.gray)
       }
-      Spacer()
     }
-    .frame(maxWidth: .infinity)
-    .padding(.vertical, 6)
-    .background(Color(white: 0, opacity: 0.1))
-    .cornerRadius(10)
   }
 }
 

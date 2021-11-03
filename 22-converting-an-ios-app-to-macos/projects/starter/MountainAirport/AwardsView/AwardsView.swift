@@ -1,4 +1,4 @@
-/// Copyright (c) 2020 Razeware LLC
+/// Copyright (c) 2021 Razeware LLC
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -32,29 +32,11 @@
 
 import SwiftUI
 
-struct AwardGrid: View {
-  var title: String
-  var awards: [AwardInformation]
-
-  var body: some View {
-    Section(
-      header: Text(title)
-        .font(.title)
-        .foregroundColor(.white)
-    ) {
-      ForEach(awards, id: \.self) { award in
-        NavigationLink(destination: AwardDetails(award: award)) {
-          AwardCardView(award: award)
-            .foregroundColor(.black)
-            .aspectRatio(0.67, contentMode: .fit)
-        }
-      }
-    }
-  }
-}
-
 struct AwardsView: View {
   @EnvironmentObject var flightNavigation: AppEnvironment
+  @State var selectedAward: AwardInformation?
+  @Namespace var cardNamespace
+
   var awardArray: [AwardInformation] {
     flightNavigation.awardList
   }
@@ -72,24 +54,47 @@ struct AwardsView: View {
   }
 
   var body: some View {
-    ScrollView {
-      LazyVGrid(columns: awardColumns, pinnedViews: .sectionHeaders) {
-        AwardGrid(
-          title: "Awarded",
-          awards: activeAwards
-        )
-        AwardGrid(
-          title: "Not Awarded",
-          awards: inactiveAwards
-        )
+    ZStack {
+      // 1
+      if let award = selectedAward {
+        // 2
+        AwardDetails(award: award)
+          .background(Color.white)
+          .shadow(radius: 5.0)
+          .clipShape(RoundedRectangle(cornerRadius: 20.0))
+          // 3
+          .onTapGesture {
+            withAnimation {
+              selectedAward = nil
+            }
+          }
+          .matchedGeometryEffect(
+            id: award.hashValue,
+            in: cardNamespace,
+            anchor: .topLeading
+          )
+          // 4
+          .navigationTitle(award.title)
+      } else {
+        ScrollView {
+          LazyVGrid(columns: awardColumns) {
+            AwardGrid(
+              title: "Awarded",
+              awards: activeAwards,
+              selected: $selectedAward,
+              namespace: cardNamespace
+            )
+            AwardGrid(
+              title: "Not Awarded",
+              awards: inactiveAwards,
+              selected: $selectedAward,
+              namespace: cardNamespace
+            )
+          }
+        }
+        .navigationTitle("Your Awards")
       }
-    }.padding()
-    .background(
-      Image("background-view")
-        .resizable()
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-    )
-    .navigationTitle("Your Awards")
+    }
   }
 }
 

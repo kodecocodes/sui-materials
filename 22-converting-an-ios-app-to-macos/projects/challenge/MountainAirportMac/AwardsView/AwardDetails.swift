@@ -34,9 +34,9 @@ import SwiftUI
 
 struct AwardDetails: View {
   var award: AwardInformation
-  @Environment(\.presentationMode) var presentationMode
+  @Environment(\.dismiss) var dismiss
 
-  func imageSize(proxy: GeometryProxy) -> CGFloat {
+  func imageSize(proxy: GeometryProxy) -> Double {
     let size = min(proxy.size.width, proxy.size.height)
     return size * 0.8
   }
@@ -46,12 +46,11 @@ struct AwardDetails: View {
       HStack {
         Spacer()
         Button(action: {
-          presentationMode.wrappedValue.dismiss()
+          dismiss()
         }, label: {
           Image(systemName: "xmark.circle")
             .font(.largeTitle)
-        })
-        .buttonStyle(PlainButtonStyle())
+        }).buttonStyle(.plain)
       }
 
       Image(award.imageName)
@@ -66,10 +65,8 @@ struct AwardDetails: View {
         .padding()
       Spacer()
     }.padding()
-    .opacity(award.awarded ? 1.0 : 0.4)
-    .saturation(award.awarded ? 1 : 0)
-    // Challenge 1: this makes it readable in both light or dark modes
-    .foregroundColor(.primary)
+      .opacity(award.awarded ? 1.0 : 0.4)
+      .saturation(award.awarded ? 1 : 0)
   }
 }
 

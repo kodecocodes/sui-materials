@@ -34,6 +34,7 @@ import SwiftUI
 
 struct WelcomeView: View {
   var flightInfo: FlightData
+
   @State var showNextFlight = false
   @StateObject var appEnvironment = AppEnvironment()
 
@@ -47,24 +48,27 @@ struct WelcomeView: View {
     return nil
   }
 
-  // Challenge 1: change foregroundColor for buttons depending on selection
-
   var body: some View {
     VStack {
+      WelcomeAnimation()
+        .foregroundColor(.white)
+        .frame(height: 40)
+        .padding()
       Button(action: { displayState = .flightBoard }, label: {
         FlightStatusButton()
-          .foregroundColor(displayState == .flightBoard ? .yellow : .white)
-      }).buttonStyle(PlainButtonStyle())
+      }).buttonStyle(.plain)
 
       Button(action: { displayState = .searchFlights }, label: {
         SearchFlightsButton()
-          .foregroundColor(displayState == .searchFlights ? .yellow : .white)
-      }).buttonStyle(PlainButtonStyle())
+      }).buttonStyle(.plain)
 
       Button(action: { displayState = .awards }, label: {
         AwardsButton()
-          .foregroundColor(displayState == .awards ? .yellow : .white)
-      }).buttonStyle(PlainButtonStyle())
+      }).buttonStyle(.plain)
+
+      Button(action: { displayState = .timeline }, label: {
+        TimelineButton()
+      }).buttonStyle(.plain)
 
       if let lastFlight = lastViewedFlight {
         Button(action: {
@@ -72,18 +76,19 @@ struct WelcomeView: View {
           showNextFlight = true
         }, label: {
           LastViewedButton(name: lastFlight.flightName)
-            .foregroundColor(displayState == .lastFlight ? .yellow : .white)
-        }).buttonStyle(PlainButtonStyle())
+        }).buttonStyle(.plain)
       }
       Spacer()
     }
     .padding()
-    // swiftlint:disable multiline_arguments
-    // swiftlint:disable indentation_width
-    .frame(minWidth: 190, idealWidth: 190, maxWidth: 190,
-           minHeight: 630, idealHeight: 630, maxHeight: .infinity)
-    // swiftlint:enable multiline_arguments
-    // swiftlint:enable indentation_width
+    .frame(
+      minWidth: 190,
+      idealWidth: 190,
+      maxWidth: 190,
+      minHeight: 800,
+      idealHeight: 800,
+      maxHeight: .infinity
+    )
     .background(
       Image("welcome-background")
         .resizable()
@@ -95,6 +100,6 @@ struct WelcomeView: View {
 struct WelcomeView_Previews: PreviewProvider {
   static var previews: some View {
     WelcomeView(flightInfo: FlightData())
-      .previewLayout(.fixed(width: 190, height: 630))
+      .previewLayout(.fixed(width: 190, height: 800))
   }
 }

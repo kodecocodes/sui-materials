@@ -42,31 +42,21 @@ struct FlightSearchSummary: View {
     return tdf
   }
 
-  // Challenge 1: 
-  // By making this full width and with a background color, the entire row becomes clickable.
-  // Added some more leading spacing to the icon and a Spacer at the end of the HStack.
-
   var body: some View {
     HStack {
       FlightStatusIcon(flight: flight)
         .padding(5)
-        .padding(.leading, 5)
         .clipShape(RoundedRectangle(cornerRadius: 7.0))
       VStack(alignment: .leading) {
         Text(flight.flightName)
           .font(.title3) +
-          Text(" \(flight.dirString) \(flight.otherAirport)")
+        Text(" \(flight.dirString) \(flight.otherAirport)")
         HStack {
           Text(flight.localTime, formatter: timeFormatter)
             .foregroundColor(.gray)
         }
       }
-      Spacer()
     }
-    .frame(maxWidth: .infinity)
-    .padding(.vertical, 6)
-    .background(Color(white: 0, opacity: 0.1))
-    .cornerRadius(10)
   }
 }
 

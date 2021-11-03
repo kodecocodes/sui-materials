@@ -52,11 +52,11 @@ struct FlightDetails: View {
             )
           Spacer()
         }.foregroundColor(.white)
-        .padding()
-        .navigationTitle("\(flight.airline) Flight \(flight.number)")
-        .onAppear {
-          lastViewedFlightID = flight.id
-        }
+          .padding()
+          .navigationTitle("\(flight.airline) Flight \(flight.number)")
+          .onAppear {
+            lastViewedFlightID = flight.id
+          }
       } else {
         EmptyView()
       }

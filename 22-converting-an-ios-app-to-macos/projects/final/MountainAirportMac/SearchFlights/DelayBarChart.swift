@@ -1,15 +1,15 @@
-/// Copyright (c) 2020 Razeware LLC
-/// 
+/// Copyright (c) 2021 Razeware LLC
+///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
 /// in the Software without restriction, including without limitation the rights
 /// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 /// copies of the Software, and to permit persons to whom the Software is
 /// furnished to do so, subject to the following conditions:
-/// 
+///
 /// The above copyright notice and this permission notice shall be included in
 /// all copies or substantial portions of the Software.
-/// 
+///
 /// Notwithstanding the foregoing, you may not use, copy, modify, merge, publish,
 /// distribute, sublicense, create a derivative work, and/or sell copies of the
 /// Software in any work that is designed, intended, or marketed for pedagogical or
@@ -17,7 +17,7 @@
 /// or information technology.  Permission for such use, copying, modification,
 /// merger, publication, distribution, sublicensing, creation of derivative works,
 /// or sale is expressly withheld.
-/// 
+///
 /// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 /// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 /// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -78,46 +78,44 @@ struct DelayBarChart: View {
   }
 
   var body: some View {
-    ScrollView {
-      LazyVStack {
-        ForEach(flight.history, id: \.day) { history in
-          HStack {
-            Text("\(history.day) day(s) ago")
-              .frame(width: 110, alignment: .trailing)
-            GeometryReader { proxy in
+    VStack {
+      ForEach(flight.history, id: \.day) { history in
+        HStack {
+          Text("\(history.day) day(s) ago")
+            .frame(width: 110, alignment: .trailing)
+          GeometryReader { proxy in
+            Rectangle()
+              .fill(
+                LinearGradient(
+                  gradient: chartGradient(history),
+                  startPoint: .leading,
+                  endPoint: .trailing
+                )
+              )
+              .frame(
+                width: showBars ?
+                  minuteLength(history.timeDifference, proxy: proxy) :
+                  0
+              )
+              .offset(
+                x: showBars ?
+                  minuteOffset(history.timeDifference, proxy: proxy) :
+                  minuteOffset(0, proxy: proxy)
+              )
+              .animation(barAnimation(history.day), value: showBars)
+            ForEach(-1..<6) { val in
               Rectangle()
-                .fill(
-                  LinearGradient(
-                    gradient: chartGradient(history),
-                    startPoint: .leading,
-                    endPoint: .trailing
-                  )
-                )
-                .frame(
-                  width: showBars ?
-                    minuteLength(history.timeDifference, proxy: proxy) :
-                    0
-                )
-                .offset(
-                  x: showBars ?
-                    minuteOffset(history.timeDifference, proxy: proxy) :
-                    minuteOffset(0, proxy: proxy)
-                )
-                .animation(barAnimation(history.day))
-              ForEach(-1..<6) { val in
-                Rectangle()
-                  .stroke(val == 0 ? Color.white : Color.gray, lineWidth: 1.0)
-                  .frame(width: 1)
-                  .offset(x: minuteLocation(val * 10, proxy: proxy))
-              }
+                .stroke(val == 0 ? Color.white : Color.gray, lineWidth: 1.0)
+                .frame(width: 1)
+                .offset(x: minuteLocation(val * 10, proxy: proxy))
             }
           }
         }
-        .padding()
-        .background(
-          Color.white.opacity(0.2)
-        )
       }
+      .padding()
+      .background(
+        Color.white.opacity(0.2)
+      )
     }
     .onAppear {
       showBars = true

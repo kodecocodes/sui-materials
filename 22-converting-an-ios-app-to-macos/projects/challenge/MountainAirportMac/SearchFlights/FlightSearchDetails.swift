@@ -38,6 +38,7 @@ struct FlightSearchDetails: View {
   @State private var rebookAlert = false
   @State private var checkInFlight: CheckInInfo?
   @State private var showFlightHistory = false
+  @State private var showCheckIn = false
   @SceneStorage("lastViewedFlightID") var lastViewedFlightID: Int?
 
   var body: some View {
@@ -51,53 +52,58 @@ struct FlightSearchDetails: View {
             .foregroundColor(.white)
           Spacer()
           Button("Close") {
-            self.showModal = false
+            showModal = false
           }
         }
         if flight.status == .canceled {
           Button("Rebook Flight") {
             rebookAlert = true
           }
-          .alert(isPresented: $rebookAlert) {
-            Alert(
-              title: Text("Contact Your Airline"),
-              message: Text(
-                "We cannot rebook this flight. Please contact the airline to reschedule this flight."
-              )
+          // 1
+          .alert("Contact Your Airline", isPresented: $rebookAlert) {
+            // 2
+            Button("OK", role: .cancel) {
+            }
+            // 3
+          } message: {
+            Text(
+              "We cannot rebook this flight. Please contact the airline to reschedule this flight."
             )
           }
         }
         if flight.isCheckInAvailable {
-          // swiftlint:disable:next trailing_closure
           Button("Check In for Flight") {
-            self.checkInFlight =
-              CheckInInfo(
-                airline: self.flight.airline,
-                flight: self.flight.number
-              )
+            checkInFlight =
+            CheckInInfo(
+              airline: flight.airline,
+              flight: flight.number
+            )
+            showCheckIn = true
           }
-          // Challenge 2: check in
-          // swiftlint:disable multiline_arguments
-          // swiftlint:disable indentation_width
-          .alert(item: $checkInFlight, content: { flight in
-            Alert(title: Text("Check In"),
-                  message: Text("Check in for \(flight.airline)" +
-                                  "Flight \(flight.flight)"),
-                  primaryButton: .default(Text("Check In"), action: {
-                    print("Check-in for \(flight.airline) \(flight.flight).")
-                  }),
-                  secondaryButton: .cancel())
-          })
-          // swiftlint:enable multiline_arguments
-          // swiftlint:enable indentation_width
+          // 1
+          .confirmationDialog("Check In", isPresented: $showCheckIn, presenting: checkInFlight) { checkIn in
+            // 2
+            Button("Check In") {
+              print(
+                "Check-in for \(checkIn.airline) \(checkIn.flight)."
+              )
+            }
+            // 3
+            Button("Reschedule", role: .destructive) {
+              print("Reschedule flight.")
+            }
+            // 4
+            Button("Not Now", role: .cancel) { }
+            // 5
+          } message: { checkIn in
+            Text("Check in for \(checkIn.airline) Flight \(checkIn.flight)")
+          }
         }
         Button("On-Time History") {
           showFlightHistory.toggle()
         }
-        .popover(
-          isPresented: $showFlightHistory,
-          arrowEdge: .top) {
-          FlightTimeHistory(flight: self.flight)
+        .popover(isPresented: $showFlightHistory) {
+          FlightTimeHistory(flight: flight)
         }
         FlightInfoPanel(flight: flight)
           .foregroundColor(.white)
@@ -112,8 +118,9 @@ struct FlightSearchDetails: View {
     }.onAppear {
       lastViewedFlightID = flight.id
     }
-    // Challenge 1: set a fixed height for this view
-    .frame(height: 600)
+    .interactiveDismissDisabled()
+    // Challenge - part 2
+    .frame(maxHeight: 600)
   }
 }
 

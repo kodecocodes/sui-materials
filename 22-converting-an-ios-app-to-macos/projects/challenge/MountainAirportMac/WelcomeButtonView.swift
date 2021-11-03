@@ -42,7 +42,7 @@ struct WelcomeButtonView: View {
     VStack(alignment: .leading) {
       Image(systemName: imageName)
         .resizable()
-        .frame(width: 30, height: 30)
+        .frame(width: 20, height: 20)
         .padding(10)
         .background(
           Circle()
@@ -55,17 +55,15 @@ struct WelcomeButtonView: View {
         .font(.title2)
       Text(subTitle)
         .font(.subheadline)
-    }
-    // Challenge 1: remove this color setting so that WelcomeView can set it conditionally
-    // .foregroundColor(.white)
-    .padding()
-    .frame(width: 155, height: 155, alignment: .leading)
-    .background(
-      Image("link-pattern")
-        .resizable()
-        .clipped()
-    )
-    .shadow(radius: 10)
+    }.foregroundColor(.white)
+      .padding()
+      .frame(width: 155, height: 140, alignment: .leading)
+      .background(
+        Image("link-pattern")
+          .resizable()
+          .clipped()
+      )
+      .shadow(radius: 10)
   }
 }
 

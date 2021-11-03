@@ -33,7 +33,7 @@
 import SwiftUI
 
 extension AnyTransition {
-  static var flightTerminalMapTransition: AnyTransition {
+  static var buttonNameTransition: AnyTransition {
     let insertion = AnyTransition.move(edge: .trailing)
       .combined(with: .opacity)
     let removal = AnyTransition.scale(scale: 0.0)
@@ -85,10 +85,18 @@ struct FlightInfoPanel: View {
                   response: 0.55,
                   dampingFraction: 0.45,
                   blendDuration: 0
-                )
+                ),
+                value: showTerminal
               )
             Spacer()
-            Text(showTerminal ? "Hide Terminal Map" : "Show Terminal Map")
+            Group {
+              if showTerminal {
+                Text("Hide Terminal Map")
+              } else {
+                Text("Show Terminal Map")
+              }
+            }
+            .transition(.buttonNameTransition)
             Spacer()
             Image(systemName: "airplane.circle")
               .resizable()
@@ -100,14 +108,14 @@ struct FlightInfoPanel: View {
                   response: 0.55,
                   dampingFraction: 0.45,
                   blendDuration: 0
-                )
+                ),
+                value: showTerminal
               )
           }
-        })
-        .buttonStyle(PlainButtonStyle())
+        }).buttonStyle(.plain)
+
         if showTerminal {
           FlightTerminalMap(flight: flight)
-            .transition(.flightTerminalMapTransition)
         }
         Spacer()
       }
