@@ -18,10 +18,6 @@
 /// merger, publication, distribution, sublicensing, creation of derivative works,
 /// or sale is expressly withheld.
 ///
-/// This project and source code may use libraries or frameworks that are
-/// released under various Open-Source licenses. Use of those libraries and
-/// frameworks are governed by their own individual licenses.
-///
 /// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 /// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 /// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -32,50 +28,39 @@
 
 import SwiftUI
 
-struct AwardCardView: View {
-  var award: AwardInformation
+struct HighlightActionView: View {
+  var flightId: Int
+  @Binding var highlightedIds: [Int]
+
+  func toggleHighlight() {
+    // 1
+    let flightIdx = highlightedIds.firstIndex { $0 == flightId
+    }
+    // 2
+    if let index = flightIdx {
+      // 3
+      highlightedIds.remove(at: index)
+    } else {
+      // 4
+      highlightedIds.append(flightId)
+    }
+  }
 
   var body: some View {
-    VStack {
-      Image(award.imageName)
-        .shadow(radius: 10)
-      Text(award.title)
-        .font(.title3)
-      Text(award.description)
-        .font(.footnote)
-      AwardStars(stars: award.stars)
-        .foregroundColor(.yellow)
-        .shadow(color: .black, radius: 5)
-        .offset(x: -5.0)
-      Spacer()
+    Button {
+      toggleHighlight()
+    } label: {
+      Image(systemName: "highlighter")
     }
-    .padding(10.0)
-    .background(
-      LinearGradient(
-        gradient: Gradient(
-          colors: [Color.white, Color(red: 0.0, green: 0.5, blue: 1.0)]
-        ),
-        startPoint: .bottomLeading,
-        endPoint: .topTrailing)
-    )
-    .background(Color.white)
-    .saturation(award.awarded ? 1.0 : 0.0)
-    .opacity(award.awarded ? 1.0 : 0.3)
-    .clipShape(RoundedRectangle(cornerRadius: 25.0))
+    .tint(Color.yellow)
   }
 }
 
-struct AwardCardView_Previews: PreviewProvider {
+struct HighlightActionView_Previews: PreviewProvider {
   static var previews: some View {
-    let award = AwardInformation(
-      imageName: "first-visit-award",
-      title: "First Visit",
-      description: "Awarded the first time you open the app while at the airport.",
-      awarded: true
+    HighlightActionView(
+      flightId: 1,
+      highlightedIds: .constant([1])
     )
-    AwardCardView(award: award)
-      .frame(width: 150, height: 220)
-      .padding()
-      .background(Color.black)
   }
 }

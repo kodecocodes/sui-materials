@@ -43,6 +43,10 @@ struct AwardCardView: View {
         .font(.title3)
       Text(award.description)
         .font(.footnote)
+      AwardStars(stars: award.stars)
+        .foregroundColor(.yellow)
+        .shadow(color: .black, radius: 5)
+        .offset(x: -5.0)
       Spacer()
     }
     .padding(10.0)

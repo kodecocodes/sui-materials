@@ -102,7 +102,7 @@ struct DelayBarChart: View {
                   minuteOffset(history.timeDifference, proxy: proxy) :
                   minuteOffset(0, proxy: proxy)
               )
-              .animation(barAnimation(history.day))
+              .animation(barAnimation(history.day), value: showBars)
             ForEach(-1..<6) { val in
               Rectangle()
                 .stroke(val == 0 ? Color.white : Color.gray, lineWidth: 1.0)

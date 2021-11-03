@@ -85,7 +85,8 @@ struct FlightInfoPanel: View {
                   response: 0.55,
                   dampingFraction: 0.45,
                   blendDuration: 0
-                )
+                ),
+                value: showTerminal
               )
             Spacer()
             Group {
@@ -107,7 +108,8 @@ struct FlightInfoPanel: View {
                   response: 0.55,
                   dampingFraction: 0.45,
                   blendDuration: 0
-                )
+                ),
+                value: showTerminal
               )
           }
         })
