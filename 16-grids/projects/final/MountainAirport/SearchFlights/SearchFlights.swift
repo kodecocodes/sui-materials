@@ -1,4 +1,4 @@
-/// Copyright (c) 2020 Razeware LLC
+/// Copyright (c) 2021 Razeware LLC
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -33,10 +33,11 @@
 import SwiftUI
 
 struct SearchFlights: View {
-  var flightData: [FlightInformation]
-  @State private var city = ""
+  @State var flightData: [FlightInformation]
   @State private var date = Date()
   @State private var directionFilter: FlightDirection = .none
+  @State private var city = ""
+  @State private var runningSearch = false
 
   var matchingFlights: [FlightInformation] {
     var matchingFlights = flightData
@@ -46,10 +47,6 @@ struct SearchFlights: View {
         $0.direction == directionFilter
       }
     }
-    if !city.isEmpty {
-      matchingFlights = matchingFlights.filter { $0.otherAirport.lowercased().contains(city.lowercased()) }
-    }
-
     return matchingFlights
   }
 
@@ -80,8 +77,6 @@ struct SearchFlights: View {
         }
         .background(Color.white)
         .pickerStyle(SegmentedPickerStyle())
-        TextField(" Search cities", text: $city)
-          .textFieldStyle(RoundedBorderTextFieldStyle())
         List {
           ForEach(flightDates, id: \.hashValue) { date in
             Section(
@@ -89,9 +84,7 @@ struct SearchFlights: View {
               footer:
                 HStack {
                   Spacer()
-                  Text(
-                    "Matching flights \(flightsForDay(date: date).count)"
-                  )
+                  Text("Matching flights \(flightsForDay(date: date).count)")
                 }
             ) {
               ForEach(flightsForDay(date: date)) { flight in
@@ -99,9 +92,50 @@ struct SearchFlights: View {
               }
             }
           }
-        }.listStyle(InsetGroupedListStyle())
+        }
+        .overlay(
+          Group {
+            if runningSearch {
+              VStack {
+                Text("Searching...")
+                ProgressView()
+                  .progressViewStyle(CircularProgressViewStyle())
+                  .tint(.black)
+              }
+              .frame(maxWidth: .infinity, maxHeight: .infinity)
+              .background(.white)
+              .opacity(0.8)
+            }
+          }
+        )
+        .listStyle(InsetGroupedListStyle())
         Spacer()
-      }.navigationBarTitle("Search Flights")
+      }
+      .searchable(text: $city, prompt: "City Name") {
+        // 1
+        ForEach(FlightData.citiesContaining(city), id: \.self) { city in
+          // 2
+          Text(city).searchCompletion(city)
+        }
+      }
+      // 1
+      .onSubmit(of: .search) {
+        Task {
+          runningSearch = true
+          await flightData = FlightData.searchFlightsForCity(city)
+          runningSearch = false
+        }
+      }
+      .onChange(of: city) { newText in
+        if newText.isEmpty {
+          Task {
+            runningSearch = true
+            await flightData = FlightData.searchFlightsForCity(city)
+            runningSearch = false
+          }
+        }
+      }
+      .navigationBarTitle("Search Flights")
       .padding()
     }
   }
