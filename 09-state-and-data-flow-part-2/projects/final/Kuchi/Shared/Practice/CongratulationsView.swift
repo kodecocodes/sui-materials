@@ -1,4 +1,4 @@
-/// Copyright (c) 2020 Razeware LLC
+/// Copyright (c) 2021 Razeware LLC
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -33,23 +33,22 @@
 import SwiftUI
 
 struct CongratulationsView: View {
-  let avatarSize: CGFloat = 120
   @EnvironmentObject var challengesViewModel: ChallengesViewModel
-
+  let avatarSize: CGFloat = 120
   let userName: String
 
   init(userName: String) {
     self.userName = userName
   }
-
+  
   var body: some View {
     VStack {
       Spacer()
-
+      
       Text("Congratulations!")
         .font(.title)
         .foregroundColor(.gray)
-
+      
       ZStack {
         VStack(spacing: 0) {
           Rectangle()
@@ -61,7 +60,7 @@ struct CongratulationsView: View {
             .foregroundColor(
               Color(red: 0.6, green: 0.1, blue: 0.1).opacity(0.4))
         }
-
+        
         Image(systemName: "person.fill")
           .resizable()
           .padding()
@@ -69,8 +68,8 @@ struct CongratulationsView: View {
           .background(Color.white.opacity(0.5))
           .cornerRadius(avatarSize / 2, antialiased: true)
           .shadow(radius: 4)
-
-        VStack() {
+        
+        VStack {
           Spacer()
           Text(userName)
             .font(.largeTitle)
@@ -81,19 +80,19 @@ struct CongratulationsView: View {
         .padding()
       }
       .frame(height: 180)
-
+      
       Text("You’re awesome!")
         .fontWeight(.bold)
         .foregroundColor(.gray)
-
+      
       Spacer()
-
-      Button(action: {
-        self.challengesViewModel.restart()
-      }, label: {
+      
+      Button {
+        challengesViewModel.restart()
+      } label: {
         Text("Play Again")
-      })
-      .padding(.top)
+      }
+        .padding(.top)
     }
   }
 }

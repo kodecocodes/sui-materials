@@ -1,4 +1,4 @@
-/// Copyright (c) 2020 Razeware LLC
+/// Copyright (c) 2021 Razeware LLC
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -34,20 +34,20 @@ import SwiftUI
 
 struct ChallengeView: View {
   let challengeTest: ChallengeTest
-
+  
   @State var showAnswers = false
-
+  
   var body: some View {
     VStack {
       Button(action: {
-        self.showAnswers.toggle()
+        showAnswers.toggle()
       }) {
         QuestionView(question: challengeTest.challenge.question)
           .frame(height: 300)
       }
 
       ScoreView(numberOfQuestions: 5)
-
+      
       if showAnswers {
         Divider()
         ChoicesView(challengeTest: challengeTest)
@@ -60,7 +60,6 @@ struct ChallengeView: View {
 
 
 struct ChallengeView_Previews: PreviewProvider {
-  // 1
   static let challengeTest = ChallengeTest(
     challenge: Challenge(
       question: "おねがい　します",
@@ -69,9 +68,8 @@ struct ChallengeView_Previews: PreviewProvider {
     ),
     answers: ["Thank you", "Hello", "Goodbye"]
   )
-
+  
   static var previews: some View {
-    // 2
     return ChallengeView(challengeTest: challengeTest)
   }
 }
