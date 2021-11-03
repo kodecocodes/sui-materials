@@ -1,4 +1,4 @@
-/// Copyright (c) 2020 Razeware LLC
+/// Copyright (c) 2021 Razeware LLC
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -85,7 +85,7 @@ class FlightHistory: NSObject {
   }
 
   func calcOffset(_ width: CGFloat) -> CGFloat {
-    CGFloat(CGFloat(day - 1) * width)
+    CGFloat(day - 1) * width
   }
 
   init(_ day: Int, id: Int, date: Date, direction: FlightDirection, status: FlightStatus, scheduledTime: Date, actualTime: Date?) {

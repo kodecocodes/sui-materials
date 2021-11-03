@@ -1,4 +1,4 @@
-/// Copyright (c) 2020 Razeware LLC
+/// Copyright (c) 2021 Razeware LLC
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -31,7 +31,6 @@ import SwiftUI
 struct DelayBarChart: View {
   var flight: FlightInformation
   @State private var showBars = false
-
   let minuteRange = CGFloat(75)
 
   func minuteLength(_ minutes: Int, proxy: GeometryProxy) -> CGFloat {
@@ -74,7 +73,7 @@ struct DelayBarChart: View {
   }
 
   func barAnimation(_ barNumber: Int) -> Animation {
-    return Animation.easeInOut.delay(Double(barNumber) * 0.1)
+    return .easeInOut.delay(Double(barNumber) * 0.1)
   }
 
   var body: some View {
@@ -102,7 +101,10 @@ struct DelayBarChart: View {
                   minuteOffset(history.timeDifference, proxy: proxy) :
                   minuteOffset(0, proxy: proxy)
               )
-              .animation(barAnimation(history.day))
+              .animation(
+                barAnimation(history.day),
+                value: showBars
+              )
             ForEach(-1..<6) { val in
               Rectangle()
                 .stroke(val == 0 ? Color.white : Color.gray, lineWidth: 1.0)

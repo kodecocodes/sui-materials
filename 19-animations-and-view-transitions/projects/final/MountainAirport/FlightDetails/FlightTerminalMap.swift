@@ -1,4 +1,4 @@
-/// Copyright (c) 2020 Razeware LLC
+/// Copyright (c) 2021 Razeware LLC
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -117,9 +117,8 @@ struct FlightTerminalMap: View {
   }
 
   var walkingAnimation: Animation {
-    Animation
-      .linear(duration: 3.0)
-      .repeatForever(autoreverses: false)
+    .linear(duration: 3.0)
+    .repeatForever(autoreverses: false)
   }
 
   var body: some View {
@@ -131,7 +130,7 @@ struct FlightTerminalMap: View {
           WalkPath(points: gatePath(proxy))
             .trim(to: showPath ? 1.0 : 0.0)
             .stroke(Color.white, lineWidth: 3.0)
-            .animation(walkingAnimation)
+            .animation(walkingAnimation, value: showPath)
         }
       )
       .onAppear {
