@@ -1,4 +1,4 @@
-/// Copyright (c) 2020 Razeware LLC
+/// Copyright (c) 2021 Razeware LLC
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -30,7 +30,6 @@ import SwiftUI
 
 struct SearchFlights: View {
   var flightData: [FlightInformation]
-  @State private var city = ""
   @State private var date = Date()
   @State private var directionFilter: FlightDirection = .none
 
@@ -41,9 +40,6 @@ struct SearchFlights: View {
       matchingFlights = matchingFlights.filter {
         $0.direction == directionFilter
       }
-    }
-    if !city.isEmpty {
-      matchingFlights = matchingFlights.filter { $0.otherAirport.lowercased().contains(city.lowercased()) }
     }
 
     return matchingFlights
@@ -64,11 +60,10 @@ struct SearchFlights: View {
         }
         .background(Color.white)
         .pickerStyle(SegmentedPickerStyle())
-        TextField(" Search cities", text: $city)
-          .textFieldStyle(RoundedBorderTextFieldStyle())
         // Insert Results
         Spacer()
-      }.navigationBarTitle("Search Flights")
+      }
+      .navigationBarTitle("Search Flights")
       .padding()
     }
   }
