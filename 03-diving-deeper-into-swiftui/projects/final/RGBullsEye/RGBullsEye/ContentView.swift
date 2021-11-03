@@ -37,38 +37,38 @@ struct ContentView: View {
   @State var guess: RGB
   @State var showScore = false
 
-  let circleSize: CGFloat = 0.5
-  let labelWidth: CGFloat = 0.53
+  let circleSize: CGFloat = 0.275
   let labelHeight: CGFloat = 0.06
+  let labelWidth: CGFloat = 0.53
   let buttonWidth: CGFloat = 0.87
 
   var body: some View {
-    GeometryReader { geometry in
+    GeometryReader { proxy in
       ZStack {
         Color.element
           .edgesIgnoringSafeArea(.all)
         VStack {
           ColorCircle(
             rgb: game.target,
-            size: geometry.size.width * circleSize)
+            size: proxy.size.height * circleSize)
           if !showScore {
             BevelText(
               text: "R: ??? G: ??? B: ???",
-              width: geometry.size.width * labelWidth,
-              height: geometry.size.height * labelHeight)
+              width: proxy.size.width * labelWidth,
+              height: proxy.size.height * labelHeight)
           } else {
             BevelText(
               text: game.target.intString,
-              width: geometry.size.width * labelWidth,
-              height: geometry.size.height * labelHeight)
+              width: proxy.size.width * labelWidth,
+              height: proxy.size.height * labelHeight)
           }
           ColorCircle(
             rgb: guess,
-            size: geometry.size.width * circleSize)
+            size: proxy.size.height * circleSize)
           BevelText(
             text: guess.intString,
-            width: geometry.size.width * labelWidth,
-            height: geometry.size.height * labelHeight)
+            width: proxy.size.width * labelWidth,
+            height: proxy.size.height * labelHeight)
           ColorSlider(value: $guess.red, trackColor: .red)
           ColorSlider(value: $guess.green, trackColor: .green)
           ColorSlider(value: $guess.blue, trackColor: .blue)
@@ -78,8 +78,8 @@ struct ContentView: View {
           }
           .buttonStyle(
             NeuButtonStyle(
-              width: geometry.size.width * buttonWidth,
-              height: geometry.size.height * labelHeight))
+              width: proxy.size.width * buttonWidth,
+              height: proxy.size.height * labelHeight))
           .alert(isPresented: $showScore) {
             Alert(
               title: Text("Your Score"),
@@ -103,7 +103,7 @@ struct ContentView_Previews: PreviewProvider {
         .previewDevice("iPhone 8")
       ContentView(guess: RGB())
       ContentView(guess: RGB())
-        .previewDevice("iPhone 12 Pro Max")
+        .previewDevice("iPhone 13 Pro Max")
     }
   }
 }
