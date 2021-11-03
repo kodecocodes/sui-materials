@@ -50,21 +50,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		57578F9024E9D943003465A4 /* Welcome */ = {
-			isa = PBXGroup;
-			children = (
-				57578F9224E9D943003465A4 /* Components */,
-			);
-			path = Welcome;
-			sourceTree = "<group>";
-		};
-		57578F9224E9D943003465A4 /* Components */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Components;
-			sourceTree = "<group>";
-		};
 		57578FA924E9D943003465A4 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -83,13 +68,6 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		57B3CA712536560300888D62 /* Utils */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Utils;
-			sourceTree = "<group>";
-		};
 		57EF33FA24E89F91004ABEB2 = {
 			isa = PBXGroup;
 			children = (
@@ -106,7 +84,6 @@
 				57578FA724E9D943003465A4 /* HomeView.swift */,
 				57EF340024E89F91004ABEB2 /* KuchiApp.swift */,
 				57578FA924E9D943003465A4 /* Resources */,
-				57578F9024E9D943003465A4 /* Welcome */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -123,7 +100,6 @@
 		57EF340924E89F92004ABEB2 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				57B3CA712536560300888D62 /* Utils */,
 				57EF340A24E89F92004ABEB2 /* Info.plist */,
 			);
 			path = iOS;
@@ -375,7 +351,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = iOS/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -396,7 +372,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = iOS/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -425,7 +401,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MACOSX_DEPLOYMENT_TARGET = 11.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.razeware.Kuchi;
 				PRODUCT_NAME = Kuchi;
 				SDKROOT = macosx;
@@ -448,7 +424,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MACOSX_DEPLOYMENT_TARGET = 11.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.razeware.Kuchi;
 				PRODUCT_NAME = Kuchi;
 				SDKROOT = macosx;
