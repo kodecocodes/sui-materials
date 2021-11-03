@@ -1,4 +1,4 @@
-/// Copyright (c) 2020 Razeware LLC
+/// Copyright (c) 2021 Razeware LLC
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -28,11 +28,23 @@
 
 import SwiftUI
 
+extension Color {
+  // Return a random color
+  static var random: Color {
+    return Color(
+      red: .random(in: 0...1),
+      green: .random(in: 0...1),
+      blue: .random(in: 0...1)
+    )
+  }
+}
 
 struct DisplayView: View {
   @Binding var display: String
 
   var body: some View {
+    let _ = Self._printChanges()
+
     HStack {
       if display.isEmpty {
         Text("0")
@@ -63,6 +75,7 @@ struct DisplayView: View {
           )
       }
     }
+    .background(Color.random)
   }
 }
 
