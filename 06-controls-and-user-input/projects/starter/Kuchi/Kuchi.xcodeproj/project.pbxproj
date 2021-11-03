@@ -7,8 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		57472F8C2533B85800F47C29 /* HorizontallyAlignedLabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57472F8B2533B85800F47C29 /* HorizontallyAlignedLabelStyle.swift */; };
-		57472F8D2533B85800F47C29 /* HorizontallyAlignedLabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57472F8B2533B85800F47C29 /* HorizontallyAlignedLabelStyle.swift */; };
+		5712CCAC26F68A8A000243C2 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5712CCA926F68A8A000243C2 /* UserManager.swift */; };
+		5712CCAD26F68A8A000243C2 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5712CCA926F68A8A000243C2 /* UserManager.swift */; };
+		5712CCAE26F68A8A000243C2 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5712CCAA26F68A8A000243C2 /* Profile.swift */; };
+		5712CCAF26F68A8A000243C2 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5712CCAA26F68A8A000243C2 /* Profile.swift */; };
+		5712CCB026F68A8A000243C2 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5712CCAB26F68A8A000243C2 /* Settings.swift */; };
+		5712CCB126F68A8A000243C2 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5712CCAB26F68A8A000243C2 /* Settings.swift */; };
 		57578FDE24E9D943003465A4 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57578FA724E9D943003465A4 /* HomeView.swift */; };
 		57578FDF24E9D943003465A4 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57578FA724E9D943003465A4 /* HomeView.swift */; };
 		57578FE224E9D943003465A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57578FAA24E9D943003465A4 /* Assets.xcassets */; };
@@ -17,24 +21,30 @@
 		57578FE524E9D943003465A4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57578FAC24E9D943003465A4 /* Preview Assets.xcassets */; };
 		57578FE824E9D943003465A4 /* jp.json in Resources */ = {isa = PBXBuildFile; fileRef = 57578FAF24E9D943003465A4 /* jp.json */; };
 		57578FE924E9D943003465A4 /* jp.json in Resources */ = {isa = PBXBuildFile; fileRef = 57578FAF24E9D943003465A4 /* jp.json */; };
-		57A447F0252BD68200CF7A3E /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A447EF252BD68200CF7A3E /* WelcomeView.swift */; };
+		579CB98B26EA1BE30009C09F /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 579CB98A26EA1BE30009C09F /* WelcomeView.swift */; };
+		579CB98C26EA1BE30009C09F /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 579CB98A26EA1BE30009C09F /* WelcomeView.swift */; };
 		57EF341324E89F92004ABEB2 /* KuchiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57EF340024E89F91004ABEB2 /* KuchiApp.swift */; };
 		57EF341424E89F92004ABEB2 /* KuchiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57EF340024E89F91004ABEB2 /* KuchiApp.swift */; };
+		57F8DD6926EEC01300153B9F /* HorizontallyAlignedLabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F8DD6826EEC01300153B9F /* HorizontallyAlignedLabelStyle.swift */; };
+		57F8DD6A26EEC01300153B9F /* HorizontallyAlignedLabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F8DD6826EEC01300153B9F /* HorizontallyAlignedLabelStyle.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		57472F8B2533B85800F47C29 /* HorizontallyAlignedLabelStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontallyAlignedLabelStyle.swift; sourceTree = "<group>"; };
+		5712CCA926F68A8A000243C2 /* UserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
+		5712CCAA26F68A8A000243C2 /* Profile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		5712CCAB26F68A8A000243C2 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		57578FA724E9D943003465A4 /* HomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		57578FAA24E9D943003465A4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		57578FAC24E9D943003465A4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		57578FAF24E9D943003465A4 /* jp.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = jp.json; sourceTree = "<group>"; };
-		57A447EF252BD68200CF7A3E /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
+		579CB98A26EA1BE30009C09F /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		57EF340024E89F91004ABEB2 /* KuchiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KuchiApp.swift; sourceTree = "<group>"; };
 		57EF340724E89F92004ABEB2 /* Kuchi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kuchi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		57EF340A24E89F92004ABEB2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		57EF340F24E89F92004ABEB2 /* Kuchi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kuchi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		57EF341124E89F92004ABEB2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		57EF341224E89F92004ABEB2 /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
+		57F8DD6826EEC01300153B9F /* HorizontallyAlignedLabelStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontallyAlignedLabelStyle.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,21 +65,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		57578F9024E9D943003465A4 /* Welcome */ = {
+		5712CCA826F68A8A000243C2 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				57578F9224E9D943003465A4 /* Components */,
-				57A447EF252BD68200CF7A3E /* WelcomeView.swift */,
-				57472F8B2533B85800F47C29 /* HorizontallyAlignedLabelStyle.swift */,
+				5712CCA926F68A8A000243C2 /* UserManager.swift */,
+				5712CCAA26F68A8A000243C2 /* Profile.swift */,
+				5712CCAB26F68A8A000243C2 /* Settings.swift */,
 			);
-			path = Welcome;
-			sourceTree = "<group>";
-		};
-		57578F9224E9D943003465A4 /* Components */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Components;
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		57578FA924E9D943003465A4 /* Resources */ = {
@@ -90,18 +93,13 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		57B3CA462536553D00888D62 /* Profile */ = {
+		579CB98926EA18AA0009C09F /* Welcome */ = {
 			isa = PBXGroup;
 			children = (
+				579CB98A26EA1BE30009C09F /* WelcomeView.swift */,
+				57F8DD6826EEC01300153B9F /* HorizontallyAlignedLabelStyle.swift */,
 			);
-			path = Profile;
-			sourceTree = "<group>";
-		};
-		57B3CA58253655AF00888D62 /* Utils */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Utils;
+			path = Welcome;
 			sourceTree = "<group>";
 		};
 		57EF33FA24E89F91004ABEB2 = {
@@ -117,11 +115,11 @@
 		57EF33FF24E89F91004ABEB2 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				5712CCA826F68A8A000243C2 /* Profile */,
+				579CB98926EA18AA0009C09F /* Welcome */,
 				57578FA724E9D943003465A4 /* HomeView.swift */,
 				57EF340024E89F91004ABEB2 /* KuchiApp.swift */,
-				57B3CA462536553D00888D62 /* Profile */,
 				57578FA924E9D943003465A4 /* Resources */,
-				57578F9024E9D943003465A4 /* Welcome */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -138,7 +136,6 @@
 		57EF340924E89F92004ABEB2 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				57B3CA58253655AF00888D62 /* Utils */,
 				57EF340A24E89F92004ABEB2 /* Info.plist */,
 			);
 			path = iOS;
@@ -255,8 +252,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				57EF341324E89F92004ABEB2 /* KuchiApp.swift in Sources */,
-				57472F8C2533B85800F47C29 /* HorizontallyAlignedLabelStyle.swift in Sources */,
-				57A447F0252BD68200CF7A3E /* WelcomeView.swift in Sources */,
+				5712CCAE26F68A8A000243C2 /* Profile.swift in Sources */,
+				579CB98B26EA1BE30009C09F /* WelcomeView.swift in Sources */,
+				57F8DD6926EEC01300153B9F /* HorizontallyAlignedLabelStyle.swift in Sources */,
+				5712CCB026F68A8A000243C2 /* Settings.swift in Sources */,
+				5712CCAC26F68A8A000243C2 /* UserManager.swift in Sources */,
 				57578FDE24E9D943003465A4 /* HomeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -266,7 +266,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				57EF341424E89F92004ABEB2 /* KuchiApp.swift in Sources */,
-				57472F8D2533B85800F47C29 /* HorizontallyAlignedLabelStyle.swift in Sources */,
+				5712CCAF26F68A8A000243C2 /* Profile.swift in Sources */,
+				579CB98C26EA1BE30009C09F /* WelcomeView.swift in Sources */,
+				57F8DD6A26EEC01300153B9F /* HorizontallyAlignedLabelStyle.swift in Sources */,
+				5712CCB126F68A8A000243C2 /* Settings.swift in Sources */,
+				5712CCAD26F68A8A000243C2 /* UserManager.swift in Sources */,
 				57578FDF24E9D943003465A4 /* HomeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -393,7 +397,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = iOS/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -414,7 +418,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = iOS/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -443,7 +447,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MACOSX_DEPLOYMENT_TARGET = 11.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.razeware.Kuchi;
 				PRODUCT_NAME = Kuchi;
 				SDKROOT = macosx;
@@ -466,7 +470,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MACOSX_DEPLOYMENT_TARGET = 11.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.razeware.Kuchi;
 				PRODUCT_NAME = Kuchi;
 				SDKROOT = macosx;
