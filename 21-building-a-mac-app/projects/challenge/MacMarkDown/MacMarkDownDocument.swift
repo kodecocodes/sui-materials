@@ -1,4 +1,4 @@
-/// Copyright (c) 2020 Razeware LLC
+/// Copyright (c) 2021 Razeware LLC
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -41,9 +41,8 @@ extension UTType {
 }
 
 struct MacMarkDownDocument: FileDocument {
-  @AppStorage("styleSheet") var styleSheet: StyleSheet = .github
-
   var text: String
+
   var html: String {
     let markdown = MarkdownParser.standard.parse(text)
     return HtmlGenerator.standard.generate(doc: markdown)
@@ -51,12 +50,6 @@ struct MacMarkDownDocument: FileDocument {
 
   init(text: String = "# Hello, MacMarkDown!") {
     self.text = text
-  }
-
-  mutating func refreshHtml() {
-    let tempText = text
-    text = ""
-    text = tempText
   }
 
   static var readableContentTypes: [UTType] { [.markdownText] }
@@ -76,50 +69,4 @@ struct MacMarkDownDocument: FileDocument {
     return .init(regularFileWithContents: data)
   }
   // swiftlint:enable force_unwrapping
-}
-
-
-extension MacMarkDownDocument {
-  // swiftlint:disable indentation_width
-
-  var completeHTML: String {
-    return """
-        <!DOCTYPE html>
-        <head>
-          <meta charset="UTF-8">
-        </head>
-        <body>
-            \(html)
-        </body>
-        </html>
-        """
-  }
-
-  var completeHTMLPlusCSS: String {
-    var css: String = ""
-    let cssUrl = Bundle.main.url(forResource: styleSheet.rawValue, withExtension: "css")
-    if let cssUrl = cssUrl {
-      do {
-        css = try String(contentsOf: cssUrl)
-      } catch {
-        css = ""
-      }
-    }
-
-    return """
-        <!DOCTYPE html>
-        <head>
-          <meta charset="UTF-8">
-          <style>
-            \(css)
-          </style>
-        </head>
-        <body>
-            \(html)
-        </body>
-        </html>
-        """
-  }
-
-  // swiftlint:enable indentation_width
 }

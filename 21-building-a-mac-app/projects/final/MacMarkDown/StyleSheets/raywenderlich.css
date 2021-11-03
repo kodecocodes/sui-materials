@@ -1,0 +1,361 @@
+@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Serif&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bitter:wght@700&display=swap');
+html {
+  color: #333;
+  font-display: auto;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.45;
+  text-shadow: 0 -1px 1px rgba(255, 255, 255, .01);
+}
+
+body {
+  margin: 6px;
+  box-sizing: border-box;
+  color: rgb(51, 51, 51);
+  font-family: "IBM Plex Serif", serif;
+  font-size: 17px;
+  font-weight: normal;
+  height: auto;
+  line-height: 26.860000610351562px;
+  text-rendering: optimizeLegibility;
+  text-shadow: rgba(255, 255, 255, 0.01) 0px -1px 1px;
+  width: auto;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: Bitter, serif;
+  font-weight: 700;
+  letter-spacing: -.5px;
+}
+
+h1 {
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+  color: rgb(51, 51, 51);
+  display: block;
+  font-family: Bitter, serif;
+  font-size: 42px;
+  font-weight: bold;
+  height: 73px;
+  letter-spacing: -0.5px;
+  line-height: 42px;
+  text-rendering: optimizeLegibility;
+  text-shadow: rgba(255, 255, 255, 0.01) 0px -1px 1px;
+  width: 532.078125px;
+  word-break: break-word;
+  margin: 6px 0 0 0;
+}
+
+h2 {
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+  color: rgb(51, 51, 51);
+  display: block;
+  font-family: Bitter, serif;
+  font-size: 30px;
+  font-weight: bold;
+  height: auto;
+  letter-spacing: -0.5px;
+  line-height: 37.5px;
+  text-rendering: optimizeLegibility;
+  text-shadow: rgba(255, 255, 255, 0.01) 0px -1px 1px;
+  width: auto;
+  margin: 36px 0 0 0;
+}
+
+h3 {
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+  color: rgb(51, 51, 51);
+  display: block;
+  font-family: Bitter, serif;
+  font-size: 24px;
+  font-weight: bold;
+  height: auto;
+  letter-spacing: -0.5px;
+  line-height: 32.400001525878906px;
+  text-rendering: optimizeLegibility;
+  text-shadow: rgba(255, 255, 255, 0.01) 0px -1px 1px;
+  width: auto;
+}
+
+strong {
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+  color: rgb(51, 51, 51);
+  display: inline;
+  font-family: "IBM Plex Serif", serif;
+  font-size: 17px;
+  font-style: normal;
+  font-weight: bold;
+  height: auto;
+  line-height: 26.860000610351562px;
+  text-rendering: optimizeLegibility;
+  text-shadow: rgba(255, 255, 255, 0.01) 0px -1px 1px;
+  width: auto;
+}
+
+em {
+  box-sizing: border-box;
+  color: rgb(51, 51, 51);
+  display: inline;
+  font-family: "IBM Plex Serif", serif;
+  font-size: 17px;
+  font-style: italic;
+  font-weight: normal;
+  height: auto;
+  line-height: 26.860000610351562px;
+  text-rendering: optimizeLegibility;
+  text-shadow: rgba(255, 255, 255, 0.01) 0px -1px 1px;
+  width: auto;
+}
+
+code {
+  background-attachment: scroll;
+  background-clip: border-box;
+  background-color: rgb(242, 246, 250);
+  background-image: none;
+  background-origin: padding-box;
+  background-position-x: 0%;
+  background-position-y: 0%;
+  background-size: auto;
+  border-bottom-color: rgb(214, 224, 239);
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-image-outset: 0px;
+  border-image-repeat: stretch;
+  border-image-slice: 100%;
+  border-image-source: none;
+  border-image-width: 1;
+  border-left-color: rgb(214, 224, 239);
+  border-left-style: solid;
+  border-left-width: 1px;
+  border-right-color: rgb(214, 224, 239);
+  border-right-style: solid;
+  border-right-width: 1px;
+  border-top-color: rgb(214, 224, 239);
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  box-sizing: border-box;
+  color: rgb(51, 51, 51);
+  display: inline;
+  font-family: Menlo, monospace;
+  font-size: 14.875px;
+  font-weight: normal;
+  height: auto;
+  line-height: 23.502500534057617px;
+  padding-bottom: 0px;
+  padding-left: 6px;
+  padding-right: 6px;
+  padding-top: 0px;
+  text-rendering: optimizeLegibility;
+  text-shadow: rgba(255, 255, 255, 0.01) 0px -1px 1px;
+  width: auto;
+  word-wrap: break-word;
+}
+
+pre {
+  -webkit-font-smoothing: antialiased;
+  background-attachment: scroll;
+  background-clip: border-box;
+  background-color: rgba(0, 0, 0, 0);
+  background-image: linear-gradient(to right bottom, rgb(51, 51, 51), rgb(54, 54, 56), rgb(56, 57, 61), rgb(58, 60, 67), rgb(59, 64, 72));
+  background-origin: padding-box;
+  background-position-x: 0%;
+  background-position-y: 0%;
+  background-size: auto;
+  border-bottom-left-radius: 9px;
+  border-bottom-right-radius: 9px;
+  border-top-left-radius: 9px;
+  border-top-right-radius: 9px;
+  box-sizing: border-box;
+  color: rgb(255, 255, 255);
+  display: block;
+  font-family: Menlo, monospace;
+  font-size: 13px;
+  font-weight: normal;
+  height: 102px;
+  line-height: 18.850000381469727px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-top: 18px;
+  padding-bottom: 15px;
+  padding-left: 15px;
+  padding-right: 80px;
+  padding-top: 15px;
+  position: relative;
+  text-rendering: optimizeLegibility;
+  text-shadow: rgba(255, 255, 255, 0.01) 0px -1px 1px;
+  white-space: pre-wrap;
+  width: 640px;
+  word-wrap: break-word;
+}
+
+pre span {
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+  color: rgb(255, 255, 255);
+  display: inline;
+  font-family: Menlo, monospace;
+  font-size: 13px;
+  font-weight: normal;
+  height: auto;
+  line-height: 18.850000381469727px;
+  text-rendering: optimizeLegibility;
+  text-shadow: rgba(255, 255, 255, 0.01) 0px -1px 1px;
+  white-space: pre-wrap;
+  width: auto;
+  word-wrap: break-word;
+}
+
+pre code {
+  background-attachment: scroll;
+  background-clip: border-box;
+  background-color: rgba(0, 0, 0, 0);
+  background-image: none;
+  background-origin: padding-box;
+  background-position-x: 0%;
+  background-position-y: 0%;
+  background-size: auto;
+  border-bottom-color: rgb(185, 181, 184);
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-bottom-style: none;
+  border-bottom-width: 0px;
+  border-image-outset: 0px;
+  border-image-repeat: stretch;
+  border-image-slice: 100%;
+  border-image-source: none;
+  border-image-width: 1;
+  border-left-color: rgb(185, 181, 184);
+  border-left-style: none;
+  border-left-width: 0px;
+  border-right-color: rgb(185, 181, 184);
+  border-right-style: none;
+  border-right-width: 0px;
+  border-top-color: rgb(185, 181, 184);
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-top-style: none;
+  border-top-width: 0px;
+  box-sizing: border-box;
+  color: rgb(185, 181, 184);
+  display: block;
+  font-family: Menlo, monospace;
+  font-size: 13px;
+  font-weight: normal;
+  height: 72px;
+  line-height: 18.850000381469727px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-top: 0px;
+  text-rendering: optimizeLegibility;
+  text-shadow: rgba(255, 255, 255, 0.01) 0px -1px 1px;
+  white-space: pre-wrap;
+  width: 545px;
+  word-wrap: break-word;
+}
+
+a {
+  -webkit-font-smoothing: antialiased;
+  background-color: rgba(0, 0, 0, 0);
+  box-sizing: border-box;
+  color: rgb(21, 132, 67);
+  cursor: auto;
+  display: inline;
+  font-family: "IBM Plex Serif", serif;
+  font-size: 17px;
+  font-weight: normal;
+  height: auto;
+  line-height: 26.860000610351562px;
+  list-style-image: none;
+  list-style-position: outside;
+  list-style-type: square;
+  text-align: left;
+  text-decoration: underline;
+  text-decoration-skip: objects;
+  text-rendering: optimizeLegibility;
+  text-shadow: rgba(255, 255, 255, 0.01) 0px -1px 1px;
+  transition-delay: 0s;
+  transition-duration: 0.3s;
+  transition-property: all;
+  transition-timing-function: ease-out;
+  width: auto;
+}
+
+blockquote {
+  -webkit-font-smoothing: antialiased;
+  background-attachment: scroll;
+  background-clip: border-box;
+  background-color: rgb(242, 246, 250);
+  background-image: none;
+  background-origin: padding-box;
+  background-position-x: 0%;
+  background-position-y: 0%;
+  background-size: auto;
+  border-bottom-left-radius: 9px;
+  border-bottom-right-radius: 9px;
+  border-top-left-radius: 9px;
+  border-top-right-radius: 9px;
+  box-sizing: border-box;
+  color: rgb(51, 51, 51);
+  display: block;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 16px;
+  font-weight: normal;
+  height: 89px;
+  line-height: 23.200000762939453px;
+  margin-block-end: 0px;
+  margin-block-start: 18px;
+  margin-bottom: 0px;
+  margin-inline-end: 0px;
+  margin-inline-start: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-top: 18px;
+  padding-bottom: 20px;
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-top: 1px;
+  text-rendering: optimizeLegibility;
+  text-shadow: rgba(255, 255, 255, 0.01) 0px -1px 1px;
+  width: 640px;
+}
+
+blockquote p {
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+  color: rgb(51, 51, 51);
+  display: block;
+  font-family: "IBM Plex Serif", serif;
+  font-size: 16px;
+  font-weight: normal;
+  height: 50px;
+  line-height: 25.280000686645508px;
+  margin-block-end: 0px;
+  margin-block-start: 18px;
+  margin-bottom: 0px;
+  margin-inline-end: 0px;
+  margin-inline-start: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-top: 18px;
+  position: relative;
+  text-rendering: optimizeLegibility;
+  text-shadow: rgba(255, 255, 255, 0.01) 0px -1px 1px;
+  width: 592px;
+}
+
+/* 
+blockquote strong {
+  font-weight: 700;
+} */

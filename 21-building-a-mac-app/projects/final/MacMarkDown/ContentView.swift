@@ -1,4 +1,4 @@
-/// Copyright (c) 2020 Razeware LLC
+/// Copyright (c) 2021 Razeware LLC
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -34,51 +34,57 @@ import SwiftUI
 
 struct ContentView: View {
   @Binding var document: MacMarkDownDocument
-
   @AppStorage("editorFontSize") var editorFontSize: Int = 14
-  @AppStorage("styleSheet") var styleSheet: StyleSheet = .github
-
   @State private var previewState = PreviewState.web
 
   var body: some View {
     HSplitView {
       TextEditor(text: $document.text)
-        .font(.system(size: CGFloat(editorFontSize)))
         .frame(minWidth: 200)
+        .font(.system(size: CGFloat(editorFontSize)))
 
       if previewState == .web {
         WebView(html: document.html)
           .frame(minWidth: 200)
-          .onChange(of: styleSheet) { _ in
-            document.refreshHtml()
-          }
       } else if previewState == .html {
-        // swiftlint:disable indentation_width
         ScrollView {
           Text(document.html)
             .frame(minWidth: 200)
-            .frame(maxWidth: .infinity,
-                   maxHeight: .infinity,
-                   alignment: .topLeading)
+            .frame(
+              maxWidth: .infinity,
+              maxHeight: .infinity,
+              alignment: .topLeading)
             .padding()
             .font(.system(size: CGFloat(editorFontSize)))
+            .textSelection(.enabled)
         }
       }
     }
-    .frame(minWidth: 400,
-           idealWidth: 600,
-           maxWidth: .infinity,
-           minHeight: 300,
-           idealHeight: 400,
-           maxHeight: .infinity)
-    // swiftlint:enable indentation_width
+    .frame(
+      minWidth: 400,
+      idealWidth: 600,
+      maxWidth: .infinity,
+      minHeight: 300,
+      idealHeight: 400,
+      maxHeight: .infinity)
     .toolbar {
       PreviewToolBarItem(previewState: $previewState)
     }
   }
+
+  // For testing AttributedStrings from Markdown
+  var attributedString: AttributedString {
+    let markdownOptions = AttributedString.MarkdownParsingOptions(
+      interpretedSyntax: .inlineOnly)
+    let attribString = try? AttributedString(
+      markdown: document.text,
+      options: markdownOptions)
+    return attribString ??
+      AttributedString("There was an error parsing the Markdown.")
+  }
 }
 
-struct ContentViewPreviews: PreviewProvider {
+struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
     ContentView(document: .constant(MacMarkDownDocument()))
   }

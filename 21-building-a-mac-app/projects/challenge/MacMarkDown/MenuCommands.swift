@@ -1,4 +1,4 @@
-/// Copyright (c) 2020 Razeware LLC
+/// Copyright (c) 2021 Razeware LLC
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -33,34 +33,24 @@
 import SwiftUI
 
 struct MenuCommands: Commands {
-  @AppStorage("styleSheet") var styleSheet: StyleSheet = .github
+  @AppStorage("styleSheet") var styleSheet: StyleSheet = .raywenderlich
 
   var body: some Commands {
-    CommandGroup(before: CommandGroupPlacement.help) {
+    CommandGroup(before: .help) {
       Button("Markdown Cheatsheet") {
         showCheatSheet()
       }
       .keyboardShortcut("/", modifiers: .command)
-
       Divider()
     }
 
     CommandMenu("Stylesheet") {
-      Button("GitHub") {
-        styleSheet = .github
-      }.keyboardShortcut("1", modifiers: .command)
-
-      Button("Lopash") {
-        styleSheet = .lopash
-      }.keyboardShortcut("2", modifiers: .command)
-
-      Button("Solarized Dark") {
-        styleSheet = .solarizeddark
-      }.keyboardShortcut("3", modifiers: .command)
-
-      Button("Ulysses") {
-        styleSheet = .ulysses
-      }.keyboardShortcut("4", modifiers: .command)
+      ForEach(StyleSheet.allCases, id: \.self) { style in
+        Button(style.rawValue) {
+          styleSheet = style
+        }
+        .keyboardShortcut(style.shortcutKey, modifiers: .command)
+      }
     }
   }
 
