@@ -1,4 +1,4 @@
-/// Copyright (c) 2020 Razeware LLC
+/// Copyright (c) 2021 Razeware LLC
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -35,7 +35,7 @@ import SwiftUI
 struct AwardDetails: View {
   var award: AwardInformation
 
-  func imageSize(proxy: GeometryProxy) -> CGFloat {
+  func imageSize(proxy: GeometryProxy) -> Double {
     let size = min(proxy.size.width, proxy.size.height)
     return size * 0.8
   }
@@ -65,14 +65,16 @@ struct AwardDetails_Previews: PreviewProvider {
       imageName: "first-visit-award",
       title: "First Visit",
       description: "Awarded the first time you open the app while at the airport.",
-      awarded: true
+      awarded: true,
+      stars: 1
     )
 
     let award2 = AwardInformation(
       imageName: "rainy-day-award",
       title: "Rainy Day",
       description: "Your flight was delayed because of weather.",
-      awarded: false
+      awarded: false,
+      stars: 3
     )
 
     Group {

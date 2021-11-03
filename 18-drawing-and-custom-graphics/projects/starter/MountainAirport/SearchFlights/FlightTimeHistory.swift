@@ -1,4 +1,4 @@
-/// Copyright (c) 2020 Razeware LLC
+/// Copyright (c) 2021 Razeware LLC
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -34,6 +34,17 @@ import SwiftUI
 
 struct FlightTimeHistory: View {
   var flight: FlightInformation
+
+  var timeFormatter: RelativeDateTimeFormatter {
+    let rtf = RelativeDateTimeFormatter()
+    rtf.unitsStyle = .full
+    rtf.dateTimeStyle = .named
+    return rtf
+  }
+
+  func relativeDate(_ date: Date) -> String {
+    return timeFormatter.localizedString(for: date, relativeTo: Date())
+  }
 
   var body: some View {
     ZStack {

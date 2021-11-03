@@ -1,4 +1,4 @@
-/// Copyright (c) 2020 Razeware LLC
+/// Copyright (c) 2021 Razeware LLC
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -35,15 +35,15 @@ import SwiftUI
 struct FlightTimeHistory: View {
   var flight: FlightInformation
 
-  //1
-  let minuteRange = CGFloat(75)
+  // 1
+  let minuteRange = 75.0
 
   // 2
   func minuteLength(_ minutes: Int, proxy: GeometryProxy) -> CGFloat {
     // 3
     let pointsPerMinute = proxy.size.width / minuteRange
     // 4
-    return CGFloat(abs(minutes)) * pointsPerMinute
+    return Double(abs(minutes)) * pointsPerMinute
   }
 
   func minuteOffset(_ minutes: Int, proxy: GeometryProxy) -> CGFloat {
