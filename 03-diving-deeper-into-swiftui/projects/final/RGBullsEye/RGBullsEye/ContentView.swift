@@ -46,7 +46,7 @@ struct ContentView: View {
     GeometryReader { proxy in
       ZStack {
         Color.element
-          .edgesIgnoringSafeArea(.all)
+          .ignoresSafeArea()
         VStack {
           ColorCircle(
             rgb: game.target,
