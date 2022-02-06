@@ -50,7 +50,9 @@ struct KuchiApp: App {
 }
 
 struct KuchiApp_Previews: PreviewProvider {
+  static let userManager = UserManager(name: "Ray")
   static var previews: some View {
-    RegisterView()
+    StarterView()
+      .environmentObject(userManager)
   }
 }
