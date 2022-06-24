@@ -33,9 +33,15 @@ struct MemoryView: View {
   var geometry: GeometryProxy
 
   var body: some View {
+    let memorySwipe = DragGesture(minimumDistance: 20)
+          .onEnded { _ in
+              memory = 0.0
+          }
+    
     HStack {
       Spacer()
       Text("\(memory)")
+        .accessibilityIdentifier("memoryDisplay")
         .padding(.horizontal, 5)
         .frame(
           width: geometry.size.width * 0.85,
@@ -46,7 +52,7 @@ struct MemoryView: View {
             .stroke(lineWidth: 2)
             .foregroundColor(Color.gray)
         )
-      // Add gesture here
+        .gesture(memorySwipe)
       Text("M")
     }.padding(.bottom).padding(.horizontal, 5)
   }
