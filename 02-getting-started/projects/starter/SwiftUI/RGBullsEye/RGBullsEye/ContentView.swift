@@ -43,9 +43,20 @@ struct ContentView: View {
           Text("R: ??? G: ??? B: ???")
               .padding()
           Color(rgbStruct: guess)
-          Text("R: 204 G: 76 B: 178")
+          Text(
+            // here we only need the read values as you won't be changing them in the test view
+            "R: \(Int(guess.red*255.0))"
+            + " G: \(Int(guess.green*255.0))"
+            + " B: \(Int(guess.blue*255.0))")
               .padding()
-          Slider(value: .constant(0.5))
+          HStack {
+              Text("0")
+              // the "$" before guess.red changes guess.red from a read-only value to a read-write binding
+              Slider(value: $guess.red)
+                  .accentColor(.red)
+              Text("255")
+          }
+          .padding(.horizontal)
           Button(action: {}){
               Text("Hit Me!")
           }
@@ -55,6 +66,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
-      ContentView(guess: RGB(red: 0.8, green: 0.3, blue: 0.7))
+      ContentView(guess: RGB(red: 0.8 , green: 0.3, blue: 0.7))
   }
 }
