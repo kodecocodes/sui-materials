@@ -36,20 +36,34 @@ struct ContentView: View {
     
     @State var game = Game()
     @State var guess: RGB
+    @State var showScore = false
     
   var body: some View {
       VStack {
           Color(rgbStruct: game.target)
-          Text("R: ??? G: ??? B: ???")
-              .padding()
+          if showScore {
+              Text(game.target.intString())
+                  .padding()
+          } else {
+              Text("R: ??? G: ??? B: ???")
+                  .padding()
+          }
           Color(rgbStruct: guess)
           Text(guess.intString())
               .padding()
           ColorSlider(value: $guess.red, trackColor: .red)
           ColorSlider(value: $guess.green, trackColor: .green)
           ColorSlider(value: $guess.blue, trackColor: .blue)
-          Button(action: {}){
-              Text("Hit Me!")
+          Button("Hit Me!") {
+              showScore = true
+              game.check(guess: guess)
+          }.alert(isPresented: $showScore) {
+              Alert(title: Text("Your Score"),
+                    message: Text(String(game.scoreRound)),
+                    dismissButton: .default(Text("OK")) {
+                  game.startNewRound()
+                  guess = RGB()
+              })
           }
       }
   }
