@@ -42,9 +42,9 @@ struct ContentView: View {
           Text("R: 204 G: 76 B: 178")
               .padding()
           Slider(value: .constant(0.5))
-          Button("Hit Me!") {
-                  /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Action@*/ /*@END_MENU_TOKEN@*/
-              }
+          Button(action: {}){
+              Text("Hit Me!")
+          }
       }
   }
 }
