@@ -45,14 +45,7 @@ struct ContentView: View {
           Color(rgbStruct: guess)
           Text(guess.intString())
               .padding()
-          HStack {
-              Text("0")
-              // the "$" before guess.red changes guess.red from a read-only value to a read-write binding
-              Slider(value: $guess.red)
-                  .accentColor(.red)
-              Text("255")
-          }
-          .padding(.horizontal)
+          ColorSlider(value: $guess.red, trackColor: .red)
           Button(action: {}){
               Text("Hit Me!")
           }
@@ -62,6 +55,24 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
-      ContentView(guess: RGB(red: 0.8 , green: 0.3, blue: 0.7))
+      ContentView(guess: RGB(red: 0.5 , green: 0.3, blue: 0.7))
   }
+}
+
+struct ColorSlider: View {
+    
+    // Here use binding instead of state because ColorSlider doesn't own this data
+    @Binding var value: Double
+    var trackColor: Color
+    
+    var body: some View {
+        HStack {
+            Text("0")
+            // the "$" before guess.red changes guess.red from a read-only value to a read-write binding
+            Slider(value: $value)
+                .accentColor(trackColor)
+            Text("255")
+        }
+        .padding(.horizontal)
+    }
 }
