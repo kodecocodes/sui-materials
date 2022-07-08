@@ -43,11 +43,7 @@ struct ContentView: View {
           Text("R: ??? G: ??? B: ???")
               .padding()
           Color(rgbStruct: guess)
-          Text(
-            // here we only need the read values as you won't be changing them in the test view
-            "R: \(Int(guess.red*255.0))"
-            + " G: \(Int(guess.green*255.0))"
-            + " B: \(Int(guess.blue*255.0))")
+          Text(guess.intString())
               .padding()
           HStack {
               Text("0")
