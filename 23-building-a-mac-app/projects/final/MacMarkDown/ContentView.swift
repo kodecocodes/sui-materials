@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -60,28 +60,26 @@ struct ContentView: View {
         }
       }
     }
-    .frame(
-      minWidth: 400,
-      idealWidth: 600,
-      maxWidth: .infinity,
-      minHeight: 300,
-      idealHeight: 400,
-      maxHeight: .infinity)
+    .frame(minWidth: 400, minHeight: 300)
     .toolbar {
       PreviewToolBarItem(previewState: $previewState)
     }
   }
 
-  // For testing AttributedStrings from Markdown
-  var attributedString: AttributedString {
-    let markdownOptions = AttributedString.MarkdownParsingOptions(
-      interpretedSyntax: .inlineOnly)
-    let attribString = try? AttributedString(
-      markdown: document.text,
-      options: markdownOptions)
-    return attribString ??
-      AttributedString("There was an error parsing the Markdown.")
-  }
+  // For testing AttributedString formatting
+  //
+  //  var attributedString: AttributedString {
+  //    let markdownOptions =
+  //    AttributedString.MarkdownParsingOptions(
+  //      interpretedSyntax: .inlineOnly)
+  //
+  //    let attribString = try? AttributedString(
+  //      markdown: document.text,
+  //      options: markdownOptions)
+  //
+  //    return attribString ??
+  //    AttributedString("There was an error parsing the Markdown.")
+  //  }
 }
 
 struct ContentView_Previews: PreviewProvider {
