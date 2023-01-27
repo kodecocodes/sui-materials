@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -33,7 +33,6 @@
 import SwiftUI
 
 enum StyleSheet: String, CaseIterable {
-  case raywenderlich = "Ray Wenderlich"
   case github = "GitHub"
   case lopash = "Lopash"
   case solarizeddark = "Solarized Dark"
@@ -41,16 +40,14 @@ enum StyleSheet: String, CaseIterable {
 
   var shortcutKey: KeyEquivalent {
     switch self {
-    case .raywenderlich:
-      return "1"
     case .github:
-      return "2"
+      return "1"
     case .lopash:
-      return "3"
+      return "2"
     case .solarizeddark:
-      return "4"
+      return "3"
     case .ulysses:
-      return "5"
+      return "4"
     }
   }
 }
