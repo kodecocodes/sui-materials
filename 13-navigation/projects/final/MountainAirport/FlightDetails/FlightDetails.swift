@@ -55,7 +55,8 @@ struct FlightDetails: View {
       }.foregroundColor(.white)
       .padding()
       .navigationTitle("\(flight.airline) Flight \(flight.number)")
-    }.onAppear {
+    }
+    .onAppear {
       lastFlightInfo.lastFlightId = flight.id
     }
   }

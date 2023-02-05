@@ -44,7 +44,7 @@ struct WelcomeView: View {
           .aspectRatio(contentMode: .fill)
           .frame(width: 375, height: 250)
           .clipped()
-        //Title
+        // Title
         VStack {
           Text("Mountain Airport")
             .font(.system(size: 28.0, weight: .bold))

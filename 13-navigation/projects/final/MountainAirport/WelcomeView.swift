@@ -32,56 +32,78 @@
 
 import SwiftUI
 
+enum FlightViewId: CaseIterable {
+  case showFlightStatus
+  case showLastFlight
+}
+
+struct ViewButton: Identifiable {
+  var id: FlightViewId
+  var title: String
+  var subtitle: String
+}
+
 struct WelcomeView: View {
   @StateObject var flightInfo = FlightData()
-  @State var showNextFlight = false
+  @State private var selectedView: FlightViewId?
   @StateObject var lastFlightInfo = FlightNavigationInfo()
 
+  var sidebarButtons: [ViewButton] {
+    var buttons: [ViewButton] = []
+
+    buttons.append(
+      ViewButton(
+        id: .showFlightStatus,
+        title: "Flight Status",
+        subtitle: "Departure and arrival information"
+      )
+    )
+
+    if
+      let flightId = lastFlightInfo.lastFlightId,
+      let flight = flightInfo.getFlightById(flightId) {
+      buttons.append(
+        ViewButton(
+          id: .showLastFlight,
+          title: "\(flight.flightName)",
+          subtitle: "The Last Flight You Viewed"
+        )
+      )
+    }
+
+    return buttons
+  }
+
   var body: some View {
-    NavigationView {
-      ZStack(alignment: .topLeading) {
-        Image("welcome-background")
-          .resizable()
-          .frame(height: 250)
-        VStack(alignment: .leading) {
+    NavigationSplitView {
+      List(sidebarButtons, selection: $selectedView) { button in
+        WelcomeButtonView(
+          title: button.title,
+          subTitle: button.subtitle
+        )
+      }
+      .navigationTitle("Mountain Airport")
+      .listStyle(.plain)
+    } detail: {
+      // 1
+      if let view = selectedView {
+        // 2
+        switch view {
+        case .showFlightStatus:
+          // 3
+          FlightStatusBoard(flights: flightInfo.getDaysFlights(Date()))
+        case .showLastFlight:
           if
-            let id = lastFlightInfo.lastFlightId,
-            let lastFlight = flightInfo.getFlightById(id) {
-            NavigationLink(
-              destination: FlightDetails(flight: lastFlight),
-              isActive: $showNextFlight
-            ) { }
+            let flightId = lastFlightInfo.lastFlightId,
+            let flight = flightInfo.getFlightById(flightId) {
+            FlightDetails(flight: flight)
           }
-          NavigationLink(
-            destination: FlightStatusBoard(
-              flights: flightInfo.getDaysFlights(Date()))
-          ) {
-            WelcomeButtonView(
-              title: "Flight Status",
-              subTitle: "Departure and arrival information"
-            )
-          }
-          if
-            let id = lastFlightInfo.lastFlightId,
-            let lastFlight = flightInfo.getFlightById(id) {
-            // swiftlint:disable multiple_closures_with_trailing_closure
-            Button(action: {
-              showNextFlight = true
-            }) {
-              WelcomeButtonView(
-                title: "Last Flight \(lastFlight.flightName)",
-                subTitle: "Show Next Flight Departing or Arriving at Airport"
-              )
-            }
-            // swiftlint:enable multiple_closures_with_trailing_closure
-          }
-          Spacer()
-        }.font(.title)
-        .foregroundColor(.white)
-        .padding()
-      }.navigationBarTitle("Mountain Airport")
-      // End Navigation View
-    }.navigationViewStyle(StackNavigationViewStyle())
+        }
+      } else {
+        // 4
+        Text("Select an option in the sidebar.")
+      }
+    }
     .environmentObject(lastFlightInfo)
   }
 }
