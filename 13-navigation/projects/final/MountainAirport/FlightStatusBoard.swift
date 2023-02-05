@@ -34,9 +34,11 @@ import SwiftUI
 
 struct FlightList: View {
   var flights: [FlightInformation]
+  var flightToShow: FlightInformation?
+  @State private var path: [FlightInformation] = []
 
   var body: some View {
-    NavigationStack {
+    NavigationStack(path: $path) {
       List(flights, id: \.id) { flight in
         NavigationLink(flight.statusBoardName, value: flight)
       }
@@ -47,11 +49,17 @@ struct FlightList: View {
         }
       )
     }
+    .onAppear {
+      if let flight = flightToShow {
+        path.append(flight)
+      }
+    }
   }
 }
 
 struct FlightStatusBoard: View {
   var flights: [FlightInformation]
+  var flightToShow: FlightInformation?
   @State private var hidePast = false
   @AppStorage("FlightStatusCurrentTab") var selectedTab = 1
 
@@ -82,10 +90,12 @@ struct FlightStatusBoard: View {
           .resizable()
         Text("Arrivals")
       }
-      .badge(shownFlights.filter { $0.direction == .departure }.count)
+      .badge(shownFlights.filter { $0.direction == .arrival }.count)
       .tag(0)
+      // 5
       FlightList(
-        flights: shownFlights
+        flights: shownFlights,
+        flightToShow: flightToShow
       )
       .tabItem {
         Image(systemName: "airplane")
@@ -104,6 +114,11 @@ struct FlightStatusBoard: View {
       .badge(shownFlights.filter { $0.direction == .departure }.count)
       .tag(2)
     }
+    .onAppear {
+      if flightToShow != nil {
+        selectedTab = 1
+      }
+    }
     .navigationTitle("Today's Flight Status")
     .navigationBarItems(
       trailing: Toggle("Hide Past", isOn: $hidePast)
@@ -113,11 +128,9 @@ struct FlightStatusBoard: View {
 
 struct FlightStatusBoard_Previews: PreviewProvider {
   static var previews: some View {
-    NavigationStack {
-      FlightStatusBoard(
-        flights: FlightData.generateTestFlights(date: Date())
-      )
-    }
+    FlightStatusBoard(
+      flights: FlightData.generateTestFlights(date: Date())
+    )
     .environmentObject(FlightNavigationInfo())
   }
 }

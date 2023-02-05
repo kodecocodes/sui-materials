@@ -96,7 +96,10 @@ struct WelcomeView: View {
           if
             let flightId = lastFlightInfo.lastFlightId,
             let flight = flightInfo.getFlightById(flightId) {
-            FlightDetails(flight: flight)
+            FlightStatusBoard(
+              flights: flightInfo.getDaysFlights(Date()),
+              flightToShow: flight
+            )
           }
         }
       } else {
