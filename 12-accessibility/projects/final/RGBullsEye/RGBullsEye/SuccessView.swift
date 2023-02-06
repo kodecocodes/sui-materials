@@ -64,7 +64,6 @@ struct SuccessView: View {
         .foregroundColor(Color("grayText"))
         .multilineTextAlignment(.center)
       }
-      .accessibilityElement(children: .combine)
       VStack(spacing: 20) {
         Spacer()
         Button("Try another one?") {

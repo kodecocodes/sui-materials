@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco LLC
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -36,7 +36,6 @@ struct ContentView: View {
   @State var game = Game()
   @State var guess: RGB
   @State var showScore = false
-
   let circleSize: CGFloat = 0.275
   let labelHeight: CGFloat = 0.06
   let labelWidth: CGFloat = 0.53
@@ -46,11 +45,9 @@ struct ContentView: View {
     GeometryReader { proxy in
       ZStack {
         Color.element
-          .edgesIgnoringSafeArea(.all)
+          .ignoresSafeArea()
         VStack {
-          ColorCircle(
-            rgb: game.target,
-            size: proxy.size.height * circleSize)
+          ColorCircle(rgb: game.target, size: proxy.size.height * circleSize)
           if !showScore {
             BevelText(
               text: "R: ??? G: ??? B: ???",
@@ -58,35 +55,32 @@ struct ContentView: View {
               height: proxy.size.height * labelHeight)
           } else {
             BevelText(
-              text: game.target.intString,
+              text: game.target.intString(),
               width: proxy.size.width * labelWidth,
               height: proxy.size.height * labelHeight)
           }
-          ColorCircle(
-            rgb: guess,
-            size: proxy.size.height * circleSize)
+          ColorCircle(rgb: guess, size: proxy.size.height * circleSize)
           BevelText(
-            text: guess.intString,
+            text: guess.intString(),
             width: proxy.size.width * labelWidth,
             height: proxy.size.height * labelHeight)
           ColorSlider(value: $guess.red, trackColor: .red)
           ColorSlider(value: $guess.green, trackColor: .green)
           ColorSlider(value: $guess.blue, trackColor: .blue)
           Button("Hit Me!") {
-            self.showScore = true
-            self.game.check(guess: guess)
+            showScore = true
+            game.check(guess: guess)
           }
-          .buttonStyle(
-            NeuButtonStyle(
-              width: proxy.size.width * buttonWidth,
-              height: proxy.size.height * labelHeight))
+          .buttonStyle(NeuButtonStyle(
+            width: proxy.size.width * buttonWidth,
+            height: proxy.size.height * labelHeight))
           .alert(isPresented: $showScore) {
             Alert(
               title: Text("Your Score"),
               message: Text(String(game.scoreRound)),
               dismissButton: .default(Text("OK")) {
-                self.game.startNewRound()
-                self.guess = RGB()
+                game.startNewRound()
+                guess = RGB()
               })
           }
         }
@@ -100,10 +94,14 @@ struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
     Group {
       ContentView(guess: RGB())
-        .previewDevice("iPhone 8")
       ContentView(guess: RGB())
+        .previewDevice(
+          PreviewDevice(
+            rawValue: "iPhone 14 Pro"))
       ContentView(guess: RGB())
-        .previewDevice("iPhone 12 Pro Max")
+        .previewDevice(
+          PreviewDevice(
+            rawValue: "iPhone 8"))
     }
   }
 }
@@ -111,6 +109,7 @@ struct ContentView_Previews: PreviewProvider {
 struct ColorSlider: View {
   @Binding var value: Double
   var trackColor: Color
+
   var body: some View {
     HStack {
       Text("0")
