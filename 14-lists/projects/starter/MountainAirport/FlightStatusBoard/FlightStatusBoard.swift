@@ -30,6 +30,7 @@ import SwiftUI
 
 struct FlightStatusBoard: View {
   var flights: [FlightInformation]
+  var flightToShow: FlightInformation?
   @State private var hidePast = false
   @AppStorage("FlightStatusCurrentTab") var selectedTab = 1
 
@@ -50,7 +51,8 @@ struct FlightStatusBoard: View {
     TabView(selection: $selectedTab) {
       FlightList(
         flights: shownFlights.filter { $0.direction == .arrival }
-      ).tabItem {
+      )
+      .tabItem {
         Image("descending-airplane")
           .resizable()
         Text("Arrivals")
@@ -58,8 +60,10 @@ struct FlightStatusBoard: View {
       .badge(shownFlights.filter { $0.direction == .arrival }.count)
       .tag(0)
       FlightList(
-        flights: shownFlights
-      ).tabItem {
+        flights: shownFlights,
+        flightToShow: flightToShow
+      )
+      .tabItem {
         Image(systemName: "airplane")
           .resizable()
         Text("All")
@@ -68,28 +72,32 @@ struct FlightStatusBoard: View {
       .tag(1)
       FlightList(
         flights: shownFlights.filter { $0.direction == .departure }
-      ).tabItem {
+      )
+      .tabItem {
         Image("ascending-airplane")
         Text("Departures")
       }
       .badge(shownFlights.filter { $0.direction == .departure }.count)
       .tag(2)
-    }.navigationTitle("Flight Status")
+    }
+    .onAppear {
+      if flightToShow != nil {
+        selectedTab = 1
+      }
+    }
+    .navigationTitle("Today's Flight Status")
     .navigationBarItems(
-      trailing: Toggle(
-        "Hide Past",
-        isOn: $hidePast
-      )
+      trailing: Toggle("Hide Past", isOn: $hidePast)
     )
   }
 }
 
 struct FlightStatusBoard_Previews: PreviewProvider {
   static var previews: some View {
-    NavigationView {
+    NavigationStack {
       FlightStatusBoard(
         flights: FlightData.generateTestFlights(date: Date())
       )
     }
-  }
+    .environmentObject(FlightNavigationInfo())  }
 }

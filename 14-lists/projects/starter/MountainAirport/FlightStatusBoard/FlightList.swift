@@ -30,12 +30,26 @@ import SwiftUI
 
 struct FlightList: View {
   var flights: [FlightInformation]
+  var flightToShow: FlightInformation?
+  @State private var path: [FlightInformation] = []
 
   var body: some View {
-    ForEach(flights, id: \.id) { flight in
-      NavigationLink(
-        destination: FlightDetails(flight: flight)) {
-        FlightRow(flight: flight)
+    NavigationStack(path: $path) {
+      List(flights, id: \.id) { flight in
+        NavigationLink(value: flight) {
+          FlightRow(flight: flight)
+        }
+      }
+      .navigationDestination(
+        for: FlightInformation.self,
+        destination: { flight in
+          FlightDetails(flight: flight)
+        }
+      )
+    }
+    .onAppear {
+      if let flight = flightToShow {
+        path.append(flight)
       }
     }
   }
@@ -43,10 +57,11 @@ struct FlightList: View {
 
 struct FlightList_Previews: PreviewProvider {
   static var previews: some View {
-    NavigationView {
+    NavigationStack {
       FlightList(
         flights: FlightData.generateTestFlights(date: Date())
       )
     }
+    .environmentObject(FlightNavigationInfo())
   }
 }
