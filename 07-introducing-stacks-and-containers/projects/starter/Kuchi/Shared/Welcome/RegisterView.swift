@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -35,32 +35,31 @@ import SwiftUI
 struct RegisterView: View {
   @EnvironmentObject var userManager: UserManager
   @FocusState var nameFieldFocused: Bool
-
+  
   var body: some View {
     VStack {
       Spacer()
-
+      
       WelcomeMessageView()
-
+      
       TextField("Type your name...", text: $userManager.profile.name)
         .focused($nameFieldFocused)
         .submitLabel(.done)
         .onSubmit(registerUser)
         .bordered()
-
+      
       HStack {
         Spacer()
         Text("\(userManager.profile.name.count)")
           .font(.caption)
-          .foregroundColor(
-            userManager.isUserNameValid() ? .green : .red)
+          .foregroundColor(userManager.isUserNameValid() ? .green : .red)
           .padding(.trailing)
       }
       .padding(.bottom)
-
+      
       HStack {
         Spacer()
-
+        
         Toggle(isOn: $userManager.settings.rememberUser) {
           Text("Remember me")
             .font(.subheadline)
@@ -68,8 +67,8 @@ struct RegisterView: View {
         }
         .fixedSize()
       }
-
-      Button(action: registerUser) {
+      
+      Button(action: self.registerUser) {
         HStack {
           Image(systemName: "checkmark")
             .resizable()
@@ -81,7 +80,7 @@ struct RegisterView: View {
       }
       .bordered()
       .disabled(!userManager.isUserNameValid())
-
+      
       Spacer()
     }
     .padding()
@@ -93,13 +92,13 @@ struct RegisterView: View {
 extension RegisterView {
   func registerUser() {
     nameFieldFocused = false
-
+    
     if userManager.settings.rememberUser {
       userManager.persistProfile()
     } else {
       userManager.clear()
     }
-
+    
     userManager.persistSettings()
     userManager.setRegistered()
   }
@@ -107,7 +106,7 @@ extension RegisterView {
 
 struct RegisterView_Previews: PreviewProvider {
   static let user = UserManager(name: "Ray")
-
+  
   static var previews: some View {
     RegisterView()
       .environmentObject(user)
