@@ -33,7 +33,7 @@
 import SwiftUI
 
 struct AwardInformation {
-  public var imageName: String
+  public var awardView: AnyView
   public var title: String
   public var description: String
   public var awarded: Bool

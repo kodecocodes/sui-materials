@@ -35,7 +35,7 @@ struct FlightList: View {
 
   var body: some View {
     NavigationStack(path: $path) {
-      List(flights, id: \.id) { flight in
+      ForEach(flights, id: \.id) { flight in
         NavigationLink(value: flight) {
           FlightRow(flight: flight)
         }

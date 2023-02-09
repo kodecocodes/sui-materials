@@ -40,13 +40,6 @@ struct FlightStatusBoard: View {
       flights
   }
 
-  var shortDateString: String {
-    let dateF = DateFormatter()
-    dateF.timeStyle = .none
-    dateF.dateFormat = "MMM d"
-    return dateF.string(from: Date())
-  }
-
   var body: some View {
     TabView(selection: $selectedTab) {
       FlightList(
@@ -57,7 +50,6 @@ struct FlightStatusBoard: View {
           .resizable()
         Text("Arrivals")
       }
-      .badge(shownFlights.filter { $0.direction == .arrival }.count)
       .tag(0)
       FlightList(
         flights: shownFlights,
@@ -68,7 +60,6 @@ struct FlightStatusBoard: View {
           .resizable()
         Text("All")
       }
-      .badge(shortDateString)
       .tag(1)
       FlightList(
         flights: shownFlights.filter { $0.direction == .departure }
@@ -77,7 +68,6 @@ struct FlightStatusBoard: View {
         Image("ascending-airplane")
         Text("Departures")
       }
-      .badge(shownFlights.filter { $0.direction == .departure }.count)
       .tag(2)
     }
     .onAppear {
