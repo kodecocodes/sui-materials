@@ -30,6 +30,7 @@ import SwiftUI
 
 struct FlightStatusBoard: View {
   @State var flights: [FlightInformation]
+  var flightToShow: FlightInformation?
   @State private var hidePast = false
   @AppStorage("FlightStatusCurrentTab") var selectedTab = 1
   @State var highlightedIds: [Int] = []
@@ -40,13 +41,6 @@ struct FlightStatusBoard: View {
       flights
   }
 
-  var shortDateString: String {
-    let dateF = DateFormatter()
-    dateF.timeStyle = .none
-    dateF.dateFormat = "MMM d"
-    return dateF.string(from: Date())
-  }
-
   func lastUpdateString(_ date: Date) -> String {
     let dateF = DateFormatter()
     dateF.timeStyle = .short
@@ -55,7 +49,7 @@ struct FlightStatusBoard: View {
   }
 
   var body: some View {
-    TimelineView(.animation) { context in
+    TimelineView(.everyMinute) { context in
       VStack {
         Text(lastUpdateString(context.date))
           .font(.footnote)
@@ -63,44 +57,47 @@ struct FlightStatusBoard: View {
           FlightList(
             flights: shownFlights.filter { $0.direction == .arrival },
             highlightedIds: $highlightedIds
-          ).tabItem {
+          )
+          .tabItem {
             Image("descending-airplane")
               .resizable()
             Text("Arrivals")
           }
-          .badge(shownFlights.filter { $0.direction == .arrival }.count)
           .tag(0)
           FlightList(
             flights: shownFlights,
+            flightToShow: flightToShow,
             highlightedIds: $highlightedIds
-          ).tabItem {
+          )
+          .tabItem {
             Image(systemName: "airplane")
               .resizable()
             Text("All")
           }
-          .badge(shortDateString)
           .tag(1)
           FlightList(
             flights: shownFlights.filter { $0.direction == .departure },
             highlightedIds: $highlightedIds
-          ).tabItem {
+          )
+          .tabItem {
             Image("ascending-airplane")
             Text("Departures")
           }
-          .badge(shownFlights.filter { $0.direction == .departure }.count)
           .tag(2)
+        }
+        .onAppear {
+          if flightToShow != nil {
+            selectedTab = 1
+          }
         }
         // 1
         .refreshable {
           // 2
           await flights = FlightData.refreshFlights()
         }
-        .navigationTitle("Flight Status")
+        .navigationTitle("Today's Flight Status")
         .navigationBarItems(
-          trailing: Toggle(
-            "Hide Past",
-            isOn: $hidePast
-          )
+          trailing: Toggle("Hide Past", isOn: $hidePast)
         )
       }
     }
@@ -109,10 +106,10 @@ struct FlightStatusBoard: View {
 
 struct FlightStatusBoard_Previews: PreviewProvider {
   static var previews: some View {
-    NavigationView {
+    NavigationStack {
       FlightStatusBoard(
         flights: FlightData.generateTestFlights(date: Date())
       )
     }
-  }
+    .environmentObject(FlightNavigationInfo())  }
 }
