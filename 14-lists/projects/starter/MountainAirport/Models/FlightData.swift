@@ -228,16 +228,13 @@ class FlightData: ObservableObject {
   }
 
   static func refreshFlights() async -> [FlightInformation] {
-    Task {
-      try await Task.sleep(nanoseconds: 3 * 1_000_000_000) // Three seconds
-    }
+    sleep(3) // Three seconds
     return FlightData.generateTestFlights(date: Date())
   }
 
   static func searchFlightsForCity(_ city: String) async -> [FlightInformation] {
-    Task {
-      try await Task.sleep(nanoseconds: 3 * 1_000_000_000) // Three seconds
-    }
+    sleep(3) // Three seconds
+
     let flights = FlightData().flights
     guard !city.isEmpty else {
       return flights
