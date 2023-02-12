@@ -506,7 +506,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.razeware.Kuchi;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yourcompany.Kuchi;
 				PRODUCT_NAME = Kuchi;
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.0;
@@ -527,7 +527,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.razeware.Kuchi;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yourcompany.Kuchi;
 				PRODUCT_NAME = Kuchi;
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.0;
@@ -552,7 +552,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.razeware.Kuchi;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yourcompany.Kuchi;
 				PRODUCT_NAME = Kuchi;
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
@@ -575,7 +575,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.razeware.Kuchi;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yourcompany.Kuchi;
 				PRODUCT_NAME = Kuchi;
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
