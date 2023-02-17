@@ -39,32 +39,35 @@ struct AwardsView: View {
   }
 
   var body: some View {
-    ScrollView {
-      LazyVStack {
-        ForEach(awardArray, id: \.self) { award in
-          NavigationLink(
-            destination: AwardDetails(award: award)) {
-            AwardCardView(award: award)
-              .foregroundColor(.black)
-              .frame(width: 150, height: 220)
+    NavigationStack {
+      ScrollView {
+        LazyVStack {
+          ForEach(awardArray, id: \.self) { award in
+            NavigationLink(value: award) {
+              AwardCardView(award: award)
+                .foregroundColor(.black)
+                .frame(width: 150, height: 220)
+            }
+          }
+          .navigationDestination(for: AwardInformation.self) { award in
+            AwardDetails(award: award)
           }
         }
       }
-    }.padding()
-    .background(
-      Image("background-view")
-        .resizable()
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-    )
-    .navigationBarTitle("Your Awards")
+      .navigationTitle("Your Awards")
+      .padding()
+      .background(
+        Image("background-view")
+          .resizable()
+          .frame(maxWidth: .infinity, maxHeight: .infinity)
+      )
+    }
   }
 }
 
 struct AwardsView_Previews: PreviewProvider {
   static var previews: some View {
-    NavigationView {
-      AwardsView()
-    }.navigationViewStyle(StackNavigationViewStyle())
-    .environmentObject(AppEnvironment())
+    AwardsView()
+      .environmentObject(AppEnvironment())
   }
 }

@@ -61,7 +61,7 @@ struct FlightDetails: View {
 
 struct FlightDetails_Previews: PreviewProvider {
   static var previews: some View {
-    NavigationView {
+    NavigationStack {
       FlightDetails(
         flight: FlightData.generateTestFlight(date: Date())
       ).environmentObject(AppEnvironment())
