@@ -70,6 +70,7 @@ struct FlightStatusBoard: View {
           .tag(0)
           FlightList(
             flights: shownFlights,
+            flightToShow: flightToShow,
             highlightedIds: $highlightedIds
           ).tabItem {
             Image(systemName: "airplane")
