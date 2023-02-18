@@ -32,72 +32,50 @@
 
 import SwiftUI
 
-struct AwardGrid: View {
+struct WelcomeButtonView: View {
   var title: String
-  var awards: [AwardInformation]
+  var subTitle: String
+  var imageName: String
+  var imageAngle: Double = 0.0
 
   var body: some View {
-    Section(
-      header: Text(title)
-        .font(.title)
-        .foregroundColor(.white)
-    ) {
-      ForEach(awards, id: \.self) { award in
-        NavigationLink(destination: AwardDetails(award: award)) {
-          AwardCardView(award: award)
-            .foregroundColor(.black)
-            .aspectRatio(0.67, contentMode: .fit)
-        }
-      }
-    }
-  }
-}
-
-struct AwardsView: View {
-  @EnvironmentObject var flightNavigation: AppEnvironment
-  var awardArray: [AwardInformation] {
-    flightNavigation.awardList
-  }
-
-  var activeAwards: [AwardInformation] {
-    awardArray.filter { $0.awarded }
-  }
-
-  var inactiveAwards: [AwardInformation] {
-    awardArray.filter { !$0.awarded }
-  }
-
-  var awardColumns: [GridItem] {
-    [GridItem(.adaptive(minimum: 150, maximum: 170))]
-  }
-
-  var body: some View {
-    ScrollView {
-      LazyVGrid(columns: awardColumns) {
-        AwardGrid(
-          title: "Awarded",
-          awards: activeAwards
-        )
-        AwardGrid(
-          title: "Not Awarded",
-          awards: inactiveAwards
-        )
-      }
-    }.padding()
-    .background(
-      Image("background-view")
+    HStack {
+      Image(systemName: imageName)
         .resizable()
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .frame(width: 30, height: 30)
+        .padding(10)
+        .background(
+          Circle()
+            .foregroundColor(.white)
+        )
+        .padding(15.0)
+        .rotationEffect(.degrees(imageAngle))
+      VStack(alignment: .leading) {
+        Text(title)
+          .font(.title2)
+        Text(subTitle)
+          .font(.subheadline)
+      }
+      .foregroundColor(.white)
+      .padding([.top, .bottom], 15.0)
+    }
+    .frame(maxWidth: .infinity, alignment: .leading)
+    .background(
+      Image("link-pattern")
+        .resizable()
+        .clipped()
     )
-    .navigationBarTitle("Your Awards")
+    .shadow(radius: 10)
   }
 }
 
-struct AwardsView_Previews: PreviewProvider {
+struct WelcomeButtonView_Previews: PreviewProvider {
   static var previews: some View {
-    NavigationView {
-      AwardsView()
-    }.navigationViewStyle(StackNavigationViewStyle())
-    .environmentObject(AppEnvironment())
+    WelcomeButtonView(
+      title: "Flight Status",
+      subTitle: "Departure and Arrival Information",
+      imageName: "airplane",
+      imageAngle: -45.0
+    )
   }
 }

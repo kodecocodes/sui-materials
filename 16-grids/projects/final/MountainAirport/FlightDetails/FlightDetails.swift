@@ -32,50 +32,39 @@
 
 import SwiftUI
 
-struct WelcomeView: View {
-  @StateObject var flightInfo = FlightData()
-  @State var showNextFlight = false
-  @StateObject var appEnvironment = AppEnvironment()
+struct FlightDetails: View {
+  var flight: FlightInformation
+  @EnvironmentObject var lastFlightInfo: AppEnvironment
 
   var body: some View {
-    NavigationView {
-      ZStack(alignment: .topLeading) {
-        Image("welcome-background")
-          .resizable()
-          .aspectRatio(contentMode: .fill)
-          .frame(height: 250)
-        if
-          let id = appEnvironment.lastFlightId,
-          let lastFlight = flightInfo.getFlightById(id) {
-          NavigationLink(
-            destination: FlightDetails(flight: lastFlight),
-            isActive: $showNextFlight
-          ) { }
-        }
-        ScrollView {
-          LazyVGrid(
-            columns: [
-              GridItem(.fixed(160)),
-              GridItem(.fixed(160))
-            ], spacing: 15
-          ) {
-            FlightStatusButton(flightInfo: flightInfo)
-            SearchFlightsButton(flightInfo: flightInfo)
-            AwardsButton()
-            LastViewedButton(flightInfo: flightInfo, appEnvironment: appEnvironment, showNextFlight: $showNextFlight)
-          }.font(.title)
-          .foregroundColor(.white)
+    ZStack {
+      Image("background-view")
+        .resizable()
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+      VStack(alignment: .leading) {
+        FlightDetailHeader(flight: flight)
+        FlightInfoPanel(flight: flight)
           .padding()
-        }
-      }.navigationBarTitle("Mountain Airport")
-      // End Navigation View
-    }.navigationViewStyle(StackNavigationViewStyle())
-    .environmentObject(appEnvironment)
+          .background(
+            RoundedRectangle(cornerRadius: 20.0)
+              .opacity(0.3)
+          )
+        Spacer()
+      }.foregroundColor(.white)
+      .padding()
+      .navigationTitle("\(flight.airline) Flight \(flight.number)")
+    }.onAppear {
+      lastFlightInfo.lastFlightId = flight.id
+    }
   }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct FlightDetails_Previews: PreviewProvider {
   static var previews: some View {
-    WelcomeView()
+    NavigationStack {
+      FlightDetails(
+        flight: FlightData.generateTestFlight(date: Date())
+      ).environmentObject(AppEnvironment())
+    }
   }
 }

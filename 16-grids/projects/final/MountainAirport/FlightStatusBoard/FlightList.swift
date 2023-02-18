@@ -32,48 +32,70 @@
 
 import SwiftUI
 
-struct WelcomeButtonView: View {
-  var title: String
-  var subTitle: String
-  var imageName: String
-  var imageAngle: Double = 0.0
+struct FlightList: View {
+  var flights: [FlightInformation]
+  var flightToShow: FlightInformation?
+  @State private var path: [FlightInformation] = []
+  @Binding var highlightedIds: [Int]
+
+  func rowHighlighted(_ flightId: Int) -> Bool {
+    return highlightedIds.contains { $0 == flightId }
+  }
+
+  var nextFlightId: Int {
+    guard let flight = flights.first(
+      where: {
+        $0.localTime >= Date()
+      }
+    ) else {
+      return flights.last?.id ?? 0
+    }
+    return flight.id
+  }
 
   var body: some View {
-    VStack(alignment: .leading) {
-      Image(systemName: imageName)
-        .resizable()
-        .frame(width: 30, height: 30)
-        .padding(10)
-        .background(
-          Circle()
-            .foregroundColor(.white)
-            .opacity(0.3)
+    NavigationStack(path: $path) {
+      ScrollViewReader { scrollProxy in
+        List(flights) { flight in
+          NavigationLink(value: flight) {
+            FlightRow(flight: flight)
+          }
+          // 1
+          .swipeActions(edge: .leading) {
+            // 2
+            HighlightActionView(flightId: flight.id, highlightedIds: $highlightedIds)
+          }
+          .listRowBackground(
+            rowHighlighted(flight.id) ? Color.yellow.opacity(0.6) : Color.clear
+          )
+        }
+        .navigationDestination(
+          for: FlightInformation.self,
+          destination: { flight in
+            FlightDetails(flight: flight)
+          }
         )
-        .rotationEffect(.degrees(imageAngle))
-      Spacer()
-      Text(title)
-        .font(.title2)
-      Text(subTitle)
-        .font(.subheadline)
-    }.foregroundColor(.white)
-    .padding()
-    .frame(width: 155, height: 220, alignment: .leading)
-    .background(
-      Image("link-pattern")
-        .resizable()
-        .clipped()
-    )
-    .shadow(radius: 10)
+        .onAppear {
+          scrollProxy.scrollTo(nextFlightId, anchor: .center)
+        }
+      }
+    }
+    .onAppear {
+      if let flight = flightToShow {
+        path.append(flight)
+      }
+    }
   }
 }
 
-struct WelcomeButtonView_Previews: PreviewProvider {
+struct FlightList_Previews: PreviewProvider {
   static var previews: some View {
-    WelcomeButtonView(
-      title: "Flight Status",
-      subTitle: "Departure and Arrival Information",
-      imageName: "airplane",
-      imageAngle: -45.0
-    )
+    NavigationStack {
+      FlightList(
+        flights: FlightData.generateTestFlights(date: Date()),
+        highlightedIds: .constant([15])
+      )
+    }
+    .environmentObject(AppEnvironment())
   }
 }
