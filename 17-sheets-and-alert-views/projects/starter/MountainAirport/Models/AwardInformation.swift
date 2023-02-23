@@ -54,3 +54,9 @@ extension AwardInformation: Hashable {
     hasher.combine(awarded)
   }
 }
+
+extension AwardInformation: Identifiable {
+  public var id: Int {
+    self.hashValue
+  }
+}
