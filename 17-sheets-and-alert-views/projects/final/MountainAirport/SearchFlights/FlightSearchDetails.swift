@@ -35,10 +35,6 @@ import SwiftUI
 struct FlightSearchDetails: View {
   var flight: FlightInformation
   @Binding var showModal: Bool
-  @State private var rebookAlert = false
-  @State private var checkInFlight: CheckInInfo?
-  @State private var showFlightHistory = false
-  @State private var showCheckIn = false
   @EnvironmentObject var lastFlightInfo: AppEnvironment
 
   var body: some View {
@@ -54,59 +50,6 @@ struct FlightSearchDetails: View {
             showModal = false
           }
         }
-        if flight.status == .canceled {
-          Button("Rebook Flight") {
-            rebookAlert = true
-          }
-          // 1
-          .alert("Contact Your Airline", isPresented: $rebookAlert) {
-            // 2
-            Button("OK", role: .cancel) {
-            }
-            // 3
-          } message: {
-            Text(
-              "We cannot rebook this flight. Please contact the airline to reschedule this flight."
-            )
-          }
-        }
-        if flight.isCheckInAvailable {
-          Button("Check In for Flight") {
-            checkInFlight =
-              CheckInInfo(
-                airline: flight.airline,
-                flight: flight.number
-              )
-            showCheckIn = true
-          }
-          // 1
-          .confirmationDialog("Check In", isPresented: $showCheckIn, presenting: checkInFlight) { checkIn in
-            // 2
-            Button("Check In") {
-              print(
-                "Check-in for \(checkIn.airline) \(checkIn.flight)."
-              )
-            }
-            // 3
-            Button("Reschedule", role: .destructive) {
-              print("Reschedule flight.")
-            }
-            // 4
-            Button("Not Now", role: .cancel) { }
-            // 5
-          } message: { checkIn in
-            Text("Check in for \(checkIn.airline)" +
-              "Flight \(checkIn.flight)")
-          }
-        }
-        Button("On-Time History") {
-          showFlightHistory.toggle()
-        }
-        .popover(
-          isPresented: $showFlightHistory,
-          arrowEdge: .top) {
-          FlightTimeHistory(flight: flight)
-        }
         FlightInfoPanel(flight: flight)
           .padding()
           .background(
@@ -114,12 +57,14 @@ struct FlightSearchDetails: View {
               .opacity(0.3)
           )
         Spacer()
-      }.foregroundColor(.white)
+      }
+      .foregroundColor(.white)
       .padding()
-    }.onAppear {
-      lastFlightInfo.lastFlightId = flight.id
     }
     .interactiveDismissDisabled()
+    .onAppear {
+      lastFlightInfo.lastFlightId = flight.id
+    }
   }
 }
 
@@ -128,6 +73,7 @@ struct FlightSearchDetails_Previews: PreviewProvider {
     FlightSearchDetails(
       flight: FlightData.generateTestFlight(date: Date()),
       showModal: .constant(true)
-    ).environmentObject(AppEnvironment())
+    )
+    .environmentObject(AppEnvironment())
   }
 }

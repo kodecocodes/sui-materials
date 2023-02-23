@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Razeware LLC
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -18,10 +18,6 @@
 /// merger, publication, distribution, sublicensing, creation of derivative works,
 /// or sale is expressly withheld.
 /// 
-/// This project and source code may use libraries or frameworks that are
-/// released under various Open-Source licenses. Use of those libraries and
-/// frameworks are governed by their own individual licenses.
-///
 /// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 /// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 /// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -32,36 +28,40 @@
 
 import SwiftUI
 
-struct BevelText: View {
-  let text: String
-  let width: CGFloat
-  let height: CGFloat
+struct TerminalBView: View {
+  @Environment(\.dismiss) private var dismiss
 
   var body: some View {
-    Text(text)
-      .frame(width: width, height: height)
-      .background(
-        ZStack {
-          Capsule()
-            .fill(Color.element)
-            .northWestShadow(radius: 3, offset: 1)
-          Capsule()
-            .inset(by: 3)
-            .fill(Color.element)
-            .southEastShadow(radius: 1, offset: 1)
-        }
-      )
+    ZStack {
+      Image("background-view")
+        .resizable()
+        .rotationEffect(.degrees(180.0))
+        .clipShape(RoundedRectangle(cornerRadius: 20.0))
+        .padding()
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+      VStack(alignment: .leading) {
+        Text("Terminal B")
+          .font(.title)
+          .padding()
+        Text("Terminal B offers the follow dining options:")
+          .font(.title2)
+        Text("\u{2022} The Olive Morning")
+        Text("\u{2022} The Ruby Afternoon")
+        Text("\u{2022} Sunset Elements")
+        Spacer()
+      }
+      .foregroundColor(.white)
+      .padding()
+      .font(.title3)
+    }
+    .onTapGesture {
+      dismiss()
+    }
   }
 }
 
-struct BevelText_Previews: PreviewProvider {
+struct TerminalBView_Previews: PreviewProvider {
   static var previews: some View {
-    ZStack {
-      Color.element
-      BevelText(
-        text: "R: ??? G: ??? B: ???", width: 200, height: 48)
-    }
-    .frame(width: 300, height: 100)
-    .previewLayout(.sizeThatFits)
+    TerminalBView()
   }
 }

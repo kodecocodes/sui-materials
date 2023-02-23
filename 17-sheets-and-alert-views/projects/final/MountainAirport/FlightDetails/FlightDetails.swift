@@ -34,6 +34,7 @@ import SwiftUI
 
 struct FlightDetails: View {
   var flight: FlightInformation
+  @State private var showTerminalInfo = false
   @EnvironmentObject var lastFlightInfo: AppEnvironment
 
   var body: some View {
@@ -53,7 +54,22 @@ struct FlightDetails: View {
       }.foregroundColor(.white)
       .padding()
       .navigationTitle("\(flight.airline) Flight \(flight.number)")
-    }.onAppear {
+    }
+    .contentShape(Rectangle())
+    .onTapGesture {
+      showTerminalInfo.toggle()
+    }
+    .sheet(isPresented: $showTerminalInfo) {
+      Group {
+        if flight.gate.hasPrefix("A") {
+          TerminalAView()
+        } else {
+          TerminalBView()
+        }
+      }
+      .presentationDetents([.medium, .large])
+    }
+    .onAppear {
       lastFlightInfo.lastFlightId = flight.id
     }
   }
@@ -61,7 +77,7 @@ struct FlightDetails: View {
 
 struct FlightDetails_Previews: PreviewProvider {
   static var previews: some View {
-    NavigationView {
+    NavigationStack {
       FlightDetails(
         flight: FlightData.generateTestFlight(date: Date())
       ).environmentObject(AppEnvironment())
