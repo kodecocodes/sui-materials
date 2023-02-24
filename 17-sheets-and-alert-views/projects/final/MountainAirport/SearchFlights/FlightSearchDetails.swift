@@ -35,6 +35,12 @@ import SwiftUI
 struct FlightSearchDetails: View {
   var flight: FlightInformation
   @Binding var showModal: Bool
+  @State private var rebookAlert = false
+  @State private var phone = ""
+  @State private var password = ""
+  @State private var checkInFlight: CheckInInfo?
+  @State private var showCheckIn = false
+  @State private var showFlightHistory = false
   @EnvironmentObject var lastFlightInfo: AppEnvironment
 
   var body: some View {
@@ -49,6 +55,67 @@ struct FlightSearchDetails: View {
           Button("Close") {
             showModal = false
           }
+        }
+        // 1
+        if flight.status == .canceled {
+          // 2
+          Button("Rebook Flight") {
+            rebookAlert = true
+          }
+          .alert("Contact Your Airline", isPresented: $rebookAlert) {
+            TextField("Phone", text: $phone)
+            SecureField("Password", text: $password)
+            Button("Call Me") {
+            }
+            Button("Cancel", role: .cancel) {
+            }
+          } message: {
+            Text("We cannot rebook this flight. Please contact") +
+            Text(" the airline to reschedule this flight.")
+          }
+        }
+        // 1
+        if flight.isCheckInAvailable {
+          Button("Check In for Flight") {
+            checkInFlight =
+              CheckInInfo(
+                airline: flight.airline,
+                flight: flight.number
+              )
+            showCheckIn = true
+          }
+          // 3
+          // 1
+          .confirmationDialog(
+            "Check In",
+            isPresented: $showCheckIn,
+            presenting: checkInFlight
+          ) { checkIn in
+            // 2
+            Button("Check In") {
+              print(
+                "Check-in for \(checkIn.airline) \(checkIn.flight)."
+              )
+            }
+            // 3
+            Button("Reschedule", role: .destructive) {
+              print("Reschedule flight.")
+            }
+            // 4
+            Button("Not Now", role: .cancel) { }
+            // 5
+          } message: { checkIn in
+            Text("Check in for \(checkIn.airline)" +
+              "Flight \(checkIn.flight)")
+          }
+        }
+        Button("On-Time History") {
+          showFlightHistory.toggle()
+        }
+        .popover(
+          isPresented: $showFlightHistory,
+          arrowEdge: .top) {
+          FlightTimeHistory(flight: flight)
         }
         FlightInfoPanel(flight: flight)
           .padding()
