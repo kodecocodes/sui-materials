@@ -144,5 +144,6 @@ struct SearchFlights_Previews: PreviewProvider {
       SearchFlights(flightData: FlightData.generateTestFlights(date: Date())
       )
     }
+    .environmentObject(AppEnvironment())
   }
 }

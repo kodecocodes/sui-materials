@@ -115,5 +115,6 @@ struct FlightStatusBoard_Previews: PreviewProvider {
         flights: FlightData.generateTestFlights(date: Date())
       )
     }
+    .environmentObject(AppEnvironment())
   }
 }
