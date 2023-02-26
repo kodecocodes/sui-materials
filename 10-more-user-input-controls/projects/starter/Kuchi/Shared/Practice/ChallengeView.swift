@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -40,7 +40,6 @@ struct ChallengeView: View {
   @Environment(\.verticalSizeClass) var verticalSizeClass
   @Environment(\.questionsPerSession) var questionsPerSession
   
-  @ViewBuilder
   var body: some View {
     if verticalSizeClass == .compact {
       VStack {
@@ -68,7 +67,7 @@ struct ChallengeView: View {
         }) {
           QuestionView(
             question: challengeTest.challenge.question)
-            .frame(height: 300)
+          .frame(height: 300)
         }
         ScoreView(
           numberOfQuestions: questionsPerSession,
@@ -88,6 +87,7 @@ struct ChallengeView: View {
 
 struct ChallengeView_Previews: PreviewProvider {
   @State static var numberOfAnswered: Int = 0
+  
   static let challengeTest = ChallengeTest(
     challenge: Challenge(
       question: "おねがい　します",
