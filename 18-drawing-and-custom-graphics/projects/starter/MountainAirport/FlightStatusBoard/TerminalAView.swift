@@ -1,4 +1,4 @@
-/// Copyright (c) 2023 Kodeco Inc
+/// Copyright (c) 2023 Razeware LLC
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -28,19 +28,40 @@
 
 import SwiftUI
 
-struct FlightStatusButton: View {
+struct TerminalAView: View {
+  @Environment(\.dismiss) private var dismiss
+
   var body: some View {
-    WelcomeButtonView(
-      title: "Flight Status",
-      subTitle: "Departure and arrival information",
-      imageName: "airplane",
-      imageAngle: -45.0
-    )
+    ZStack {
+      Image("background-view")
+        .resizable()
+        .rotationEffect(.degrees(180.0))
+        .clipShape(RoundedRectangle(cornerRadius: 20.0))
+        .padding()
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+      VStack(alignment: .leading) {
+        Text("Terminal A")
+          .font(.title)
+          .padding()
+        Text("Terminal A offers the follow dining options:")
+          .font(.title2)
+        Text("\u{2022} Juniper Fiddler")
+        Text("\u{2022} Orange Emperor")
+        Text("\u{2022}  Aqua Sunset")
+        Spacer()
+      }
+      .foregroundColor(.white)
+      .padding()
+      .font(.title3)
+    }
+    .onTapGesture {
+      dismiss()
+    }
   }
 }
 
-struct FlightStatusButton_Previews: PreviewProvider {
+struct TerminalAView_Previews: PreviewProvider {
   static var previews: some View {
-    FlightStatusButton()
+    TerminalAView()
   }
 }

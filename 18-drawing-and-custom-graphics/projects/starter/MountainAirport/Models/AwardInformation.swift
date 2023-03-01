@@ -56,3 +56,9 @@ extension AwardInformation: Hashable {
     hasher.combine(stars)
   }
 }
+
+extension AwardInformation: Identifiable {
+  public var id: Int {
+    self.hashValue
+  }
+}
