@@ -122,11 +122,11 @@
 				E6E2AE7B22D8D08600A3455A /* Models */,
 				A9AB45A4252E695A00DC8653 /* AwardsView */,
 				18D775C422AD944300AE281E /* WelcomeView.swift */,
+				A92CC1EE29B01A4A0059183B /* WelcomeButtonView.swift */,
 				18D775C622AD944400AE281E /* Assets.xcassets */,
 				18D775DA22AD963800AE281E /* LaunchScreen.storyboard */,
 				18D775CE22AD944400AE281E /* Info.plist */,
 				18D775C822AD944400AE281E /* Preview Content */,
-				A92CC1EE29B01A4A0059183B /* WelcomeButtonView.swift */,
 			);
 			path = MountainAirport;
 			sourceTree = "<group>";

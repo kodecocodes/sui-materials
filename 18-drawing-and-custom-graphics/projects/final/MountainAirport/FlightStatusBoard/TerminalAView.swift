@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Razeware LLC
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -28,43 +28,40 @@
 
 import SwiftUI
 
-struct AwardStars: View {
-  var stars: Int = 3
+struct TerminalAView: View {
+  @Environment(\.dismiss) private var dismiss
 
   var body: some View {
-    Canvas { gContext, size in
-      // 1
-      guard let starSymbol = gContext.resolveSymbol(id: 0) else {
-        return
-      }
-
-      // 1
-      let centerOffset = (size.width - (20 * Double(stars))) / 2.0
-      // 2
-      gContext.translateBy(x: centerOffset, y: size.height / 2.0)
-      // 1
-      for star in 0..<stars {
-        // 2
-        let starXPosition = Double(star) * 20.0
-        // 3
-        let point = CGPoint(x: starXPosition + 8, y: 0)
-        // 4
-        gContext.draw(starSymbol, at: point, anchor: .leading)
-      }
-      // 2
-    } symbols: {
-      // 3
-      Image(systemName: "star.fill")
+    ZStack {
+      Image("background-view")
         .resizable()
-        .frame(width: 15, height: 15)
-        // 4
-        .tag(0)
+        .rotationEffect(.degrees(180.0))
+        .clipShape(RoundedRectangle(cornerRadius: 20.0))
+        .padding()
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+      VStack(alignment: .leading) {
+        Text("Terminal A")
+          .font(.title)
+          .padding()
+        Text("Terminal A offers the follow dining options:")
+          .font(.title2)
+        Text("\u{2022} Juniper Fiddler")
+        Text("\u{2022} Orange Emperor")
+        Text("\u{2022}  Aqua Sunset")
+        Spacer()
+      }
+      .foregroundColor(.white)
+      .padding()
+      .font(.title3)
+    }
+    .onTapGesture {
+      dismiss()
     }
   }
 }
 
-struct AwardStars_Previews: PreviewProvider {
+struct TerminalAView_Previews: PreviewProvider {
   static var previews: some View {
-    AwardStars()
+    TerminalAView()
   }
 }

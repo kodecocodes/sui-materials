@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Razeware LLC
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -28,17 +28,40 @@
 
 import SwiftUI
 
-struct AwardsButton: View {
+struct TerminalBView: View {
+  @Environment(\.dismiss) private var dismiss
+
   var body: some View {
-    WelcomeButtonView(
-      title: "Your Awards",
-      subTitle: "Earn rewards for your airport interactions",
-      imageName: "star")
+    ZStack {
+      Image("background-view")
+        .resizable()
+        .rotationEffect(.degrees(180.0))
+        .clipShape(RoundedRectangle(cornerRadius: 20.0))
+        .padding()
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+      VStack(alignment: .leading) {
+        Text("Terminal B")
+          .font(.title)
+          .padding()
+        Text("Terminal B offers the follow dining options:")
+          .font(.title2)
+        Text("\u{2022} The Olive Morning")
+        Text("\u{2022} The Ruby Afternoon")
+        Text("\u{2022} Sunset Elements")
+        Spacer()
+      }
+      .foregroundColor(.white)
+      .padding()
+      .font(.title3)
+    }
+    .onTapGesture {
+      dismiss()
+    }
   }
 }
 
-struct AwardsButton_Previews: PreviewProvider {
+struct TerminalBView_Previews: PreviewProvider {
   static var previews: some View {
-    AwardsButton()
+    TerminalBView()
   }
 }

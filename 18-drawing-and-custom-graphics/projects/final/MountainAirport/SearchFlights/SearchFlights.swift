@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -77,17 +77,15 @@ struct SearchFlights: View {
         }
         .background(Color.white)
         .pickerStyle(SegmentedPickerStyle())
-        TextField(" Search cities", text: $city)
-          .textFieldStyle(RoundedBorderTextFieldStyle())
         List {
           ForEach(flightDates, id: \.hashValue) { date in
             Section(
               header: Text(longDateFormatter.string(from: date)),
               footer:
-                HStack {
-                  Spacer()
-                  Text("Matching flights \(flightsForDay(date: date).count)")
-                }
+                Text(
+                  "Matching flights " + "\(flightsForDay(date: date).count)"
+                )
+                .frame(maxWidth: .infinity, alignment: .trailing)
             ) {
               ForEach(flightsForDay(date: date)) { flight in
                 SearchResultRow(flight: flight)
@@ -105,7 +103,7 @@ struct SearchFlights: View {
                   .tint(.black)
               }
               .frame(maxWidth: .infinity, maxHeight: .infinity)
-              .background(.white)
+              .background(.gray)
               .opacity(0.8)
             }
           }
@@ -137,7 +135,7 @@ struct SearchFlights: View {
           }
         }
       }
-      .navigationBarTitle("Search Flights")
+      .navigationTitle("Search Flights")
       .padding()
     }
   }
@@ -145,9 +143,10 @@ struct SearchFlights: View {
 
 struct SearchFlights_Previews: PreviewProvider {
   static var previews: some View {
-    NavigationView {
+    NavigationStack {
       SearchFlights(flightData: FlightData.generateTestFlights(date: Date())
       )
     }
+    .environmentObject(AppEnvironment())
   }
 }
