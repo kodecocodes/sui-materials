@@ -47,7 +47,7 @@ struct TerminalAView: View {
           .font(.title2)
         Text("\u{2022} Juniper Fiddler")
         Text("\u{2022} Orange Emperor")
-        Text("\u{2022}  Aqua Sunset")
+        Text("\u{2022} Aqua Sunset")
         Spacer()
       }
       .foregroundColor(.white)

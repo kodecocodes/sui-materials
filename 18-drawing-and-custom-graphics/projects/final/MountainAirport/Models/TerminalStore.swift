@@ -26,42 +26,40 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import SwiftUI
+import Foundation
 
-struct TerminalAView: View {
-  @Environment(\.dismiss) private var dismiss
+struct TerminalStore: Identifiable {
+  var id: Int
+  var terminal: String
+  var name: String
+  var shortName: String
+  var howBusy: Double {
+    let minute = Calendar.current.dateComponents([.minute], from: Date()).minute ?? 0
+    let adjustedMinute = (minute + id * 10) % 60
+    let fraction = Double(adjustedMinute) / 60.0
 
-  var body: some View {
-    ZStack {
-      Image("background-view")
-        .resizable()
-        .rotationEffect(.degrees(180.0))
-        .clipShape(RoundedRectangle(cornerRadius: 20.0))
-        .padding()
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-      VStack(alignment: .leading) {
-        Text("Terminal A")
-          .font(.title)
-          .padding()
-        Text("Terminal A offers the follow dining options:")
-          .font(.title2)
-        Text("\u{2022} Juniper Fiddler")
-        Text("\u{2022} Orange Emperor")
-        Text("\u{2022} Aqua Sunset")
-        Spacer()
-      }
-      .foregroundColor(.white)
-      .padding()
-      .font(.title3)
-    }
-    .onTapGesture {
-      dismiss()
-    }
+    return fraction
   }
-}
 
-struct TerminalAView_Previews: PreviewProvider {
-  static var previews: some View {
-    TerminalAView()
+  static var allStores: [TerminalStore] {
+    var stores: [TerminalStore] = []
+
+    stores.append(TerminalStore(id: 1, terminal: "A", name: "Juniper Fiddler", shortName: "Juniper"))
+    stores.append(TerminalStore(id: 2, terminal: "A", name: "Orange Emperor", shortName: "Orange"))
+    stores.append(TerminalStore(id: 3, terminal: "A", name: "Aqua Sunset", shortName: "Aqua"))
+
+    stores.append(TerminalStore(id: 4, terminal: "B", name: "The Olive Morning", shortName: "Olive"))
+    stores.append(TerminalStore(id: 5, terminal: "B", name: "The Ruby Afternoon", shortName: "Ruby"))
+    stores.append(TerminalStore(id: 6, terminal: "B", name: "Sunset Elements", shortName: "Sunset"))
+
+    return stores
+  }
+
+  static var terminalStoresA: [TerminalStore] {
+    return allStores.filter { $0.terminal == "A" }
+  }
+
+  static var terminalStoresB: [TerminalStore] {
+    return allStores.filter { $0.terminal == "B" }
   }
 }

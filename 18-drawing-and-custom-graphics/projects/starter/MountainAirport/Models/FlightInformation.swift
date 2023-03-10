@@ -80,6 +80,10 @@ class FlightInformation: NSObject {
     "\(flightName) \(dirString) \(otherAirport)"
   }
 
+  var terminal: String {
+    return String(gate.prefix(1))
+  }
+
   var otherEndTime: Date {
     var multiplier: Int
     if direction == .arrival {

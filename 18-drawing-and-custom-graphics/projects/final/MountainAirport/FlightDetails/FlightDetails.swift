@@ -61,7 +61,7 @@ struct FlightDetails: View {
     }
     .sheet(isPresented: $showTerminalInfo) {
       Group {
-        if flight.gate.hasPrefix("A") {
+        if flight.terminal == "A" {
           TerminalAView()
         } else {
           TerminalBView()

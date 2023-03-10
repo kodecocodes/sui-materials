@@ -58,17 +58,7 @@ struct FlightInfoPanel: View {
           Text("Flying to \(flight.otherAirport)")
         }
         Text(flight.flightStatus) + Text(" (\(timeFormatter.string(from: flight.localTime)))")
-        if flight.gate.hasPrefix("A") {
-          Image("terminal-a-map")
-            .resizable()
-            .frame(maxWidth: .infinity)
-            .aspectRatio(contentMode: .fit)
-        } else {
-          Image("terminal-b-map")
-            .resizable()
-            .frame(maxWidth: .infinity)
-            .aspectRatio(contentMode: .fit)
-        }
+        TerminalMapView(flight: flight)
       }
     }
   }

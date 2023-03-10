@@ -1,15 +1,15 @@
 /// Copyright (c) 2023 Razeware LLC
-/// 
+///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
 /// in the Software without restriction, including without limitation the rights
 /// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 /// copies of the Software, and to permit persons to whom the Software is
 /// furnished to do so, subject to the following conditions:
-/// 
+///
 /// The above copyright notice and this permission notice shall be included in
 /// all copies or substantial portions of the Software.
-/// 
+///
 /// Notwithstanding the foregoing, you may not use, copy, modify, merge, publish,
 /// distribute, sublicense, create a derivative work, and/or sell copies of the
 /// Software in any work that is designed, intended, or marketed for pedagogical or
@@ -17,7 +17,7 @@
 /// or information technology.  Permission for such use, copying, modification,
 /// merger, publication, distribution, sublicensing, creation of derivative works,
 /// or sale is expressly withheld.
-/// 
+///
 /// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 /// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 /// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -26,42 +26,39 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import SwiftUI
+import Foundation
 
-struct TerminalAView: View {
-  @Environment(\.dismiss) private var dismiss
+struct TerminalStore: Identifiable {
+  var id: Int
+  var terminal: String
+  var name: String
+  var howBusy: Double {
+    let minute = Calendar.current.dateComponents([.minute], from: Date()).minute ?? 0
+    let adjustedMinute = (minute + id * 10) % 60
+    let fraction = Double(adjustedMinute) / 60.0
 
-  var body: some View {
-    ZStack {
-      Image("background-view")
-        .resizable()
-        .rotationEffect(.degrees(180.0))
-        .clipShape(RoundedRectangle(cornerRadius: 20.0))
-        .padding()
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-      VStack(alignment: .leading) {
-        Text("Terminal A")
-          .font(.title)
-          .padding()
-        Text("Terminal A offers the follow dining options:")
-          .font(.title2)
-        Text("\u{2022} Juniper Fiddler")
-        Text("\u{2022} Orange Emperor")
-        Text("\u{2022} Aqua Sunset")
-        Spacer()
-      }
-      .foregroundColor(.white)
-      .padding()
-      .font(.title3)
-    }
-    .onTapGesture {
-      dismiss()
-    }
+    return fraction
   }
-}
 
-struct TerminalAView_Previews: PreviewProvider {
-  static var previews: some View {
-    TerminalAView()
+  static var allStores: [TerminalStore] {
+    var stores: [TerminalStore] = []
+
+    stores.append(TerminalStore(id: 1, terminal: "A", name: "Juniper Fiddler"))
+    stores.append(TerminalStore(id: 2, terminal: "A", name: "Orange Emperor"))
+    stores.append(TerminalStore(id: 3, terminal: "A", name: "Aqua Sunset"))
+
+    stores.append(TerminalStore(id: 4, terminal: "B", name: "The Olive Morning"))
+    stores.append(TerminalStore(id: 5, terminal: "B", name: "The Ruby Afternoon"))
+    stores.append(TerminalStore(id: 6, terminal: "B", name: "Sunset Elements"))
+
+    return stores
+  }
+
+  static var terminalStoresA: [TerminalStore] {
+    return allStores.filter { $0.terminal == "A" }
+  }
+
+  static var terminalStoresB: [TerminalStore] {
+    return allStores.filter { $0.terminal == "B" }
   }
 }
