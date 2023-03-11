@@ -32,6 +32,7 @@ struct TerminalStore: Identifiable {
   var id: Int
   var terminal: String
   var name: String
+  var shortName: String
   var howBusy: Double {
     let minute = Calendar.current.dateComponents([.minute], from: Date()).minute ?? 0
     let adjustedMinute = (minute + id * 10) % 60
@@ -43,13 +44,13 @@ struct TerminalStore: Identifiable {
   static var allStores: [TerminalStore] {
     var stores: [TerminalStore] = []
 
-    stores.append(TerminalStore(id: 1, terminal: "A", name: "Juniper Fiddler"))
-    stores.append(TerminalStore(id: 2, terminal: "A", name: "Orange Emperor"))
-    stores.append(TerminalStore(id: 3, terminal: "A", name: "Aqua Sunset"))
+    stores.append(TerminalStore(id: 1, terminal: "A", name: "Juniper Fiddler", shortName: "Juniper"))
+    stores.append(TerminalStore(id: 2, terminal: "A", name: "Orange Emperor", shortName: "Orange"))
+    stores.append(TerminalStore(id: 3, terminal: "A", name: "Aqua Sunset", shortName: "Aqua"))
 
-    stores.append(TerminalStore(id: 4, terminal: "B", name: "The Olive Morning"))
-    stores.append(TerminalStore(id: 5, terminal: "B", name: "The Ruby Afternoon"))
-    stores.append(TerminalStore(id: 6, terminal: "B", name: "Sunset Elements"))
+    stores.append(TerminalStore(id: 4, terminal: "B", name: "The Olive Morning", shortName: "Olive"))
+    stores.append(TerminalStore(id: 5, terminal: "B", name: "The Ruby Afternoon", shortName: "Ruby"))
+    stores.append(TerminalStore(id: 6, terminal: "B", name: "Sunset Elements", shortName: "Sunset"))
 
     return stores
   }
