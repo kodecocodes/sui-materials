@@ -47,7 +47,9 @@ struct TerminalStoresView: View {
       let storeWidth = width / 6
       let storeHeight = storeWidth / 1.75
       let storeSpacing = width / 5
-      let firstStoreOffset = flight.terminal == "A" ? width - storeSpacing : storeSpacing - storeWidth
+      let firstStoreOffset = flight.terminal == "A" ?
+      width - storeSpacing :
+      storeSpacing - storeWidth
       let direction = flight.terminal == "A" ? -1.0 : 1.0
       // 2
       ForEach(stores.indices, id: \.self) { index in
@@ -57,9 +59,13 @@ struct TerminalStoresView: View {
         let xOffset = Double(index) * storeSpacing * direction + firstStoreOffset
         // 5
         RoundedRectangle(cornerRadius: 5.0)
-        // 6
+          // 6
           .foregroundColor(
-            Color(hue: 0.3333, saturation: 1.0 - store.howBusy, brightness: 1.0 - store.howBusy)
+            Color(
+              hue: 0.3333,
+              saturation: 1.0 - store.howBusy,
+              brightness: 1.0 - store.howBusy
+            )
           )
           // 7
           .overlay(

@@ -43,11 +43,11 @@ struct TerminalAView: View {
         Text("Terminal A")
           .font(.title)
           .padding()
-        Text("Terminal A offers the follow dining options:")
+        Text("Terminal A offers the follow stores:")
           .font(.title2)
-        Text("\u{2022} Juniper Fiddler")
-        Text("\u{2022} Orange Emperor")
-        Text("\u{2022} Aqua Sunset")
+        ForEach(TerminalStore.terminalStoresA) { store in
+          Text("\u{2022} \(store.name)")
+        }
         Spacer()
       }
       .foregroundColor(.white)

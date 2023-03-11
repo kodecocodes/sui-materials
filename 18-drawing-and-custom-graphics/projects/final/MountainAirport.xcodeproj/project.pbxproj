@@ -36,6 +36,8 @@
 		A9CF243125152C8300EA887E /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9CF243025152C8300EA887E /* AppEnvironment.swift */; };
 		A9D22597252403B50042062B /* SearchFlights.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D22596252403B50042062B /* SearchFlights.swift */; };
 		A9DA2758250BCF9200A2262A /* MountainAirport.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9DA2757250BCF9200A2262A /* MountainAirport.swift */; };
+		A9DB9FE629BD45AF009EE9A0 /* HistoryPieChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9DB9FE529BD45AF009EE9A0 /* HistoryPieChart.swift */; };
+		A9DB9FE829BD49C4009EE9A0 /* AwardStars.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9DB9FE729BD49C4009EE9A0 /* AwardStars.swift */; };
 		A9E462402509B44800128AB1 /* FlightHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E4623A2509B44500128AB1 /* FlightHistory.swift */; };
 		A9E462412509B44800128AB1 /* FlightData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E4623B2509B44600128AB1 /* FlightData.swift */; };
 		A9E462422509B44800128AB1 /* SavedFlights.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E4623C2509B44600128AB1 /* SavedFlights.swift */; };
@@ -77,6 +79,8 @@
 		A9CF243025152C8300EA887E /* AppEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironment.swift; sourceTree = "<group>"; };
 		A9D22596252403B50042062B /* SearchFlights.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFlights.swift; sourceTree = "<group>"; };
 		A9DA2757250BCF9200A2262A /* MountainAirport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MountainAirport.swift; sourceTree = "<group>"; };
+		A9DB9FE529BD45AF009EE9A0 /* HistoryPieChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryPieChart.swift; sourceTree = "<group>"; };
+		A9DB9FE729BD49C4009EE9A0 /* AwardStars.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwardStars.swift; sourceTree = "<group>"; };
 		A9E4623A2509B44500128AB1 /* FlightHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlightHistory.swift; sourceTree = "<group>"; };
 		A9E4623B2509B44600128AB1 /* FlightData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlightData.swift; sourceTree = "<group>"; };
 		A9E4623C2509B44600128AB1 /* SavedFlights.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavedFlights.swift; sourceTree = "<group>"; };
@@ -183,6 +187,7 @@
 				A9AB45A5252E697800DC8653 /* AwardsView.swift */,
 				A98E3DC0252F838400C4AAD9 /* AwardCardView.swift */,
 				A93AD0F5253364B400182D1B /* AwardDetails.swift */,
+				A9DB9FE729BD49C4009EE9A0 /* AwardStars.swift */,
 			);
 			path = AwardsView;
 			sourceTree = "<group>";
@@ -195,6 +200,7 @@
 				A9CB5E0C2539FA6F004253E8 /* FlightSearchDetails.swift */,
 				A9CB5E132539FCDE004253E8 /* FlightSearchSummary.swift */,
 				A9CB5E1C253A587F004253E8 /* FlightTimeHistory.swift */,
+				A9DB9FE529BD45AF009EE9A0 /* HistoryPieChart.swift */,
 			);
 			path = SearchFlights;
 			sourceTree = "<group>";
@@ -320,6 +326,7 @@
 				A92CC5E4250E7AEA0010BF40 /* FlightDetails.swift in Sources */,
 				A98E3DC1252F838400C4AAD9 /* AwardCardView.swift in Sources */,
 				A9E462442509B44800128AB1 /* FlightInformation.swift in Sources */,
+				A9DB9FE829BD49C4009EE9A0 /* AwardStars.swift in Sources */,
 				A9AC654729BB9BE500CF79CA /* TerminalStore.swift in Sources */,
 				A9CB5E1A253A54F9004253E8 /* CheckInInfo.swift in Sources */,
 				A9E462452509B44800128AB1 /* PurchasedFlights.swift in Sources */,
@@ -330,6 +337,7 @@
 				A9CF24202515097D00EA887E /* FlightStatusBoard.swift in Sources */,
 				A92CC1EC29B017230059183B /* TerminalAView.swift in Sources */,
 				A92CC1EF29B01A4A0059183B /* WelcomeButtonView.swift in Sources */,
+				A9DB9FE629BD45AF009EE9A0 /* HistoryPieChart.swift in Sources */,
 				A9CB5E1D253A587F004253E8 /* FlightTimeHistory.swift in Sources */,
 				A9E462432509B44800128AB1 /* AwardInformation.swift in Sources */,
 				A9DA2758250BCF9200A2262A /* MountainAirport.swift in Sources */,
