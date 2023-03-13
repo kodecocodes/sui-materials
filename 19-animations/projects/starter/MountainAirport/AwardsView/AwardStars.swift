@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Razeware LLC
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -33,31 +33,20 @@ struct AwardStars: View {
 
   var body: some View {
     Canvas { gContext, size in
-      // 1
       guard let starSymbol = gContext.resolveSymbol(id: 0) else {
         return
       }
-
-      // 1
       let centerOffset = (size.width - (20 * Double(stars))) / 2.0
-      // 2
       gContext.translateBy(x: centerOffset, y: size.height / 2.0)
-      // 1
       for star in 0..<stars {
-        // 2
         let starXPosition = Double(star) * 20.0
-        // 3
         let point = CGPoint(x: starXPosition + 8, y: 0)
-        // 4
         gContext.draw(starSymbol, at: point, anchor: .leading)
       }
-      // 2
     } symbols: {
-      // 3
       Image(systemName: "star.fill")
         .resizable()
         .frame(width: 15, height: 15)
-        // 4
         .tag(0)
     }
   }
