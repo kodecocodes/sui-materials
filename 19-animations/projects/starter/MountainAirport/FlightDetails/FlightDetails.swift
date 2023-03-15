@@ -45,13 +45,15 @@ struct FlightDetails: View {
       VStack(alignment: .leading) {
         FlightDetailHeader(flight: flight)
         FlightInfoPanel(flight: flight)
+          .frame(maxWidth: .infinity, alignment: .topLeading)
           .padding()
           .background(
             RoundedRectangle(cornerRadius: 20.0)
               .opacity(0.3)
           )
         Spacer()
-      }.foregroundColor(.white)
+      }
+      .foregroundColor(.white)
       .padding()
       .navigationTitle("\(flight.airline) Flight \(flight.number)")
     }

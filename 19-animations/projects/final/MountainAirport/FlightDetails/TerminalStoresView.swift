@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Razeware LLC
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -28,40 +28,54 @@
 
 import SwiftUI
 
-struct WelcomeAnimation: View {
-  private var startTime = Date()
-  private let animationLength = 5.0
+struct TerminalStoresView: View {
+  var flight: FlightInformation
+
+  var stores: [TerminalStore] {
+    if flight.terminal == "A" {
+      return TerminalStore.terminalStoresA
+    } else {
+      return TerminalStore.terminalStoresB
+    }
+  }
 
   var body: some View {
-    TimelineView(.animation) { timelineContext in
-      Canvas { graphicContext, size in
-        guard let planeSymbol = graphicContext.resolveSymbol(id: 0) else {
-          return
-        }
-
-        // 1
-        let timePosition = (timelineContext.date.timeIntervalSince(startTime))
-          .truncatingRemainder(dividingBy: animationLength)
-        // 2
-        let xPosition = timePosition / animationLength * size.width
-        // 3
-        graphicContext.draw(
-          planeSymbol,
-          at: .init(x: xPosition, y: size.height / 2.0)
-        )
-      } symbols: {
-        Image(systemName: "airplane")
-          .resizable()
-          .aspectRatio(1.0, contentMode: .fit)
-          .frame(height: 40)
-          .tag(0)
+    GeometryReader { proxy in
+      let width = proxy.size.width
+      let height = proxy.size.height
+      let storeWidth = width / 6
+      let storeHeight = storeWidth / 1.75
+      let storeSpacing = width / 5
+      let firstStoreOffset = flight.terminal == "A" ?
+      width - storeSpacing :
+      storeSpacing - storeWidth
+      let direction = flight.terminal == "A" ? -1.0 : 1.0
+      ForEach(stores.indices, id: \.self) { index in
+        let store = stores[index]
+        let xOffset = Double(index) * storeSpacing * direction + firstStoreOffset
+        RoundedRectangle(cornerRadius: 5.0)
+          .foregroundColor(
+            Color(
+              hue: 0.3333,
+              saturation: 1.0 - store.howBusy,
+              brightness: 1.0 - store.howBusy
+            )
+          )
+          .overlay(
+            Text(store.shortName)
+              .font(.footnote)
+              .foregroundColor(.white)
+              .shadow(radius: 5)
+          )
+          .frame(width: storeWidth, height: storeHeight)
+          .offset(x: xOffset, y: height * 0.4)
       }
     }
   }
 }
 
-struct WelcomeAnimation_Previews: PreviewProvider {
+struct TerminalStoresView_Previews: PreviewProvider {
   static var previews: some View {
-    WelcomeAnimation()
+    TerminalStoresView(flight: FlightData.generateTestFlight(date: Date()))
   }
 }
