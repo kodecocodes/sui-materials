@@ -1,15 +1,15 @@
-/// Copyright (c) 2021 Razeware LLC
-/// 
+/// Copyright (c) 2023 Kodeco Inc.
+///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
 /// in the Software without restriction, including without limitation the rights
 /// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 /// copies of the Software, and to permit persons to whom the Software is
 /// furnished to do so, subject to the following conditions:
-/// 
+///
 /// The above copyright notice and this permission notice shall be included in
 /// all copies or substantial portions of the Software.
-/// 
+///
 /// Notwithstanding the foregoing, you may not use, copy, modify, merge, publish,
 /// distribute, sublicense, create a derivative work, and/or sell copies of the
 /// Software in any work that is designed, intended, or marketed for pedagogical or
@@ -17,7 +17,7 @@
 /// or information technology.  Permission for such use, copying, modification,
 /// merger, publication, distribution, sublicensing, creation of derivative works,
 /// or sale is expressly withheld.
-/// 
+///
 /// This project and source code may use libraries or frameworks that are
 /// released under various Open-Source licenses. Use of those libraries and
 /// frameworks are governed by their own individual licenses.
@@ -33,14 +33,28 @@
 import SwiftUI
 
 struct SettingsView: View {
-  @AppStorage("numberOfQuestions") var numberOfQuestions = 6
-  @AppStorage("appearance") var appearance: Appearance = .automatic
-  @AppStorage("learningEnabled") var learningEnabled: Bool = true
-  @AppStorage("dailyReminderEnabled") var dailyReminderEnabled = false
-  @State var dailyReminderTime = Date(timeIntervalSince1970: 0)
-  @AppStorage("dailyReminderTime") var dailyReminderTimeShadow: Double = 0
-  @AppStorage("cardBackgroundColor") var cardBackgroundColorInt: Int = 0xFF0000FF
-  @State var cardBackgroundColor: Color = .red
+  @EnvironmentObject var challengesViewModel: ChallengesViewModel
+
+  @AppStorage("appearance")
+  var appearance: Appearance = .automatic
+
+  @AppStorage("learningEnabled")
+  var learningEnabled: Bool = true
+  
+  @AppStorage("dailyReminderEnabled")
+  var dailyReminderEnabled = false
+  
+  @State
+  var dailyReminderTime = Date(timeIntervalSince1970: 0)
+  
+  @AppStorage("dailyReminderTime")
+  var dailyReminderTimeShadow: Double = 0
+  
+  @AppStorage("cardBackgroundColor")
+  var cardBackgroundColorInt: Int = 0xFF0000FF
+  
+  @State
+  var cardBackgroundColor: Color = .red
 
   var body: some View {
     List {
@@ -53,7 +67,8 @@ struct SettingsView: View {
           Picker("", selection: $appearance) {
             ForEach(Appearance.allCases) { appearance in
               Text(appearance.name).tag(appearance)
-            }          }
+            }
+          }
           .pickerStyle(SegmentedPickerStyle())
           
           ColorPicker(
@@ -66,8 +81,8 @@ struct SettingsView: View {
       Section(header: Text("Game")) {
         VStack(alignment: .leading) {
           Stepper(
-            "Number of Questions: \(numberOfQuestions)",
-            value: $numberOfQuestions,
+            "Number of Questions: \(challengesViewModel.numberOfQuestions)",
+            value: $challengesViewModel.numberOfQuestions,
             in: 3 ... 20
           )
           Text("Any change will affect the next game")
@@ -81,21 +96,29 @@ struct SettingsView: View {
       Section(header: Text("Notifications")) {
         HStack {
           Toggle("Daily Reminder", isOn: $dailyReminderEnabled)
+
           DatePicker("", selection: $dailyReminderTime, displayedComponents: .hourAndMinute)
+            .disabled(dailyReminderEnabled == false)
         }
       }
-      .onChange(of: dailyReminderEnabled, perform: { _ in configureNotification() })
-      .onChange(of: dailyReminderTime, perform: { newValue in
+    }
+    .onChange(
+      of: dailyReminderEnabled,
+      perform: { _ in configureNotification() }
+    )
+    .onChange(
+      of: dailyReminderTime,
+      perform: { newValue in
         dailyReminderTimeShadow = newValue.timeIntervalSince1970
         configureNotification()
-      })
-      .onChange(of: cardBackgroundColor, perform: { newValue in
-        cardBackgroundColorInt = newValue.asRgba
-      })
-      .onAppear {
-        dailyReminderTime = Date(timeIntervalSince1970: dailyReminderTimeShadow)
-        cardBackgroundColor = Color(rgba: cardBackgroundColorInt)
       }
+    )
+    .onChange(of: cardBackgroundColor, perform: { newValue in
+      cardBackgroundColorInt = newValue.asRgba
+    })
+    .onAppear {
+      dailyReminderTime = Date(timeIntervalSince1970: dailyReminderTimeShadow)
+      cardBackgroundColor = Color(rgba: cardBackgroundColorInt)
     }
   }
   
@@ -109,7 +132,10 @@ struct SettingsView: View {
 }
 
 struct SettingsView_Previews: PreviewProvider {
+  static let challengesViewModel = ChallengesViewModel()
+  
   static var previews: some View {
     SettingsView()
+      .environmentObject(self.challengesViewModel)
   }
 }
