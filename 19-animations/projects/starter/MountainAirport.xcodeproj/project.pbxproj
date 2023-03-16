@@ -11,6 +11,7 @@
 		18D775C722AD944400AE281E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18D775C622AD944400AE281E /* Assets.xcassets */; };
 		18D775CA22AD944400AE281E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18D775C922AD944400AE281E /* Preview Assets.xcassets */; };
 		18D775D822AD963800AE281E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18D775DA22AD963800AE281E /* LaunchScreen.storyboard */; };
+		A929BC1029C29717002ACA08 /* GatePathView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A929BC0F29C29717002ACA08 /* GatePathView.swift */; };
 		A92AE318252785770076F3B9 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92AE317252785770076F3B9 /* DateExtensions.swift */; };
 		A92AE31D2527858D0076F3B9 /* DateFormatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92AE31C2527858D0076F3B9 /* DateFormatters.swift */; };
 		A92CC1EC29B017230059183B /* TerminalAView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92CC1EA29B017220059183B /* TerminalAView.swift */; };
@@ -55,6 +56,7 @@
 		18D775C922AD944400AE281E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		18D775CE22AD944400AE281E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18D775DE22AD96B400AE281E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		A929BC0F29C29717002ACA08 /* GatePathView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatePathView.swift; sourceTree = "<group>"; };
 		A92AE317252785770076F3B9 /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		A92AE31C2527858D0076F3B9 /* DateFormatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatters.swift; sourceTree = "<group>"; };
 		A92CC1EA29B017220059183B /* TerminalAView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TerminalAView.swift; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 				A951532125215903001F6464 /* FlightInfoPanel.swift */,
 				A92CC1F229B022C80059183B /* TerminalMapView.swift */,
 				A934621729BEA50D00F8647E /* TerminalStoresView.swift */,
+				A929BC0F29C29717002ACA08 /* GatePathView.swift */,
 			);
 			path = FlightDetails;
 			sourceTree = "<group>";
@@ -334,6 +337,7 @@
 				A9CB5E1A253A54F9004253E8 /* CheckInInfo.swift in Sources */,
 				A9E462452509B44800128AB1 /* PurchasedFlights.swift in Sources */,
 				A9E4E13426EBDC6800908A6B /* HighlightActionView.swift in Sources */,
+				A929BC1029C29717002ACA08 /* GatePathView.swift in Sources */,
 				A92AE31D2527858D0076F3B9 /* DateFormatters.swift in Sources */,
 				A9E462412509B44800128AB1 /* FlightData.swift in Sources */,
 				A998D86925212B8F00DC64A7 /* FlightList.swift in Sources */,

@@ -99,6 +99,9 @@ struct WelcomeView: View {
 
   var body: some View {
     NavigationSplitView {
+      WelcomeAnimation()
+        .frame(height: 40)
+        .padding()
       List(sidebarButtons, selection: $selectedView) { button in
         WelcomeButtonView(
           title: button.title,

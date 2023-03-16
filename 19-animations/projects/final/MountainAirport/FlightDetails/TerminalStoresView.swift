@@ -1,4 +1,4 @@
-/// Copyright (c) 2023 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -30,6 +30,7 @@ import SwiftUI
 
 struct TerminalStoresView: View {
   var flight: FlightInformation
+  @State private var showStores = false
 
   var stores: [TerminalStore] {
     if flight.terminal == "A" {
@@ -37,6 +38,10 @@ struct TerminalStoresView: View {
     } else {
       return TerminalStore.terminalStoresB
     }
+  }
+
+  func storeAnimation(_ storeNumber: Int) -> Animation {
+    return .easeInOut.delay(Double(storeNumber) * 0.3)
   }
 
   var body: some View {
@@ -68,8 +73,17 @@ struct TerminalStoresView: View {
               .shadow(radius: 5)
           )
           .frame(width: storeWidth, height: storeHeight)
-          .offset(x: xOffset, y: height * 0.4)
+          .offset(
+            x: showStores ?
+              xOffset :
+              firstStoreOffset - direction * width,
+            y: height * 0.4
+          )
+          .animation(storeAnimation(index), value: showStores)
       }
+    }
+    .onAppear {
+      showStores = true
     }
   }
 }
