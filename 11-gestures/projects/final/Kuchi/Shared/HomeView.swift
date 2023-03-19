@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -56,13 +56,13 @@ struct HomeView: View {
         userName: $userManager.profile.name,
         numberOfAnswered: .constant(challengesViewModel.numberOfAnswered)
       )
-        .tabItem({
-          VStack {
-            Image(systemName: "rectangle.dock")
-            Text("Challenge")
-          }
-        })
-        .tag(1)
+      .tabItem({
+        VStack {
+          Image(systemName: "rectangle.dock")
+          Text("Challenge")
+        }
+      })
+      .tag(1)
 
       SettingsView()
         .tabItem({
