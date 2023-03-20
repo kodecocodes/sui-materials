@@ -93,10 +93,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CD405F062536AA720062B1CC /* Build configuration list for PBXNativeTarget "RGBullsEye" */;
 			buildPhases = (
+				CD3D493125382939001D6A68 /* SwiftLint */,
 				CD405EF32536AA700062B1CC /* Sources */,
 				CD405EF42536AA700062B1CC /* Frameworks */,
 				CD405EF52536AA700062B1CC /* Resources */,
-				CD3D493125382939001D6A68 /* SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -155,6 +155,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		CD3D493125382939001D6A68 /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -169,7 +170,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ -f ~/com.raywenderlich.swiftlint.yml ]; then\n  if which swiftlint >/dev/null; then\n    swiftlint --config ~/com.raywenderlich.swiftlint.yml\n  fi\nfi\n";
+			shellScript = "PATH=/opt/homebrew/bin:$PATH\nif [ -f ~/com.raywenderlich.swiftlint.yml ]; then\n  if which swiftlint >/dev/null; then\n    swiftlint --no-cache --config ~/com.raywenderlich.swiftlint.yml\n  fi\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
