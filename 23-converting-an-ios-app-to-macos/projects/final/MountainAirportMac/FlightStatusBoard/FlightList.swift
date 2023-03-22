@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -34,8 +34,9 @@ import SwiftUI
 
 struct FlightList: View {
   var flights: [FlightInformation]
+  var flightToShow: FlightInformation?
+  @State private var path: [FlightInformation] = []
   @Binding var highlightedIds: [Int]
-  @SceneStorage("selectedFlightID") var selectedFlightID: Int?
 
   func rowHighlighted(_ flightId: Int) -> Bool {
     return highlightedIds.contains { $0 == flightId }
@@ -47,37 +48,34 @@ struct FlightList: View {
         $0.localTime >= Date()
       }
     ) else {
-      // swiftlint:disable:next force_unwrapping
-      return flights.last!.id
+      return flights.last?.id ?? 0
     }
     return flight.id
   }
 
+  @SceneStorage("selectedFlightID") var selectedFlightID: Int?
+
   var body: some View {
     ScrollViewReader { scrollProxy in
-      List(flights) { flight in
-        Button(action: {
-          selectedFlightID = flight.id
-        }, label: {
-          FlightRow(flight: flight)
-        }).buttonStyle(.plain)
-      }.onAppear {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
-          scrollProxy.scrollTo(nextFlightId, anchor: .top)
-        }
+      List(flights, selection: $selectedFlightID) { flight in
+        FlightRow(flight: flight)
+          .tag(flight.id)
+      }
+      .onAppear {
+        scrollProxy.scrollTo(nextFlightId, anchor: .top)
       }
     }
-    .frame(minWidth: 350)
   }
 }
 
 struct FlightList_Previews: PreviewProvider {
   static var previews: some View {
-    NavigationView {
+    NavigationStack {
       FlightList(
         flights: FlightData.generateTestFlights(date: Date()),
         highlightedIds: .constant([15])
       )
     }
+    .environmentObject(AppEnvironment())
   }
 }
