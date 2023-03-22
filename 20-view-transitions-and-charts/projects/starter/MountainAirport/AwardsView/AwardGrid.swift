@@ -1,4 +1,4 @@
-/// Copyright (c) 2023 Kodeco Inc
+/// Copyright (c) 2023 Kodeco LLC
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -17,11 +17,7 @@
 /// or information technology.  Permission for such use, copying, modification,
 /// merger, publication, distribution, sublicensing, creation of derivative works,
 /// or sale is expressly withheld.
-///
-/// This project and source code may use libraries or frameworks that are
-/// released under various Open-Source licenses. Use of those libraries and
-/// frameworks are governed by their own individual licenses.
-///
+/// 
 /// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 /// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 /// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -32,61 +28,37 @@
 
 import SwiftUI
 
-struct AwardsView: View {
-  @EnvironmentObject var flightNavigation: AppEnvironment
-  var awardArray: [AwardInformation] {
-    flightNavigation.awardList
-  }
-
-  var awardColumns: [GridItem] {
-    [GridItem(.adaptive(minimum: 150, maximum: 170))]
-  }
-
-  var activeAwards: [AwardInformation] {
-    awardArray.filter { $0.awarded }
-  }
-
-  var inactiveAwards: [AwardInformation] {
-    awardArray.filter { !$0.awarded }
-  }
+struct AwardGrid: View {
+  var title: String
+  var awards: [AwardInformation]
 
   var body: some View {
-    NavigationStack {
-      ScrollView {
-        LazyVGrid(columns: awardColumns) {
-          AwardGrid(
-            title: "Awarded",
-            awards: activeAwards
-          )
-          AwardGrid(
-            title: "Not Awarded",
-            awards: inactiveAwards
-          )
-        }
-        .navigationDestination(for: AwardInformation.self) { award in
-          AwardDetails(award: award)
-        }
+    Section(
+      header: Text(title)
+        .frame(maxWidth: .infinity)
         .font(.title)
         .foregroundColor(.white)
-        .padding()
+        .background(
+          .ultraThinMaterial,
+          in: RoundedRectangle(cornerRadius: 10)
+        )
+    ) {
+      ForEach(awards, id: \.self) { award in
+        NavigationLink(destination: AwardDetails(award: award)) {
+          AwardCardView(award: award)
+            .foregroundColor(.black)
+            .aspectRatio(0.67, contentMode: .fit)
+        }
       }
-      .navigationTitle("Your Awards")
-      .padding()
-      .background(
-        Image("background-view")
-          .resizable()
-          .frame(maxWidth: .infinity, maxHeight: .infinity)
-      )
     }
   }
 }
 
-
-struct AwardsView_Previews: PreviewProvider {
+struct AwardGrid_Previews: PreviewProvider {
   static var previews: some View {
-    NavigationStack {
-      AwardsView()
-    }
-    .environmentObject(AppEnvironment())
+    AwardGrid(
+      title: "Test",
+      awards: AppEnvironment().awardList
+    )
   }
 }

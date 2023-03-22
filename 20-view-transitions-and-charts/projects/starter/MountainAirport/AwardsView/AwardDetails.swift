@@ -56,7 +56,16 @@ struct AwardDetails: View {
         .foregroundColor(.yellow)
         .shadow(color: .black, radius: 5)
       Spacer()
-    }.padding()
+    }
+    .background(
+      LinearGradient(
+        gradient: Gradient(
+          colors: [Color.white, Color(red: 0.0, green: 0.5, blue: 1.0)]
+        ),
+        startPoint: .bottomLeading,
+        endPoint: .topTrailing)
+    )
+    .padding()
     .opacity(award.awarded ? 1.0 : 0.4)
     .saturation(award.awarded ? 1 : 0)
   }

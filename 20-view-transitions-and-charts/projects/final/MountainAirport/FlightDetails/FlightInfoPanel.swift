@@ -32,6 +32,16 @@
 
 import SwiftUI
 
+extension AnyTransition {
+  static var buttonNameTransition: AnyTransition {
+    let insertion = AnyTransition.move(edge: .trailing)
+      .combined(with: .opacity)
+    let removal = AnyTransition.scale(scale: 0.0)
+      .combined(with: .opacity)
+    return .asymmetric(insertion: insertion, removal: removal)
+  }
+}
+
 struct FlightInfoPanel: View {
   var flight: FlightInformation
   @State private var showTerminal = false
@@ -60,13 +70,7 @@ struct FlightInfoPanel: View {
         }
         Text(flight.flightStatus) + Text(" (\(timeFormatter.string(from: flight.localTime)))")
         Button {
-          withAnimation(
-            .spring(
-              response: 0.55,
-              dampingFraction: 0.45,
-              blendDuration: 0
-            )
-          ) {
+          withAnimation {
             showTerminal.toggle()
           }
         } label: {
@@ -75,8 +79,23 @@ struct FlightInfoPanel: View {
               .imageScale(.large)
               .padding(10)
               .rotationEffect(.degrees(showTerminal ? 90 : 270))
+              .animation(
+                .spring(
+                  response: 0.55,
+                  dampingFraction: 0.45,
+                  blendDuration: 0
+                ),
+                value: showTerminal
+              )
             Spacer()
-            Text(showTerminal ? "Hide Terminal Map" : "Show Terminal Map")
+            Group {
+              if showTerminal {
+                Text("Hide Terminal Map")
+              } else {
+                Text("Show Terminal Map")
+              }
+            }
+            .transition(.move(edge: .bottom))
             Spacer()
             Image(systemName: "airplane.circle")
               .imageScale(.large)
@@ -94,6 +113,7 @@ struct FlightInfoPanel: View {
         }
         if showTerminal {
           TerminalMapView(flight: flight)
+            .transition(.buttonNameTransition)
         }
         Spacer()
       }

@@ -1,4 +1,4 @@
-/// Copyright (c) 2023 Kodeco Inc
+/// Copyright (c) 2023 Kodeco LLC
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -17,11 +17,7 @@
 /// or information technology.  Permission for such use, copying, modification,
 /// merger, publication, distribution, sublicensing, creation of derivative works,
 /// or sale is expressly withheld.
-///
-/// This project and source code may use libraries or frameworks that are
-/// released under various Open-Source licenses. Use of those libraries and
-/// frameworks are governed by their own individual licenses.
-///
+/// 
 /// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 /// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 /// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -32,78 +28,51 @@
 
 import SwiftUI
 
-struct AwardsView: View {
-  @EnvironmentObject var flightNavigation: AppEnvironment
-  @State var selectedAward: AwardInformation?
-  @Namespace var cardNamespace
-
-  var awardArray: [AwardInformation] {
-    flightNavigation.awardList
-  }
-
-  var awardColumns: [GridItem] {
-    [GridItem(.adaptive(minimum: 150, maximum: 170))]
-  }
-
-  var activeAwards: [AwardInformation] {
-    awardArray.filter { $0.awarded }
-  }
-
-  var inactiveAwards: [AwardInformation] {
-    awardArray.filter { !$0.awarded }
-  }
+struct AwardGrid: View {
+  var title: String
+  var awards: [AwardInformation]
+  @Binding var selected: AwardInformation?
+  var namespace: Namespace.ID
 
   var body: some View {
-    ZStack {
-      // 1
-      if let award = selectedAward {
-        // 2
-        AwardDetails(award: award)
-          .background(Color.white)
-          .shadow(radius: 5.0)
-          .clipShape(RoundedRectangle(cornerRadius: 20.0))
-          // 3
+    Section(
+      header: Text(title)
+        .frame(maxWidth: .infinity)
+        .font(.title)
+        .foregroundColor(.white)
+        .background(
+          .ultraThinMaterial,
+          in: RoundedRectangle(cornerRadius: 10)
+        )
+    ) {
+      ForEach(awards, id: \.self) { award in
+        AwardCardView(award: award)
+          .foregroundColor(.black)
+          .aspectRatio(0.67, contentMode: .fit)
           .onTapGesture {
             withAnimation {
-              selectedAward = nil
+              selected = award
             }
           }
           .matchedGeometryEffect(
             id: award.hashValue,
-            in: cardNamespace,
+            in: namespace,
             anchor: .topLeading
           )
-          // 4
-          .navigationTitle(award.title)
-      } else {
-        ScrollView {
-          LazyVGrid(columns: awardColumns) {
-            AwardGrid(
-              title: "Awarded",
-              awards: activeAwards,
-              selected: $selectedAward,
-              namespace: cardNamespace
-            )
-            AwardGrid(
-              title: "Not Awarded",
-              awards: inactiveAwards,
-              selected: $selectedAward,
-              namespace: cardNamespace
-            )
-          }
-        }
-        .navigationTitle("Your Awards")
       }
     }
   }
 }
 
+struct AwardGrid_Previews: PreviewProvider {
+  @Namespace static var namespace
 
-struct AwardsView_Previews: PreviewProvider {
   static var previews: some View {
-    NavigationStack {
-      AwardsView()
-    }
-    .environmentObject(AppEnvironment())
+    AwardGrid(
+      title: "Test",
+      awards: AppEnvironment().awardList,
+      selected: .constant(nil),
+      namespace: namespace
+    )
   }
 }
