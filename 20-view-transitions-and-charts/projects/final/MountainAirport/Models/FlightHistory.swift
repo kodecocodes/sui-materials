@@ -60,11 +60,11 @@ class FlightHistory: NSObject {
     }
 
     if timeDifference < 0 {
-      return "Early by \(-timeDifference) minutes."
+      return "\(-timeDifference) m"
     } else if timeDifference == 0 {
       return "On time"
     } else {
-      return "Late by \(timeDifference) minutes."
+      return "\(timeDifference) m"
     }
   }
 
