@@ -65,9 +65,16 @@ struct AwardDetails: View {
         startPoint: .bottomLeading,
         endPoint: .topTrailing)
     )
+    .clipShape(RoundedRectangle(cornerRadius: 35.0))
     .padding()
     .opacity(award.awarded ? 1.0 : 0.4)
     .saturation(award.awarded ? 1 : 0)
+    .background(
+      Image("background-view")
+        .resizable()
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .edgesIgnoringSafeArea(.bottom)
+    )
   }
 }
 

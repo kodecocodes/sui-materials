@@ -73,7 +73,7 @@ struct AwardsView: View {
             in: cardNamespace,
             anchor: .topLeading
           )
-          // 4
+        // 4
           .navigationTitle(award.title)
       } else {
         ScrollView {
@@ -95,6 +95,12 @@ struct AwardsView: View {
         .navigationTitle("Your Awards")
       }
     }
+    .background(
+      Image("background-view")
+        .resizable()
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .edgesIgnoringSafeArea(.bottom)
+    )
   }
 }
 

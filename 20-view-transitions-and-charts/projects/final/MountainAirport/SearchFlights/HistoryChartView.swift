@@ -1,4 +1,4 @@
-/// Copyright (c) 2023 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -29,29 +29,29 @@
 import SwiftUI
 import Charts
 
+func barGradientColors(_ history: FlightHistory) -> Gradient {
+  if history.status == .canceled {
+    return Gradient(
+      colors: [
+        Color.green,
+        Color.yellow,
+        Color.red,
+        Color(red: 0.5, green: 0, blue: 0)
+      ] )
+  }
+  if history.timeDifference <= 0 {
+    return Gradient(colors: [Color.green])
+  }
+  if history.timeDifference <= 15 {
+    return Gradient(colors: [Color.green, Color.yellow])
+  }
+  return Gradient(
+    colors: [Color.green, Color.yellow, Color.red]
+  )
+}
+
 struct HistoryChartView: View {
   var flightHistory: [FlightHistory]
-
-  func barGradientColors(_ history: FlightHistory) -> Gradient {
-    if history.status == .canceled {
-      return Gradient(
-        colors: [
-          Color.green,
-          Color.yellow,
-          Color.red,
-          Color(red: 0.5, green: 0, blue: 0)
-        ] )
-    }
-    if history.timeDifference <= 0 {
-      return Gradient(colors: [Color.green])
-    }
-    if history.timeDifference <= 15 {
-      return Gradient(colors: [Color.green, Color.yellow])
-    }
-    return Gradient(
-      colors: [Color.green, Color.yellow, Color.red]
-    )
-  }
 
   var body: some View {
     // 1
