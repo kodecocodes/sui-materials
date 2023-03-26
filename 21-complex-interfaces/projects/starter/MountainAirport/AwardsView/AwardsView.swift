@@ -1,4 +1,4 @@
-/// Copyright (c) 2020 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -41,6 +41,10 @@ struct AwardsView: View {
     flightNavigation.awardList
   }
 
+  var awardColumns: [GridItem] {
+    [GridItem(.adaptive(minimum: 150, maximum: 170))]
+  }
+
   var activeAwards: [AwardInformation] {
     awardArray.filter { $0.awarded }
   }
@@ -49,20 +53,13 @@ struct AwardsView: View {
     awardArray.filter { !$0.awarded }
   }
 
-  var awardColumns: [GridItem] {
-    [GridItem(.adaptive(minimum: 150, maximum: 170))]
-  }
-
   var body: some View {
     ZStack {
-      // 1
       if let award = selectedAward {
-        // 2
         AwardDetails(award: award)
           .background(Color.white)
           .shadow(radius: 5.0)
           .clipShape(RoundedRectangle(cornerRadius: 20.0))
-          // 3
           .onTapGesture {
             withAnimation {
               selectedAward = nil
@@ -73,7 +70,6 @@ struct AwardsView: View {
             in: cardNamespace,
             anchor: .topLeading
           )
-          // 4
           .navigationTitle(award.title)
       } else {
         ScrollView {
@@ -95,14 +91,21 @@ struct AwardsView: View {
         .navigationTitle("Your Awards")
       }
     }
+    .background(
+      Image("background-view")
+        .resizable()
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .edgesIgnoringSafeArea(.bottom)
+    )
   }
 }
 
+
 struct AwardsView_Previews: PreviewProvider {
   static var previews: some View {
-    NavigationView {
+    NavigationStack {
       AwardsView()
-    }.navigationViewStyle(StackNavigationViewStyle())
+    }
     .environmentObject(AppEnvironment())
   }
 }

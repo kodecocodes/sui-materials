@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2020 Razeware LLC
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -36,11 +36,13 @@ struct FlightTimelineView: View {
       Image("background-view")
         .resizable()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        GenericTimeline(
-          events: flights,
-          timeProperty: \.localTime) { flight in
-          FlightCardView(flight: flight)
+      ScrollView {
+        VStack {
+          ForEach(flights) { flight in
+            FlightCardView(flight: flight)
+          }
         }
+      }
       .padding()
     }
     .foregroundColor(.white)

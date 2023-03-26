@@ -1,4 +1,4 @@
-/// Copyright (c) 2020 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -28,17 +28,40 @@
 
 import SwiftUI
 
-struct TimelineButton: View {
+struct TerminalMapView: View {
+  var flight: FlightInformation
+
   var body: some View {
-    WelcomeButtonView(
-      title: "Flight Timeline",
-      subTitle: "Flight Timeline",
-      imageName: "timelapse")
+    Group {
+      if flight.terminal == "A" {
+        Image("terminal-a-map")
+          .resizable()
+          .frame(maxWidth: .infinity)
+          .aspectRatio(contentMode: .fit)
+      } else {
+        Image("terminal-b-map")
+          .resizable()
+          .frame(maxWidth: .infinity)
+          .aspectRatio(contentMode: .fit)
+      }
+    }
+    .overlay {
+      TerminalStoresView(flight: flight)
+      GatePathView(flight: flight)
+        .foregroundColor(.white)
+    }
   }
 }
 
-struct TimelineButton_Previews: PreviewProvider {
+struct TerminalMapView_Previews: PreviewProvider {
   static var previews: some View {
-    TimelineButton()
+    Group {
+      TerminalMapView(
+        flight: FlightData().flights.first { $0.terminal == "A" }!
+      )
+      TerminalMapView(
+        flight: FlightData().flights.first { $0.terminal == "B" }!
+      )
+    }
   }
 }
