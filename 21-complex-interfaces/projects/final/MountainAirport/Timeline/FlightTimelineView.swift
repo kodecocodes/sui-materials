@@ -36,14 +36,11 @@ struct FlightTimelineView: View {
       Image("background-view")
         .resizable()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-      ScrollView {
-        VStack {
-          ForEach(flights) { flight in
-            FlightCardView(flight: flight)
-          }
-        }
-      }
-      .padding()
+      GenericTimeline(
+        events: flights,
+        timeProperty: \.localTime) { flight in
+          FlightCardView(flight: flight)
+      }      .padding()
     }
     .foregroundColor(.white)
     .navigationTitle("Flight Timeline")
