@@ -121,11 +121,11 @@ struct SwiftCalcView: View {
 
         LazyVGrid(columns: calculatorColumns, spacing: 10) {
           Group {
-            Button(action: {
+            Button {
               memory = 0.0
-            }, label: {
+            } label: {
               Text("MC")
-            })
+            }
             .buttonStyle(CalcButtonStyle())
 
             Button(action: {
@@ -135,7 +135,7 @@ struct SwiftCalcView: View {
             })
             .buttonStyle(CalcButtonStyle())
 
-            Button(action: {
+            Button {
               if let val = Double(display) {
                 memory += val
                 display = ""
@@ -144,175 +144,175 @@ struct SwiftCalcView: View {
                 // Add Bug Fix Here
                 display = "Error"
               }
-            }, label: {
+            } label: {
               Text("M+")
-            })
+            }
             .buttonStyle(CalcButtonStyle())
 
-            Button(action: {
+            Button {
               display = ""
-            }, label: {
+            } label: {
               Text("C")
-            })
+            }
             .buttonStyle(CalcButtonStyle())
 
-            Button(action: {
+            Button {
               display = ""
               accumulator = 0.0
               memory = 0.0
-            }, label: {
+            } label: {
               Text("AC")
-            })
+            }
             .buttonStyle(CalcButtonStyle())
 
-            Button(action: {
+            Button {
               let val = Double(display) ?? 0.0
               let root = sqrt(val)
               display = "\(root)"
-            }, label: {
+            } label: {
               Text("√")
-            })
+            }
             .buttonStyle(CalcButtonStyle())
 
-            Button(action: {
+            Button {
               addDisplayText("7")
-            }, label: {
+            } label: {
               Text("7")
-            })
+            }
             .buttonStyle(CalcButtonStyle())
 
-            Button(action: {
+            Button {
               addDisplayText("8")
-            }, label: {
+            } label: {
               Text("8")
-            })
+            }
             .buttonStyle(CalcButtonStyle())
 
-            Button(action: {
+            Button {
               addDisplayText("9")
-            }, label: {
+            } label: {
               Text("9")
-            })
+            }
             .buttonStyle(CalcButtonStyle())
 
-            Button(action: {
+            Button {
               doOperation(.divide)
-            }, label: {
+            } label: {
               Text("÷")
-            })
+            }
           }
           .buttonStyle(CalcButtonStyle())
 
           Group {
-            Button(action: {
+            Button {
               display = "\(Double.pi)"
-            }, label: {
+            } label: {
               Text("π")
-            })
+            }
             .buttonStyle(CalcButtonStyle())
 
-            Button(action: {
+            Button {
               addDisplayText("4")
-            }, label: {
+            } label: {
               Text("4")
-            })
+            }
             .buttonStyle(CalcButtonStyle())
 
-            Button(action: {
+            Button {
               addDisplayText("5")
-            }, label: {
+            } label: {
               Text("5")
-            })
+            }
             .buttonStyle(CalcButtonStyle())
 
-            Button(action: {
+            Button {
               addDisplayText("6")
-            }, label: {
+            } label: {
               Text("6")
-            })
+            }
             .buttonStyle(CalcButtonStyle())
 
-            Button(action: {
+            Button {
               doOperation(.multiply)
-            }, label: {
+            } label: {
               Text("x")
-            })
+            }
             .buttonStyle(CalcButtonStyle())
 
-            Button(action: {
+            Button {
               let val = Double(display) ?? 0.0
               let root = 1.0 / val
               display = "\(root)"
-            }, label: {
+            } label: {
               Text("1/x")
-            })
+            }
             .buttonStyle(CalcButtonStyle())
 
-            Button(action: {
+            Button {
               addDisplayText("1")
-            }, label: {
+            } label: {
               Text("1")
-            })
+            }
             .buttonStyle(CalcButtonStyle())
 
-            Button(action: {
+            Button {
               addDisplayText("2")
-            }, label: {
+            } label: {
               Text("2")
-            })
+            }
             .buttonStyle(CalcButtonStyle())
 
-            Button(action: {
+            Button {
               addDisplayText("3")
-            }, label: {
+            } label: {
               Text("3")
-            })
+            }
             .buttonStyle(CalcButtonStyle())
 
-            Button(action: {
+            Button {
               doOperation(.subtract)
-            }, label: {
+            } label: {
               Text("-")
-            })
+            }
             .buttonStyle(CalcButtonStyle())
           }
 
-          Button(action: {
+          Button {
             let val = Double(display) ?? 0.0
             display = "\(-val)"
-          }, label: {
+          } label: {
             Text("±")
-          })
+          }
           .buttonStyle(CalcButtonStyle())
 
-          Button(action: {
+          Button {
             if !display.contains(".") {
               addDisplayText(".")
             }
-          }, label: {
+          } label: {
             Text(".")
-          })
+          }
           .buttonStyle(CalcButtonStyle())
 
-          Button(action: {
+          Button {
             addDisplayText("0")
-          }, label: {
+          } label: {
             Text("0")
-          })
+          }
           .buttonStyle(CalcButtonStyle())
 
-          Button(action: {
+          Button {
             doOperation(.none)
-          }, label: {
+          } label: {
             Text("=")
-          })
+          }
           .buttonStyle(CalcButtonStyle())
 
-          Button(action: {
+          Button {
             doOperation(.add)
-          }, label: {
+          } label: {
             Text("+")
-          })
+          }
           .buttonStyle(CalcButtonStyle())
         }
         Spacer()
