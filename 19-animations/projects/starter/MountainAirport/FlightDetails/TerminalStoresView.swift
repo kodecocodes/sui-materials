@@ -1,4 +1,4 @@
-/// Copyright (c) 2023 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -30,6 +30,7 @@ import SwiftUI
 
 struct TerminalStoresView: View {
   var flight: FlightInformation
+  @State private var showStores = 0.0
 
   var stores: [TerminalStore] {
     if flight.terminal == "A" {
@@ -52,7 +53,8 @@ struct TerminalStoresView: View {
       let direction = flight.terminal == "A" ? -1.0 : 1.0
       ForEach(stores.indices, id: \.self) { index in
         let store = stores[index]
-        let xOffset = Double(index) * storeSpacing * direction + firstStoreOffset
+        let xOffset =
+        Double(index) * storeSpacing * direction * showStores + firstStoreOffset
         RoundedRectangle(cornerRadius: 5.0)
           .foregroundColor(
             Color(
