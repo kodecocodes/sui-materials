@@ -126,7 +126,9 @@
 				18D775BF22AD944300AE281E /* MountainAirport */,
 				18D775BE22AD944300AE281E /* Products */,
 			);
+			indentWidth = 2;
 			sourceTree = "<group>";
+			tabWidth = 2;
 		};
 		18D775BE22AD944300AE281E /* Products */ = {
 			isa = PBXGroup;
@@ -285,7 +287,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 1100;
 				LastUpgradeCheck = 1200;
-				ORGANIZATIONNAME = "Ray Wenderlich";
+				ORGANIZATIONNAME = Kodeco;
 				TargetAttributes = {
 					18D775BC22AD944300AE281E = {
 						CreatedOnToolsVersion = 11.0;
@@ -544,7 +546,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.raywenderlich.MountainAirport;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -569,7 +573,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.raywenderlich.MountainAirport;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
