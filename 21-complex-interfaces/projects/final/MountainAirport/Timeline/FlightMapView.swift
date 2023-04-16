@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -28,6 +28,7 @@
 
 import SwiftUI
 import MapKit
+
 
 class MapCoordinator: NSObject {
   var mapView: FlightMapView
@@ -120,12 +121,11 @@ struct FlightMapView: UIViewRepresentable {
       height: maxYPoint - minYPoint
     )
     // 4
-    let paddingSize = CGFloat(10.0)
     let padding = UIEdgeInsets(
-      top: paddingSize,
-      left: paddingSize,
-      bottom: paddingSize,
-      right: paddingSize
+      top: 10.0,
+      left: 10.0,
+      bottom: 10.0,
+      right: 10.0
     )
     // 5
     view.setVisibleMapRect(

@@ -17,11 +17,7 @@
 /// or information technology.  Permission for such use, copying, modification,
 /// merger, publication, distribution, sublicensing, creation of derivative works,
 /// or sale is expressly withheld.
-///
-/// This project and source code may use libraries or frameworks that are
-/// released under various Open-Source licenses. Use of those libraries and
-/// frameworks are governed by their own individual licenses.
-///
+/// 
 /// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 /// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 /// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -32,68 +28,68 @@
 
 import SwiftUI
 
-struct FlightList: View {
-  var flights: [FlightInformation]
-  var flightToShow: FlightInformation?
-  @State private var path: [FlightInformation] = []
-  @Binding var highlightedIds: [Int]
+struct TerminalStoresView: View {
+  var flight: FlightInformation
+  @State private var showStores = false
 
-  func rowHighlighted(_ flightId: Int) -> Bool {
-    return highlightedIds.contains { $0 == flightId }
+  var stores: [TerminalStore] {
+    if flight.terminal == "A" {
+      return TerminalStore.terminalStoresA
+    } else {
+      return TerminalStore.terminalStoresB
+    }
   }
 
-  var nextFlightId: Int {
-    guard let flight = flights.first(
-      where: {
-        $0.localTime >= Date()
-      }
-    ) else {
-      return flights.last?.id ?? 0
-    }
-    return flight.id
+  func storeAnimation(_ storeNumber: Int) -> Animation {
+    return .easeInOut.delay(Double(storeNumber) * 0.3)
   }
 
   var body: some View {
-    NavigationStack(path: $path) {
-      ScrollViewReader { scrollProxy in
-        List(flights) { flight in
-          NavigationLink(value: flight) {
-            FlightRow(flight: flight)
-          }
-          .swipeActions(edge: .leading) {
-            HighlightActionView(flightId: flight.id, highlightedIds: $highlightedIds)
-          }
-          .listRowBackground(
-            rowHighlighted(flight.id) ? Color.yellow.opacity(0.6) : Color.clear
+    GeometryReader { proxy in
+      let width = proxy.size.width
+      let height = proxy.size.height
+      let storeWidth = width / 6
+      let storeHeight = storeWidth / 1.75
+      let storeSpacing = width / 5
+      let firstStoreOffset = flight.terminal == "A" ?
+      width - storeSpacing :
+      storeSpacing - storeWidth
+      let direction = flight.terminal == "A" ? -1.0 : 1.0
+      ForEach(stores.indices, id: \.self) { index in
+        let store = stores[index]
+        let xOffset = Double(index) * storeSpacing * direction + firstStoreOffset
+        RoundedRectangle(cornerRadius: 5.0)
+          .foregroundColor(
+            Color(
+              hue: 0.3333,
+              saturation: 1.0 - store.howBusy,
+              brightness: 1.0 - store.howBusy
+            )
           )
-        }
-        .navigationDestination(
-          for: FlightInformation.self,
-          destination: { flight in
-            FlightDetails(flight: flight)
-          }
-        )
-        .onAppear {
-          scrollProxy.scrollTo(nextFlightId, anchor: .center)
-        }
+          .overlay(
+            Text(store.shortName)
+              .font(.footnote)
+              .foregroundColor(.white)
+              .shadow(radius: 5)
+          )
+          .frame(width: storeWidth, height: storeHeight)
+          .offset(
+            x: showStores ?
+              xOffset :
+              firstStoreOffset - direction * width,
+            y: height * 0.4
+          )
+          .animation(storeAnimation(index), value: showStores)
       }
     }
     .onAppear {
-      if let flight = flightToShow {
-        path.append(flight)
-      }
+      showStores = true
     }
   }
 }
 
-struct FlightList_Previews: PreviewProvider {
+struct TerminalStoresView_Previews: PreviewProvider {
   static var previews: some View {
-    NavigationStack {
-      FlightList(
-        flights: FlightData.generateTestFlights(date: Date()),
-        highlightedIds: .constant([15])
-      )
-    }
-    .environmentObject(AppEnvironment())
+    TerminalStoresView(flight: FlightData.generateTestFlight(date: Date()))
   }
 }

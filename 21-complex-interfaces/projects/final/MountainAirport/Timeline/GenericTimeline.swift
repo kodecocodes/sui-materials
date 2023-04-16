@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -29,10 +29,12 @@
 import SwiftUI
 
 struct GenericTimeline<Content, T>: View where Content: View {
+  // 1
   var events: [T]
   let content: (T) -> Content
   let timeProperty: KeyPath<T, Date>
 
+  // 2
   init(
     events: [T],
     timeProperty: KeyPath<T, Date>,
@@ -45,12 +47,15 @@ struct GenericTimeline<Content, T>: View where Content: View {
 
   var earliestHour: Int {
     let flightsAscending = events.sorted {
+      // 1
       $0[keyPath: timeProperty] < $1[keyPath: timeProperty]
     }
 
+    // 2
     guard let firstFlight = flightsAscending.first else {
       return 0
     }
+    // 3
     let hour = Calendar.current.component(
       .hour,
       from: firstFlight[keyPath: timeProperty]
@@ -74,17 +79,15 @@ struct GenericTimeline<Content, T>: View where Content: View {
   }
 
   func eventsInHour(_ hour: Int) -> [T] {
-    let filteredEvents = events
+    return events
       .filter {
         let flightHour =
           Calendar.current.component(
             .hour,
             from: $0[keyPath: timeProperty]
           )
-        let match = flightHour == hour
-        return match
+        return flightHour == hour
       }
-    return filteredEvents
   }
 
   func hourString(_ hour: Int) -> String {
@@ -95,19 +98,20 @@ struct GenericTimeline<Content, T>: View where Content: View {
     return "Unknown"
   }
 
+  // 3
   var body: some View {
     ScrollView {
       VStack(alignment: .leading) {
         // 1
-        ForEach(earliestHour..<latestHour) { hour in
+        ForEach(earliestHour..<latestHour, id: \.self) { hour in
           // 2
           let hourFlights = eventsInHour(hour)
           // 3
           Text(hourString(hour))
             .font(.title2)
           // 4
-          ForEach(hourFlights.indices) { index in
-            self.content(hourFlights[index])
+          ForEach(hourFlights.indices, id: \.self) { index in
+            content(hourFlights[index])
           }
         }
       }
