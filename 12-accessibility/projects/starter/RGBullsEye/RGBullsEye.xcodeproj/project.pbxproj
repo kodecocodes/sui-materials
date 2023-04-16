@@ -19,7 +19,7 @@
 		CDC83A04298F4E71001C6553 /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC83A03298F4E71001C6553 /* ViewExtension.swift */; };
 		CDC83A06298F5266001C6553 /* NeuButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC83A05298F5266001C6553 /* NeuButtonStyle.swift */; };
 		CDC83A08298F55AF001C6553 /* BevelText.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC83A07298F55AF001C6553 /* BevelText.swift */; };
-		CDD4D1972990A3930053AC4C /* SuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD4D1962990A3930053AC4C /* SuccessView.swift */; };
+		CDE5CCCC29E2DD2000BC9A33 /* SuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDE5CCCB29E2DD2000BC9A33 /* SuccessView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,7 +37,7 @@
 		CDC83A03298F4E71001C6553 /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
 		CDC83A05298F5266001C6553 /* NeuButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeuButtonStyle.swift; sourceTree = "<group>"; };
 		CDC83A07298F55AF001C6553 /* BevelText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BevelText.swift; sourceTree = "<group>"; };
-		CDD4D1962990A3930053AC4C /* SuccessView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SuccessView.swift; path = ../../starter/RGBullsEye/RGBullsEye/SuccessView.swift; sourceTree = "<group>"; };
+		CDE5CCCB29E2DD2000BC9A33 /* SuccessView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuccessView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,7 +74,7 @@
 			children = (
 				1839F4AF25190F2A00BB00F1 /* RGBullsEyeApp.swift */,
 				18D775C422AD944300AE281E /* ContentView.swift */,
-				CDD4D1962990A3930053AC4C /* SuccessView.swift */,
+				CDE5CCCB29E2DD2000BC9A33 /* SuccessView.swift */,
 				CDC83A01298F48EE001C6553 /* ColorCircle.swift */,
 				CDC83A07298F55AF001C6553 /* BevelText.swift */,
 				CDC83A03298F4E71001C6553 /* ViewExtension.swift */,
@@ -202,7 +202,7 @@
 			files = (
 				CDC839FD298CA4B2001C6553 /* RGB.swift in Sources */,
 				CDC839FB298CA4B2001C6553 /* ColorExtension.swift in Sources */,
-				CDD4D1972990A3930053AC4C /* SuccessView.swift in Sources */,
+				CDE5CCCC29E2DD2000BC9A33 /* SuccessView.swift in Sources */,
 				CDC83A08298F55AF001C6553 /* BevelText.swift in Sources */,
 				18D775C522AD944300AE281E /* ContentView.swift in Sources */,
 				CDC83A04298F4E71001C6553 /* ViewExtension.swift in Sources */,

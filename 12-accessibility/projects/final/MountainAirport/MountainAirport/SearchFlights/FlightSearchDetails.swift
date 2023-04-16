@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -36,9 +36,11 @@ struct FlightSearchDetails: View {
   var flight: FlightInformation
   @Binding var showModal: Bool
   @State private var rebookAlert = false
+  @State private var phone = ""
+  @State private var password = ""
   @State private var checkInFlight: CheckInInfo?
-  @State private var showFlightHistory = false
   @State private var showCheckIn = false
+  @State private var showFlightHistory = false
   @EnvironmentObject var lastFlightInfo: AppEnvironment
 
   var body: some View {
@@ -58,16 +60,17 @@ struct FlightSearchDetails: View {
           Button("Rebook Flight") {
             rebookAlert = true
           }
-          // 1
+          .frame(height: 44.0)
           .alert("Contact Your Airline", isPresented: $rebookAlert) {
-            // 2
-            Button("OK", role: .cancel) {
+            TextField("Phone", text: $phone)
+            SecureField("Password", text: $password)
+            Button("Call Me") {
             }
-            // 3
+            Button("Cancel", role: .cancel) {
+            }
           } message: {
-            Text(
-              "We cannot rebook this flight. Please contact the airline to reschedule this flight."
-            )
+            Text("We cannot rebook this flight. Please contact") +
+            Text(" the airline to reschedule this flight.")
           }
         }
         if flight.isCheckInAvailable {
@@ -79,21 +82,22 @@ struct FlightSearchDetails: View {
               )
             showCheckIn = true
           }
-          // 1
-          .confirmationDialog("Check In", isPresented: $showCheckIn, presenting: checkInFlight) { checkIn in
-            // 2
+          .frame(height: 44.0)
+          .confirmationDialog(
+            "Check In",
+            isPresented: $showCheckIn,
+            presenting: checkInFlight
+          ) { checkIn in
             Button("Check In") {
               print(
                 "Check-in for \(checkIn.airline) \(checkIn.flight)."
               )
             }
-            // 3
             Button("Reschedule", role: .destructive) {
               print("Reschedule flight.")
             }
-            // 4
+            .frame(height: 44.0)
             Button("Not Now", role: .cancel) { }
-            // 5
           } message: { checkIn in
             Text("Check in for \(checkIn.airline)" +
               "Flight \(checkIn.flight)")
@@ -102,6 +106,7 @@ struct FlightSearchDetails: View {
         Button("On-Time History") {
           showFlightHistory.toggle()
         }
+        .frame(height: 44.0)
         .sheet(isPresented: $showFlightHistory) {
           FlightTimeHistory(flight: flight)
         }
@@ -112,12 +117,14 @@ struct FlightSearchDetails: View {
               .opacity(0.3)
           )
         Spacer()
-      }.foregroundColor(.white)
+      }
+      .foregroundColor(.white)
       .padding()
-    }.onAppear {
-      lastFlightInfo.lastFlightId = flight.id
     }
     .interactiveDismissDisabled()
+    .onAppear {
+      lastFlightInfo.lastFlightId = flight.id
+    }
   }
 }
 
@@ -126,6 +133,7 @@ struct FlightSearchDetails_Previews: PreviewProvider {
     FlightSearchDetails(
       flight: FlightData.generateTestFlight(date: Date()),
       showModal: .constant(true)
-    ).environmentObject(AppEnvironment())
+    )
+    .environmentObject(AppEnvironment())
   }
 }

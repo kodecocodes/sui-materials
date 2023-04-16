@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -50,7 +50,7 @@ final class UserManager: ObservableObject {
   
   init(name: String) {
     isRegistered = name.isEmpty == false
-    self.profile.name = name
+    profile.name = name
   }
   
   func setRegistered() {

@@ -1,4 +1,4 @@
-/// Copyright (c) 2023 Kodeco LLC
+/// Copyright (c) 2023 Kodeco Inc.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -57,10 +57,22 @@ struct RGB {
       (rDiff * rDiff + gDiff * gDiff + bDiff * bDiff) / 3.0)
   }
 
-  /// Create a String representing the integer values of an RGB object.
+  var rInt: Int {
+    Int(red * 255.0)
+  }
+  var gInt: Int {
+    Int(green * 255.0)
+  }
+  var bInt: Int {
+    Int(blue * 255.0)
+  }
+
+  /// A String representing the integer values of an RGB instance.
   func intString() -> String {
-    "R: \(Int(red * 255.0))"
-      + "  G: \(Int(green * 255.0))"
-      + "  B: \(Int(blue * 255.0))"
+    "R \(rInt) G \(gInt) B \(bInt)"
+  }
+
+  func accString() -> String {
+    "Red \(rInt), Green \(gInt), Blue \(bInt)."
   }
 }

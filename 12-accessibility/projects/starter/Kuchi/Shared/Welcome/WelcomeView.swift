@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -34,12 +34,20 @@ import SwiftUI
 
 struct WelcomeView: View {
   @EnvironmentObject var userManager: UserManager
+  @EnvironmentObject var challengesViewModel: ChallengesViewModel
   @State var showPractice = false
   
-  @ViewBuilder
   var body: some View {
     if showPractice {
-      HomeView()
+      PracticeView(
+        challengeTest: $challengesViewModel.currentChallenge,
+        userName: $userManager.profile.name,
+        numberOfAnswered: .constant(challengesViewModel.numberOfAnswered)
+      )
+      .environment(
+        \.questionsPerSession,
+         challengesViewModel.numberOfQuestions
+      )
     } else {
       ZStack {
         WelcomeBackgroundImage()
