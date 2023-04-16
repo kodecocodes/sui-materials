@@ -3,11 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		181A114F22AD925B003EA9CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 181A114E22AD925B003EA9CF /* LaunchScreen.storyboard */; };
+		CDC83A00298DDBFA001C6553 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CDC839FF298DDBFA001C6553 /* LaunchScreen.storyboard */; };
 		CDCB57E51BED8F4800003224 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDCB57E41BED8F4800003224 /* AppDelegate.swift */; };
 		CDCB57E71BED8F4800003224 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDCB57E61BED8F4800003224 /* ViewController.swift */; };
 		CDCB57EA1BED8F4800003224 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CDCB57E81BED8F4800003224 /* Main.storyboard */; };
@@ -31,7 +31,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		181A114E22AD925B003EA9CF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		CDC839FF298DDBFA001C6553 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CDCB57E11BED8F4800003224 /* RGBullsEye.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RGBullsEye.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDCB57E41BED8F4800003224 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CDCB57E61BED8F4800003224 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -79,7 +79,7 @@
 				CDCB57F71BED941D00003224 /* RGB.swift */,
 				CDCB57FA1BED986300003224 /* AboutViewController.swift */,
 				CDCB57E81BED8F4800003224 /* Main.storyboard */,
-				181A114E22AD925B003EA9CF /* LaunchScreen.storyboard */,
+				CDC839FF298DDBFA001C6553 /* LaunchScreen.storyboard */,
 				CDCB57EB1BED8F4800003224 /* Assets.xcassets */,
 				CDCB57F01BED8F4800003224 /* Info.plist */,
 			);
@@ -116,7 +116,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0710;
 				LastUpgradeCheck = 1220;
-				ORGANIZATIONNAME = "Ray Wenderlich";
+				ORGANIZATIONNAME = Kodeco;
 				TargetAttributes = {
 					CDCB57E01BED8F4800003224 = {
 						CreatedOnToolsVersion = 7.1;
@@ -125,7 +125,7 @@
 				};
 			};
 			buildConfigurationList = CDCB57DC1BED8F4800003224 /* Build configuration list for PBXProject "RGBullsEye" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -147,7 +147,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				181A114F22AD925B003EA9CF /* LaunchScreen.storyboard in Resources */,
+				CDC83A00298DDBFA001C6553 /* LaunchScreen.storyboard in Resources */,
 				CDCB57EC1BED8F4800003224 /* Assets.xcassets in Resources */,
 				CDCB57EA1BED8F4800003224 /* Main.storyboard in Resources */,
 			);
@@ -158,6 +158,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		CDF08BDF253FCCEA0061DB4A /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -251,7 +252,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -302,7 +303,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -316,8 +317,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = RGBullsEye/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.razeware.RGBullsEye;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.yourcompany.RGBullsEye;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
@@ -328,8 +333,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = RGBullsEye/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.razeware.RGBullsEye;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.yourcompany.RGBullsEye;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
