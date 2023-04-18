@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -44,7 +44,7 @@ struct WelcomeView: View {
           .aspectRatio(contentMode: .fill)
           .frame(width: 375, height: 250)
           .clipped()
-        //Title
+        // Title
         VStack {
           Text("Mountain Airport")
             .font(.system(size: 28.0, weight: .bold))
