@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -37,7 +37,6 @@ struct WelcomeView: View {
   @ObservedObject var challengesViewModel = ChallengesViewModel()
   @State var showPractice = false
   
-  @ViewBuilder
   var body: some View {
     if showPractice {
       PracticeView(
@@ -53,14 +52,14 @@ struct WelcomeView: View {
           
           WelcomeMessageView()
           
-          Button(action: {
+          Button {
             showPractice = true
-          }, label: {
+          } label: {
             HStack {
               Image(systemName: "play")
               Text(verbatim: "Start")
             }
-          })
+          }
         }
       }
     }

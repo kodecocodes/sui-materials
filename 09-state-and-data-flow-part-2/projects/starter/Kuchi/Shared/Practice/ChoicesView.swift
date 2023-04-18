@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -42,7 +42,7 @@ struct ChoicesView : View {
 
   var body: some View {
     VStack(spacing: 25) {
-      ForEach(0 ..< challengeTest.answers.count) { index in
+      ForEach(0 ..< challengeTest.answers.count, id: \.self) { index in
         Button {
           challengeSolved = checkAnswer(at: index)
           isChallengeResultAlertDisplayed = true
@@ -86,7 +86,7 @@ struct ChoicesView : View {
   }
   
   func checkAnswer(at index: Int) -> Bool {
-    let answer = self.challengeTest.answers[index]
+    let answer = challengeTest.answers[index]
     let challengeSolved: Bool
     
     if challengeTest.isAnswerCorrect(answer) {
