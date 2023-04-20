@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -48,12 +48,12 @@ public struct SeededRandomGenerator: RandomNumberGenerator {
   }
 
   init(seed: UInt64) {
-    self.gkrandom = GKMersenneTwisterRandomSource(seed: seed)
+    gkrandom = GKMersenneTwisterRandomSource(seed: seed)
   }
 
   init() {
     let seed = UInt64.random(in: UInt64.min ... UInt64.max)
-    self.gkrandom = GKMersenneTwisterRandomSource(seed: seed)
+    gkrandom = GKMersenneTwisterRandomSource(seed: seed)
   }
 }
 
@@ -228,12 +228,12 @@ class FlightData: ObservableObject {
   }
 
   static func refreshFlights() async -> [FlightInformation] {
-    await Task.sleep(3 * 1_000_000_000) // Three seconds
+    sleep(3) // Three seconds
     return FlightData.generateTestFlights(date: Date())
   }
 
   static func searchFlightsForCity(_ city: String) async -> [FlightInformation] {
-    await Task.sleep(3 * 1_000_000_000) // Three seconds
+    sleep(3) // Three seconds
 
     let flights = FlightData().flights
     guard !city.isEmpty else {
