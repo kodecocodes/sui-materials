@@ -1,16 +1,14 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "MarkdownKit",
-        "repositoryURL": "https://github.com/objecthub/swift-markdownkit",
-        "state": {
-          "branch": null,
-          "revision": "e3b079151f9ca51ae0ada3087ad52a2642a45217",
-          "version": "1.1.2"
-        }
+  "pins" : [
+    {
+      "identity" : "swift-markdownkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/objecthub/swift-markdownkit",
+      "state" : {
+        "branch" : "master",
+        "revision" : "a2cd2e68719cf8b7eb4cf9b5da5d84900d97c3c9"
       }
-    ]
-  },
-  "version": 1
+    }
+  ],
+  "version" : 2
 }

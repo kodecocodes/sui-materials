@@ -1,4 +1,9 @@
-/// Copyright (c) 2023 Kodeco Inc.
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>FILEHEADER</key>
+	<string>/ Copyright (c) ___YEAR___ Kodeco Inc.
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -28,23 +33,6 @@
 /// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 /// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-/// THE SOFTWARE.
-
-import SwiftUI
-
-struct SettingsView: View {
-  @AppStorage("editorFontSize") var editorFontSize: Int = 14
-
-  var body: some View {
-    Stepper(value: $editorFontSize, in: 10 ... 30) {
-      Text("Font size: \(editorFontSize)")
-    }
-    .frame(width: 260, height: 80)
-  }
-}
-
-struct SettingsView_Previews: PreviewProvider {
-  static var previews: some View {
-    SettingsView()
-  }
-}
+/// THE SOFTWARE.</string>
+</dict>
+</plist>

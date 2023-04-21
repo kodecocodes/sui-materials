@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -55,7 +55,8 @@ struct MacMarkDownDocument: FileDocument {
   static var readableContentTypes: [UTType] { [.markdownText] }
 
   init(configuration: ReadConfiguration) throws {
-    guard let data = configuration.file.regularFileContents,
+    guard
+      let data = configuration.file.regularFileContents,
       let string = String(data: data, encoding: .utf8)
     else {
       throw CocoaError(.fileReadCorruptFile)
