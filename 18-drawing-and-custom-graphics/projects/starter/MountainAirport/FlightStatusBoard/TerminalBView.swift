@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -28,18 +28,40 @@
 
 import SwiftUI
 
-struct SearchFlightsButton: View {
+struct TerminalBView: View {
+  @Environment(\.dismiss) private var dismiss
+
   var body: some View {
-    WelcomeButtonView(
-      title: "Search Flights",
-      subTitle: "Search upcoming flights",
-      imageName: "magnifyingglass"
-    )
+    ZStack {
+      Image("background-view")
+        .resizable()
+        .rotationEffect(.degrees(180.0))
+        .clipShape(RoundedRectangle(cornerRadius: 20.0))
+        .padding()
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+      VStack(alignment: .leading) {
+        Text("Terminal B")
+          .font(.title)
+          .padding()
+        Text("Terminal B offers the follow stores:")
+          .font(.title2)
+        ForEach(TerminalStore.terminalStoresB) { store in
+          Text("\u{2022} \(store.name)")
+        }
+        Spacer()
+      }
+      .foregroundColor(.white)
+      .padding()
+      .font(.title3)
+    }
+    .onTapGesture {
+      dismiss()
+    }
   }
 }
 
-struct SearchFlightsButton_Previews: PreviewProvider {
+struct TerminalBView_Previews: PreviewProvider {
   static var previews: some View {
-    SearchFlightsButton()
+    TerminalBView()
   }
 }

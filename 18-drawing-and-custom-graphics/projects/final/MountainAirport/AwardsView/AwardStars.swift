@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -32,12 +32,11 @@ struct AwardStars: View {
   var stars: Int = 3
 
   var body: some View {
+    // 1
     Canvas { gContext, size in
-      // 1
       guard let starSymbol = gContext.resolveSymbol(id: 0) else {
         return
       }
-
       // 1
       let centerOffset = (size.width - (20 * Double(stars))) / 2.0
       // 2
@@ -51,7 +50,6 @@ struct AwardStars: View {
         // 4
         gContext.draw(starSymbol, at: point, anchor: .leading)
       }
-      // 2
     } symbols: {
       // 3
       Image(systemName: "star.fill")
