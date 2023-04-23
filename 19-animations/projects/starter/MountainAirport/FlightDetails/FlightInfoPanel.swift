@@ -1,15 +1,15 @@
-/// Copyright (c) 2021 Razeware LLC
-///
+/// Copyright (c) 2023 Kodeco Inc
+/// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
 /// in the Software without restriction, including without limitation the rights
 /// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 /// copies of the Software, and to permit persons to whom the Software is
 /// furnished to do so, subject to the following conditions:
-///
+/// 
 /// The above copyright notice and this permission notice shall be included in
 /// all copies or substantial portions of the Software.
-///
+/// 
 /// Notwithstanding the foregoing, you may not use, copy, modify, merge, publish,
 /// distribute, sublicense, create a derivative work, and/or sell copies of the
 /// Software in any work that is designed, intended, or marketed for pedagogical or
@@ -59,25 +59,20 @@ struct FlightInfoPanel: View {
           Text("Flying to \(flight.otherAirport)")
         }
         Text(flight.flightStatus) + Text(" (\(timeFormatter.string(from: flight.localTime)))")
-        Button(action: {
+        Button {
           showTerminal.toggle()
-        }, label: {
-          HStack(alignment: .center) {
-            Text(
-              showTerminal ?
-                "Hide Terminal Map" :
-                "Show Terminal Map"
-            )
+        } label: {
+          HStack {
+            Text(showTerminal ? "Hide Terminal Map" : "Show Terminal Map")
             Spacer()
             Image(systemName: "airplane.circle")
-              .resizable()
-              .frame(width: 30, height: 30)
+              .imageScale(.large)
               .padding(10)
               .rotationEffect(.degrees(showTerminal ? 90 : -90))
           }
-        })
+        }
         if showTerminal {
-          FlightTerminalMap(flight: flight)
+          TerminalMapView(flight: flight)
         }
         Spacer()
       }

@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -28,9 +28,15 @@
 
 import SwiftUI
 
-struct FlightTerminalMap: View {
+struct GatePathView: View {
   var flight: FlightInformation
   @State private var showPath = false
+
+  var walkingAnimation: Animation {
+    .linear(duration: 3.0)
+    .repeatForever(autoreverses: false)
+  }
+
 
   let gateAPaths = [
     [
@@ -89,55 +95,44 @@ struct FlightTerminalMap: View {
   ]
 
   func gatePath(_ proxy: GeometryProxy) -> [CGPoint] {
-    if let gateNumber = flight.gateNumber {
-      var pathPoints: [CGPoint]
-      if flight.terminalName == "A" {
-        pathPoints = gateAPaths[gateNumber - 1]
-      } else {
-        pathPoints = gateBPaths[gateNumber - 1]
-      }
+    guard let gateNumber = flight.gateNumber else { return [] }
 
-      let ratioX = proxy.size.width / 360.0
-      let ratioY = proxy.size.height / 480.0
-      var points: [CGPoint] = []
-      for pnt in pathPoints {
-        let newPoint = CGPoint(
-          x: pnt.x * ratioX, y: pnt.y * ratioY
-        )
-        points.append(newPoint)
-      }
-      return points
+    var pathPoints: [CGPoint]
+    if flight.terminal == "A" {
+      pathPoints = gateAPaths[gateNumber - 1]
+    } else {
+      pathPoints = gateBPaths[gateNumber - 1]
     }
 
-    return []
+    let ratioX = proxy.size.width / 360.0
+    let ratioY = proxy.size.height / 480.0
+    var points: [CGPoint] = []
+    for pnt in pathPoints {
+      let newPoint = CGPoint(
+        x: pnt.x * ratioX, y: pnt.y * ratioY
+      )
+      points.append(newPoint)
+    }
+    return points
   }
 
   var mapName: String {
-    "terminal-\(flight.terminalName)-map".lowercased()
-  }
-
-  var walkingAnimation: Animation {
-    .linear(duration: 3.0)
-    .repeatForever(autoreverses: false)
+    "terminal-\(flight.terminal)-map".lowercased()
   }
 
   var body: some View {
-    Image(mapName)
-      .resizable()
-      .aspectRatio(contentMode: .fit)
-      .overlay(
-        GeometryReader { proxy in
-          WalkPath(points: gatePath(proxy))
-            .trim(to: showPath ? 1.0 : 0.0)
-            .stroke(Color.white, lineWidth: 3.0)
-            .animation(walkingAnimation, value: showPath)
-        }
-      )
-      .onAppear {
-        showPath = true
-      }
+    GeometryReader { proxy in
+      WalkPath(points: gatePath(proxy))
+        .trim(to: showPath ? 1.0 : 0.0)
+        .stroke(lineWidth: 3.0)
+        .animation(walkingAnimation, value: showPath)
+    }
+    .onAppear {
+      showPath = true
+    }
   }
 }
+
 
 struct WalkPath: Shape {
   var points: [CGPoint]
@@ -165,8 +160,8 @@ struct FlightTerminalMap_Previews: PreviewProvider {
 
   static var previews: some View {
     Group {
-      FlightTerminalMap(flight: testGateA)
-      FlightTerminalMap(flight: testGateB)
+      GatePathView(flight: testGateA)
+      GatePathView(flight: testGateB)
     }
   }
 }

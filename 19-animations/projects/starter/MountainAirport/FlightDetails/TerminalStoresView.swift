@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -28,18 +28,56 @@
 
 import SwiftUI
 
-struct SearchFlightsButton: View {
+struct TerminalStoresView: View {
+  var flight: FlightInformation
+  @State private var showStores = 0.0
+
+  var stores: [TerminalStore] {
+    if flight.terminal == "A" {
+      return TerminalStore.terminalStoresA
+    } else {
+      return TerminalStore.terminalStoresB
+    }
+  }
+
   var body: some View {
-    WelcomeButtonView(
-      title: "Search Flights",
-      subTitle: "Search upcoming flights",
-      imageName: "magnifyingglass"
-    )
+    GeometryReader { proxy in
+      let width = proxy.size.width
+      let height = proxy.size.height
+      let storeWidth = width / 6
+      let storeHeight = storeWidth / 1.75
+      let storeSpacing = width / 5
+      let firstStoreOffset = flight.terminal == "A" ?
+      width - storeSpacing :
+      storeSpacing - storeWidth
+      let direction = flight.terminal == "A" ? -1.0 : 1.0
+      ForEach(stores.indices, id: \.self) { index in
+        let store = stores[index]
+        let xOffset =
+        Double(index) * storeSpacing * direction * showStores + firstStoreOffset
+        RoundedRectangle(cornerRadius: 5.0)
+          .foregroundColor(
+            Color(
+              hue: 0.3333,
+              saturation: 1.0 - store.howBusy,
+              brightness: 1.0 - store.howBusy
+            )
+          )
+          .overlay(
+            Text(store.shortName)
+              .font(.footnote)
+              .foregroundColor(.white)
+              .shadow(radius: 5)
+          )
+          .frame(width: storeWidth, height: storeHeight)
+          .offset(x: xOffset, y: height * 0.4)
+      }
+    }
   }
 }
 
-struct SearchFlightsButton_Previews: PreviewProvider {
+struct TerminalStoresView_Previews: PreviewProvider {
   static var previews: some View {
-    SearchFlightsButton()
+    TerminalStoresView(flight: FlightData.generateTestFlight(date: Date()))
   }
 }
