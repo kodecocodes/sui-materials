@@ -45,7 +45,6 @@ struct SuccessView: View {
       VStack {
         Image("wand")
           .resizable()
-          .accessibilityHidden(true)
           .frame(width: imageSize, height: imageSize)
         Text("Congratulations!")
           .font(.largeTitle)
