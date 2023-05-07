@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -49,7 +49,7 @@ struct History: Hashable {
   
   static func random(count: Int) -> [History] {
     return (0 ..< count)
-      .map({ _ in random() })
+      .map({ _ in self.random() })
       .sorted(by: { $0.date < $1.date })
   }
 }
@@ -67,9 +67,9 @@ struct HistoryView: View {
     Text("History")
       .foregroundColor(.white)
       .font(.title)
-      #if os(iOS)
+#if os(iOS)
       .frame(width: UIScreen.main.bounds.width, height: 50)
-      #endif
+#endif
       .background(Color.gray)
   }
   
@@ -104,9 +104,9 @@ struct HistoryView: View {
       }
     }
     .padding()
-    #if os(iOS)
+#if os(iOS)
     .frame(width: UIScreen.main.bounds.width)
-    #endif
+#endif
   }
   
   var body: some View {

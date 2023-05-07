@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -82,11 +82,11 @@ class ChallengesViewModel: ObservableObject {
   var allAnswers: [String] { return Self.challenges.map { $0.answer }}
   var correctAnswers: [Challenge] = []
   var wrongAnswers: [Challenge] = []
-  @AppStorage("numberOfQuestions") private(set) var numberOfQuestions = 6
-
+  @AppStorage("numberOfQuestions")
+  var numberOfQuestions = 6
+  
   var numberOfAnswered: Int { return correctAnswers.count }
   @Published var currentChallenge: ChallengeTest?
-  
   
   init() {
     generateRandomChallenge()
