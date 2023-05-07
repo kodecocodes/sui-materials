@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Razeware LLC
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -18,10 +18,6 @@
 /// merger, publication, distribution, sublicensing, creation of derivative works,
 /// or sale is expressly withheld.
 /// 
-/// This project and source code may use libraries or frameworks that are
-/// released under various Open-Source licenses. Use of those libraries and
-/// frameworks are governed by their own individual licenses.
-///
 /// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 /// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 /// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -32,39 +28,40 @@
 
 import SwiftUI
 
-extension View {
-  /// Simulate shining a light on the northwest edge of a view.
-  /// Light shadow on the northwest edge, dark shadow on the southeast edge.
-  ///   - parameters:
-  ///     - radius: The size of the shadow
-  ///     - offset: The value used for (-x, -y) and (x, y) offsets
-  func northWestShadow(
-    radius: CGFloat = 16,
-    offset: CGFloat = 6
-  ) -> some View {
-    return self
-      .shadow(
-        color: .highlight,
-        radius: radius,
-        x: -offset,
-        y: -offset)
-      .shadow(
-        color: .shadow, radius: radius, x: offset, y: offset)
-  }
+struct TerminalAView: View {
+  @Environment(\.dismiss) private var dismiss
 
-  /// Simulate shining a light on the southeast edge of a view.
-  /// Light shadow on the southeast edge, dark shadow on the northwest edge.
-  ///   - parameters:
-  ///     - radius: The size of the shadow
-  ///     - offset: The value used for (-x, -y) and (x, y) offsets
-  func southEastShadow(
-    radius: CGFloat = 16,
-    offset: CGFloat = 6
-  ) -> some View {
-    return self
-      .shadow(
-        color: .shadow, radius: radius, x: -offset, y: -offset)
-      .shadow(
-        color: .highlight, radius: radius, x: offset, y: offset)
+  var body: some View {
+    ZStack {
+      Image("background-view")
+        .resizable()
+        .rotationEffect(.degrees(180.0))
+        .clipShape(RoundedRectangle(cornerRadius: 20.0))
+        .padding()
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+      VStack(alignment: .leading) {
+        Text("Terminal A")
+          .font(.title)
+          .padding()
+        Text("Terminal A offers the follow dining options:")
+          .font(.title2)
+        Text("\u{2022} Juniper Fiddler")
+        Text("\u{2022} Orange Emperor")
+        Text("\u{2022}  Aqua Sunset")
+        Spacer()
+      }
+      .foregroundColor(.white)
+      .padding()
+      .font(.title3)
+    }
+    .onTapGesture {
+      dismiss()
+    }
+  }
+}
+
+struct TerminalAView_Previews: PreviewProvider {
+  static var previews: some View {
+    TerminalAView()
   }
 }
