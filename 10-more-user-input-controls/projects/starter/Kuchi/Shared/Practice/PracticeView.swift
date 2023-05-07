@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -38,10 +38,12 @@ struct PracticeView: View {
   @Binding var userName: String
   @Binding var numberOfAnswered: Int
   
-  @ViewBuilder
   var body: some View {
     if challengeTest != nil {
-      ChallengeView(challengeTest: challengeTest!, numberOfAnswered: $numberOfAnswered)
+      ChallengeView(
+        challengeTest: challengeTest!,
+        numberOfAnswered: $numberOfAnswered
+      )
     } else {
       CongratulationsView(userName: userName)
     }
@@ -50,6 +52,7 @@ struct PracticeView: View {
 
 struct PracticeView_Previews: PreviewProvider {
   @State static var numberOfAnswered: Int = 0
+  
   static let challengeTest = ChallengeTest(
     challenge: Challenge(question: "おねがい　します", pronunciation: "Onegai shimasu", answer: "Please"),
     answers: ["Thank you", "Hello", "Goodbye"]
@@ -60,6 +63,6 @@ struct PracticeView_Previews: PreviewProvider {
       challengeTest: .constant(challengeTest),
       userName: .constant("Johnny Swift"),
       numberOfAnswered: $numberOfAnswered
-    )
+    )    
   }
 }
