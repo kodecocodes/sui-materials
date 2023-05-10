@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -39,31 +39,33 @@ struct WelcomeButtonView: View {
   var imageAngle: Double = 0.0
 
   var body: some View {
-    VStack(alignment: .leading) {
+    HStack {
       Image(systemName: imageName)
         .resizable()
-        .frame(width: 20, height: 20)
+        .frame(width: 30, height: 30)
         .padding(10)
         .background(
           Circle()
             .foregroundColor(.white)
-            .opacity(0.3)
         )
+        .padding(15.0)
         .rotationEffect(.degrees(imageAngle))
-      Spacer()
-      Text(title)
-        .font(.title2)
-      Text(subTitle)
-        .font(.subheadline)
-    }.foregroundColor(.white)
-      .padding()
-      .frame(width: 155, height: 140, alignment: .leading)
-      .background(
-        Image("link-pattern")
-          .resizable()
-          .clipped()
-      )
-      .shadow(radius: 10)
+      VStack(alignment: .leading) {
+        Text(title)
+          .font(.title2)
+        Text(subTitle)
+          .font(.subheadline)
+      }
+      .foregroundColor(.white)
+      .padding([.top, .bottom], 15.0)
+    }
+    .frame(maxWidth: .infinity, alignment: .leading)
+    .background(
+      Image("link-pattern")
+        .resizable()
+        .clipped()
+    )
+    .shadow(radius: 10)
   }
 }
 

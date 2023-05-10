@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Razeware LLC
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -28,40 +28,40 @@
 
 import SwiftUI
 
-struct FlightTimelineView: View {
-  var flights: [FlightInformation]
+struct TerminalAView: View {
+  @Environment(\.dismiss) private var dismiss
 
   var body: some View {
     ZStack {
       Image("background-view")
         .resizable()
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-      GenericTimeline(
-        events: flights,
-        timeProperty: \.localTime) { flight in
-          FlightCardView(flight: flight)
-      }
+        .rotationEffect(.degrees(180.0))
+        .clipShape(RoundedRectangle(cornerRadius: 20.0))
         .padding()
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+      VStack(alignment: .leading) {
+        Text("Terminal A")
+          .font(.title)
+          .padding()
+        Text("Terminal A offers the follow stores:")
+          .font(.title2)
+        ForEach(TerminalStore.terminalStoresA) { store in
+          Text("\u{2022} \(store.name)")
+        }
+        Spacer()
+      }
+      .foregroundColor(.white)
+      .padding()
+      .font(.title3)
     }
-    .foregroundColor(.white)
-    .navigationTitle("Flight Timeline")
+    .onTapGesture {
+      dismiss()
+    }
   }
 }
 
-struct TimelineView_Previews: PreviewProvider {
+struct TerminalAView_Previews: PreviewProvider {
   static var previews: some View {
-    NavigationView {
-      FlightTimelineView(
-        flights: FlightData.generateTestFlights(
-          date: Date()
-        )
-          .filter {
-            Calendar.current.isDate(
-              $0.localTime,
-              inSameDayAs: Date()
-            )
-          }
-      )
-    }
+    TerminalAView()
   }
 }

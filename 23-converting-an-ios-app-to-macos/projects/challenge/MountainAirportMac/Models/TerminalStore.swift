@@ -1,4 +1,4 @@
-/// Copyright (c) 2020 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -26,42 +26,40 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import SwiftUI
+import Foundation
 
-struct FlightTimelineView: View {
-  var flights: [FlightInformation]
+struct TerminalStore: Identifiable {
+  var id: Int
+  var terminal: String
+  var name: String
+  var shortName: String
+  var howBusy: Double {
+    let minute = Calendar.current.dateComponents([.minute], from: Date()).minute ?? 0
+    let adjustedMinute = (minute + id * 10) % 60
+    let fraction = Double(adjustedMinute) / 60.0
 
-  var body: some View {
-    ZStack {
-      Image("background-view")
-        .resizable()
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-      GenericTimeline(
-        events: flights,
-        timeProperty: \.localTime) { flight in
-          FlightCardView(flight: flight)
-      }
-        .padding()
-    }
-    .foregroundColor(.white)
-    .navigationTitle("Flight Timeline")
+    return fraction
   }
-}
 
-struct TimelineView_Previews: PreviewProvider {
-  static var previews: some View {
-    NavigationView {
-      FlightTimelineView(
-        flights: FlightData.generateTestFlights(
-          date: Date()
-        )
-          .filter {
-            Calendar.current.isDate(
-              $0.localTime,
-              inSameDayAs: Date()
-            )
-          }
-      )
-    }
+  static var allStores: [TerminalStore] {
+    var stores: [TerminalStore] = []
+
+    stores.append(TerminalStore(id: 1, terminal: "A", name: "Juniper Fiddler", shortName: "Juniper"))
+    stores.append(TerminalStore(id: 2, terminal: "A", name: "Orange Emperor", shortName: "Orange"))
+    stores.append(TerminalStore(id: 3, terminal: "A", name: "Aqua Sunset", shortName: "Aqua"))
+
+    stores.append(TerminalStore(id: 4, terminal: "B", name: "The Olive Morning", shortName: "Olive"))
+    stores.append(TerminalStore(id: 5, terminal: "B", name: "The Ruby Afternoon", shortName: "Ruby"))
+    stores.append(TerminalStore(id: 6, terminal: "B", name: "Sunset Elements", shortName: "Sunset"))
+
+    return stores
+  }
+
+  static var terminalStoresA: [TerminalStore] {
+    return allStores.filter { $0.terminal == "A" }
+  }
+
+  static var terminalStoresB: [TerminalStore] {
+    return allStores.filter { $0.terminal == "B" }
   }
 }

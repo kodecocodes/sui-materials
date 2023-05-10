@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -34,6 +34,8 @@ import SwiftUI
 
 struct FlightDetails: View {
   var flight: FlightInformation?
+  @State private var showTerminalInfo = false
+  @EnvironmentObject var lastFlightInfo: AppEnvironment
   @SceneStorage("lastViewedFlightID") var lastViewedFlightID: Int?
 
   var body: some View {
@@ -41,37 +43,54 @@ struct FlightDetails: View {
       Image("background-view")
         .resizable()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-      if let flight = flight {
+      if let flight {
         VStack(alignment: .leading) {
           FlightDetailHeader(flight: flight)
           FlightInfoPanel(flight: flight)
+            .frame(maxWidth: .infinity, alignment: .topLeading)
             .padding()
             .background(
               RoundedRectangle(cornerRadius: 20.0)
                 .opacity(0.3)
             )
           Spacer()
-        }.foregroundColor(.white)
-          .padding()
-          .navigationTitle("\(flight.airline) Flight \(flight.number)")
-          .onAppear {
-            lastViewedFlightID = flight.id
-          }
+        }
+        .foregroundColor(.white)
+        .padding()
+        .navigationTitle("\(flight.airline) Flight \(flight.number)")
       } else {
-        EmptyView()
+        Text("Select a flight…")
+          .foregroundColor(.white)
       }
     }
-    .frame(minWidth: 350)
-    .frame(minHeight: 350)
+    .frame(minWidth: 400, minHeight: 400)
+    .contentShape(Rectangle())
+    .onTapGesture {
+      showTerminalInfo.toggle()
+    }
+    .sheet(isPresented: $showTerminalInfo) {
+      Group {
+        if flight?.terminal == "A" {
+          TerminalAView()
+        } else {
+          TerminalBView()
+        }
+      }
+      .presentationDetents([.medium, .large])
+    }
+    .onChange(of: flight) { _ in
+      lastViewedFlightID = flight?.id
+    }
   }
 }
 
 struct FlightDetails_Previews: PreviewProvider {
   static var previews: some View {
-    NavigationView {
+    NavigationStack {
       FlightDetails(
         flight: FlightData.generateTestFlight(date: Date())
-      ).environmentObject(AppEnvironment())
+      )
+      .environmentObject(AppEnvironment())
     }
   }
 }

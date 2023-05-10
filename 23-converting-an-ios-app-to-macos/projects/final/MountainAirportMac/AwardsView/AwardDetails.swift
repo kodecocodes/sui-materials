@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -34,7 +34,6 @@ import SwiftUI
 
 struct AwardDetails: View {
   var award: AwardInformation
-  @Environment(\.dismiss) var dismiss
 
   func imageSize(proxy: GeometryProxy) -> Double {
     let size = min(proxy.size.width, proxy.size.height)
@@ -43,16 +42,6 @@ struct AwardDetails: View {
 
   var body: some View {
     VStack(alignment: .center) {
-      HStack {
-        Spacer()
-        Button(action: {
-          dismiss()
-        }, label: {
-          Image(systemName: "xmark.circle")
-            .font(.largeTitle)
-        }).buttonStyle(.plain)
-      }
-
       Image(award.imageName)
         .resizable()
         .aspectRatio(contentMode: .fit)
@@ -63,6 +52,9 @@ struct AwardDetails: View {
       Text(award.description)
         .font(.body)
         .padding()
+      AwardStars(stars: award.stars)
+        .foregroundColor(.yellow)
+        .shadow(color: .black, radius: 5)
       Spacer()
     }.padding()
       .opacity(award.awarded ? 1.0 : 0.4)
@@ -76,14 +68,16 @@ struct AwardDetails_Previews: PreviewProvider {
       imageName: "first-visit-award",
       title: "First Visit",
       description: "Awarded the first time you open the app while at the airport.",
-      awarded: true
+      awarded: true,
+      stars: 1
     )
 
     let award2 = AwardInformation(
       imageName: "rainy-day-award",
       title: "Rainy Day",
       description: "Your flight was delayed because of weather.",
-      awarded: false
+      awarded: false,
+      stars: 3
     )
 
     Group {

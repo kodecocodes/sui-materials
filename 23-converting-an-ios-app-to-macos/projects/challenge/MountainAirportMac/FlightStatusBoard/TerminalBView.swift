@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -18,10 +18,6 @@
 /// merger, publication, distribution, sublicensing, creation of derivative works,
 /// or sale is expressly withheld.
 ///
-/// This project and source code may use libraries or frameworks that are
-/// released under various Open-Source licenses. Use of those libraries and
-/// frameworks are governed by their own individual licenses.
-///
 /// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 /// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 /// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -32,61 +28,40 @@
 
 import SwiftUI
 
-struct ContentView: View {
-  @StateObject var flightInfo = FlightData()
-
-  @SceneStorage("displayState") var displayState: DisplayState = .none
-  @SceneStorage("lastViewedFlightID") var lastViewedFlightID: Int?
-  @SceneStorage("selectedFlightID") var selectedFlightID: Int?
-
-  var selectedFlight: FlightInformation? {
-    if let id = selectedFlightID {
-      return flightInfo.getFlightById(id)
-    }
-    return nil
-  }
-
-  var lastViewedFlight: FlightInformation? {
-    if let id = lastViewedFlightID {
-      return flightInfo.getFlightById(id)
-    }
-    return nil
-  }
+struct TerminalBView: View {
+  @Environment(\.dismiss) private var dismiss
 
   var body: some View {
-    NavigationView {
-      WelcomeView(flightInfo: flightInfo)
-
-      switch displayState {
-      case .none:
-        EmptyView()
-      case .flightBoard:
-        HStack {
-          FlightStatusBoard(flights: flightInfo.getDaysFlights(Date()))
-          FlightDetails(flight: selectedFlight)
+    ZStack {
+      Image("background-view")
+        .resizable()
+        .rotationEffect(.degrees(180.0))
+        .clipShape(RoundedRectangle(cornerRadius: 20.0))
+        .padding()
+        .frame(height: 300)
+      VStack(alignment: .leading) {
+        Text("Terminal B")
+          .font(.title)
+          .padding()
+        Text("Terminal B offers the follow stores:")
+          .font(.title2)
+        ForEach(TerminalStore.terminalStoresB) { store in
+          Text("\u{2022} \(store.name)")
         }
-      case .searchFlights:
-        SearchFlights(flightData: flightInfo.flights)
-      case .awards:
-        AwardsView()
-      case .timeline:
-        FlightTimelineView(
-          flights: flightInfo.flights.filter {
-            Calendar.current.isDate(
-              $0.localTime,
-              inSameDayAs: Date()
-            )
-          })
-      case .lastFlight:
-        FlightDetails(flight: lastViewedFlight)
+        Spacer()
       }
+      .foregroundColor(.white)
+      .padding()
+      .font(.title3)
     }
-    .navigationTitle("Mountain Airport")
+    .onTapGesture {
+      dismiss()
+    }
   }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct TerminalBView_Previews: PreviewProvider {
   static var previews: some View {
-    ContentView()
+    TerminalBView()
   }
 }

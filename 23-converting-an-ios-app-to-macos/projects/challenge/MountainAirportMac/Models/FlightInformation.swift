@@ -1,4 +1,4 @@
-/// Copyright (c) 2020 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -31,7 +31,6 @@
 /// THE SOFTWARE.
 
 import SwiftUI
-import MapKit
 
 enum FlightDirection {
   case none
@@ -81,6 +80,15 @@ class FlightInformation: NSObject {
     "\(flightName) \(dirString) \(otherAirport)"
   }
 
+  var terminal: String {
+    return String(gate.prefix(1))
+  }
+
+  var gateNumber: Int? {
+    let gateNumberString = gate.dropFirst()
+    return Int(gateNumberString)
+  }
+
   var otherEndTime: Date {
     var multiplier: Int
     if direction == .arrival {
@@ -121,26 +129,6 @@ class FlightInformation: NSObject {
     timeFormatter.dateStyle = .none
     timeFormatter.timeStyle = .short
     return timeFormatter.string(from: time)
-  }
-
-  var localAirportLocation: CLLocationCoordinate2D {
-    CLLocationCoordinate2D(latitude: 35.655, longitude: -83.4411)
-  }
-
-  var startingAirportLocation: CLLocationCoordinate2D {
-    if direction == .arrival {
-      return CLLocationCoordinate2D(latitude: otherCoordinates.lat, longitude: otherCoordinates.long)
-    } else {
-      return localAirportLocation
-    }
-  }
-
-  var endingAirportLocation: CLLocationCoordinate2D {
-    if direction == .arrival {
-      return localAirportLocation
-    } else {
-      return CLLocationCoordinate2D(latitude: otherCoordinates.lat, longitude: otherCoordinates.long)
-    }
   }
 
   var flightStatus: String {
@@ -189,15 +177,6 @@ class FlightInformation: NSObject {
 
   var isToday: Bool {
     Calendar.current.isDateInToday(localTime)
-  }
-
-  var terminalName: String {
-    gate.hasPrefix("A") ? "A" : "B"
-  }
-
-  var gateNumber: Int? {
-    let gateNumberString = gate.dropFirst()
-    return Int(gateNumberString)
   }
 
   init(

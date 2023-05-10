@@ -17,11 +17,7 @@
 /// or information technology.  Permission for such use, copying, modification,
 /// merger, publication, distribution, sublicensing, creation of derivative works,
 /// or sale is expressly withheld.
-///
-/// This project and source code may use libraries or frameworks that are
-/// released under various Open-Source licenses. Use of those libraries and
-/// frameworks are governed by their own individual licenses.
-///
+/// 
 /// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 /// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 /// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -32,55 +28,68 @@
 
 import SwiftUI
 
-struct FlightTimeHistory: View {
+struct TerminalStoresView: View {
   var flight: FlightInformation
+  @State private var showStores = false
 
-  var timeFormatter: RelativeDateTimeFormatter {
-    let rtf = RelativeDateTimeFormatter()
-    rtf.unitsStyle = .full
-    rtf.dateTimeStyle = .named
-    return rtf
+  var stores: [TerminalStore] {
+    if flight.terminal == "A" {
+      return TerminalStore.terminalStoresA
+    } else {
+      return TerminalStore.terminalStoresB
+    }
   }
 
-  func relativeDate(_ date: Date) -> String {
-    return timeFormatter.localizedString(for: date, relativeTo: Date())
+  func storeAnimation(_ storeNumber: Int) -> Animation {
+    return .easeInOut.delay(Double(storeNumber) * 0.3)
   }
 
   var body: some View {
-    ZStack {
-      Image("background-view")
-        .resizable()
-        .aspectRatio(contentMode: .fill)
-      VStack {
-        Text("On Time History for \(flight.statusBoardName)")
-          .font(.title2)
-          .padding(.top, 30)
-        ScrollView {
-          ForEach(flight.history, id: \.day) { history in
-            HStack {
-              Text("\(history.day) day(s) ago - \(history.flightDelayDescription)")
-                .padding()
-              Spacer()
-            }
-            .background(
-              Color.white.opacity(0.2)
+    GeometryReader { proxy in
+      let width = proxy.size.width
+      let height = proxy.size.height
+      let storeWidth = width / 6
+      let storeHeight = storeWidth / 1.75
+      let storeSpacing = width / 5
+      let firstStoreOffset = flight.terminal == "A" ?
+      width - storeSpacing :
+      storeSpacing - storeWidth
+      let direction = flight.terminal == "A" ? -1.0 : 1.0
+      ForEach(stores.indices, id: \.self) { index in
+        let store = stores[index]
+        let xOffset = Double(index) * storeSpacing * direction + firstStoreOffset
+        RoundedRectangle(cornerRadius: 5.0)
+          .foregroundColor(
+            Color(
+              hue: 0.3333,
+              saturation: 1.0 - store.howBusy,
+              brightness: 1.0 - store.howBusy
             )
-          }
-        }
-        HistoryPieChart(flightHistory: flight.history)
-          .font(.footnote)
-          .frame(width: 250, height: 250)
-          .padding(5)
+          )
+          .overlay(
+            Text(store.shortName)
+              .font(.footnote)
+              .foregroundColor(.white)
+              .shadow(radius: 5)
+          )
+          .frame(width: storeWidth, height: storeHeight)
+          .offset(
+            x: showStores ?
+              xOffset :
+              firstStoreOffset - direction * width,
+            y: height * 0.4
+          )
+          .animation(storeAnimation(index), value: showStores)
       }
     }
-    .foregroundColor(.white)
+    .onAppear {
+      showStores = true
+    }
   }
 }
 
-struct FlightTimeHistory_Previews: PreviewProvider {
+struct TerminalStoresView_Previews: PreviewProvider {
   static var previews: some View {
-    FlightTimeHistory(
-      flight: FlightData.generateTestFlight(date: Date())
-    )
+    TerminalStoresView(flight: FlightData.generateTestFlight(date: Date()))
   }
 }
