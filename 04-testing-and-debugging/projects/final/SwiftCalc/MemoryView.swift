@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc.
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -37,11 +37,10 @@ struct MemoryView: View {
       .onEnded { _ in
         memory = 0.0
       }
-
     HStack {
       Spacer()
       Text("\(memory)")
-        .accessibility(identifier: "memoryDisplay")
+        .accessibilityIdentifier("memoryDisplay")
         .padding(.horizontal, 5)
         .frame(
           width: geometry.size.width * 0.85,
@@ -52,7 +51,6 @@ struct MemoryView: View {
             .stroke(lineWidth: 2)
             .foregroundColor(Color.gray)
         )
-        // Add gesture here
         .gesture(memorySwipe)
       Text("M")
     }.padding(.bottom).padding(.horizontal, 5)

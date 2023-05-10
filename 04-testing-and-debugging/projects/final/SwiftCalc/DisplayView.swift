@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc.
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -43,12 +43,10 @@ struct DisplayView: View {
   @Binding var display: String
 
   var body: some View {
-    let _ = Self._printChanges()
-
     HStack {
       if display.isEmpty {
         Text("0")
-          .accessibility(identifier: "display")
+          .accessibilityIdentifier("display")
           .padding(.horizontal, 5)
           .frame(
             maxWidth: .infinity,
@@ -62,7 +60,8 @@ struct DisplayView: View {
           )
       } else {
         Text(display)
-          .accessibility(identifier: "display")
+          .accessibilityIdentifier("display")
+          // Add display identifier
           .padding(.horizontal, 5)
           .frame(
             maxWidth: .infinity,
@@ -75,7 +74,6 @@ struct DisplayView: View {
           )
       }
     }
-    .background(Color.random)
   }
 }
 

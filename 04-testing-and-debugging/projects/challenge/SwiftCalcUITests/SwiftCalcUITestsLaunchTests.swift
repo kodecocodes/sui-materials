@@ -1,15 +1,15 @@
 /// Copyright (c) 2023 Kodeco Inc.
-/// 
+///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
 /// in the Software without restriction, including without limitation the rights
 /// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 /// copies of the Software, and to permit persons to whom the Software is
 /// furnished to do so, subject to the following conditions:
-/// 
+///
 /// The above copyright notice and this permission notice shall be included in
 /// all copies or substantial portions of the Software.
-/// 
+///
 /// Notwithstanding the foregoing, you may not use, copy, modify, merge, publish,
 /// distribute, sublicense, create a derivative work, and/or sell copies of the
 /// Software in any work that is designed, intended, or marketed for pedagogical or
@@ -17,7 +17,7 @@
 /// or information technology.  Permission for such use, copying, modification,
 /// merger, publication, distribution, sublicensing, creation of derivative works,
 /// or sale is expressly withheld.
-/// 
+///
 /// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 /// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 /// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -26,58 +26,27 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import SwiftUI
+import XCTest
 
-struct MemoryView: View {
-  @Binding var memory: Double
-  var geometry: GeometryProxy
+final class SwiftCalcUITestsLaunchTests: XCTestCase {
+  override class var runsForEachTargetApplicationUIConfiguration: Bool {
+    true
+  }
 
-  var body: some View {
-  #if targetEnvironment(macCatalyst)
-    let doubleTap = TapGesture(count: 2)
-      .onEnded { _ in
-        self.memory = 0.0
-      }
-  #else
-    let memorySwipe = DragGesture(minimumDistance: 20)
-      .onEnded { _ in
-        self.memory = 0.0
-      }
-  #endif
-    HStack {
-      Spacer()
-      #if targetEnvironment(macCatalyst)
-      Text("\(memory)")
-        .accessibility(identifier: "memoryDisplay")
-        .padding(.horizontal, 5)
-        .frame(
-          width: geometry.size.width * 0.85,
-          alignment: .trailing
-        )
-        .overlay(
-          RoundedRectangle(cornerRadius: 8)
-            .stroke(lineWidth: 2)
-            .foregroundColor(Color.gray)
-        )
-        // Add gesture here
-        .gesture(doubleTap)
-      #else
-      Text("\(memory)")
-        .accessibility(identifier: "memoryDisplay")
-        .padding(.horizontal, 5)
-        .frame(
-          width: geometry.size.width * 0.85,
-          alignment: .trailing
-        )
-        .overlay(
-          RoundedRectangle(cornerRadius: 8)
-            .stroke(lineWidth: 2)
-            .foregroundColor(Color.gray)
-        )
-        // Add gesture here
-        .gesture(memorySwipe)
-      #endif
-      Text("M")
-    }.padding(.bottom).padding(.horizontal, 5)
+  override func setUpWithError() throws {
+    continueAfterFailure = false
+  }
+
+  func testLaunch() throws {
+    let app = XCUIApplication()
+    app.launch()
+
+    // Insert steps here to perform after app launch but before taking a screenshot,
+    // such as logging into a test account or navigating somewhere in the app
+
+    let attachment = XCTAttachment(screenshot: app.screenshot())
+    attachment.name = "Launch Screen"
+    attachment.lifetime = .keepAlways
+    add(attachment)
   }
 }
