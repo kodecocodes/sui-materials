@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco LLC
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -44,26 +44,26 @@ struct ContentView: View {
         Text("R: ??? G: ??? B: ???")
           .padding()
       } else {
-        Text(game.target.intString)
+        Text(game.target.intString())
           .padding()
       }
       ColorCircle(rgb: guess, size: 200)
-      Text(guess.intString)
+      Text(guess.intString())
         .padding()
       ColorSlider(value: $guess.red, trackColor: .red)
       ColorSlider(value: $guess.green, trackColor: .green)
       ColorSlider(value: $guess.blue, trackColor: .blue)
       Button("Hit Me!") {
-        self.showScore = true
-        self.game.check(guess: guess)
+        showScore = true
+        game.check(guess: guess)
       }
       .alert(isPresented: $showScore) {
         Alert(
           title: Text("Your Score"),
           message: Text(String(game.scoreRound)),
           dismissButton: .default(Text("OK")) {
-            self.game.startNewRound()
-            self.guess = RGB()
+            game.startNewRound()
+            guess = RGB()
           })
       }
     }
@@ -79,6 +79,7 @@ struct ContentView_Previews: PreviewProvider {
 struct ColorSlider: View {
   @Binding var value: Double
   var trackColor: Color
+
   var body: some View {
     HStack {
       Text("0")

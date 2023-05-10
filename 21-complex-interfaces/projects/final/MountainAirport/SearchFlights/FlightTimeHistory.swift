@@ -1,5 +1,4 @@
 /// Copyright (c) 2023 Kodeco Inc
-///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
 /// in the Software without restriction, including without limitation the rights
@@ -35,49 +34,15 @@ import SwiftUI
 struct FlightTimeHistory: View {
   var flight: FlightInformation
 
-  // 1
-  let minuteRange = 75.0
-
-  // 2
-  func minuteLength(_ minutes: Int, proxy: GeometryProxy) -> CGFloat {
-    // 3
-    let pointsPerMinute = proxy.size.width / minuteRange
-    // 4
-    return Double(abs(minutes)) * pointsPerMinute
+  var timeFormatter: RelativeDateTimeFormatter {
+    let rtf = RelativeDateTimeFormatter()
+    rtf.unitsStyle = .full
+    rtf.dateTimeStyle = .named
+    return rtf
   }
 
-  func minuteOffset(_ minutes: Int, proxy: GeometryProxy) -> CGFloat {
-    let pointsPerMinute = proxy.size.width / minuteRange
-    let offset = minutes < 0 ? 15 + minutes : 15
-    return CGFloat(offset) * pointsPerMinute
-  }
-
-  func chartGradient(_ history: FlightHistory) -> Gradient {
-    if history.status == .canceled {
-      return Gradient(
-        colors: [
-          Color.green,
-          Color.yellow,
-          Color.red,
-          Color(red: 0.5, green: 0, blue: 0)
-        ]
-      )
-    }
-
-    if history.timeDifference <= 0 {
-      return Gradient(colors: [Color.green])
-    }
-    if history.timeDifference <= 15 {
-      return Gradient(colors: [Color.green, Color.yellow])
-    }
-    return Gradient(colors: [Color.green, Color.yellow, Color.red])
-  }
-
-  func minuteLocation(_ minutes: Int, proxy: GeometryProxy) -> CGFloat {
-    let minMinutes = -15
-    let pointsPerMinute = proxy.size.width / minuteRange
-    let offset = CGFloat(minutes - minMinutes) * pointsPerMinute
-    return offset
+  func relativeDate(_ date: Date) -> String {
+    return timeFormatter.localizedString(for: date, relativeTo: Date())
   }
 
   var body: some View {
@@ -90,16 +55,16 @@ struct FlightTimeHistory: View {
           .font(.title2)
           .padding(.top, 30)
         ScrollView {
-          DelayBarChart(
-            flight: flight
-          )
+          HistoryChartView(flightHistory: flight.history)
+            .frame(height: 600)
+          HistoryPieChart(flightHistory: flight.history)
+            .font(.footnote)
+            .frame(width: 250, height: 250)
+            .padding(5)
         }
-        HistoryPieChart(flightHistory: flight.history)
-          .font(.footnote)
-          .frame(width: 250, height: 250)
-          .padding(5)
       }
-    }.foregroundColor(.white)
+    }
+    .foregroundColor(.white)
   }
 }
 

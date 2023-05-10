@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -68,17 +68,17 @@ struct HistoryPieChart: View {
     let cancelFrac = Double(canceledCount) / historyCount
 
     // 3
+    let darkRed = Color(red: 0.5, green: 0, blue: 0)
     let segments = [
       PieSegment(fraction: onTimeFrac, name: "On-Time", color: Color.green),
       PieSegment(fraction: shortFrac, name: "Short Delay", color: Color.yellow),
       PieSegment(fraction: longFrac, name: "Long Delay", color: Color.red),
-      PieSegment(fraction: cancelFrac, name: "Canceled", color: Color(red: 0.5, green: 0, blue: 0))
+      PieSegment(fraction: cancelFrac, name: "Canceled", color: darkRed)
     ]
 
     // 4
     return segments.filter { $0.fraction > 0 }
   }
-
   var body: some View {
     HStack {
       GeometryReader { proxy in
@@ -110,8 +110,8 @@ struct HistoryPieChart: View {
             startAngle = endAngle
           }
           // 11
-          .foregroundColor(segment.color)
           .rotationEffect(.degrees(-90))
+          .foregroundColor(segment.color)
         }
       }
       VStack(alignment: .leading) {

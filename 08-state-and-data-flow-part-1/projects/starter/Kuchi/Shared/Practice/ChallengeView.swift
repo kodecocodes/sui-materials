@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -36,7 +36,7 @@ struct ChallengeView: View {
   let challengeTest: ChallengeTest
   
   @State var showAnswers = false
-  
+
   var body: some View {
     VStack {
       Button(action: {

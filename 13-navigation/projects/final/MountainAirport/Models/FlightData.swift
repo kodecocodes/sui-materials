@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -92,9 +92,7 @@ class FlightData: ObservableObject {
       flights.append(contentsOf: generateFlights(startIndex: idx * 30, date: day, isFuture: idx > 0))
     }
 
-    return flights.sorted {
-      $0.localTime < $1.localTime
-    }
+    return flights
   }
 
   func generateFlights(startIndex: Int, date: Date, isFuture: Bool) -> [FlightInformation] {

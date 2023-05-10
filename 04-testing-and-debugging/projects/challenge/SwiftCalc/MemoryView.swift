@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc.
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -33,18 +33,17 @@ struct MemoryView: View {
   var geometry: GeometryProxy
 
   var body: some View {
-    #if targetEnvironment(macCatalyst)
+  #if targetEnvironment(macCatalyst)
     let doubleTap = TapGesture(count: 2)
       .onEnded { _ in
         self.memory = 0.0
       }
-    #else
+  #else
     let memorySwipe = DragGesture(minimumDistance: 20)
       .onEnded { _ in
         self.memory = 0.0
       }
-    #endif
-
+  #endif
     HStack {
       Spacer()
       #if targetEnvironment(macCatalyst)

@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -39,17 +39,17 @@ enum Appearance: Int, CaseIterable, Identifiable {
   
   var name: String {
     switch self {
-    case .light: return "Light"
-    case .dark: return "Dark"
-    case .automatic: return "Automatic"
+      case .light: return "Light"
+      case .dark: return "Dark"
+      case .automatic: return "Automatic"
     }
   }
   
   func getColorScheme() -> ColorScheme? {
     switch self {
-    case .automatic: return nil
-    case .light: return .light
-    case .dark: return .dark
+      case .automatic: return nil
+      case .light: return .light
+      case .dark: return .dark
     }
   }
 }

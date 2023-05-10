@@ -1,5 +1,4 @@
 /// Copyright (c) 2023 Kodeco Inc
-///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
 /// in the Software without restriction, including without limitation the rights
@@ -69,16 +68,15 @@ struct FlightInfoPanel: View {
           Text("Flying to \(flight.otherAirport)")
         }
         Text(flight.flightStatus) + Text(" (\(timeFormatter.string(from: flight.localTime)))")
-        Button(action: {
+        Button {
           withAnimation {
             showTerminal.toggle()
           }
-        }, label: {
-          HStack(alignment: .center) {
+        } label: {
+          HStack {
             Image(systemName: "airplane.circle")
-              .resizable()
-              .frame(width: 30, height: 30)
-              .padding(.trailing, 10)
+              .imageScale(.large)
+              .padding(10)
               .rotationEffect(.degrees(showTerminal ? 90 : 270))
               .animation(
                 .spring(
@@ -96,12 +94,11 @@ struct FlightInfoPanel: View {
                 Text("Show Terminal Map")
               }
             }
-            .transition(.buttonNameTransition)
+            .transition(.move(edge: .bottom))
             Spacer()
             Image(systemName: "airplane.circle")
-              .resizable()
-              .frame(width: 30, height: 30)
-              .padding(.trailing, 10)
+              .imageScale(.large)
+              .padding(10)
               .rotationEffect(.degrees(showTerminal ? 90 : 270))
               .animation(
                 .spring(
@@ -112,9 +109,10 @@ struct FlightInfoPanel: View {
                 value: showTerminal
               )
           }
-        })
+        }
         if showTerminal {
-          FlightTerminalMap(flight: flight)
+          TerminalMapView(flight: flight)
+            .transition(.buttonNameTransition)
         }
         Spacer()
       }

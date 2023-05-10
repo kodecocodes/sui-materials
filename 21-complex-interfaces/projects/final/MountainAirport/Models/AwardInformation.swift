@@ -37,7 +37,7 @@ struct AwardInformation {
   public var title: String
   public var description: String
   public var awarded: Bool
-  public var stars = 3
+  public var stars: Int = 3
 }
 
 extension AwardInformation: Hashable {
@@ -54,5 +54,11 @@ extension AwardInformation: Hashable {
     hasher.combine(description)
     hasher.combine(awarded)
     hasher.combine(stars)
+  }
+}
+
+extension AwardInformation: Identifiable {
+  public var id: Int {
+    self.hashValue
   }
 }

@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -42,6 +42,7 @@ struct SearchFlights: View {
         $0.direction == directionFilter
       }
     }
+
     if !city.isEmpty {
       matchingFlights = matchingFlights.filter {
         $0.otherAirport.lowercased().contains(city.lowercased())
@@ -71,33 +72,42 @@ struct SearchFlights: View {
       VStack {
         Picker(
           selection: $directionFilter,
-          label: Text("Flight Direction")) {
+          label: Text("Flight Direction")
+        ) {
           Text("All").tag(FlightDirection.none)
           Text("Arrivals").tag(FlightDirection.arrival)
           Text("Departures").tag(FlightDirection.departure)
         }
         .background(Color.white)
         .pickerStyle(SegmentedPickerStyle())
+        // 1
         List {
+          // 2
           ForEach(flightDates, id: \.hashValue) { date in
+            // 3
             Section(
+              // 4
               header: Text(longDateFormatter.string(from: date)),
+              // 5
               footer:
-                HStack {
-                  Spacer()
-                  Text("Matching flights \(flightsForDay(date: date).count)")
-                }
+                Text(
+                  "Matching flights " + "\(flightsForDay(date: date).count)"
+                )
+                .frame(maxWidth: .infinity, alignment: .trailing)
             ) {
+              // 6
               ForEach(flightsForDay(date: date)) { flight in
                 SearchResultRow(flight: flight)
               }
             }
           }
-        }.listStyle(InsetGroupedListStyle())
+        }
+        // 7
+        .listStyle(InsetGroupedListStyle())
         Spacer()
       }
       .searchable(text: $city)
-      .navigationBarTitle("Search Flights")
+      .navigationTitle("Search Flights")
       .padding()
     }
   }
@@ -105,7 +115,7 @@ struct SearchFlights: View {
 
 struct SearchFlights_Previews: PreviewProvider {
   static var previews: some View {
-    NavigationView {
+    NavigationStack {
       SearchFlights(flightData: FlightData.generateTestFlights(date: Date())
       )
     }

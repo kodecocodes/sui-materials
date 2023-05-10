@@ -39,12 +39,9 @@ struct WelcomeAnimation: View {
           return
         }
 
-        // 1
         let timePosition = (timelineContext.date.timeIntervalSince(startTime))
           .truncatingRemainder(dividingBy: animationLength)
-        // 2
         let xPosition = timePosition / animationLength * size.width
-        // 3
         graphicContext.draw(
           planeSymbol,
           at: .init(x: xPosition, y: size.height / 2.0)

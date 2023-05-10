@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -35,7 +35,6 @@ import SwiftUI
 struct StarterView: View {
   @EnvironmentObject var userViewModel: UserManager
   
-  @ViewBuilder
   var body: some View {
     if userViewModel.isRegistered {
       WelcomeView()

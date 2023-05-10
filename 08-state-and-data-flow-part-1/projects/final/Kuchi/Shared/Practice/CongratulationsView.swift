@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -33,8 +33,9 @@
 import SwiftUI
 
 struct CongratulationsView: View {
-  @ObservedObject var challengesViewModel = ChallengesViewModel()
-
+  @ObservedObject
+  var challengesViewModel = ChallengesViewModel()
+  
   let avatarSize: CGFloat = 120
   let userName: String
 
@@ -93,7 +94,7 @@ struct CongratulationsView: View {
       } label: {
         Text("Play Again")
       }
-        .padding(.top)
+      .padding(.top)
     }
   }
 }

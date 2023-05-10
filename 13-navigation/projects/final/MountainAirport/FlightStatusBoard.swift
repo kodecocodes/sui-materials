@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -34,19 +34,32 @@ import SwiftUI
 
 struct FlightList: View {
   var flights: [FlightInformation]
+  var flightToShow: FlightInformation?
+  @State private var path: [FlightInformation] = []
 
   var body: some View {
-    List(flights, id: \.id) { flight in
-      NavigationLink(
-        flight.statusBoardName,
-        destination: FlightDetails(flight: flight)
+    NavigationStack(path: $path) {
+      List(flights, id: \.id) { flight in
+        NavigationLink(flight.statusBoardName, value: flight)
+      }
+      .navigationDestination(
+        for: FlightInformation.self,
+        destination: { flight in
+          FlightDetails(flight: flight)
+        }
       )
+    }
+    .onAppear {
+      if let flight = flightToShow {
+        path.append(flight)
+      }
     }
   }
 }
 
 struct FlightStatusBoard: View {
   var flights: [FlightInformation]
+  var flightToShow: FlightInformation?
   @State private var hidePast = false
   @AppStorage("FlightStatusCurrentTab") var selectedTab = 1
 
@@ -64,42 +77,60 @@ struct FlightStatusBoard: View {
   }
 
   var body: some View {
+    // 1
     TabView(selection: $selectedTab) {
-      FlightList(flights: shownFlights.filter { $0.direction == .arrival })
-        .tabItem {
-          Image("descending-airplane")
-            .resizable()
-          Text("Arrivals")
-        }
-        .badge(shownFlights.filter { $0.direction == .arrival }.count)
-        .tag(0)
-      FlightList(flights: shownFlights)
-        .tabItem {
-          Image(systemName: "airplane")
-            .resizable()
-          Text("All")
-        }
-        .badge(shortDateString)
-        .tag(1)
-      FlightList(flights: shownFlights.filter { $0.direction == .departure })
-        .tabItem {
-          Image("ascending-airplane")
-          Text("Departures")
-        }
-        .badge(shownFlights.filter { $0.direction == .departure }.count)
-        .tag(2)
+      // 2
+      FlightList(
+        flights: shownFlights.filter { $0.direction == .arrival }
+      )
+      // 3
+      .tabItem {
+        // 4
+        Image("descending-airplane")
+          .resizable()
+        Text("Arrivals")
+      }
+      .badge(shownFlights.filter { $0.direction == .arrival }.count)
+      .tag(0)
+      // 5
+      FlightList(
+        flights: shownFlights,
+        flightToShow: flightToShow
+      )
+      .tabItem {
+        Image(systemName: "airplane")
+          .resizable()
+        Text("All")
+      }
+      .badge(shortDateString)
+      .tag(1)
+      FlightList(
+        flights: shownFlights.filter { $0.direction == .departure }
+      )
+      .tabItem {
+        Image("ascending-airplane")
+        Text("Departures")
+      }
+      .badge(shownFlights.filter { $0.direction == .departure }.count)
+      .tag(2)
     }
-    .navigationTitle("Flight Status")
-    .navigationBarItems(trailing: Toggle("Hide Past", isOn: $hidePast))
+    .onAppear {
+      if flightToShow != nil {
+        selectedTab = 1
+      }
+    }
+    .navigationTitle("Today's Flight Status")
+    .navigationBarItems(
+      trailing: Toggle("Hide Past", isOn: $hidePast)
+    )
   }
 }
 
 struct FlightStatusBoard_Previews: PreviewProvider {
   static var previews: some View {
-    NavigationView {
-      FlightStatusBoard(
-        flights: FlightData.generateTestFlights(date: Date())
-      )
-    }
+    FlightStatusBoard(
+      flights: FlightData.generateTestFlights(date: Date())
+    )
+    .environmentObject(FlightNavigationInfo())
   }
 }

@@ -71,7 +71,8 @@ struct AwardCardView_Previews: PreviewProvider {
       imageName: "first-visit-award",
       title: "First Visit",
       description: "Awarded the first time you open the app while at the airport.",
-      awarded: true
+      awarded: true,
+      stars: 2
     )
     AwardCardView(award: award)
       .frame(width: 150, height: 220)

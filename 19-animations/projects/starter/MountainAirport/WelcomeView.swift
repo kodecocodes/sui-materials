@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -32,87 +32,110 @@
 
 import SwiftUI
 
+enum FlightViewId: CaseIterable {
+  case showFlightStatus
+  case searchFlights
+  case showLastFlight
+  case showAwards
+}
+
+struct ViewButton: Identifiable {
+  var id: FlightViewId
+  var title: String
+  var subtitle: String
+  var imageName: String
+}
+
 struct WelcomeView: View {
   @StateObject var flightInfo = FlightData()
-  @State var showNextFlight = false
-  @StateObject var appEnvironment = AppEnvironment()
+  @StateObject private var appEnvironment = AppEnvironment()
+  @State private var selectedView: FlightViewId?
+
+  var sidebarButtons: [ViewButton] {
+    var buttons: [ViewButton] = []
+
+    buttons.append(
+      ViewButton(
+        id: .showFlightStatus,
+        title: "Flight Status",
+        subtitle: "Departure and arrival information",
+        imageName: "airplane"
+      )
+    )
+
+    buttons.append(
+      ViewButton(
+        id: .searchFlights,
+        title: "Search Flights",
+        subtitle: "Search Upcoming Flights",
+        imageName: "magnifyingglass"
+      )
+    )
+
+    buttons.append(
+      ViewButton(
+        id: .showAwards,
+        title: "Your Awards",
+        subtitle: "Earn rewards for your airport interactions",
+        imageName: "star"
+      )
+    )
+
+    if
+      let flightId = appEnvironment.lastFlightId,
+      let flight = flightInfo.getFlightById(flightId) {
+      buttons.append(
+        ViewButton(
+          id: .showLastFlight,
+          title: "\(flight.flightName)",
+          subtitle: "The Last Flight You Viewed",
+          imageName: "suit.heart.fill"
+        )
+      )
+    }
+
+    return buttons
+  }
 
   var body: some View {
-    NavigationView {
-      ZStack(alignment: .topLeading) {
-        Image("welcome-background")
-          .resizable()
-          .frame(height: 250)
-        NavigationLink(
-          // swiftlint:disable:next force_unwrapping
-          destination: FlightDetails(flight: flightInfo.flights.first!),
-          isActive: $showNextFlight
-        ) { }
-        ScrollView {
-          LazyVGrid(
-            columns: [
-              GridItem(.fixed(160)),
-              GridItem(.fixed(160))
-            ], spacing: 15
-          ) {
-            NavigationLink(
-              destination: FlightStatusBoard(
-                flights: flightInfo.getDaysFlights(Date()))
-            ) {
-              WelcomeButtonView(
-                title: "Flight Status",
-                subTitle: "Departure and arrival information",
-                imageName: "airplane",
-                imageAngle: -45.0
-              )
-            }
-            NavigationLink(
-              destination: SearchFlights(
-                flightData: flightInfo.flights
-              )
-            ) {
-              WelcomeButtonView(
-                title: "Search Flights",
-                subTitle: "Search upcoming flights",
-                imageName: "magnifyingglass"
-              )
-            }
-            NavigationLink(
-              destination: AwardsView()
-            ) {
-              WelcomeButtonView(
-                title: "Your Awards",
-                subTitle: "Earn rewards for your airport interactions",
-                imageName: "star.fill")
-            }
-            if
-              let id = appEnvironment.lastFlightId,
-              let lastFlight = flightInfo.getFlightById(id) {
-              // swiftlint:disable multiple_closures_with_trailing_closure
-              Button(action: {
-                showNextFlight = true
-              }) {
-                WelcomeButtonView(
-                  title: "Last Viewed Flight",
-                  subTitle: lastFlight.flightName,
-                  imageName: "suit.heart.fill"
-                )
-              }
-              // swiftlint:enable multiple_closures_with_trailing_closure
-            }
-            Spacer()
-          }.font(.title)
-          .foregroundColor(.white)
-          .padding()
+    NavigationSplitView {
+      List(sidebarButtons, selection: $selectedView) { button in
+        WelcomeButtonView(
+          title: button.title,
+          subTitle: button.subtitle,
+          imageName: button.imageName
+        )
+      }
+      .navigationTitle("Mountain Airport")
+      .listStyle(.plain)
+    } detail: {
+      if let view = selectedView {
+        switch view {
+        case .showFlightStatus:
+          FlightStatusBoard(flights: flightInfo.getDaysFlights(Date()))
+        case .searchFlights:
+          SearchFlights(flightData: flightInfo.flights)
+        case .showLastFlight:
+          if
+            let id = appEnvironment.lastFlightId,
+            let lastFlight = flightInfo.getFlightById(id) {
+            FlightStatusBoard(
+              flights: flightInfo.getDaysFlights(Date()),
+              flightToShow: lastFlight
+            )
+          }
+        case .showAwards:
+          AwardsView()
         }
-      }.navigationTitle("Mountain Airport")
-      // End Navigation View
-    }.navigationViewStyle(StackNavigationViewStyle())
+      } else {
+        Text("Select an option in the sidebar.")
+      }
+    }
     .environmentObject(appEnvironment)
   }
 }
 
-struct WelcomeView_Previews: PreviewProvider {
+struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
     WelcomeView()
   }

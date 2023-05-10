@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -34,6 +34,8 @@ import SwiftUI
 
 struct FlightList: View {
   var flights: [FlightInformation]
+  var flightToShow: FlightInformation?
+  @State private var path: [FlightInformation] = []
   @Binding var highlightedIds: [Int]
 
   func rowHighlighted(_ flightId: Int) -> Bool {
@@ -46,31 +48,39 @@ struct FlightList: View {
         $0.localTime >= Date()
       }
     ) else {
-      // swiftlint:disable:next force_unwrapping
-      return flights.last!.id
+      return flights.last?.id ?? 0
     }
     return flight.id
   }
 
   var body: some View {
-    ScrollViewReader { scrollProxy in
-      List(flights) { flight in
-        NavigationLink(
-          destination: FlightDetails(flight: flight)) {
-          FlightRow(flight: flight)
+    NavigationStack(path: $path) {
+      ScrollViewReader { scrollProxy in
+        List(flights) { flight in
+          NavigationLink(value: flight) {
+            FlightRow(flight: flight)
+          }
+          .swipeActions(edge: .leading) {
+            HighlightActionView(flightId: flight.id, highlightedIds: $highlightedIds)
+          }
+          .listRowBackground(
+            rowHighlighted(flight.id) ? Color.yellow.opacity(0.6) : Color.clear
+          )
         }
-        .listRowBackground(
-          rowHighlighted(flight.id) ? Color.yellow.opacity(0.6) : Color.clear
+        .navigationDestination(
+          for: FlightInformation.self,
+          destination: { flight in
+            FlightDetails(flight: flight)
+          }
         )
-        // 1
-        .swipeActions(edge: .leading) {
-          // 2
-          HighlightActionView(flightId: flight.id, highlightedIds: $highlightedIds)
-        }
-      }.onAppear {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+        .onAppear {
           scrollProxy.scrollTo(nextFlightId, anchor: .center)
         }
+      }
+    }
+    .onAppear {
+      if let flight = flightToShow {
+        path.append(flight)
       }
     }
   }
@@ -78,11 +88,12 @@ struct FlightList: View {
 
 struct FlightList_Previews: PreviewProvider {
   static var previews: some View {
-    NavigationView {
+    NavigationStack {
       FlightList(
         flights: FlightData.generateTestFlights(date: Date()),
         highlightedIds: .constant([15])
       )
     }
+    .environmentObject(AppEnvironment())
   }
 }

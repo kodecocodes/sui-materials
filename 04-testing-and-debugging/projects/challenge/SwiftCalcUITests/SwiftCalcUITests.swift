@@ -1,15 +1,15 @@
-/// Copyright (c) 2021 Razeware LLC
-/// 
+/// Copyright (c) 2023 Kodeco Inc.
+///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
 /// in the Software without restriction, including without limitation the rights
 /// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 /// copies of the Software, and to permit persons to whom the Software is
 /// furnished to do so, subject to the following conditions:
-/// 
+///
 /// The above copyright notice and this permission notice shall be included in
 /// all copies or substantial portions of the Software.
-/// 
+///
 /// Notwithstanding the foregoing, you may not use, copy, modify, merge, publish,
 /// distribute, sublicense, create a derivative work, and/or sell copies of the
 /// Software in any work that is designed, intended, or marketed for pedagogical or
@@ -17,7 +17,7 @@
 /// or information technology.  Permission for such use, copying, modification,
 /// merger, publication, distribution, sublicensing, creation of derivative works,
 /// or sale is expressly withheld.
-/// 
+///
 /// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 /// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 /// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -28,7 +28,7 @@
 
 import XCTest
 
-class SwiftCalcUITests: XCTestCase {
+final class SwiftCalcUITests: XCTestCase {
   override func setUpWithError() throws {
     // Put setup code here. This method is called before the invocation of each test method in the class.
 
@@ -49,9 +49,23 @@ class SwiftCalcUITests: XCTestCase {
 
     let memoryButton = app.buttons["M+"]
     memoryButton.tap()
+
+    // 1
+    // let display = app.textViews .staticTexts["display"]
     let display = app.staticTexts["display"]
+    // 2
     let displayText = display.label
+    // 3
     XCTAssert(displayText == "0")
+  }
+
+  func testLaunchPerformance() throws {
+    if #available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 7.0, *) {
+      // This measures how long it takes to launch your application.
+      measure(metrics: [XCTApplicationLaunchMetric()]) {
+        XCUIApplication().launch()
+      }
+    }
   }
 
   func testAddingTwoDigits() {
@@ -88,21 +102,15 @@ class SwiftCalcUITests: XCTestCase {
     memoryButton.tap()
 
     let memoryDisplay = app.staticTexts["memoryDisplay"]
+    // 1
     XCTAssert(memoryDisplay.exists)
+    // 2
     #if targetEnvironment(macCatalyst)
     memoryDisplay.doubleTap()
     #else
     memoryDisplay.swipeLeft()
     #endif
+    // 3
     XCTAssertFalse(memoryDisplay.exists)
-  }
-
-  func testLaunchPerformance() throws {
-    if #available(macOS 10.15, iOS 13.0, tvOS 13.0, *) {
-      // This measures how long it takes to launch your application.
-      measure(metrics: [XCTApplicationLaunchMetric()]) {
-        XCUIApplication().launch()
-      }
-    }
   }
 }

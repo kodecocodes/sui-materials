@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -44,9 +44,9 @@ class LocalNotifications {
       let permission = settings.authorizationStatus
       
       switch permission {
-        #if os(iOS)
+#if os(iOS)
         case .ephemeral, .provisional: fallthrough
-        #endif
+#endif
           
         case .notDetermined:
           self.requestLocalNotificationPermission(completion: { _ in })
@@ -69,7 +69,7 @@ class LocalNotifications {
       if settings.soundSetting == .enabled {
         content.sound = UNNotificationSound.default
       }
-          
+      
       var date = DateComponents()
       date.calendar = Calendar.current
       date.timeZone = TimeZone.current

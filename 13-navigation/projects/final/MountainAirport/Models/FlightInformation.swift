@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -144,22 +144,6 @@ class FlightInformation: NSObject {
     let diff = Calendar.current.dateComponents([.minute], from: scheduledTime, to: actual)
     // swiftlint:disable:next force_unwrapping
     return diff.minute!
-  }
-
-  var statusColor: Color {
-    if status == .canceled {
-      return Color(red: 0.5, green: 0, blue: 0)
-    }
-
-    if timeDifference <= 0 {
-      return Color(red: 0.0, green: 0.6, blue: 0)
-    }
-
-    if timeDifference <= 15 {
-      return Color.yellow
-    }
-
-    return Color.red
   }
 
   var timelineColor: UIColor {

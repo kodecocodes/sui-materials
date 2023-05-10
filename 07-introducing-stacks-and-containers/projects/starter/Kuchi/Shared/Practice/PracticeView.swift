@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -37,7 +37,6 @@ struct PracticeView: View {
   @Binding var challengeTest: ChallengeTest?
   @Binding var userName: String
   
-  @ViewBuilder
   var body: some View {
     if challengeTest != nil {
       ChallengeView()
