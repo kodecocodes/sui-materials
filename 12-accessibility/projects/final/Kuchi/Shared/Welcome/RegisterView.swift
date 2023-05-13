@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -54,8 +54,7 @@ struct RegisterView: View {
           .accessibilityLabel("name has \(userManager.profile.name.count) letters")
           .accessibilityHint("name needs 3 or more letters to enable OK button")
           .font(.caption)
-          .foregroundColor(
-            userManager.isUserNameValid() ? .green : .red)
+          .foregroundColor(userManager.isUserNameValid() ? .green : .red)
           .padding(.trailing)
       }
       .padding(.bottom)

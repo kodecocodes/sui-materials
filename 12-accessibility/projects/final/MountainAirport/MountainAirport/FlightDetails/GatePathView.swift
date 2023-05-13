@@ -1,0 +1,167 @@
+/// Copyright (c) 2023 Kodeco Inc
+///
+/// Permission is hereby granted, free of charge, to any person obtaining a copy
+/// of this software and associated documentation files (the "Software"), to deal
+/// in the Software without restriction, including without limitation the rights
+/// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+/// copies of the Software, and to permit persons to whom the Software is
+/// furnished to do so, subject to the following conditions:
+///
+/// The above copyright notice and this permission notice shall be included in
+/// all copies or substantial portions of the Software.
+///
+/// Notwithstanding the foregoing, you may not use, copy, modify, merge, publish,
+/// distribute, sublicense, create a derivative work, and/or sell copies of the
+/// Software in any work that is designed, intended, or marketed for pedagogical or
+/// instructional purposes related to programming, coding, application development,
+/// or information technology.  Permission for such use, copying, modification,
+/// merger, publication, distribution, sublicensing, creation of derivative works,
+/// or sale is expressly withheld.
+///
+/// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+/// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+/// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+/// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+/// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+/// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+/// THE SOFTWARE.
+
+import SwiftUI
+
+struct GatePathView: View {
+  var flight: FlightInformation
+  @State private var showPath = false
+
+  var walkingAnimation: Animation {
+    .linear(duration: 3.0)
+    .repeatForever(autoreverses: false)
+  }
+
+
+  let gateAPaths = [
+    [
+      CGPoint(x: 360, y: 128),
+      CGPoint(x: 225, y: 128),
+      CGPoint(x: 225, y: 70)
+    ],
+    [
+      CGPoint(x: 360, y: 128),
+      CGPoint(x: 172, y: 128),
+      CGPoint(x: 172, y: 70)
+    ],
+    [
+      CGPoint(x: 360, y: 128),
+      CGPoint(x: 116, y: 128),
+      CGPoint(x: 116, y: 70)
+    ],
+    [
+      CGPoint(x: 360, y: 128),
+      CGPoint(x: 46, y: 128)
+    ],
+    [
+      CGPoint(x: 360, y: 128),
+      CGPoint(x: 116, y: 128),
+      CGPoint(x: 116, y: 187),
+      CGPoint(x: 46, y: 187)
+    ]
+  ]
+
+  let gateBPaths = [
+    [
+      CGPoint(x: 0, y: 128),
+      CGPoint(x: 142, y: 128),
+      CGPoint(x: 142, y: 70)
+    ],
+    [
+      CGPoint(x: 0, y: 128),
+      CGPoint(x: 197, y: 128),
+      CGPoint(x: 197, y: 70)
+    ],
+    [
+      CGPoint(x: 0, y: 128),
+      CGPoint(x: 252, y: 128),
+      CGPoint(x: 252, y: 70)
+    ],
+    [
+      CGPoint(x: 0, y: 128),
+      CGPoint(x: 315, y: 128)
+    ],
+    [
+      CGPoint(x: 0, y: 128),
+      CGPoint(x: 252, y: 128),
+      CGPoint(x: 252, y: 185),
+      CGPoint(x: 315, y: 185)
+    ]
+  ]
+
+  func gatePath(_ proxy: GeometryProxy) -> [CGPoint] {
+    guard let gateNumber = flight.gateNumber else { return [] }
+
+    var pathPoints: [CGPoint]
+    if flight.terminal == "A" {
+      pathPoints = gateAPaths[gateNumber - 1]
+    } else {
+      pathPoints = gateBPaths[gateNumber - 1]
+    }
+
+    let ratioX = proxy.size.width / 360.0
+    let ratioY = proxy.size.height / 480.0
+    var points: [CGPoint] = []
+    for pnt in pathPoints {
+      let newPoint = CGPoint(
+        x: pnt.x * ratioX, y: pnt.y * ratioY
+      )
+      points.append(newPoint)
+    }
+    return points
+  }
+
+  var mapName: String {
+    "terminal-\(flight.terminal)-map".lowercased()
+  }
+
+  var body: some View {
+    GeometryReader { proxy in
+      WalkPath(points: gatePath(proxy))
+        .trim(to: showPath ? 1.0 : 0.0)
+        .stroke(lineWidth: 3.0)
+        .animation(walkingAnimation, value: showPath)
+    }
+    .onAppear {
+      showPath = true
+    }
+  }
+}
+
+
+struct WalkPath: Shape {
+  var points: [CGPoint]
+
+  func path(in rect: CGRect) -> Path {
+    return Path { path in
+      guard points.count > 1 else { return }
+      path.addLines(points)
+    }
+  }
+}
+
+struct FlightTerminalMap_Previews: PreviewProvider {
+  static var testGateA: FlightInformation {
+    let flight = FlightData.generateTestFlight(date: Date())
+    flight.gate = "A3"
+    return flight
+  }
+
+  static var testGateB: FlightInformation {
+    let flight = FlightData.generateTestFlight(date: Date())
+    flight.gate = "B4"
+    return flight
+  }
+
+  static var previews: some View {
+    Group {
+      GatePathView(flight: testGateA)
+      GatePathView(flight: testGateB)
+    }
+  }
+}

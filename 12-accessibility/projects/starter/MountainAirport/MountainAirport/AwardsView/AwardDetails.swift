@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -52,6 +52,9 @@ struct AwardDetails: View {
       Text(award.description)
         .font(.body)
         .padding()
+      AwardStars(stars: award.stars)
+        .foregroundColor(.yellow)
+        .shadow(color: .black, radius: 5)
       Spacer()
     }.padding()
     .opacity(award.awarded ? 1.0 : 0.4)
@@ -65,14 +68,16 @@ struct AwardDetails_Previews: PreviewProvider {
       imageName: "first-visit-award",
       title: "First Visit",
       description: "Awarded the first time you open the app while at the airport.",
-      awarded: true
+      awarded: true,
+      stars: 1
     )
 
     let award2 = AwardInformation(
       imageName: "rainy-day-award",
       title: "Rainy Day",
       description: "Your flight was delayed because of weather.",
-      awarded: false
+      awarded: false,
+      stars: 3
     )
 
     Group {

@@ -1,4 +1,4 @@
-/// Copyright (c) 2021 Razeware LLC
+/// Copyright (c) 2023 Kodeco Inc.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -34,14 +34,17 @@ import SwiftUI
 
 struct WelcomeBackgroundImage: View {
   var body: some View {
-    Image("welcome-background")
-      .resizable()
-      .accessibilityHidden(true)
-      .aspectRatio(1 / 1, contentMode: .fill)
-      .edgesIgnoringSafeArea(.all)
-      .saturation(0.5)
-      .blur(radius: 5)
-      .opacity(0.08)
+    GeometryReader { geometry in
+      Image("welcome-background")
+        .resizable()
+        .accessibilityHidden(true)
+        .aspectRatio(1 / 1, contentMode: .fill)
+        .frame(width: geometry.size.width, alignment: .center)
+        .edgesIgnoringSafeArea(.all)
+        .saturation(0.5)
+        .blur(radius: 5)
+        .opacity(0.08)
+    }
   }
 }
 
