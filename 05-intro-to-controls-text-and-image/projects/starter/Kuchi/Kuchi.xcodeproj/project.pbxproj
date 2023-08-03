@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		535550AA2A7C555800462075 /* HorizontallyAlignedLabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535550A92A7C555800462075 /* HorizontallyAlignedLabelStyle.swift */; };
+		535550AB2A7C555800462075 /* HorizontallyAlignedLabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535550A92A7C555800462075 /* HorizontallyAlignedLabelStyle.swift */; };
 		53B15E73287C7A0F008FADBA /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B15E72287C7A0F008FADBA /* WelcomeView.swift */; };
 		53B15E74287C7A0F008FADBA /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B15E72287C7A0F008FADBA /* WelcomeView.swift */; };
 		57578FDE24E9D943003465A4 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57578FA724E9D943003465A4 /* HomeView.swift */; };
@@ -22,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		535550A92A7C555800462075 /* HorizontallyAlignedLabelStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontallyAlignedLabelStyle.swift; sourceTree = "<group>"; };
 		53B15E72287C7A0F008FADBA /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		57578FA724E9D943003465A4 /* HomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		57578FAA24E9D943003465A4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -58,6 +61,7 @@
 			children = (
 				57578F9224E9D943003465A4 /* Components */,
 				53B15E72287C7A0F008FADBA /* WelcomeView.swift */,
+				535550A92A7C555800462075 /* HorizontallyAlignedLabelStyle.swift */,
 			);
 			path = Welcome;
 			sourceTree = "<group>";
@@ -245,6 +249,7 @@
 			files = (
 				57EF341324E89F92004ABEB2 /* KuchiApp.swift in Sources */,
 				53B15E73287C7A0F008FADBA /* WelcomeView.swift in Sources */,
+				535550AA2A7C555800462075 /* HorizontallyAlignedLabelStyle.swift in Sources */,
 				57578FDE24E9D943003465A4 /* HomeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -255,6 +260,7 @@
 			files = (
 				57EF341424E89F92004ABEB2 /* KuchiApp.swift in Sources */,
 				53B15E74287C7A0F008FADBA /* WelcomeView.swift in Sources */,
+				535550AB2A7C555800462075 /* HorizontallyAlignedLabelStyle.swift in Sources */,
 				57578FDF24E9D943003465A4 /* HomeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
