@@ -7,6 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		530F49812A7D903600462DA2 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530F49802A7D903600462DA2 /* Profile.swift */; };
+		530F49822A7D903600462DA2 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530F49802A7D903600462DA2 /* Profile.swift */; };
+		530F49852A7D905900462DA2 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530F49832A7D905900462DA2 /* Settings.swift */; };
+		530F49862A7D905900462DA2 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530F49832A7D905900462DA2 /* Settings.swift */; };
+		530F49872A7D905900462DA2 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530F49842A7D905900462DA2 /* UserManager.swift */; };
+		530F49882A7D905900462DA2 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530F49842A7D905900462DA2 /* UserManager.swift */; };
+		530F498A2A7D907300462DA2 /* KeyboardFollower.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530F49892A7D907300462DA2 /* KeyboardFollower.swift */; };
+		530F498C2A7D915500462DA2 /* WelcomeBackgroundImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530F498B2A7D915500462DA2 /* WelcomeBackgroundImage.swift */; };
+		530F498D2A7D915500462DA2 /* WelcomeBackgroundImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530F498B2A7D915500462DA2 /* WelcomeBackgroundImage.swift */; };
+		530F498F2A7D920000462DA2 /* LogoImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530F498E2A7D920000462DA2 /* LogoImage.swift */; };
+		530F49902A7D920000462DA2 /* LogoImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530F498E2A7D920000462DA2 /* LogoImage.swift */; };
+		530F49922A7D921F00462DA2 /* WelcomeMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530F49912A7D921F00462DA2 /* WelcomeMessageView.swift */; };
+		530F49932A7D921F00462DA2 /* WelcomeMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530F49912A7D921F00462DA2 /* WelcomeMessageView.swift */; };
 		57472F8C2533B85800F47C29 /* HorizontallyAlignedLabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57472F8B2533B85800F47C29 /* HorizontallyAlignedLabelStyle.swift */; };
 		57472F8D2533B85800F47C29 /* HorizontallyAlignedLabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57472F8B2533B85800F47C29 /* HorizontallyAlignedLabelStyle.swift */; };
 		57578FDE24E9D943003465A4 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57578FA724E9D943003465A4 /* HomeView.swift */; };
@@ -23,6 +36,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		530F49802A7D903600462DA2 /* Profile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		530F49832A7D905900462DA2 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		530F49842A7D905900462DA2 /* UserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
+		530F49892A7D907300462DA2 /* KeyboardFollower.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardFollower.swift; sourceTree = "<group>"; };
+		530F498B2A7D915500462DA2 /* WelcomeBackgroundImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeBackgroundImage.swift; sourceTree = "<group>"; };
+		530F498E2A7D920000462DA2 /* LogoImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoImage.swift; sourceTree = "<group>"; };
+		530F49912A7D921F00462DA2 /* WelcomeMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeMessageView.swift; sourceTree = "<group>"; };
 		57472F8B2533B85800F47C29 /* HorizontallyAlignedLabelStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontallyAlignedLabelStyle.swift; sourceTree = "<group>"; };
 		57578FA724E9D943003465A4 /* HomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		57578FAA24E9D943003465A4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -68,6 +88,9 @@
 		57578F9224E9D943003465A4 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				530F498B2A7D915500462DA2 /* WelcomeBackgroundImage.swift */,
+				530F498E2A7D920000462DA2 /* LogoImage.swift */,
+				530F49912A7D921F00462DA2 /* WelcomeMessageView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -93,6 +116,9 @@
 		57B3CA462536553D00888D62 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				530F49832A7D905900462DA2 /* Settings.swift */,
+				530F49842A7D905900462DA2 /* UserManager.swift */,
+				530F49802A7D903600462DA2 /* Profile.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -100,6 +126,7 @@
 		57B3CA58253655AF00888D62 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				530F49892A7D907300462DA2 /* KeyboardFollower.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -254,7 +281,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				530F49852A7D905900462DA2 /* Settings.swift in Sources */,
 				57EF341324E89F92004ABEB2 /* KuchiApp.swift in Sources */,
+				530F498F2A7D920000462DA2 /* LogoImage.swift in Sources */,
+				530F49872A7D905900462DA2 /* UserManager.swift in Sources */,
+				530F49812A7D903600462DA2 /* Profile.swift in Sources */,
+				530F49922A7D921F00462DA2 /* WelcomeMessageView.swift in Sources */,
+				530F498A2A7D907300462DA2 /* KeyboardFollower.swift in Sources */,
+				530F498C2A7D915500462DA2 /* WelcomeBackgroundImage.swift in Sources */,
 				57472F8C2533B85800F47C29 /* HorizontallyAlignedLabelStyle.swift in Sources */,
 				57A447F0252BD68200CF7A3E /* WelcomeView.swift in Sources */,
 				57578FDE24E9D943003465A4 /* HomeView.swift in Sources */,
@@ -265,9 +299,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				530F49882A7D905900462DA2 /* UserManager.swift in Sources */,
+				530F49932A7D921F00462DA2 /* WelcomeMessageView.swift in Sources */,
 				57EF341424E89F92004ABEB2 /* KuchiApp.swift in Sources */,
+				530F49822A7D903600462DA2 /* Profile.swift in Sources */,
 				57472F8D2533B85800F47C29 /* HorizontallyAlignedLabelStyle.swift in Sources */,
 				57578FDF24E9D943003465A4 /* HomeView.swift in Sources */,
+				530F49862A7D905900462DA2 /* Settings.swift in Sources */,
+				530F49902A7D920000462DA2 /* LogoImage.swift in Sources */,
+				530F498D2A7D915500462DA2 /* WelcomeBackgroundImage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

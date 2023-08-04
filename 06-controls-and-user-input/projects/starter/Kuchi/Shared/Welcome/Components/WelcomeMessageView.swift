@@ -1,4 +1,4 @@
-/// Copyright (c) 2020 Razeware LLC
+/// Copyright (c) 2023 Razeware LLC
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -32,23 +32,26 @@
 
 import SwiftUI
 
-struct WelcomeView: View {
-  var body: some View {
-    ZStack {
-      WelcomeBackgroundImage()
-            
-      Label {
-        WelcomeMessageView()
-      } icon: {
-        LogoImage()
-      }
-      .labelStyle(HorizontallyAlignedLabelStyle())
+struct WelcomeMessageView: View {
+    var body: some View {
+        VStack(alignment: .leading) {
+          Text("Welcome to")
+            .font(.headline)
+            .bold()
+          Text("Kuchi")
+            .font(.largeTitle)
+            .bold()
+        }
+        .foregroundColor(.red)
+        .lineLimit(2)
+        .multilineTextAlignment(.leading)
+        .padding(.horizontal)
     }
-  }
 }
 
-struct WelcomeView_Previews: PreviewProvider {
-  static var previews: some View {
-    WelcomeView()
-  }
+struct WelcomeMessageView_Previews: PreviewProvider {
+    static var previews: some View {
+        WelcomeMessageView()
+            .previewLayout(.sizeThatFits)
+    }
 }
