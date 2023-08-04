@@ -34,18 +34,23 @@ import SwiftUI
 
 struct WelcomeMessageView: View {
     var body: some View {
-        VStack(alignment: .leading) {
-          Text("Welcome to")
-            .font(.headline)
-            .bold()
-          Text("Kuchi")
-            .font(.largeTitle)
-            .bold()
+        Label {
+            VStack(alignment: .leading) {
+              Text("Welcome to")
+                .font(.headline)
+                .bold()
+              Text("Kuchi")
+                .font(.largeTitle)
+                .bold()
+            }
+            .foregroundColor(.red)
+            .lineLimit(2)
+            .multilineTextAlignment(.leading)
+            .padding(.horizontal)
+        } icon: {
+          LogoImage()
         }
-        .foregroundColor(.red)
-        .lineLimit(2)
-        .multilineTextAlignment(.leading)
-        .padding(.horizontal)
+        .labelStyle(HorizontallyAlignedLabelStyle())
     }
 }
 
