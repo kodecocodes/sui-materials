@@ -50,7 +50,7 @@ struct BorderedViewModifier: ViewModifier {
 }
 
 extension View {
-    func boardered() -> some View {
+    func bordered() -> some View {
         ModifiedContent(content: self, modifier: BorderedViewModifier())
     }
 }
