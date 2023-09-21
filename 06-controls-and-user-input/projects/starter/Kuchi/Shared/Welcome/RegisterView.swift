@@ -35,6 +35,11 @@ import SwiftUI
 struct RegisterView: View {
 
     @State var name: String = ""
+    @ObservedObject var keyboardHandler: KeyboardFollower
+
+    init(keyboardHandler: KeyboardFollower) {
+        self.keyboardHandler = keyboardHandler
+    }
 
     var body: some View {
         VStack {
@@ -46,6 +51,8 @@ struct RegisterView: View {
 
             Spacer()
         }
+        .padding(.bottom, keyboardHandler.keyboardHeight)
+        .edgesIgnoringSafeArea(keyboardHandler.isVisible ? .bottom : [])
         .padding()
         .background(WelcomeBackgroundImage())
     }
@@ -53,6 +60,6 @@ struct RegisterView: View {
 
 struct RegisterView_Previews: PreviewProvider {
     static var previews: some View {
-        RegisterView()
+        RegisterView(keyboardHandler: KeyboardFollower())
     }
 }
