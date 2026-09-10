@@ -1,4 +1,4 @@
-/// Copyright (c) 2023 Kodeco Inc.
+/// Copyright (c) 2026 Kodeco Ltd.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -30,17 +30,15 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
+import MarkdownKit
 import SwiftUI
 import UniformTypeIdentifiers
-import MarkdownKit
 
-extension UTType {
-  static var markdownText: UTType {
-    UTType(importedAs: "net.daringfireball.markdown")
-  }
-}
+@Observable
+final class MacMarkDownDocument: Document {
 
-struct MacMarkDownDocument: FileDocument {
+  static let readableContentTypes: [UTType] = [.markdown]
+
   var text: String
 
   var html: String {
@@ -52,22 +50,32 @@ struct MacMarkDownDocument: FileDocument {
     self.text = text
   }
 
-  static var readableContentTypes: [UTType] { [.markdownText] }
-
-  init(configuration: ReadConfiguration) throws {
-    guard
-      let data = configuration.file.regularFileContents,
-      let string = String(data: data, encoding: .utf8)
-    else {
-      throw CocoaError(.fileReadCorruptFile)
+  nonisolated func reader(
+    configuration: sending ReadConfiguration
+  ) -> sending FileWrapperDocumentReader<String> {
+    FileWrapperDocumentReader(configuration) { fileWrapper in
+      guard let data = fileWrapper.regularFileContents else {
+        throw CocoaError(.fileReadCorruptFile)
+      }
+      return String(decoding: data, as: UTF8.self)
     }
-    text = string
   }
 
-  // swiftlint:disable force_unwrapping
-  func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
-    let data = text.data(using: .utf8)!
-    return .init(regularFileWithContents: data)
+  nonisolated func writer(
+    configuration: sending WriteConfiguration
+  ) -> sending FileWrapperDocumentWriter<String> {
+    FileWrapperDocumentWriter(configuration) { snapshot, _ in
+      FileWrapper(regularFileWithContents: Data(snapshot.utf8))
+    }
   }
-  // swiftlint:enable force_unwrapping
+
+  @MainActor
+  func snapshot(contentType: UTType) async throws -> sending String {
+    text
+  }
+
+  @MainActor
+  func apply(snapshot: sending String, previous: sending String?) async throws {
+    text = snapshot
+  }
 }
