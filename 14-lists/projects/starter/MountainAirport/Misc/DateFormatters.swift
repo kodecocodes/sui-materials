@@ -1,4 +1,4 @@
-/// Copyright (c) 2023 Kodeco Inc.
+/// Copyright (c) 2023 Kodeco Inc
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -28,10 +28,10 @@
 
 import Foundation
 
-var longDateFormatter: DateFormatter {
-  let ldf = DateFormatter()
-  ldf.dateStyle = .long
-  ldf.timeStyle = .none
-
-  return ldf
+extension FormatStyle where Self == Date.FormatStyle {
+  static var shortDate: Date.FormatStyle { .dateTime.month(.abbreviated).day() }
+  static var timeOnly: Date.FormatStyle { .dateTime.hour().minute() }
+  static var longDate: Date.FormatStyle {
+    .dateTime.weekday(.wide).month(.wide).day().year()
+  }
 }
