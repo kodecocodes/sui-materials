@@ -30,7 +30,6 @@ import SwiftUI
 
 struct SearchFlights: View {
   var flightData: [FlightInformation]
-  @State private var date = Date()
   @State private var directionFilter: FlightDirection = .none
 
   var matchingFlights: [FlightInformation] {
@@ -55,8 +54,7 @@ struct SearchFlights: View {
         Text("Arrivals").tag(FlightDirection.arrival)
         Text("Departures").tag(FlightDirection.departure)
       }
-      .background(Color.white)
-      .pickerStyle(SegmentedPickerStyle())
+      .pickerStyle(.segmented)
       // Insert Results
       Spacer()
     }
@@ -72,7 +70,7 @@ struct SearchFlights: View {
       )
       .ignoresSafeArea()
     }
-    .navigationBarTitle("Search Flights")
+    .navigationTitle("Search Flights")
     .padding()
   }
 }

@@ -30,7 +30,6 @@ import SwiftUI
 
 struct SearchFlights: View {
   var flightData: [FlightInformation]
-  @State private var date = Date()
   @State private var directionFilter: FlightDirection = .none
   @State private var city = ""
 
@@ -63,6 +62,14 @@ struct SearchFlights: View {
       Calendar.current.isDate($0.localTime, inSameDayAs: date)
     }
   }
+  
+  struct HierarchicalFlightRow: Identifiable {
+    var label: String
+    var flight: FlightInformation?
+    var children: [HierarchicalFlightRow]?
+    
+    var id: String { flight.map { "flight-\($0.id)" } ?? label }
+  }
 
   var body: some View {
     VStack {
@@ -74,12 +81,11 @@ struct SearchFlights: View {
         Text("Arrivals").tag(FlightDirection.arrival)
         Text("Departures").tag(FlightDirection.departure)
       }
-      .background(Color.white)
-      .pickerStyle(SegmentedPickerStyle())
+      .pickerStyle(.segmented)
       // 1
       List {
         // 2
-        ForEach(flightDates, id: \.hashValue) { date in
+        ForEach(flightDates, id: \.self) { date in
           // 3
           Section(
             // 4
@@ -99,7 +105,7 @@ struct SearchFlights: View {
         }
       }
       // 7
-      .listStyle(InsetGroupedListStyle())
+      .listStyle(.insetGrouped)
       Spacer()
     }
     .background {
@@ -115,7 +121,7 @@ struct SearchFlights: View {
       .ignoresSafeArea()
     }
     .searchable(text: $city)
-    .navigationBarTitle("Search Flights")
+    .navigationTitle("Search Flights")
     .padding()
   }
 }

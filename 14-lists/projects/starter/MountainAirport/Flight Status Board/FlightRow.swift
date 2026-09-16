@@ -31,13 +31,6 @@ import SwiftUI
 struct FlightRow: View {
   var flight: FlightInformation
 
-  var timeFormatter: DateFormatter {
-    let tdf = DateFormatter()
-    tdf.timeStyle = .short
-    tdf.dateStyle = .none
-    return tdf
-  }
-
   var body: some View {
     HStack {
       FlightStatusIcon(flight: flight)
@@ -48,7 +41,7 @@ struct FlightRow: View {
           .font(.title2)
         HStack {
           Text(flight.flightStatus)
-          Text(flight.localTime, formatter: timeFormatter)
+          Text(flight.localTime.formatted(.timeOnly))
         }.foregroundColor(flight.statusColor)
         HStack {
           Text(flight.otherAirport)

@@ -36,7 +36,7 @@ struct FlightStatusIcon: View {
       Image(systemName: "xmark.circle.badge.airplane")
         .resizable()
         .frame(width: 30, height: 30)
-        .foregroundColor(.primary)
+        .foregroundColor(.white)
         .background(
           RoundedRectangle(cornerRadius: 2)
             .frame(width: 40, height: 40)
@@ -47,7 +47,6 @@ struct FlightStatusIcon: View {
       Image(systemName: "airplane.arrival")
         .resizable()
         .frame(width: 30, height: 30)
-        .rotationEffect(.degrees(45.0))
         .foregroundColor(.white)
         .background(
           RoundedRectangle(cornerRadius: 2)

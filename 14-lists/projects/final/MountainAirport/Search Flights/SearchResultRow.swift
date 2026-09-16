@@ -31,13 +31,6 @@ import SwiftUI
 struct SearchResultRow: View {
   var flight: FlightInformation
 
-  var timeFormatter: DateFormatter {
-    let tdf = DateFormatter()
-    tdf.timeStyle = .short
-    tdf.dateStyle = .medium
-    return tdf
-  }
-
   var body: some View {
     HStack {
       FlightStatusIcon(flight: flight)
@@ -45,10 +38,8 @@ struct SearchResultRow: View {
         .clipShape(RoundedRectangle(cornerRadius: 7.0))
       VStack(alignment: .leading) {
         Text("\(flight.flightName) \(flight.dirString) \(flight.otherAirport)")
-        HStack {
-          Text(flight.localTime, formatter: timeFormatter)
-            .foregroundColor(.gray)
-        }
+        Text(flight.localTime.formatted(date: .abbreviated, time: .shortened))
+          .foregroundColor(.gray)
       }
     }
   }
