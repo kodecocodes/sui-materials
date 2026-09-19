@@ -28,10 +28,10 @@
 
 import Foundation
 
-var longDateFormatter: DateFormatter {
-  let ldf = DateFormatter()
-  ldf.dateStyle = .long
-  ldf.timeStyle = .none
-
-  return ldf
+extension FormatStyle where Self == Date.FormatStyle {
+  static var shortDate: Date.FormatStyle { .dateTime.month(.abbreviated).day() }
+  static var timeOnly: Date.FormatStyle { .dateTime.hour().minute() }
+  static var longDate: Date.FormatStyle {
+    .dateTime.weekday(.wide).month(.wide).day().year()
+  }
 }
