@@ -35,5 +35,11 @@ extension Date {
     return Calendar.current.date(from: cdc)!
   }
   
+  var oneWeekAgo: Date? {
+    return Calendar.current.date(byAdding: .weekOfYear, value: -1, to: self)
+  }
   
+  func dateDaysAgo(_ days: Int) -> Date? {
+    return Calendar.current.date(byAdding: .day, value: days, to: self)
+  }
 }

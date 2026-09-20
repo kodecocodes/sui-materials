@@ -62,7 +62,9 @@ struct AwardCardView: View {
     symbolName: "airplane.departure",
     title: "First Visit",
     description: "Awarded the first time you open the app while at the airport.",
-    awarded: true
+    awarded: true,
+    category: .travel,
+    awardedDate: Date.now.dateDaysAgo(-7)!
   )
   AwardCardView(award: award)
     .frame(width: 150, height: 220)

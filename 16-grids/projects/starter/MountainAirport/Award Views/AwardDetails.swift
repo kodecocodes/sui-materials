@@ -64,7 +64,9 @@ struct AwardDetails: View {
     symbolName: "airplane.departure",
     title: "First Visit",
     description: "Awarded the first time you open the app while at the airport.",
-    awarded: true
+    awarded: true,
+    category: .travel,
+    awardedDate: Date.now.dateDaysAgo(-10)
   )
   AwardDetails(award: award)
 }
@@ -74,7 +76,9 @@ struct AwardDetails: View {
     symbolName: "cloud.rain",
     title: "Rainy Day",
     description: "Your flight was delayed because of weather.",
-    awarded: false
+    awarded: false,
+    category: .travel,
+    awardedDate: nil
   )
   AwardDetails(award: award)
 }

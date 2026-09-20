@@ -38,7 +38,9 @@ import SwiftUI
         symbolName: "airplane.departure",
         title: "First Visit",
         description: "Awarded the first time you open the app while at the airport.",
-        awarded: true
+        awarded: true,
+        category: .travel,
+        awardedDate: Date.now.dateDaysAgo(-21)
       )
     )
     awardList.append(
@@ -46,7 +48,9 @@ import SwiftUI
         symbolName: "car",
         title: "Left Car Overnight",
         description: "You left you car parked overnight in one of our parking lots.",
-        awarded: true
+        awarded: true,
+        category: .parking,
+        awardedDate: Date.now.dateDaysAgo(-14)
       )
     )
     awardList.append(
@@ -54,7 +58,9 @@ import SwiftUI
         symbolName: "fork.knife",
         title: "Meal at Airport",
         description: "You used the app to receive a discount at one of our restaurants.",
-        awarded: false
+        awarded: false,
+        category: .dining,
+        awardedDate: nil
       )
     )
     awardList.append(
@@ -62,7 +68,9 @@ import SwiftUI
         symbolName: "bag",
         title: "First Flight",
         description: "You checked in for a flight using the app for the first time.",
-        awarded: true
+        awarded: true,
+        category: .travel,
+        awardedDate: Date.now.dateDaysAgo(-10)
       )
     )
     awardList.append(
@@ -70,7 +78,9 @@ import SwiftUI
         symbolName: "dollarsign.ring",
         title: "Almost Duty Free",
         description: "You used the app to receive a discount at one of our vendors.",
-        awarded: true
+        awarded: true,
+        category: .dining,
+        awardedDate: Date.now.dateDaysAgo(-7)
       )
     )
     awardList.append(
@@ -78,7 +88,9 @@ import SwiftUI
         symbolName: "cloud.rain",
         title: "Rainy Day",
         description: "You flight was delayed because of weather.",
-        awarded: false
+        awarded: false,
+        category: .travel,
+        awardedDate: nil
       )
     )
     awardList.append(
@@ -86,7 +98,9 @@ import SwiftUI
         symbolName: "house",
         title: "Welcome Home",
         description: "Your returned to the airport after leaving from it.",
-        awarded: true
+        awarded: true,
+        category: .travel,
+        awardedDate: Date.now.dateDaysAgo(-5)
       )
     )
   }

@@ -28,11 +28,19 @@
 
 import Foundation
 
+enum AwardCategory: String {
+  case travel = "Travel"
+  case dining = "Dining and Shopping"
+  case parking = "Parking"
+}
+
 struct AwardInformation: Hashable {
   public var symbolName: String
   public var title: String
   public var description: String
   public var awarded: Bool
+  public var category: AwardCategory
+  public var awardedDate: Date?
 }
 
 extension AwardInformation: Identifiable {

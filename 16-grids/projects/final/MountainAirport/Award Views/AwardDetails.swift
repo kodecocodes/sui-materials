@@ -32,18 +32,35 @@ struct AwardDetails: View {
   var award: AwardInformation
 
   var body: some View {
-    VStack(alignment: .center) {
-      Image(systemName: award.symbolName)
-        .resizable()
-        .frame(maxWidth: 250, maxHeight: 250)
-        .padding(AirportStyle.contentPadding)
+    VStack {
       Text(award.title)
         .font(.title)
-        .padding()
-      Text(award.description)
-        .font(.body)
-        .padding()
-      Spacer()
+      // 1
+      Grid(alignment: .leading, horizontalSpacing: 16, verticalSpacing: 12) {
+        // 2
+        GridRow {
+          Image(systemName: award.symbolName)
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .frame(maxWidth: 250, maxHeight: 250)
+            .padding(AirportStyle.contentPadding)
+            .gridCellColumns(2)
+            .gridCellAnchor(.center)
+        }
+        GridRow(alignment: .firstTextBaseline) {
+          Text("Description")
+            .gridColumnAlignment(.trailing)
+          Text(award.description)
+        }
+        GridRow {
+          Text("Category")
+          Text(award.category.rawValue)
+        }
+        GridRow {
+          Text("Awarded")
+          Text(award.awardedDate?.formatted(.longDate) ?? "You have not received this award yet.")
+        }
+      }
     }
     .padding()
     .background(
@@ -64,7 +81,9 @@ struct AwardDetails: View {
     symbolName: "airplane.departure",
     title: "First Visit",
     description: "Awarded the first time you open the app while at the airport.",
-    awarded: true
+    awarded: true,
+    category: .travel,
+    awardedDate: Date.now.dateDaysAgo(-7)
   )
   AwardDetails(award: award)
 }
@@ -74,7 +93,9 @@ struct AwardDetails: View {
     symbolName: "cloud.rain",
     title: "Rainy Day",
     description: "Your flight was delayed because of weather.",
-    awarded: false
+    awarded: false,
+    category: .travel,
+    awardedDate: nil
   )
   AwardDetails(award: award)
 }
