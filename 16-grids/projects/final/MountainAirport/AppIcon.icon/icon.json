@@ -1,0 +1,49 @@
+{
+  "fill": {
+    "solid": "extended-srgb:0.09000,0.36000,0.71000,1.00000"
+  },
+  "groups": [
+    {
+      "name": "Runway",
+      "layers": [
+        {
+          "image-name": "Runway.svg",
+          "name": "Runway"
+        }
+      ],
+      "translucency": {
+        "enabled": false,
+        "value": 0.5
+      }
+    },
+    {
+      "name": "Foothills",
+      "layers": [
+        {
+          "image-name": "Foothills.svg",
+          "name": "Foothills"
+        }
+      ],
+      "translucency": {
+        "enabled": false,
+        "value": 0.5
+      }
+    },
+    {
+      "name": "Mountains",
+      "layers": [
+        {
+          "image-name": "Mountains.svg",
+          "name": "Mountains"
+        }
+      ],
+      "translucency": {
+        "enabled": false,
+        "value": 0.5
+      }
+    }
+  ],
+  "supported-platforms": {
+    "squares": "shared"
+  }
+}
