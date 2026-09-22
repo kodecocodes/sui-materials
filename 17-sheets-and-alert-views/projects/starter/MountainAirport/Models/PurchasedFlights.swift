@@ -1,4 +1,4 @@
-/// Copyright (c) 2023 Kodeco inc
+/// Copyright (c) 2026 Kodeco Inc.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -30,53 +30,55 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import SwiftUI
+import Foundation
+import Observation
 
-class PurchasedFlights: ObservableObject {
-  @Published var purchasedFlightIds: [Int] = []
-  @AppStorage("PurchasedFlight") var purchasedFlightStorage = "" {
+@MainActor
+@Observable
+final class PurchasedFlights {
+  var purchasedFlightIds: [Int] {
     didSet {
-      purchasedFlightIds = getPurchasedFlights()
+      defaults?.set(purchasedFlightStorage, forKey: "PurchasedFlight")
     }
   }
 
-  init() {
-    purchasedFlightIds = getPurchasedFlights()
+  private let defaults: UserDefaults?
+
+  var purchasedFlightStorage: String {
+    get { purchasedFlightIds.map { String($0) }.joined(separator: ",") }
+    set { purchasedFlightIds = newValue.split(separator: ",").compactMap { Int($0) } }
   }
 
-  init(flightId: Int) {
-    purchasedFlightIds = [flightId]
+  init(defaults: UserDefaults = .standard) {
+    self.defaults = defaults
+    purchasedFlightIds = (defaults.string(forKey: "PurchasedFlight") ?? "")
+      .split(separator: ",").compactMap { Int($0) }
   }
 
+  convenience init(flightId: Int) {
+    self.init(flightIds: [flightId])
+  }
+
+  // Preview data stays in memory and never changes the user's stored flights.
   init(flightIds: [Int]) {
+    defaults = nil
     purchasedFlightIds = flightIds
   }
 
   func isFlightPurchased(_ flight: FlightInformation) -> Bool {
-    let flightIds = purchasedFlightStorage.split(separator: ",").compactMap { Int($0) }
-    let matching = flightIds.filter { $0 == flight.id }
-    return matching.isEmpty == false
+    purchasedFlightIds.contains(flight.id)
   }
 
   func purchaseFlight(_ flight: FlightInformation) {
-    if !isFlightPurchased(flight) {
-      print("Saving flight: \(flight.id)")
-      var flights = purchasedFlightStorage.split(separator: ",").compactMap { Int($0) }
-      flights.append(flight.id)
-      purchasedFlightStorage = flights.map { String($0) }.joined(separator: ",")
-    }  }
+    guard !isFlightPurchased(flight) else { return }
+    purchasedFlightIds.append(flight.id)
+  }
 
   func removePurchasedFlight(_ flight: FlightInformation) {
-    if isFlightPurchased(flight) {
-      print("Removing saved flight: \(flight.id)")
-      let flights = purchasedFlightStorage.split(separator: ",").compactMap { Int($0) }
-      let newFlights = flights.filter { $0 != flight.id }
-      purchasedFlightStorage = newFlights.map { String($0) }.joined(separator: ",")
-    }
+    purchasedFlightIds.removeAll { $0 == flight.id }
   }
 
   func getPurchasedFlights() -> [Int] {
-    let flightIds = purchasedFlightStorage.split(separator: ",").compactMap { Int($0) }
-    return flightIds
+    purchasedFlightIds
   }
 }

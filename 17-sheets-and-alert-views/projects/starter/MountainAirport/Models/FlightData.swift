@@ -1,4 +1,4 @@
-/// Copyright (c) 2023 Kodeco inc
+/// Copyright (c) 2026 Kodeco Inc.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -30,7 +30,8 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import SwiftUI
+import Foundation
+import Observation
 import GameKit
 
 // Simple generator that wrapps GKRandom from GameKit to produce a seedable
@@ -48,31 +49,36 @@ public struct SeededRandomGenerator: RandomNumberGenerator {
   }
 
   init(seed: UInt64) {
-    gkrandom = GKMersenneTwisterRandomSource(seed: seed)
+    self.gkrandom = GKMersenneTwisterRandomSource(seed: seed)
   }
 
   init() {
     let seed = UInt64.random(in: UInt64.min ... UInt64.max)
-    gkrandom = GKMersenneTwisterRandomSource(seed: seed)
+    self.gkrandom = GKMersenneTwisterRandomSource(seed: seed)
   }
 }
 
-class FlightData: ObservableObject {
-  @Published var flights: [FlightInformation] = []
+@MainActor
+@Observable
+final class FlightData {
+  var flights: [FlightInformation] = []
   var canceledFlight: FlightInformation {
     flights.first { $0.status == .canceled }!
   }
+  
   var departingOnTimeFlight: FlightInformation {
     flights.first { $0.status == .ontime && $0.direction == .departure }!
   }
 
   // Seeded random numbers so the sample data is same each time
-  var generator = SeededRandomGenerator(
+  @ObservationIgnored private var generator = SeededRandomGenerator(
     seed: UInt64(17173993227352144317)
   )
 
   init() {
     flights = generateSchedule()
+    let historyFlight = flights[0]
+    flights[0] = FlightData.generateTestHistory(flight: historyFlight)
   }
 
   func getFlightById(_ id: Int) -> FlightInformation? {
@@ -87,25 +93,17 @@ class FlightData: ObservableObject {
     var flights: [FlightInformation] = []
 
     for idx in 0...15 {
-      // swiftlint:disable:next force_unwrapping
       let day = Calendar.current.date(byAdding: .day, value: idx, to: Date())!
       flights.append(contentsOf: generateFlights(startIndex: idx * 30, date: day, isFuture: idx > 0))
     }
 
-    return flights.sorted {
-      $0.localTime < $1.localTime
-    }
+    return flights.sorted { $0.localTime < $1.localTime }
   }
 
   func generateFlights(startIndex: Int, date: Date, isFuture: Bool) -> [FlightInformation] {
     (1...30).map { generateFlight($0 + startIndex, date: date, isFuture: isFuture) }
   }
 
-  func generateFlight(date: Date = Date(), isFuture: Bool) -> FlightInformation {
-    return generateFlight(1, date: date, isFuture: isFuture)
-  }
-
-  // swiftlint:disable:next function_body_length
   func generateFlight(_ idx: Int, date: Date, isFuture: Bool) -> FlightInformation {
     let airlines = ["US", "Southeast", "Pacific", "Overland"]
     let airports = [
@@ -113,12 +111,17 @@ class FlightData: ObservableObject {
       "Miami", "Nashville", "New York-LGA", "Denver", "Phoenix", "Las Vegas"
     ]
     let airportCoordinates = [
-      (lat: 35.2144, long: -80.9473), (lat: 33.6407, long: -84.4277),
-      (lat: 41.9742, long: -87.9073), (lat: 32.8998, long: -97.0403),
-      (lat: 42.2162, long: -83.3554), (lat: 25.7959, long: -80.2871),
-      (lat: 36.1263, long: -86.6774), (lat: 40.7769, long: -73.8740),
-      (lat: 39.8561, long: -104.6737), (lat: 33.4484, long: -112.0740),
-      (lat: 36.0840, long: -115.1537)
+      AirportCoordinate(latitude: 35.2144, longitude: -80.9473),
+      AirportCoordinate(latitude: 33.6407, longitude: -84.4277),
+      AirportCoordinate(latitude: 41.9742, longitude: -87.9073),
+      AirportCoordinate(latitude: 32.8998, longitude: -97.0403),
+      AirportCoordinate(latitude: 42.2162, longitude: -83.3554),
+      AirportCoordinate(latitude: 25.7959, longitude: -80.2871),
+      AirportCoordinate(latitude: 36.1263, longitude: -86.6774),
+      AirportCoordinate(latitude: 40.7769, longitude: -73.8740),
+      AirportCoordinate(latitude: 39.8561, longitude: -104.6737),
+      AirportCoordinate(latitude: 33.4484, longitude: -112.0740),
+      AirportCoordinate(latitude: 36.0840, longitude: -115.1537)
     ]
     let flightTime = [70, 60, 105, 135, 95, 125, 65, 105, 190, 225, 255]
     let year = Calendar.current.component(.year, from: date)
@@ -137,7 +140,6 @@ class FlightData: ObservableObject {
     let hour = Int(Float(idx % 30) / 1.75) + 6
     let minute = Int.random(in: 0...11, using: &generator) * 5
     let scheduled = Calendar.current
-      // swiftlint:disable:next force_unwrapping
       .date(from: DateComponents(year: year, month: month, day: day, hour: hour, minute: minute, second: 0))!
     let statusRoll = Int.random(in: 0...100, using: &generator)
     var status: FlightStatus
@@ -152,7 +154,7 @@ class FlightData: ObservableObject {
       status = .canceled
       newTime = nil
     }
-    let newFlight = FlightInformation(
+    var newFlight = FlightInformation(
       recordId: idx,
       airline: airline,
       number: number,
@@ -165,9 +167,8 @@ class FlightData: ObservableObject {
       status: status,
       gate: gate
     )
-    // swiftlint:disable force_unwrapping
     for daysAgo in (-10)...(-1) {
-      let scheduledHour = Int(Float(idx) / 1.75) + 6
+      let scheduledHour = Int(Float(idx % 30) / 1.75) + 6
       let scheduledMinute = Int.random(in: 0...11, using: &generator) * 5
       let historyDate = Calendar.current.date(byAdding: .day, value: daysAgo, to: scheduled)!
       let scheduledYear = Calendar.current.component(.year, from: historyDate)
@@ -187,7 +188,6 @@ class FlightData: ObservableObject {
         generateHistory(-daysAgo, id: idx, date: historyDate, direction: direction, scheduled: historyScheduled)
       newFlight.history.insert(historyEntry, at: 0)
     }
-    // swiftlint:enable force_unwrapping
 
     return newFlight
   }
@@ -226,14 +226,14 @@ class FlightData: ObservableObject {
       actualTime: newTime
     )
   }
-
+  
   static func refreshFlights() async -> [FlightInformation] {
-    sleep(3) // Three seconds
+    try? await Task.sleep(for: .seconds(3))
     return FlightData.generateTestFlights(date: Date())
   }
 
   static func searchFlightsForCity(_ city: String) async -> [FlightInformation] {
-    sleep(3) // Three seconds
+    try? await Task.sleep(for: .seconds(3))
 
     let flights = FlightData().flights
     guard !city.isEmpty else {
@@ -242,7 +242,7 @@ class FlightData: ObservableObject {
 
     return flights.filter { $0.otherAirport.lowercased().contains(city.lowercased()) }
   }
-
+  
   static func citiesContaining(_ text: String) -> [String] {
     let cityArray = FlightData().flights.map { $0.otherAirport }
     let matchingCities =
@@ -251,13 +251,53 @@ class FlightData: ObservableObject {
     return Array(citySet.sorted())
   }
 
+  /// A single sample flight scheduled on `date`. Falls back to the first
+  /// generated flight when the schedule has nothing on that date.
   static func generateTestFlight(date: Date) -> FlightInformation {
     let flightData = FlightData()
-    return flightData.flights[0]
+    return flightData.getDaysFlights(date).first ?? flightData.flights[0]
   }
 
+  /// The sample flights scheduled on `date`. The generated schedule covers
+  /// today through fifteen days out, so dates outside that range have none.
   static func generateTestFlights(date: Date) -> [FlightInformation] {
-    let flightData = FlightData()
-    return flightData.flights
+    FlightData().getDaysFlights(date)
+  }
+
+  /// A sample flight on `date` carrying the deterministic ten-day history
+  /// that the drawing and chart chapters rely on.
+  static func generateTestFlightHistory(date: Date) -> FlightInformation {
+    generateTestHistory(flight: generateTestFlight(date: date))
+  }
+
+  static func generateTestHistory(flight: FlightInformation) -> FlightInformation {
+    var flight = flight
+    guard !flight.history.isEmpty else { return flight }
+
+    // Spreads the sample delays from early through significantly late, with the
+    // oldest day canceled, so charts in later chapters show one of every category.
+    let spread = 75 / flight.history.count
+    let canceledDay = flight.history.count
+
+    flight.history = flight.history.map { entry in
+      var entry = entry
+
+      if entry.day == canceledDay {
+        entry.actualTime = nil
+        entry.status = .canceled
+      } else {
+        let difference = (entry.day - 1) * spread - 14
+        entry.actualTime = Calendar.current.date(
+          byAdding: .minute,
+          value: difference,
+          to: entry.scheduledTime
+        ) ?? entry.scheduledTime
+        entry.status = difference <= 0 ? .ontime : .delayed
+      }
+
+      return entry
+    }
+
+    return flight
   }
 }

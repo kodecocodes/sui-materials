@@ -1,15 +1,15 @@
-/// Copyright (c) 2023 Kodeco inc
-///
+/// Copyright (c) 2026 Kodeco Inc.
+/// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
 /// in the Software without restriction, including without limitation the rights
 /// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 /// copies of the Software, and to permit persons to whom the Software is
 /// furnished to do so, subject to the following conditions:
-///
+/// 
 /// The above copyright notice and this permission notice shall be included in
 /// all copies or substantial portions of the Software.
-///
+/// 
 /// Notwithstanding the foregoing, you may not use, copy, modify, merge, publish,
 /// distribute, sublicense, create a derivative work, and/or sell copies of the
 /// Software in any work that is designed, intended, or marketed for pedagogical or
@@ -17,11 +17,7 @@
 /// or information technology.  Permission for such use, copying, modification,
 /// merger, publication, distribution, sublicensing, creation of derivative works,
 /// or sale is expressly withheld.
-///
-/// This project and source code may use libraries or frameworks that are
-/// released under various Open-Source licenses. Use of those libraries and
-/// frameworks are governed by their own individual licenses.
-///
+/// 
 /// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 /// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 /// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -30,33 +26,25 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import SwiftUI
+import Foundation
 
-struct AwardInformation {
-  public var imageName: String
+enum AwardCategory: String {
+  case travel = "Travel"
+  case dining = "Dining and Shopping"
+  case parking = "Parking"
+}
+
+struct AwardInformation: Hashable {
+  public var symbolName: String
   public var title: String
   public var description: String
   public var awarded: Bool
-}
-
-extension AwardInformation: Hashable {
-  static func == (lhs: AwardInformation, rhs: AwardInformation) -> Bool {
-    if lhs.title == rhs.title && lhs.description == rhs.description && lhs.awarded == rhs.awarded {
-      return true
-    }
-
-    return false
-  }
-
-  func hash(into hasher: inout Hasher) {
-    hasher.combine(title)
-    hasher.combine(description)
-    hasher.combine(awarded)
-  }
+  public var category: AwardCategory
+  public var awardedDate: Date?
 }
 
 extension AwardInformation: Identifiable {
-  public var id: Int {
-    self.hashValue
+  public var id: String {
+    "\(symbolName):\(title)"
   }
 }
