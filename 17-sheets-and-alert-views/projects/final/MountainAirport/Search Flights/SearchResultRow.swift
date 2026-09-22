@@ -30,34 +30,24 @@ import SwiftUI
 
 struct SearchResultRow: View {
   var flight: FlightInformation
-  @State private var isSummaryPresented = false
+  @Binding var selectedFlight: FlightInformation?
 
   var body: some View {
     // 1
     Button(
       action: {
-        isSummaryPresented.toggle()
+        selectedFlight = flight
       }, label: {
         FlightSearchSummary(flight: flight)
     })
-    // 2
-    .sheet(
-      // 3
-      isPresented: $isSummaryPresented,
-      // 4
-      onDismiss: {
-        print("Modal dismissed. State now: \(isSummaryPresented)")
-      },
-      // 5
-      content: {
-        FlightSearchDetails(flight: flight)
-      }
-    )
   }
 }
 
 #Preview {
+  @Previewable @State var selectedFlight: FlightInformation?
+
   SearchResultRow(
-    flight: FlightData.generateTestFlight(date: Date())
+    flight: FlightData.generateTestFlight(date: Date()),
+    selectedFlight: $selectedFlight
   )
 }

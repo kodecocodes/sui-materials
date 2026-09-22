@@ -34,6 +34,7 @@ struct SearchFlights: View {
   @State private var city = ""
   @State private var runningSearch = false
   @State private var isSearching = false
+  @State private var selectedFlight: FlightInformation?
   
   var matchingFlights: [FlightInformation] {
     var matchingFlights = flightData
@@ -80,7 +81,10 @@ struct SearchFlights: View {
               .frame(maxWidth: .infinity, alignment: .trailing)
           ) {
             ForEach(flightsForDay(date: date)) { flight in
-              SearchResultRow(flight: flight)
+              SearchResultRow(
+                flight: flight,
+                selectedFlight: $selectedFlight
+              )
             }
           }
         }
@@ -141,6 +145,9 @@ struct SearchFlights: View {
     }
     .navigationTitle("Search Flights")
     .padding()
+    .fullScreenCover(item: $selectedFlight) { flight in
+      FlightSearchDetails(flight: flight)
+    }
   }
 }
 
