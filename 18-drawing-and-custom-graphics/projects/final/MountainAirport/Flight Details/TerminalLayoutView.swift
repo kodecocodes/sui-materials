@@ -32,10 +32,6 @@ struct TerminalLayoutView: View {
   var flight: FlightInformation
   @State private var width: Double = 0
   
-  var startingGate: Int {
-    flight.terminal == "A" ? 1 : 6
-  }
-  
   var scaleRatio: Double {
     width / 354.0
   }
@@ -45,14 +41,14 @@ struct TerminalLayoutView: View {
     HStack(spacing: 0) {
       VStack(spacing: 30 * scaleRatio) {
         // 2
-        ForEach(startingGate + 3..<startingGate + 5, id: \.self) { gateNumber in
+        ForEach(4...5, id: \.self) { gateNumber in
           gate(gateNumber)
         }
       }
       VStack(spacing: 0) {
         HStack(spacing: 18 * scaleRatio) {
           ForEach(
-            (startingGate..<startingGate + 3).reversed(),
+            (1...3).reversed(),
             id: \.self
           ) { gateNumber in
             gate(gateNumber)
@@ -130,16 +126,15 @@ struct TerminalLayoutView: View {
 }
 
 #Preview("Terminal A") {
-  TerminalLayoutView(
-    flight: FlightData.generateTestFlight(date: Date())
-  )
+  var flight = FlightData.generateTestFlight(date: .now)
+  flight.gate = "A4"
+
+  return TerminalLayoutView(flight: flight)
 }
 
 #Preview("Terminal B") {
   var flight = FlightData.generateTestFlight(date: .now)
-  flight.gate = "B8"
+  flight.gate = "B5"
   
-  return TerminalLayoutView(
-    flight: flight
-  )
+  return TerminalLayoutView(flight: flight)
 }

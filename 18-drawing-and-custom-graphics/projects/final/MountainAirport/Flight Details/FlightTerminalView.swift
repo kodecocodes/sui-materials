@@ -95,14 +95,14 @@ struct FlightTerminalView: View {
 
 #Preview("Terminal A") {
   var flight = FlightData.generateTestFlight(date: .now)
-  flight.gate = "A5"
+  flight.gate = "A1"
 
   return FlightTerminalView(flight: flight)
 }
 
 #Preview("Terminal B") {
   var flight = FlightData.generateTestFlight(date: .now)
-  flight.gate = "B10"
+  flight.gate = "B5"
 
   return FlightTerminalView(flight: flight)
 }
