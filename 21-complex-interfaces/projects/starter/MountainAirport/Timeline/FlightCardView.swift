@@ -1,4 +1,4 @@
-/// Copyright (c) 2023 Kodeco Inc
+/// Copyright (c) 2026 Kodeco Inc.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -42,10 +42,8 @@ struct FlightCardView: View {
   }
 }
 
-struct FlightCardView_Previews: PreviewProvider {
-  static var previews: some View {
-    FlightCardView(
-      flight: FlightData.generateTestFlight(date: Date())
-    )
-  }
+#Preview {
+  FlightCardView(
+    flight: FlightData.generateTestFlight(date: .now)
+  )
 }

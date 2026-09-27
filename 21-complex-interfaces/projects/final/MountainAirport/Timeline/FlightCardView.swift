@@ -1,4 +1,5 @@
-/// Copyright (c) 2023 Kodeco Inc
+/// Copyright (c) 2026 Kodeco Inc.
+///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
 /// in the Software without restriction, including without limitation the rights
@@ -31,14 +32,11 @@ struct DepartureTimeView: View {
   var flight: FlightInformation
 
   var body: some View {
-    VStack {
+    VStack(alignment: .leading) {
       if flight.direction == .arrival {
         Text(flight.otherAirport)
       }
-      Text(
-        shortTimeFormatter.string(
-          from: flight.departureTime)
-      )
+      Text(flight.departureTime, format: .timeOnly)
     }
   }
 }
@@ -47,15 +45,11 @@ struct ArrivalTimeView: View {
   var flight: FlightInformation
 
   var body: some View {
-    VStack {
+    VStack(alignment: .trailing) {
       if flight.direction == .departure {
         Text(flight.otherAirport)
       }
-      Text(
-        shortTimeFormatter.string(
-          from: flight.arrivalTime
-        )
-      )
+      Text(flight.arrivalTime, format: .timeOnly)
     }
   }
 }
@@ -65,22 +59,29 @@ struct FlightProgressView: View {
   var progress: CGFloat
 
   var body: some View {
-    // 1
-    GeometryReader { proxy in
-      Image(systemName: "airplane")
-        .resizable()
-        // 2
-        .offset(x: proxy.size.width * progress)
-        .frame(width: 25, height: 25)
-        .foregroundColor(flight.statusColor)
+    Image(systemName: "airplane")
+      // 1
+      .resizable()
+      .scaledToFit()
+      .frame(width: 30, height: 30)
+      .foregroundStyle(flight.statusColor)
+      // 2
+      .frame(maxWidth: .infinity, alignment: .leading)
       // 3
-    }.padding([.trailing], 20)
+      .visualEffect { content, proxy in
+        content
+          .offset(x: proxy.size.width * progress)
+      }
+      // 4
+      .padding([.trailing], 32)
   }
 }
 
 struct FlightCardView: View {
   var flight: FlightInformation
-
+  var date = Date.now
+  var showMap = true
+  
   func minutesBetween(_ start: Date, and end: Date) -> Int {
     // 1
     let diff = Calendar.current.dateComponents(
@@ -93,27 +94,25 @@ struct FlightCardView: View {
     // 3
     return abs(minute)
   }
-
-  func flightTimeFraction(flight: FlightInformation) -> CGFloat {
+  
+  func flightTimeFraction(flight: FlightInformation, date now: Date) -> CGFloat {
     // 1
-    let now = Date()
-    // 2
     if flight.direction == .departure {
-      // 3
+      // 2
       if flight.localTime > now {
         return 0.0
-      // 4
+      // 3
       } else if flight.otherEndTime < now {
         return 1.0
       } else {
-        // 5
+        // 4
         let timeInFlight = minutesBetween(
           flight.localTime, and: now
         )
-        // 6
+        // 5
         let fraction =
           Double(timeInFlight) / Double(flight.flightTime)
-        // 7
+        // 6
         return CGFloat(fraction)
       }
     } else {
@@ -134,37 +133,31 @@ struct FlightCardView: View {
 
   var body: some View {
     VStack {
-      HStack {
+      HStack(alignment: .top) {
+        DepartureTimeView(flight: flight)
         Spacer()
         Text(flight.statusBoardName)
         Spacer()
-      }
-      HStack(alignment: .bottom) {
-        DepartureTimeView(flight: flight)
-        FlightProgressView(
-          flight: flight,
-          progress: flightTimeFraction(
-            flight: flight
-          )
-        )
         ArrivalTimeView(flight: flight)
       }
-      FlightMapView(
-        startCoordinate: flight.startingAirportLocation,
-        endCoordinate: flight.endingAirportLocation,
+      FlightProgressView(
+        flight: flight,
         progress: flightTimeFraction(
-          flight: flight
+          flight: flight,
+          date: date
         )
       )
-      .frame(width: 300, height: 300)
+      if showMap {
+          FlightMapView(
+            startCoordinate: flight.startingAirportLocation,
+            endCoordinate: flight.endingAirportLocation,
+            progress: flightTimeFraction(flight: flight, date: date)
+          )
+        .scaledToFit()
+      }
     }
     .padding()
-    .background(
-      Color.gray.opacity(0.3)
-    )
-    .clipShape(
-      RoundedRectangle(cornerRadius: 20)
-    )
+    .background(.regularMaterial, in: .rect(cornerRadius: 20))
     .overlay(
       RoundedRectangle(cornerRadius: 20)
         .stroke()
@@ -172,10 +165,8 @@ struct FlightCardView: View {
   }
 }
 
-struct FlightCardView_Previews: PreviewProvider {
-  static var previews: some View {
-    FlightCardView(
-      flight: FlightData.generateTestFlight(date: Date())
-    )
-  }
+#Preview {
+  FlightCardView(
+    flight: FlightData.generateTestFlight(date: .now)
+  )
 }

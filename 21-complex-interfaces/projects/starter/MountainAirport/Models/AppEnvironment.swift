@@ -1,4 +1,4 @@
-/// Copyright (c) 2023 Kodeco Inc
+/// Copyright (c) 2026 Kodeco Inc.
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -17,11 +17,7 @@
 /// or information technology.  Permission for such use, copying, modification,
 /// merger, publication, distribution, sublicensing, creation of derivative works,
 /// or sale is expressly withheld.
-///
-/// This project and source code may use libraries or frameworks that are
-/// released under various Open-Source licenses. Use of those libraries and
-/// frameworks are governed by their own individual licenses.
-///
+/// 
 /// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 /// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 /// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -32,71 +28,86 @@
 
 import SwiftUI
 
-class AppEnvironment: ObservableObject {
-  @Published var lastFlightId: Int?
-  @Published var awardList: [AwardInformation] = []
+@Observable class AppEnvironment {
+  var lastFlightId: Int?
+  var savedFlightIds: [Int] = []
+  var awardList: [AwardInformation] = []
 
   init() {
     awardList.append(
       AwardInformation(
-        imageName: "first-visit-award",
+        symbolName: "airplane.departure",
         title: "First Visit",
         description: "Awarded the first time you open the app while at the airport.",
         awarded: true,
+        category: .travel,
+        awardedDate: Date.now.dateDaysAgo(-21),
         stars: 1
       )
     )
     awardList.append(
       AwardInformation(
-        imageName: "overnight-award",
+        symbolName: "car",
         title: "Left Car Overnight",
         description: "You left you car parked overnight in one of our parking lots.",
         awarded: true,
+        category: .parking,
+        awardedDate: Date.now.dateDaysAgo(-14),
         stars: 2
       )
     )
     awardList.append(
       AwardInformation(
-        imageName: "meal-award",
+        symbolName: "fork.knife",
         title: "Meal at Airport",
         description: "You used the app to receive a discount at one of our restaurants.",
         awarded: false,
+        category: .dining,
+        awardedDate: nil,
         stars: 2
       )
     )
     awardList.append(
       AwardInformation(
-        imageName: "first-flight-award",
+        symbolName: "bag",
         title: "First Flight",
         description: "You checked in for a flight using the app for the first time.",
         awarded: true,
+        category: .travel,
+        awardedDate: Date.now.dateDaysAgo(-10),
         stars: 3
       )
     )
     awardList.append(
       AwardInformation(
-        imageName: "shopping-award",
+        symbolName: "dollarsign.ring",
         title: "Almost Duty Free",
         description: "You used the app to receive a discount at one of our vendors.",
         awarded: true,
+        category: .dining,
+        awardedDate: Date.now.dateDaysAgo(-7),
         stars: 2
       )
     )
     awardList.append(
       AwardInformation(
-        imageName: "rainy-day-award",
+        symbolName: "cloud.rain",
         title: "Rainy Day",
         description: "You flight was delayed because of weather.",
         awarded: false,
+        category: .travel,
+        awardedDate: nil,
         stars: 3
       )
     )
     awardList.append(
       AwardInformation(
-        imageName: "return-home-award",
+        symbolName: "house",
         title: "Welcome Home",
         description: "Your returned to the airport after leaving from it.",
         awarded: true,
+        category: .travel,
+        awardedDate: Date.now.dateDaysAgo(-5),
         stars: 2
       )
     )

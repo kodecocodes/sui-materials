@@ -1,4 +1,4 @@
-/// Copyright (c) 2023 Kodeco Inc
+/// Copyright (c) 2026 Kodeco Inc.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -30,37 +30,47 @@ import SwiftUI
 
 struct FlightTimelineView: View {
   var flights: [FlightInformation]
-
+  
   var body: some View {
-    ZStack {
-      Image("background-view")
-        .resizable()
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+    // 1
+    TimelineView(.everyMinute) { context in
+      // 2
+      Text(
+        "Updated at: \(context.date.formatted(.timeOnly))"
+      )
+      .font(.callout)
       GenericTimeline(
         events: flights,
-        timeProperty: \.localTime) { flight in
-          FlightCardView(flight: flight)
-      }      .padding()
+        timeProperty: \.localTime
+      ) { flight in
+        FlightCardView(
+          flight: flight,
+          date: context.date
+        )
+      }
     }
-    .foregroundColor(.white)
+    .background(alignment: .bottom) {
+      AirportLandscape()
+        .aspectRatio(contentMode: .fit)
+        .opacity(0.4)
+    }
+    .padding()
     .navigationTitle("Flight Timeline")
   }
 }
 
-struct TimelineView_Previews: PreviewProvider {
-  static var previews: some View {
-    NavigationView {
-      FlightTimelineView(
-        flights: FlightData.generateTestFlights(
-          date: Date()
-        )
-        .filter {
-          Calendar.current.isDate(
-            $0.localTime,
-            inSameDayAs: Date()
-          )
-        }
+#Preview {
+  NavigationStack {
+    FlightTimelineView(
+      flights: FlightData.generateTestFlights(
+        date: Date()
       )
-    }
+      .filter {
+        Calendar.current.isDate(
+          $0.localTime,
+          inSameDayAs: .now
+        )
+      }
+    )
   }
 }

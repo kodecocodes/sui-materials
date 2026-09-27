@@ -1,15 +1,15 @@
-/// Copyright (c) 2023 Kodeco Inc
-/// 
+/// Copyright (c) 2026 Kodeco Inc.
+///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
 /// in the Software without restriction, including without limitation the rights
 /// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 /// copies of the Software, and to permit persons to whom the Software is
 /// furnished to do so, subject to the following conditions:
-/// 
+///
 /// The above copyright notice and this permission notice shall be included in
 /// all copies or substantial portions of the Software.
-/// 
+///
 /// Notwithstanding the foregoing, you may not use, copy, modify, merge, publish,
 /// distribute, sublicense, create a derivative work, and/or sell copies of the
 /// Software in any work that is designed, intended, or marketed for pedagogical or
@@ -17,7 +17,7 @@
 /// or information technology.  Permission for such use, copying, modification,
 /// merger, publication, distribution, sublicensing, creation of derivative works,
 /// or sale is expressly withheld.
-/// 
+///
 /// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 /// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 /// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -29,127 +29,67 @@
 import SwiftUI
 import MapKit
 
-
-class MapCoordinator: NSObject {
-  var mapView: FlightMapView
-  var fraction: CGFloat
-
-  init(
-    _ mapView: FlightMapView,
-    progress: CGFloat = 0.0
-  ) {
-    self.mapView = mapView
-    self.fraction = progress
-  }
-}
-
-extension MapCoordinator: MKMapViewDelegate {
-  func mapView(
-    _ mapView: MKMapView,
-    rendererFor overlay: MKOverlay
-  ) -> MKOverlayRenderer {
-    if overlay is MKCircle {
-      let renderer = MKCircleRenderer(overlay: overlay)
-      renderer.fillColor = UIColor.black
-      renderer.strokeColor = UIColor.black
-      return renderer
-    }
-
-    if overlay is MKGeodesicPolyline {
-      let renderer = MKPolylineRenderer(overlay: overlay)
-      renderer.strokeColor = UIColor(
-        red: 0.0,
-        green: 0.0,
-        blue: 1.0,
-        alpha: 0.3
-      )
-      renderer.lineWidth = 3.0
-      renderer.strokeStart = 0.0
-      renderer.strokeEnd = fraction
-      return renderer
-    }
-
-    return MKOverlayRenderer()
-  }
-}
-
-struct FlightMapView: UIViewRepresentable {
+struct FlightMapView: View {
   var startCoordinate: CLLocationCoordinate2D
   var endCoordinate: CLLocationCoordinate2D
-  var progress: CGFloat
+  var progress: Double
 
-  func makeUIView(context: Context) -> MKMapView {
-    let view = MKMapView(frame: .zero)
-    view.delegate = context.coordinator
-    return view
-  }
-
-  func makeCoordinator() -> MapCoordinator {
-    MapCoordinator(self, progress: progress)
-  }
-
-  func updateUIView(_ view: MKMapView, context: Context) {
-    let startOverlay = MKCircle(
-      center: startCoordinate,
-      radius: 10000.0
+  var circleSize: Double {
+    let loc1 = CLLocation(
+      latitude: startCoordinate.latitude, longitude: startCoordinate.longitude
     )
-    let endOverlay = MKCircle(
-      center: endCoordinate,
-      radius: 10000.0
+    let loc2 = CLLocation(
+      latitude: endCoordinate.latitude, longitude: endCoordinate.longitude
     )
-    let flightPath = MKGeodesicPolyline(
-      coordinates: [startCoordinate, endCoordinate],
+    
+    let distance = loc2.distance(from: loc1)
+    
+    return distance * 0.015
+  }
+  
+  var flownPath: MKPolyline {
+    // 1
+    let route = MKGeodesicPolyline(
+      coordinates: [
+        startCoordinate,
+        endCoordinate
+      ],
       count: 2
     )
-    view.addOverlays([startOverlay, endOverlay, flightPath])
-
-    // 1
-    let startPoint = MKMapPoint(startCoordinate)
-    let endPoint = MKMapPoint(endCoordinate)
-
     // 2
-    let minXPoint = min(startPoint.x, endPoint.x)
-    let minYPoint = min(startPoint.y, endPoint.y)
-    let maxXPoint = max(startPoint.x, endPoint.x)
-    let maxYPoint = max(startPoint.y, endPoint.y)
-
+    let count = max(1, Int(Double(route.pointCount - 1) * progress) + 1)
     // 3
-    let mapRect = MKMapRect(
-      x: minXPoint,
-      y: minYPoint,
-      width: maxXPoint - minXPoint,
-      height: maxYPoint - minYPoint
-    )
+    return MKPolyline(points: route.points(), count: count)
+  }
+
+  var body: some View {
+    // 1
+    Map(initialPosition: .automatic, interactionModes: []) {
+      // 2
+      MapPolyline(coordinates: [startCoordinate, endCoordinate], contourStyle: .geodesic)
+        // 3
+        .stroke(.blue.opacity(0.3), lineWidth: 3)
+      MapPolyline(flownPath)
+        .stroke(.blue, lineWidth: 3)
+      MapCircle(center: startCoordinate, radius: circleSize)
+      MapCircle(center: endCoordinate, radius: circleSize)
+    }
     // 4
-    let padding = UIEdgeInsets(
-      top: 10.0,
-      left: 10.0,
-      bottom: 10.0,
-      right: 10.0
-    )
-    // 5
-    view.setVisibleMapRect(
-      mapRect,
-      edgePadding: padding,
-      animated: true
-    )
-    // 6
-    view.mapType = .mutedStandard
-    view.isScrollEnabled = false
+    .mapStyle(.standard(emphasis: .muted))
   }
 }
 
-struct MapView_Previews: PreviewProvider {
-  static var previews: some View {
-    FlightMapView(
-      startCoordinate: CLLocationCoordinate2D(
+#Preview {
+  FlightMapView(
+    startCoordinate:
+      CLLocationCoordinate2D(
         latitude: 35.655, longitude: -83.4411
       ),
-      endCoordinate: CLLocationCoordinate2D(
+    endCoordinate:
+      CLLocationCoordinate2D(
         latitude: 36.0840, longitude: -115.1537
       ),
-      progress: 0.67
-    )
-    .frame(width: 300, height: 300)
-  }
+    progress: 0.67
+  )
+  .frame(width: 300, height: 300)
 }
