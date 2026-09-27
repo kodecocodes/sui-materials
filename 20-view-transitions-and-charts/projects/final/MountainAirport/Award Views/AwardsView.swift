@@ -58,7 +58,7 @@ struct AwardsView: View {
           AwardGrid(
             title: "Not Awarded",
             awards: inactiveAwards,
-            namespace: card
+            namespace: cardNamespace
           )
         }
         .font(.title)
