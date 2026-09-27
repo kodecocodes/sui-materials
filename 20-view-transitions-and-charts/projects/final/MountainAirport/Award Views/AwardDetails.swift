@@ -61,6 +61,7 @@ struct AwardDetails: View {
       }
     }
     .padding()
+    .frame(maxWidth: .infinity, maxHeight: .infinity)
     .background(
       LinearGradient(
         gradient: Gradient(

@@ -49,13 +49,9 @@ struct FlightSearchDetails: View {
         Button("On-Time History") {
           showFlightHistory.toggle()
         }
-        .popover(
-          isPresented: $showFlightHistory,
-          arrowEdge: .top
-        ) {
+        .sheet(isPresented: $showFlightHistory) {
           FlightTimeHistory(flight: flight)
             .padding()
-            .presentationCompactAdaptation(.popover)
         }
         FlightInfoPanel(flight: flight)
           .padding()

@@ -28,33 +28,10 @@
 
 import SwiftUI
 
-struct AwardGrid: View {
-  var title: String
-  var awards: [AwardInformation]
-
-  var body: some View {
-    Section(
-      header: Text(title)
-        .frame(maxWidth: .infinity)
-        .font(.title)
-        .background(
-          .ultraThinMaterial,
-          in: RoundedRectangle(cornerRadius: 10)
-        )
-    ) {
-      ForEach(awards) { award in
-        NavigationLink(value: award) {
-          AwardCardView(award: award)
-            .foregroundStyle(Color.primary)
-            .aspectRatio(0.67, contentMode: .fit)
-        }
-      }
-    }
-  }
-}
-
 struct AwardsView: View {
   @Environment(AppEnvironment.self) private var appEnvironment
+  @Namespace var cardNamespace
+
   var awardArray: [AwardInformation] {
     appEnvironment.awardList
   }
@@ -75,11 +52,13 @@ struct AwardsView: View {
         LazyVGrid(columns: awardColumns) {
           AwardGrid(
             title: "Awarded",
-            awards: activeAwards
+            awards: activeAwards,
+            namespace: cardNamespace
           )
           AwardGrid(
             title: "Not Awarded",
-            awards: inactiveAwards
+            awards: inactiveAwards,
+            namespace: card
           )
         }
         .font(.title)
@@ -88,6 +67,9 @@ struct AwardsView: View {
       }
       .navigationDestination(for: AwardInformation.self) { award in
         AwardDetails(award: award)
+          .navigationTransition(
+            .zoom(sourceID: award.id, in: cardNamespace)
+          )
       }
       .navigationTitle("Your Awards")
       .padding()
