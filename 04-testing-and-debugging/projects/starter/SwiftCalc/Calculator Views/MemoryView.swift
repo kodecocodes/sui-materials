@@ -1,9 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-	<key>FILEHEADER</key>
-	<string>/ Copyright (c) ___YEAR___ Razeware LLC
+/// Copyright (c) 2026 Razeware LLC
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -29,6 +24,28 @@
 /// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 /// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-/// THE SOFTWARE.</string>
-</dict>
-</plist>
+/// THE SOFTWARE.
+
+import SwiftUI
+
+struct MemoryView: View {
+  var memory: String
+
+  var body: some View {
+    HStack {
+      Text("M")
+      Text(memory)
+        .lineLimit(1).minimumScaleFactor(0.4)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.leading, 5)
+        .background(.thinMaterial)
+    }
+    .font(.title)
+  }
+}
+
+#Preview {
+  @Previewable @State var memory = "4.52"
+
+  MemoryView(memory: memory)
+}

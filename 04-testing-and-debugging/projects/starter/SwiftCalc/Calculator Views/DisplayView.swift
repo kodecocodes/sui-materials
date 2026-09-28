@@ -1,15 +1,15 @@
-/// Copyright (c) 2023 Kodeco Inc.
-/// 
+/// Copyright (c) 2026 Razeware LLC
+///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
 /// in the Software without restriction, including without limitation the rights
 /// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 /// copies of the Software, and to permit persons to whom the Software is
 /// furnished to do so, subject to the following conditions:
-/// 
+///
 /// The above copyright notice and this permission notice shall be included in
 /// all copies or substantial portions of the Software.
-/// 
+///
 /// Notwithstanding the foregoing, you may not use, copy, modify, merge, publish,
 /// distribute, sublicense, create a derivative work, and/or sell copies of the
 /// Software in any work that is designed, intended, or marketed for pedagogical or
@@ -17,7 +17,7 @@
 /// or information technology.  Permission for such use, copying, modification,
 /// merger, publication, distribution, sublicensing, creation of derivative works,
 /// or sale is expressly withheld.
-/// 
+///
 /// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 /// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 /// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -28,11 +28,34 @@
 
 import SwiftUI
 
-@main
-struct SwiftCalc: App {
-  var body: some Scene {
-    WindowGroup {
-      SwiftCalcView()
-    }
+struct DisplayView: View {
+  var display: String
+  
+  let displayFont = Font.system(size: 64, weight: .light, design: .rounded)
+  
+  var body: some View {
+    Text(display)
+      .font(displayFont)
+      .monospacedDigit()
+      .lineLimit(1).minimumScaleFactor(0.4)
+      .padding(.horizontal, 10)
+      .frame(
+        maxWidth: .infinity,
+        alignment: .trailing
+      )
+      .frame(height: 64)
+      .background(.regularMaterial, in: .rect(cornerRadius: 12))
   }
+}
+
+#Preview("Short number") {
+  @Previewable @State var displayValue = "3.141"
+  
+  DisplayView(display: displayValue)
+}
+
+#Preview("Long number") {
+  @Previewable @State var displayValue = "2.718281828459045"
+  
+  DisplayView(display: displayValue)
 }

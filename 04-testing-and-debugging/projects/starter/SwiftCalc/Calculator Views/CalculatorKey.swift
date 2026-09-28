@@ -1,15 +1,15 @@
-/// Copyright (c) 2023 Kodeco Inc.
-/// 
+/// Copyright (c) 2026 Razeware LLC
+///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
 /// in the Software without restriction, including without limitation the rights
 /// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 /// copies of the Software, and to permit persons to whom the Software is
 /// furnished to do so, subject to the following conditions:
-/// 
+///
 /// The above copyright notice and this permission notice shall be included in
 /// all copies or substantial portions of the Software.
-/// 
+///
 /// Notwithstanding the foregoing, you may not use, copy, modify, merge, publish,
 /// distribute, sublicense, create a derivative work, and/or sell copies of the
 /// Software in any work that is designed, intended, or marketed for pedagogical or
@@ -17,7 +17,7 @@
 /// or information technology.  Permission for such use, copying, modification,
 /// merger, publication, distribution, sublicensing, creation of derivative works,
 /// or sale is expressly withheld.
-/// 
+///
 /// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 /// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 /// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -26,33 +26,56 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
+
 import SwiftUI
 
-struct MemoryView: View {
-  @Binding var memory: Double
-  var geometry: GeometryProxy
+struct CalculatorKey: View {
+  let button: CalculatorButton
+  let action: () -> Void
+  
+  var buttonTintColor: Color? {
+    if button.keyKind == .mathOperator || button.name == "=" {
+      return .brown
+    }
+    if button.name == "AC" {
+      return .orange
+    }
 
-  var body: some View {
-    let memorySwipe = DragGesture(minimumDistance: 20)
-      .onEnded { _ in
-        memory = 0.0
-      }
-    HStack {
-      Spacer()
-      Text("\(memory)")
-        .accessibilityIdentifier("memoryDisplay")
-        .padding(.horizontal, 5)
-        .frame(
-          width: geometry.size.width * 0.85,
-          alignment: .trailing
-        )
-        .overlay(
-          RoundedRectangle(cornerRadius: 8)
-            .stroke(lineWidth: 2)
-            .foregroundColor(Color.gray)
-        )
-        .gesture(memorySwipe)
-      Text("M")
-    }.padding(.bottom).padding(.horizontal, 5)
+    return nil
   }
+
+  @ViewBuilder
+  var body: some View {
+    if button.keyKind == .digit {
+      Button(action: action) {
+        label
+          .frame(maxWidth: .infinity)
+      }
+      .buttonStyle(.glass)
+    } else {
+      Button(action: action) {
+        label
+          .frame(maxWidth: .infinity)
+      }
+      .buttonStyle(.glassProminent)
+      .tint(buttonTintColor)
+    }
+  }
+
+  private var label: some View {
+    Text(button.name)
+      .lineLimit(1).minimumScaleFactor(0.5)
+      .accessibilityLabel(button.accessibilityLabel)
+  }
+}
+
+#Preview {
+  LazyVGrid(columns: [GridItem(.adaptive(minimum: 50))]) {
+    ForEach(CalculatorButtons.list) { button in
+      CalculatorKey(button: button) {
+      }
+      .frame(width: 50, height: 50)
+    }
+  }
+  .padding()
 }
