@@ -106,7 +106,7 @@ enum DisplayState {
   // MARK: Memory Related Methods
   func addMemory() {
     guard let val = displayedNumber else {
-      setError()
+      setDisplay(0)
       return
     }
     
@@ -206,6 +206,9 @@ enum DisplayState {
       if !text.contains(".") {
         state = .entering(text + ".")
       }
+    }
+    if case .result = state {
+      state = .entering("0.")
     }
   }
   

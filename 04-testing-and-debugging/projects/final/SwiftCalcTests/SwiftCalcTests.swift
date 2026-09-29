@@ -26,57 +26,42 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
+import Testing
+@testable import SwiftCalc
 
-import SwiftUI
-
-struct CalculatorKey: View {
-  let button: CalculatorButton
-  let action: () -> Void
+struct SwiftCalcTests {
+  @Test(arguments: [
+     ("3", MathOperator.add, "5", "8.0"),
+     ("2", .subtract, "7", "-5.0"),
+     ("4", .multiply, "2.5", "10.0"),
+     ("9", .divide, "3", "3.0")
+   ])
+  func operation(first: String, operation: MathOperator, second: String, expected: String) {
+    let model = CalculatorModel()
+    model.addDisplayText(first)
+    model.doOperation(operation)
+    model.addDisplayText(second)
+    model.equals()
+    #expect(model.displayText == expected)
+  }
   
-  var buttonTintColor: Color? {
-    if button.keyKind == .mathOperator || button.name == "=" {
-      return .brown
-    }
-    if button.name == "AC" {
-      return .orange
-    }
-
-    return nil
+  @Test func divideByZeroShowsError() {
+    let model = CalculatorModel()
+    model.addDisplayText("6")
+    model.doOperation(.divide)
+    model.addDisplayText("0")
+    model.equals()
+    #expect(model.displayText == "Err: divide by 0")
   }
 
-  @ViewBuilder
-  var body: some View {
-    if button.keyKind == .digit {
-      Button(action: action) {
-        label
-          .frame(maxWidth: .infinity)
-      }
-      .buttonStyle(.glass)
-    } else {
-      Button(action: action) {
-        label
-          .frame(maxWidth: .infinity)
-      }
-      .buttonStyle(.glassProminent)
-      .tint(buttonTintColor)
-    }
+  @Test func decimalPointAfterResultStartsNewNumber() {
+    let model = CalculatorModel()
+    model.addDisplayText("3")
+    model.doOperation(.add)
+    model.addDisplayText("5")
+    model.equals()
+    model.addDecimalPoint()
+    model.addDisplayText("5")
+    #expect(model.displayText == "0.5")
   }
-
-  private var label: some View {
-    Text(button.name)
-      .lineLimit(1).minimumScaleFactor(0.5)
-      .accessibilityIdentifier(button.name)
-      .accessibilityLabel(button.accessibilityLabel)
-  }
-}
-
-#Preview {
-  LazyVGrid(columns: [GridItem(.adaptive(minimum: 50))]) {
-    ForEach(CalculatorButtons.list) { button in
-      CalculatorKey(button: button) {
-      }
-      .frame(width: 50, height: 50)
-    }
-  }
-  .padding()
 }

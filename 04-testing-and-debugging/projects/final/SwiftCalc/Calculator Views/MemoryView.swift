@@ -30,7 +30,7 @@ import SwiftUI
 
 struct MemoryView: View {
   var memory: String
-
+  
   var body: some View {
     HStack {
       Text("M")

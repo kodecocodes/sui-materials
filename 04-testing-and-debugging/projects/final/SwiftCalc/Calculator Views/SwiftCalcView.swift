@@ -57,10 +57,20 @@ struct SwiftCalcView: View {
   ]
   
   var body: some View {
+    #if DEBUG
+      let _ = Self._printChanges()
+    #endif
+    let memorySwipe = DragGesture(minimumDistance: 20)
+      .onEnded { _ in
+        calculatorModel.clearMemory()
+      }
     VStack {
       Spacer()
       if calculatorModel.memoryHasValue {
         MemoryView(memory: calculatorModel.memoryText)
+          .accessibilityElement(children: .combine)
+          .accessibilityIdentifier("memoryDisplay")
+          .gesture(memorySwipe)
           .padding(.bottom)
       }
       DisplayView(display: calculatorModel.displayText)

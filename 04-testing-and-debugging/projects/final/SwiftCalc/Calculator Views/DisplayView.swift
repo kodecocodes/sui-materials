@@ -34,7 +34,8 @@ struct DisplayView: View {
   let displayFont = Font.system(size: 64, weight: .light, design: .rounded)
   
   var body: some View {
-    Text(display)
+    return Text(display)
+      .accessibilityIdentifier("display")
       .font(displayFont)
       .monospacedDigit()
       .lineLimit(1).minimumScaleFactor(0.4)
