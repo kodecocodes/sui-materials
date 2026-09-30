@@ -28,8 +28,6 @@
 
 import SwiftUI
 
-import SwiftUI
-
 struct MountainButtonBackground: View {
   private struct MountainRidge: Shape {
     func path(in rect: CGRect) -> Path {

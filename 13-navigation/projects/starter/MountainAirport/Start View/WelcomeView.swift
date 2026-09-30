@@ -58,7 +58,6 @@ struct WelcomeView: View {
       .padding(.vertical, AirportStyle.sectionSpacing)
       .frame(maxWidth: .infinity, alignment: .center)
     }
-    .foregroundStyle(.primary)
     .background {
       LinearGradient(
         colors: [Color.airportSky, Color.airportSky.opacity(0)],
@@ -67,7 +66,6 @@ struct WelcomeView: View {
       )
       .ignoresSafeArea()
     }
-    .background(.background)
   }
 }
 
