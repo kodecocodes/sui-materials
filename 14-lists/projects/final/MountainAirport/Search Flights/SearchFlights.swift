@@ -63,14 +63,6 @@ struct SearchFlights: View {
     }
   }
   
-  struct HierarchicalFlightRow: Identifiable {
-    var label: String
-    var flight: FlightInformation?
-    var children: [HierarchicalFlightRow]?
-    
-    var id: String { flight.map { "flight-\($0.id)" } ?? label }
-  }
-
   var body: some View {
     VStack {
       Picker(

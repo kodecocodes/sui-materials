@@ -42,12 +42,14 @@ struct FlightRow: View {
         HStack {
           Text(flight.flightStatus)
           Text(flight.localTime.formatted(.timeOnly))
-        }.foregroundColor(flight.statusColor)
+        }
+        .foregroundStyle(flight.statusColor)
         HStack {
           Text(flight.otherAirport)
           Text("·")
           Text("Gate \(flight.gate)")
-        }.foregroundColor(.gray)
+        }
+        .foregroundStyle(.gray)
       }
     }
   }
