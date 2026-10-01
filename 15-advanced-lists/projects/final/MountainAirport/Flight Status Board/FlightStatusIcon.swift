@@ -36,22 +36,22 @@ struct FlightStatusIcon: View {
       Image(systemName: "xmark.circle.badge.airplane")
         .resizable()
         .frame(width: 30, height: 30)
-        .foregroundColor(.white)
+        .foregroundStyle(.white)
         .background(
           RoundedRectangle(cornerRadius: 2)
             .frame(width: 40, height: 40)
-            .foregroundColor(.red)
+            .foregroundStyle(.red)
         )
         .frame(width: 40, height: 40)
     } else if flight.direction == .arrival {
       Image(systemName: "airplane.arrival")
         .resizable()
         .frame(width: 30, height: 30)
-        .foregroundColor(.white)
+        .foregroundStyle(.white)
         .background(
           RoundedRectangle(cornerRadius: 2)
             .frame(width: 40, height: 40)
-            .foregroundColor(
+            .foregroundStyle(
               Color(red: 0.89, green: 0.33, blue: 0.69)
             )
         )
@@ -59,11 +59,11 @@ struct FlightStatusIcon: View {
       Image(systemName: "airplane.departure")
         .resizable()
         .frame(width: 30, height: 30)
-        .foregroundColor(.white)
+        .foregroundStyle(.white)
         .background(
           RoundedRectangle(cornerRadius: 2)
             .frame(width: 40, height: 40)
-            .foregroundColor(
+            .foregroundStyle(
               Color(red: 0.19, green: 0.15, blue: 0.91)
             )
         )

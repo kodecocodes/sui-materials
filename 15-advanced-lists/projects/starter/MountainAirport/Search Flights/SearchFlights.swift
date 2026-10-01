@@ -32,10 +32,10 @@ struct SearchFlights: View {
   var flightData: [FlightInformation]
   @State private var directionFilter: FlightDirection = .none
   @State private var city = ""
-
+  
   var matchingFlights: [FlightInformation] {
     var matchingFlights = flightData
-
+    
     if directionFilter != .none {
       matchingFlights = matchingFlights.filter {
         $0.direction == directionFilter
@@ -47,7 +47,7 @@ struct SearchFlights: View {
         $0.otherAirport.lowercased().contains(city.lowercased())
       }
     }
-
+    
     return matchingFlights
   }
   
@@ -56,13 +56,13 @@ struct SearchFlights: View {
     let uniqueDates = Array(Set(allDates))
     return uniqueDates.sorted()
   }
-
+  
   func flightsForDay(date: Date) -> [FlightInformation] {
     matchingFlights.filter {
       Calendar.current.isDate($0.localTime, inSameDayAs: date)
     }
   }
-
+  
   var body: some View {
     VStack {
       Picker(

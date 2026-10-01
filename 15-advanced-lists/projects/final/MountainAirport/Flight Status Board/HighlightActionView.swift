@@ -50,7 +50,7 @@ struct HighlightActionView: View {
     Button {
       toggleHighlight()
     } label: {
-      Image(systemName: "highlighter")
+      Label("Highlight", systemImage: "highlighter")
     }
     .tint(Color.yellow)
   }

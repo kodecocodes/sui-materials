@@ -39,7 +39,7 @@ struct SearchResultRow: View {
       VStack(alignment: .leading) {
         Text("\(flight.flightName) \(flight.dirString) \(flight.otherAirport)")
         Text(flight.localTime.formatted(date: .abbreviated, time: .shortened))
-          .foregroundColor(.gray)
+          .foregroundStyle(.gray)
       }
     }
   }

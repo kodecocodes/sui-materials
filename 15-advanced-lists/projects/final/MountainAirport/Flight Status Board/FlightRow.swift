@@ -30,6 +30,7 @@ import SwiftUI
 
 struct FlightRow: View {
   var flight: FlightInformation
+  var date: Date
   
   var localTimeAndRelative: String {
     let relativeTime = Date.RelativeFormatStyle.relative(
@@ -50,13 +51,13 @@ struct FlightRow: View {
           Text(flight.flightStatus)
           Text(localTimeAndRelative)
         }
-        .foregroundColor(flight.statusColor)
+        .foregroundStyle(flight.statusColor)
         HStack {
           Text(flight.otherAirport)
           Text("·")
           Text("Gate \(flight.gate)")
         }
-        .foregroundColor(.gray)
+        .foregroundStyle(.gray)
       }
     }
   }
@@ -64,6 +65,7 @@ struct FlightRow: View {
 
 #Preview {
   FlightRow(
-    flight: FlightData.generateTestFlight(date: Date())
+    flight: FlightData.generateTestFlight(date: .now),
+    date: .now
   )
 }

@@ -55,8 +55,16 @@ struct FlightList: View {
       ScrollViewReader { scrollProxy in
         List(flights) { flight in
           NavigationLink(value: flight) {
-            FlightRow(flight: flight)
+            FlightRow(
+              flight: flight,
+              date: .now
+            )
           }
+          .accessibilityValue(
+            "Highlighted",
+            isEnabled: rowHighlighted(flight.id)
+          )
+          .fontWeight(rowHighlighted(flight.id) ? .bold : .regular)
           .listRowBackground(
             rowHighlighted(flight.id) ? Color.yellow.opacity(0.6) : nil
           )
