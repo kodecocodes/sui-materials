@@ -246,7 +246,7 @@ final class FlightData {
   static func citiesContaining(_ text: String) -> [String] {
     let cityArray = FlightData().flights.map { $0.otherAirport }
     let matchingCities =
-    text.isEmpty ? cityArray : cityArray.filter { $0.contains(text) }
+    text.isEmpty ? cityArray : cityArray.filter { $0.lowercased().contains(text.lowercased()) }
     let citySet = Set(matchingCities)
     return Array(citySet.sorted())
   }

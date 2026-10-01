@@ -45,7 +45,7 @@ struct FlightSearchSummary: View {
         Text("\(flightName) \(flight.dirString) \(flight.otherAirport)")
         HStack {
           Text(flight.localTime.formatted(date: .abbreviated, time: .shortened))
-            .foregroundColor(.gray)
+            .foregroundStyle(.gray)
         }
       }
     }
