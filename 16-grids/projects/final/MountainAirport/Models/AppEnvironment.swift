@@ -47,7 +47,7 @@ import SwiftUI
       AwardInformation(
         symbolName: "car",
         title: "Left Car Overnight",
-        description: "You left you car parked overnight in one of our parking lots.",
+        description: "You left your car parked overnight in one of our parking lots.",
         awarded: true,
         category: .parking,
         awardedDate: Date.now.dateDaysAgo(-14)
@@ -87,7 +87,7 @@ import SwiftUI
       AwardInformation(
         symbolName: "cloud.rain",
         title: "Rainy Day",
-        description: "You flight was delayed because of weather.",
+        description: "Your flight was delayed because of weather.",
         awarded: false,
         category: .travel,
         awardedDate: nil
@@ -97,7 +97,7 @@ import SwiftUI
       AwardInformation(
         symbolName: "house",
         title: "Welcome Home",
-        description: "Your returned to the airport after leaving from it.",
+        description: "You returned to the airport after leaving from it.",
         awarded: true,
         category: .travel,
         awardedDate: Date.now.dateDaysAgo(-5)
