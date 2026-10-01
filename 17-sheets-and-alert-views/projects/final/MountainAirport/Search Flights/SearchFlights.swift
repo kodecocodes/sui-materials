@@ -165,7 +165,9 @@ struct SearchFlights: View {
 
 #Preview {
   NavigationStack {
-    SearchFlights(flightData: FlightData.generateTestFlights(date: Date())
+    SearchFlights(
+      flightData: FlightData.generateTestFlights(date: .now)
     )
+    .environment(AppEnvironment())
   }
 }

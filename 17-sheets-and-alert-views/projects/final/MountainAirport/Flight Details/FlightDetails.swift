@@ -65,7 +65,6 @@ struct FlightDetails: View {
             .font(.title)
         }
       }
-      .frame(maxWidth: AirportStyle.readableWidth, alignment: .leading)
       .padding(.horizontal, AirportStyle.contentPadding)
       .padding(.vertical, AirportStyle.sectionSpacing)
       .frame(maxWidth: .infinity)
