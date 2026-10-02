@@ -66,7 +66,7 @@ struct FlightInformation: Hashable, Sendable {
   var history: [FlightHistory]
   
   var isCheckInAvailable: Bool {
-    direction == .departure && flightStatus != "Departed"
+    direction == .departure && flightStatus != "Departed" && status != .canceled
   }
 
   var localTime: Date {
