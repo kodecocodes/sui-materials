@@ -46,7 +46,7 @@ struct AwardStars: View {
         // 2
         let starXPosition = Double(star) * 20.0
         // 3
-        let point = CGPoint(x: starXPosition + 8, y: 0)
+        let point = CGPoint(x: starXPosition, y: 0)
         // 4
         gContext.draw(starSymbol, at: point, anchor: .leading)
       }

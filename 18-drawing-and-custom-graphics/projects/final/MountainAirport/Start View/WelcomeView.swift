@@ -124,12 +124,16 @@ struct WelcomeView: View {
       if let view = selectedView {
         switch view {
         case .showFlightStatus:
-          FlightStatusBoard(flights: flightInfo.getDaysFlights(Date())
+          FlightStatusBoard(
+            flights: flightInfo.getDaysFlights(Date())
           )
+          .id(selectedView)
         case .searchFlights:
           SearchFlights(flightData: flightInfo.flights)
+            .id(selectedView)
         case .showAwards:
           AwardsView()
+            .id(selectedView)
         case .showLastFlight:
           if
             let flightId = appEnvironment.lastFlightId,
@@ -138,6 +142,7 @@ struct WelcomeView: View {
               flights: flightInfo.getDaysFlights(Date()),
               flightToShow: flight
             )
+            .id(selectedView)
           }
         }
       } else {
