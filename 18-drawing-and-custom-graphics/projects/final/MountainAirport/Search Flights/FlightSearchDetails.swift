@@ -57,18 +57,13 @@ struct FlightSearchDetails: View {
             .padding()
             .presentationCompactAdaptation(.popover)
         }
-        FlightInfoPanel(flight: flight)
-          .padding()
-        // 1
         if flight.status == .canceled {
-          // 2
           Button("Rebook Flight") {
             rebookAlert = true
           }
-          // 3
           .alert("Contact Your Airline", isPresented: $rebookAlert) {
             TextField("Phone", text: $phone)
-            SecureField("Password", text: $pin)
+            SecureField("PIN", text: $pin)
             Button("Call Me") {
             }
             Button("Cancel", role: .cancel) {
@@ -76,41 +71,36 @@ struct FlightSearchDetails: View {
           } message: {
             let messageText = """
             We cannot rebook this flight. Please enter your phone \
-            number and a PIN we will provide to confirm our \
+            number and a PIN you will provide to confirm your \
             identity.
             """
             Text(messageText)
           }
         }
-        // 1
         if flight.isCheckInAvailable {
           Button("Check In for Flight") {
-            // 2
             checkInFlight =
             CheckInInfo(
               airline: flight.airline,
               flight: flight.number
             )
           }
-          // 3
           .confirmationDialog("Check In", item: $checkInFlight) { checkIn in
-            // 4
             Button("Cancel", role: .cancel) {
               print("Canceled")
             }
-            // 5
             Button("Reschedule Flight", role: .destructive) {
               print("Reschedule Flight")
             }
-            // 6
             Button("Check In", role: .confirm) {
               print("Check In flight: \(checkIn.flight)")
             }
-            // 7
           } message: { checkIn in
             Text("Check in for \(checkIn.airline) Flight \(checkIn.flight)")
           }
         }
+        FlightInfoPanel(flight: flight)
+          .padding()
         Spacer()
       }
       .padding()

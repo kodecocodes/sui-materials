@@ -33,7 +33,6 @@ struct SearchResultRow: View {
   @Binding var selectedFlight: FlightInformation?
 
   var body: some View {
-    // 1
     Button(
       action: {
         selectedFlight = flight

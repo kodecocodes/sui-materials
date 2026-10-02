@@ -35,9 +35,7 @@ struct AwardDetails: View {
     VStack {
       Text(award.title)
         .font(.title)
-      // 1
       Grid(alignment: .leading, horizontalSpacing: 16, verticalSpacing: 12) {
-        // 2
         GridRow {
           Image(systemName: award.symbolName)
             .resizable()

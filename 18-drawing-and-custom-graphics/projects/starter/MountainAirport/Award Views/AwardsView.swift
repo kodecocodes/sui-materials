@@ -29,14 +29,11 @@
 import SwiftUI
 
 struct AwardGrid: View {
-  // 1
   var title: String
   var awards: [AwardInformation]
 
   var body: some View {
-    // 2
     Section(
-      // 3
       header: Text(title)
         .frame(maxWidth: .infinity)
         .font(.title)
@@ -45,7 +42,6 @@ struct AwardGrid: View {
           in: RoundedRectangle(cornerRadius: 10)
         )
     ) {
-      // 4
       ForEach(awards) { award in
         NavigationLink(value: award) {
           AwardCardView(award: award)

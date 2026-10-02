@@ -47,7 +47,6 @@ struct FlightDetails: View {
         }
       }
     }
-    .frame(maxWidth: AirportStyle.readableWidth, alignment: .leading)
     .padding(.horizontal, AirportStyle.contentPadding)
     .padding(.vertical, AirportStyle.sectionSpacing)
     .frame(maxWidth: .infinity)
