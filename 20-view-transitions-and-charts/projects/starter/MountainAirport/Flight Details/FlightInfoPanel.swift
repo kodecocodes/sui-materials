@@ -33,6 +33,8 @@ struct FlightInfoPanel: View {
   @State private var showTerminal = false
   @State private var mapReady = false
   
+  @Environment(\.accessibilityReduceMotion) private var reduceMotion
+  
   var body: some View {
     VStack(alignment: .leading) {
       Text("Flight Details")
@@ -47,7 +49,7 @@ struct FlightInfoPanel: View {
       Text("\(flight.flightStatus) \(flight.localTime.formatted(date: .omitted, time: .shortened))")
       Button {
         withAnimation(
-          .easeInOut(duration: 0.5)
+          reduceMotion ? nil : .easeInOut(duration: 0.5)
         ) {
           showTerminal.toggle()
           if !showTerminal {

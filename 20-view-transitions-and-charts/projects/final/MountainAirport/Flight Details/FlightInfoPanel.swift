@@ -47,6 +47,8 @@ struct FlightInfoPanel: View {
   @State private var showTerminal = false
   @State private var mapReady = false
   
+  @Environment(\.accessibilityReduceMotion) private var reduceMotion
+  
   var body: some View {
     VStack(alignment: .leading) {
       Text("Flight Details")
@@ -74,7 +76,7 @@ struct FlightInfoPanel: View {
             showTerminal ? .degrees(90) : .degrees(270)
           )
           .animation(
-            .easeInOut(duration: 0.5),
+            reduceMotion ? nil : .easeInOut(duration: 0.5),
             value: showTerminal
           )
         HStack {
