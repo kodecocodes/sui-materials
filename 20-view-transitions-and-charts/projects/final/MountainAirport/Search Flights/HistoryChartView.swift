@@ -48,8 +48,8 @@ extension FlightHistory {
 struct HistoryChartView: View {
   var flightHistory: [FlightHistory]
   
-  func delayAnnotationLocation(_ category: DelayCategory) -> AnnotationPosition {
-    if category == .canceled || category == .longDelay {
+  func delayAnnotationLocation(_ time: Int) -> AnnotationPosition {
+    if time > 25  {
       return .overlay
     }
     return .trailing
@@ -68,7 +68,7 @@ struct HistoryChartView: View {
         )
         .foregroundStyle(by: .value("Delay", history.delayCategory))
         .annotation(
-          position: delayAnnotationLocation(history.delayCategory)
+          position: delayAnnotationLocation(history.timeDifference)
         ) {
           Text(history.flightDelayDescription)
             .font(.caption)
