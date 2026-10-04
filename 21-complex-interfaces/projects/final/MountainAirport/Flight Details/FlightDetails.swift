@@ -37,6 +37,30 @@ struct FlightDetails: View {
   @Environment(AppEnvironment.self) private var appEnvironment
   @State private var showTerminalInfo = false
   
+  struct SavedFlightToolbar: ToolbarContent {
+    let appEnvironment: AppEnvironment
+    let flightId: Int
+    
+    var body: some ToolbarContent {
+      ToolbarItem {
+        Button {
+          if let savedIndex = appEnvironment.savedFlightIds.firstIndex(of: flightId) {
+            appEnvironment.savedFlightIds.remove(at: savedIndex)
+          }
+          else {
+            appEnvironment.savedFlightIds.append(flightId)
+          }
+        } label: {
+          Image(
+            systemName: appEnvironment.savedFlightIds.contains(flightId) ?
+            "bookmark.fill" :
+              "bookmark"
+          )
+        }
+      }
+    }
+  }
+  
   var body: some View {
     ScrollView {
       VStack(alignment: .leading) {
@@ -64,6 +88,12 @@ struct FlightDetails: View {
       }
       .padding()
       .presentationDetents([.medium, .large])
+    }
+    .toolbar {
+      SavedFlightToolbar(
+        appEnvironment: appEnvironment,
+        flightId: flight.id
+      )
     }
     .navigationTitle(flight.flightName)
   }

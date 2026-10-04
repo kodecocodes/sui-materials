@@ -57,23 +57,33 @@ struct ArrivalTimeView: View {
 struct FlightProgressView: View {
   var flight: FlightInformation
   var progress: CGFloat
-
+  
   var body: some View {
-    Image(systemName: "airplane")
-      // 1
-      .resizable()
-      .scaledToFit()
-      .frame(width: 30, height: 30)
-      .foregroundStyle(flight.statusColor)
+    // 1
+    if flight.status == .canceled {
+      Text("Flight Canceled")
+        .foregroundStyle(.red)
+        .bold()
+    } else {
+      Image(systemName: "airplane")
       // 2
-      .frame(maxWidth: .infinity, alignment: .leading)
+        .resizable()
+        .scaledToFit()
+        .frame(width: 30, height: 30)
+        .foregroundStyle(flight.statusColor)
       // 3
-      .visualEffect { content, proxy in
-        content
-          .offset(x: proxy.size.width * progress)
-      }
+        .frame(maxWidth: .infinity, alignment: .leading)
       // 4
-      .padding([.trailing], 32)
+        .visualEffect { content, proxy in
+          content
+            .offset(x: proxy.size.width * progress)
+        }
+      // 5
+        .padding([.trailing], 32)
+      // 6
+        .accessibilityLabel("Flight Progress")
+        .accessibilityValue(Text(progress, format: .percent))
+    }
   }
 }
 
@@ -97,22 +107,26 @@ struct FlightCardView: View {
   
   func flightTimeFraction(flight: FlightInformation, date now: Date) -> CGFloat {
     // 1
+    if flight.status == .canceled {
+      return 0.0
+    }
+    // 2
     if flight.direction == .departure {
-      // 2
+      // 3
       if flight.localTime > now {
         return 0.0
-      // 3
+      // 4
       } else if flight.otherEndTime < now {
         return 1.0
       } else {
-        // 4
+        // 5
         let timeInFlight = minutesBetween(
           flight.localTime, and: now
         )
-        // 5
+        // 6
         let fraction =
           Double(timeInFlight) / Double(flight.flightTime)
-        // 6
+        // 7
         return CGFloat(fraction)
       }
     } else {
@@ -147,7 +161,7 @@ struct FlightCardView: View {
           date: date
         )
       )
-      if showMap {
+      if showMap && flight.status != .canceled {
           FlightMapView(
             startCoordinate: flight.startingAirportLocation,
             endCoordinate: flight.endingAirportLocation,

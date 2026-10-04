@@ -87,8 +87,8 @@ struct GenericTimeline<Content, T: Identifiable>: View where Content: View {
   }
   
   func hourString(_ hour: Int) -> String {
-    let tcmp = DateComponents(hour: hour)
-    if let time = Calendar.current.date(from: tcmp) {
+    let components = DateComponents(hour: hour)
+    if let time = Calendar.current.date(from: components) {
       return time.formatted(.timeOnly)
     }
     return "Unknown"

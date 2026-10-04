@@ -44,16 +44,16 @@ struct WelcomeView: View {
     case showTimeline
     case showLastFlight
   }
-
+  
   struct ViewButton: Identifiable {
     var id: FlightViewId
     var title: String
     var subtitle: String
   }
-
+  
   var sidebarButtons: [ViewButton] {
     var buttons: [ViewButton] = []
-
+    
     buttons.append(
       ViewButton(
         id: .showFlightStatus,
@@ -77,7 +77,7 @@ struct WelcomeView: View {
         subtitle: "Earn rewards for your airport interactions"
       )
     )
-
+    
     buttons.append(
       ViewButton(
         id: .showTimeline,
@@ -85,7 +85,7 @@ struct WelcomeView: View {
         subtitle: "Flight Timeline"
       )
     )
-
+    
     if
       let flightId = appEnvironment.lastFlightId,
       let flight = flightInfo.getFlightById(flightId) {
@@ -97,34 +97,42 @@ struct WelcomeView: View {
         )
       )
     }
-
+    
     return buttons
   }
-
+  
   var body: some View {
     NavigationSplitView {
       Group {
-        VStack(spacing: AirportStyle.sectionSpacing) {
+        List(selection: $selectedView) {
           if !appEnvironment.savedFlightIds.isEmpty {
-            TimelineView(.everyMinute) { context in
-              Text("Saved Flights")
-              ForEach(appEnvironment.savedFlightIds, id: \.self) { flightId in
-                if let flight = flightInfo.getFlightById(flightId) {
-                  FlightCardView(flight: flight, date: context.date, showMap: false)
-                    .padding()
+            Section("Saved Flights") {
+              TimelineView(.everyMinute) { context in
+                ForEach(appEnvironment.savedFlightIds, id: \.self) { flightId in
+                  if let flight = flightInfo.getFlightById(flightId) {
+                    FlightCardView(
+                      flight: flight,
+                      date: context.date,
+                      showMap: false
+                    )
+                    .padding(5)
+                  }
                 }
               }
             }
           }
-          List(sidebarButtons, selection: $selectedView) { button in
-            WelcomeViewButton(
-              title: button.title,
-              subtitle: button.subtitle
-            )
+          Section {
+            ForEach(sidebarButtons) { button in
+              WelcomeViewButton(
+                title: button.title,
+                subtitle: button.subtitle
+              )
+              .tag(button.id)
+            }
           }
-          .scrollContentBackground(.hidden)
-          .navigationTitle("Mountain Airport")
         }
+        .scrollContentBackground(.hidden)
+        .navigationTitle("Mountain Airport")
         .padding(.vertical, AirportStyle.sectionSpacing)
         .frame(maxWidth: .infinity, alignment: .center)
       }

@@ -104,16 +104,14 @@ struct WelcomeView: View {
   var body: some View {
     NavigationSplitView {
       Group {
-        VStack(spacing: AirportStyle.sectionSpacing) {
-          List(sidebarButtons, selection: $selectedView) { button in
-            WelcomeViewButton(
-              title: button.title,
-              subtitle: button.subtitle
-            )
-          }
-          .scrollContentBackground(.hidden)
-          .navigationTitle("Mountain Airport")
+        List(sidebarButtons, selection: $selectedView) { button in
+          WelcomeViewButton(
+            title: button.title,
+            subtitle: button.subtitle
+          )
         }
+        .scrollContentBackground(.hidden)
+        .navigationTitle("Mountain Airport")
         .padding(.vertical, AirportStyle.sectionSpacing)
         .frame(maxWidth: .infinity, alignment: .center)
       }
