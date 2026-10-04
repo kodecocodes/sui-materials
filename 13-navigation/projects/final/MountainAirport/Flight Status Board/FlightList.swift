@@ -31,7 +31,7 @@ import SwiftUI
 struct FlightList: View {
   var flights: [FlightInformation]
   var flightToShow: FlightInformation?
-  @State private var path: [FlightInformation] = []
+  @State private var path = NavigationPath()
   @State private var allowAutoNavigation = true
 
   var body: some View {
@@ -50,7 +50,7 @@ struct FlightList: View {
       if let flight = flightToShow,
          allowAutoNavigation {
         allowAutoNavigation = false
-        path = [flight]
+        path = NavigationPath([flight])
       }
     }
   }
