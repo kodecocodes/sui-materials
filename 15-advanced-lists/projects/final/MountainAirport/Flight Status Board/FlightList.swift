@@ -32,7 +32,7 @@ struct FlightList: View {
   var flights: [FlightInformation]
   var flightToShow: FlightInformation?
   @Binding var highlightedIds: [Int]
-  @State private var path: [FlightInformation] = []
+  @State private var path = NavigationPath()
   @State private var allowAutoNavigation = true
   
   var nextFlightId: Int {
@@ -89,7 +89,7 @@ struct FlightList: View {
       if let flight = flightToShow,
          allowAutoNavigation {
         allowAutoNavigation = false
-        path = [flight]
+        path = NavigationPath([flight])
       }
     }
   }
