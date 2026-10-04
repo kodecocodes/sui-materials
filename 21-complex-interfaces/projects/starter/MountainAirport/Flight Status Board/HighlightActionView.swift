@@ -46,7 +46,7 @@ struct HighlightActionView: View {
     Button {
       toggleHighlight()
     } label: {
-      Image(systemName: "bookmark")
+      Label("Save", systemImage: "bookmark")
     }
     .tint(Color.yellow)
   }

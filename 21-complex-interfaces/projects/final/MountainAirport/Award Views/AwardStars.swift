@@ -40,7 +40,7 @@ struct AwardStars: View {
       gContext.translateBy(x: centerOffset, y: size.height / 2.0)
       for star in 0..<stars {
         let starXPosition = Double(star) * 20.0
-        let point = CGPoint(x: starXPosition + 8, y: 0)
+        let point = CGPoint(x: starXPosition, y: 0)
         gContext.draw(starSymbol, at: point, anchor: .leading)
       }
     } symbols: {

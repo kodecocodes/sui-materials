@@ -35,6 +35,7 @@ struct SearchFlights: View {
   @State private var runningSearch = false
   @State private var isSearching = false
   @State private var selectedFlight: FlightInformation?
+  @State private var searchRequest: SearchRequest?
   
   var matchingFlights: [FlightInformation] {
     var matchingFlights = flightData
@@ -57,6 +58,11 @@ struct SearchFlights: View {
     matchingFlights.filter {
       Calendar.current.isDate($0.localTime, inSameDayAs: date)
     }
+  }
+
+  struct SearchRequest: Equatable {
+    let id = UUID()
+    let city: String
   }
   
   var body: some View {
@@ -94,27 +100,30 @@ struct SearchFlights: View {
     }
     .overlay {
       if runningSearch {
-        ProgressView("Searching for \(city)...")
-          .progressViewStyle(CircularProgressViewStyle())
-          .padding(AirportStyle.contentPadding * 2)
-          .background(
-            .regularMaterial,
-            in: .rect(cornerRadius: AirportStyle.textSpacing * 2)
-          )
+        let city = searchRequest?.city ?? ""
+        ProgressView(
+          city == "" ?
+          "Loading Flight List" :
+            "Searching for \(city)..."
+        )
+        .progressViewStyle(CircularProgressViewStyle())
+        .padding(AirportStyle.contentPadding * 2)
+        .background(
+          .regularMaterial,
+          in: .rect(cornerRadius: AirportStyle.textSpacing * 2)
+        )
       }
     }
     .background {
-      Group {
-        AirportLandscape()
-          .aspectRatio(1.25, contentMode: .fit)
-          .frame(maxWidth: AirportStyle.readableWidth + 2 * AirportStyle.contentPadding)
-          .accessibilityHidden(true)
-        LinearGradient(
-          colors: [Color.airportSky, Color.airportSky.opacity(0)],
-          startPoint: .top,
-          endPoint: .bottom
-        )
-      }
+      AirportLandscape()
+        .aspectRatio(1.25, contentMode: .fit)
+        .frame(maxWidth: AirportStyle.readableWidth + 2 * AirportStyle.contentPadding)
+        .accessibilityHidden(true)
+      LinearGradient(
+        colors: [Color.airportSky, Color.airportSky.opacity(0)],
+        startPoint: .top,
+        endPoint: .bottom
+      )
       .ignoresSafeArea()
     }
     .searchable(text: $city, isPresented: $isSearching, prompt: "City Name")
@@ -124,24 +133,27 @@ struct SearchFlights: View {
       }
     }
     .onSubmit(of: .search) {
-      Task {
-        runningSearch = true
-        defer {
-          runningSearch = false
-        }
-        await flightData = FlightData.searchFlightsForCity(city)
-      }
+      searchRequest = SearchRequest(city: city)
     }
     .onChange(of: isSearching) { _, isPresented in
       if !isPresented {
-        Task {
-          runningSearch = true
-          defer {
-            runningSearch = false
-          }
-          flightData = await FlightData.searchFlightsForCity("")
-        }
+        searchRequest = SearchRequest(city: "")
       }
+    }
+    .task(id: searchRequest) {
+       guard let request = searchRequest else { return }
+       runningSearch = true
+       defer {
+         if searchRequest == request {
+           runningSearch = false
+         }
+       }
+       let results = await FlightData.searchFlightsForCity(request.city)
+       guard !Task.isCancelled,
+             searchRequest == request else {
+         return
+       }
+       flightData = results
     }
     .navigationTitle("Search Flights")
     .padding()
@@ -153,7 +165,9 @@ struct SearchFlights: View {
 
 #Preview {
   NavigationStack {
-    SearchFlights(flightData: FlightData.generateTestFlights(date: Date())
+    SearchFlights(
+      flightData: FlightData.generateTestFlights(date: Date())
     )
+    .environment(AppEnvironment())
   }
 }

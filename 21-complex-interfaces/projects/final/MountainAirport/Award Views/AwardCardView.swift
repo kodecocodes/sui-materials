@@ -44,7 +44,7 @@ struct AwardCardView: View {
       AwardStars(stars: award.stars)
         .foregroundStyle(.yellow)
         .shadow(color: .black, radius: 5)
-        .offset(x: -5.0)
+        .accessibilityLabel("\(award.stars) stars")
     }
     .padding(10.0)
     .background(

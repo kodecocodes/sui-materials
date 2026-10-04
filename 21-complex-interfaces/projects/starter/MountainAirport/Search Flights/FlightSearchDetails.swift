@@ -53,15 +53,13 @@ struct FlightSearchDetails: View {
           FlightTimeHistory(flight: flight)
             .padding()
         }
-        FlightInfoPanel(flight: flight)
-          .padding()
         if flight.status == .canceled {
           Button("Rebook Flight") {
             rebookAlert = true
           }
           .alert("Contact Your Airline", isPresented: $rebookAlert) {
             TextField("Phone", text: $phone)
-            SecureField("Password", text: $pin)
+            SecureField("PIN", text: $pin)
             Button("Call Me") {
             }
             Button("Cancel", role: .cancel) {
@@ -69,7 +67,7 @@ struct FlightSearchDetails: View {
           } message: {
             let messageText = """
             We cannot rebook this flight. Please enter your phone \
-            number and a PIN we will provide to confirm our \
+            number and a PIN you will provide to confirm your \
             identity.
             """
             Text(messageText)
@@ -97,6 +95,8 @@ struct FlightSearchDetails: View {
             Text("Check in for \(checkIn.airline) Flight \(checkIn.flight)")
           }
         }
+        FlightInfoPanel(flight: flight)
+          .padding()
         Spacer()
       }
       .padding()

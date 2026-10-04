@@ -31,7 +31,7 @@ import SwiftUI
 struct FlightList: View {
   var flights: [FlightInformation]
   var flightToShow: FlightInformation?
-  @State private var path: [FlightInformation] = []
+  @State private var path = NavigationPath()
   @State private var allowAutoNavigation = true
   @Environment(AppEnvironment.self) private var appEnvironment
   
@@ -55,8 +55,16 @@ struct FlightList: View {
       ScrollViewReader { scrollProxy in
         List(flights) { flight in
           NavigationLink(value: flight) {
-            FlightRow(flight: flight)
+            FlightRow(
+              flight: flight,
+              date: .now
+            )
           }
+          .accessibilityValue(
+            "Highlighted",
+            isEnabled: rowHighlighted(flight.id)
+          )
+          .fontWeight(rowHighlighted(flight.id) ? .bold : .regular)
           .listRowBackground(
             rowHighlighted(flight.id) ? Color.yellow.opacity(0.6) : nil
           )
@@ -79,7 +87,7 @@ struct FlightList: View {
       if let flight = flightToShow,
          allowAutoNavigation {
         allowAutoNavigation = false
-        path = [flight]
+        path = NavigationPath([flight])
       }
     }
   }
