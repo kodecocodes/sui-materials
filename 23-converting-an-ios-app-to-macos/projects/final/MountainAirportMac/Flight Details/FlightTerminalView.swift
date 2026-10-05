@@ -1,0 +1,124 @@
+/// Copyright (c) 2026 Kodeco Ltd.
+///
+/// Permission is hereby granted, free of charge, to any person obtaining a copy
+/// of this software and associated documentation files (the "Software"), to deal
+/// in the Software without restriction, including without limitation the rights
+/// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+/// copies of the Software, and to permit persons to whom the Software is
+/// furnished to do so, subject to the following conditions:
+///
+/// The above copyright notice and this permission notice shall be included in
+/// all copies or substantial portions of the Software.
+///
+/// Notwithstanding the foregoing, you may not use, copy, modify, merge, publish,
+/// distribute, sublicense, create a derivative work, and/or sell copies of the
+/// Software in any work that is designed, intended, or marketed for pedagogical or
+/// instructional purposes related to programming, coding, application development,
+/// or information technology.  Permission for such use, copying, modification,
+/// merger, publication, distribution, sublicensing, creation of derivative works,
+/// or sale is expressly withheld.
+///
+/// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+/// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+/// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+/// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+/// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+/// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+/// THE SOFTWARE.
+
+import SwiftUI
+
+struct TerminalStoresView: View {
+  var flight: FlightInformation
+  var showStores: Bool
+  @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+  var stores: [TerminalStore] {
+    if flight.terminal == "A" {
+      return TerminalStore.terminalStoresA
+    } else {
+      return TerminalStore.terminalStoresB
+    }
+  }
+  
+  func storeAnimation(_ storeNumber: Int) -> Animation {
+    .easeOut.delay(Double(storeNumber) * 0.33)
+  }
+
+  var body: some View {
+    GeometryReader { proxy in
+      let width = proxy.size.width
+      let height = proxy.size.height
+      let storeWidth = width / 6
+      let storeHeight = storeWidth / 1.75
+      let storeSpacing = width / 5
+      let firstStoreOffset = flight.terminal == "A" ?
+      width - 2 * storeSpacing :
+      2 * storeSpacing - storeWidth
+      let direction = flight.terminal == "A" ? -1.0 : 1.0
+      ForEach(stores.indices, id: \.self) { index in
+        let store = stores[index]
+        let xOffset = Double(index) * storeSpacing * direction + firstStoreOffset
+        RoundedRectangle(cornerRadius: 5.0)
+          .foregroundStyle(
+            Color(
+              hue: 0.3333,
+              saturation: 1.0 - store.howBusy,
+              brightness: 1.0 - store.howBusy
+            )
+          )
+          .overlay(
+            Text(store.shortName)
+              .font(.footnote)
+              .foregroundStyle(.white)
+              .shadow(radius: 5)
+          )
+          .frame(width: storeWidth, height: storeHeight)
+          .offset(
+            x: showStores || reduceMotion ?
+              xOffset :
+              firstStoreOffset - direction * width,
+            y: height * 0.65
+          )
+          .animation(storeAnimation(index), value: showStores)
+      }
+    }
+  }
+}
+
+struct FlightTerminalView: View {
+  var flight: FlightInformation
+  var showStores = true
+  
+  var body: some View {
+    TerminalLayoutView(flight: flight)
+      .overlay {
+        TerminalStoresView(
+          flight: flight,
+          showStores: showStores
+        )
+        .overlay {
+          if let gateNumber = flight.gateNumber {
+            GatePathView(
+              gateNumber: gateNumber, terminal: flight.terminal,
+              showPath: showStores
+            )
+          }
+        }
+      }
+  }
+}
+
+#Preview("Terminal A") {
+  var flight = FlightData.generateTestFlight(date: .now)
+  flight.gate = "A5"
+
+  return FlightTerminalView(flight: flight)
+}
+
+#Preview("Terminal B") {
+  var flight = FlightData.generateTestFlight(date: .now)
+  flight.gate = "B5"
+
+  return FlightTerminalView(flight: flight)
+}

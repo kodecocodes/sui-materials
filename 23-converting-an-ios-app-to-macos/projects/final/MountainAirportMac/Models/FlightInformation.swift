@@ -1,4 +1,4 @@
-/// Copyright (c) 2023 Kodeco Inc
+/// Copyright (c) 2026 Kodeco Ltd.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -30,12 +30,18 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
+import CoreLocation
 import SwiftUI
 
 enum FlightDirection {
   case none
   case arrival
   case departure
+}
+
+struct AirportCoordinate: Hashable, Sendable {
+  var latitude: Double
+  var longitude: Double
 }
 
 enum FlightStatus: String, CaseIterable {
@@ -46,12 +52,12 @@ enum FlightStatus: String, CaseIterable {
   case departed = "Departed"
 }
 
-class FlightInformation: NSObject {
+struct FlightInformation: Hashable, Sendable {
   var id: Int
   var airline: String
   var number: String
   var otherAirport: String
-  var otherCoordinates: (lat: Double, long: Double)
+  var otherCoordinates: AirportCoordinate
   var flightTime: Int
   var scheduledTime: Date
   var currentTime: Date?
@@ -96,8 +102,11 @@ class FlightInformation: NSObject {
     } else {
       multiplier = 1
     }
-    // swiftlint:disable:next force_unwrapping
-    return Calendar.current.date(byAdding: .minute, value: multiplier * flightTime, to: currentTime ?? scheduledTime)!
+    return Calendar.current.date(
+      byAdding: .minute,
+      value: multiplier * flightTime,
+      to: currentTime ?? scheduledTime
+    )!
   }
 
   var departureTime: Date {
@@ -117,18 +126,38 @@ class FlightInformation: NSObject {
   }
 
   var scheduledTimeString: String {
-    let timeFormatter = DateFormatter()
-    timeFormatter.dateStyle = .none
-    timeFormatter.timeStyle = .short
-    return timeFormatter.string(from: scheduledTime)
+    return scheduledTime.formatted(.timeOnly)
   }
 
   public var currentTimeString: String {
     guard let time = currentTime else { return "N/A" }
-    let timeFormatter = DateFormatter()
-    timeFormatter.dateStyle = .none
-    timeFormatter.timeStyle = .short
-    return timeFormatter.string(from: time)
+    return time.formatted(.timeOnly)
+  }
+
+  var localAirportLocation: CLLocationCoordinate2D {
+    CLLocationCoordinate2D(latitude: 35.655, longitude: -83.4411)
+  }
+
+  var startingAirportLocation: CLLocationCoordinate2D {
+    if direction == .arrival {
+      return CLLocationCoordinate2D(
+        latitude: otherCoordinates.latitude,
+        longitude: otherCoordinates.longitude
+      )
+    } else {
+      return localAirportLocation
+    }
+  }
+
+  var endingAirportLocation: CLLocationCoordinate2D {
+    if direction == .arrival {
+      return localAirportLocation
+    } else {
+      return CLLocationCoordinate2D(
+        latitude: otherCoordinates.latitude,
+        longitude: otherCoordinates.longitude
+      )
+    }
   }
 
   var flightStatus: String {
@@ -139,7 +168,7 @@ class FlightInformation: NSObject {
     }
 
     guard let currentTime = currentTime else {
-      fatalError("currentTime can only be nil if status is canceled")
+      return "Unknown"
     }
 
     if direction == .arrival && now > currentTime {
@@ -154,12 +183,31 @@ class FlightInformation: NSObject {
 
   var timeDifference: Int {
     guard let actual = currentTime else { return 60 }
-    let diff = Calendar.current.dateComponents([.minute], from: scheduledTime, to: actual)
-    // swiftlint:disable:next force_unwrapping
+    let diff = Calendar.current.dateComponents(
+      [.minute],
+      from: scheduledTime,
+      to: actual
+    )
     return diff.minute!
   }
 
   var statusColor: Color {
+    if status == .canceled {
+      return Color(red: 0.5, green: 0, blue: 0)
+    }
+
+    if timeDifference <= 0 {
+      return Color(red: 0.0, green: 0.6, blue: 0)
+    }
+
+    if timeDifference <= 15 {
+      return Color.yellow
+    }
+
+    return Color.red
+  }
+
+  var timelineColor: Color {
     if status == .canceled {
       return Color(red: 0.5, green: 0, blue: 0)
     }
@@ -184,7 +232,7 @@ class FlightInformation: NSObject {
     airline: String,
     number: String,
     connection: String,
-    airportLocation: (lat: Double, long: Double),
+    airportLocation: AirportCoordinate,
     flightTime: Int,
     scheduledTime: Date,
     currentTime: Date?,
