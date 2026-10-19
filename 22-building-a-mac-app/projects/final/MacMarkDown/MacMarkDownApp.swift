@@ -1,4 +1,4 @@
-/// Copyright (c) 2023 Kodeco Inc
+/// Copyright (c) 2026 Kodeco Ltd.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -35,8 +35,10 @@ import SwiftUI
 @main
 struct MacMarkDownApp: App {
   var body: some Scene {
-    DocumentGroup(newDocument: MacMarkDownDocument()) { file in
-      ContentView(document: file.$document)
+    DocumentGroup { document in
+      ContentView(document: document)
+    } makeDocument: { configuration, context in
+      MacMarkDownDocument()
     }
     .commands {
       MenuCommands()

@@ -1,4 +1,4 @@
-/// Copyright (c) 2023 Kodeco Inc.
+/// Copyright (c) 2026 Kodeco Ltd.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -33,7 +33,7 @@
 import SwiftUI
 
 struct ContentView: View {
-  @Binding var document: MacMarkDownDocument
+  @Bindable var document: MacMarkDownDocument
   @AppStorage("editorFontSize") var editorFontSize: Int = 14
   @State private var previewState = PreviewState.web
 
@@ -41,10 +41,9 @@ struct ContentView: View {
     HSplitView {
       TextEditor(text: $document.text)
         .frame(minWidth: 200)
-        .font(.system(size: CGFloat(editorFontSize)))
 
       if previewState == .web {
-        WebView(html: document.html)
+        MarkdownPreview(html: document.html)
           .frame(minWidth: 200)
       } else if previewState == .html {
         ScrollView {
@@ -53,37 +52,21 @@ struct ContentView: View {
             .frame(
               maxWidth: .infinity,
               maxHeight: .infinity,
-              alignment: .topLeading)
+              alignment: .topLeading
+            )
             .padding()
-            .font(.system(size: CGFloat(editorFontSize)))
             .textSelection(.enabled)
         }
       }
     }
     .frame(minWidth: 400, minHeight: 300)
+    .font(.system(size: CGFloat(editorFontSize)))
     .toolbar {
       PreviewToolBarItem(previewState: $previewState)
     }
   }
-
-  // For testing AttributedString formatting
-  //
-  //  var attributedString: AttributedString {
-  //    let markdownOptions =
-  //    AttributedString.MarkdownParsingOptions(
-  //      interpretedSyntax: .inlineOnly)
-  //
-  //    let attribString = try? AttributedString(
-  //      markdown: document.text,
-  //      options: markdownOptions)
-  //
-  //    return attribString ??
-  //    AttributedString("There was an error parsing the Markdown.")
-  //  }
 }
 
-struct ContentView_Previews: PreviewProvider {
-  static var previews: some View {
-    ContentView(document: .constant(MacMarkDownDocument()))
-  }
+#Preview {
+  ContentView(document: MacMarkDownDocument())
 }

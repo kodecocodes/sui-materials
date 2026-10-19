@@ -1,4 +1,4 @@
-/// Copyright (c) 2023 Kodeco Inc
+/// Copyright (c) 2026 Kodeco Ltd.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -31,19 +31,42 @@
 /// THE SOFTWARE.
 
 import SwiftUI
+import WebKit
 
-@main
-struct MacMarkDownApp: App {
-  var body: some Scene {
-    DocumentGroup(newDocument: MacMarkDownDocument()) { file in
-      ContentView(document: file.$document)
-    }
-    .commands {
-      MenuCommands()
-    }
+struct MarkdownPreview: View {
+  @State private var page = WebPage()
+  let html: String
+  @AppStorage("styleSheet") var styleSheet: StyleSheet = .github
 
-    Settings {
-      SettingsView()
-    }
+  var body: some View {
+    WebView(page)
+      .onAppear(perform: loadHTML)
+      .onChange(of: formattedHtml) {
+        loadHTML()
+      }
   }
+
+  func loadHTML() {
+    page.load(
+      html: formattedHtml,
+      baseURL: Bundle.main.resourceURL!
+    )
+  }
+
+  var formattedHtml: String {
+    return """
+      <html>
+      <head>
+         <link href="\(styleSheet).css" rel="stylesheet">
+      </head>
+      <body>
+         \(html)
+      </body>
+      </html>
+      """
+  }
+}
+
+#Preview {
+  MarkdownPreview(html: "<h1>Preview</h1>")
 }
