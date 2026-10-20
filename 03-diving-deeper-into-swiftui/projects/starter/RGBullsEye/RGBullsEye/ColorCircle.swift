@@ -1,4 +1,4 @@
-/// Copyright (c) 2023 Kodeco LLC
+/// Copyright (c) 2026 Kodeco Ltd.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -43,10 +43,7 @@ struct ColorCircle: View {
   }
 }
 
-struct ColorCircle_Previews: PreviewProvider {
-  static var previews: some View {
-    ColorCircle(rgb: RGB(), size: 200)
+#Preview {
+  ColorCircle(rgb: RGB(), size: 200)
     .frame(width: 300, height: 300)
-    .previewLayout(.sizeThatFits)
-  }
 }

@@ -1,4 +1,4 @@
-/// Copyright (c) 2023 Kodeco LLC
+/// Copyright (c) 2026 Kodeco Ltd.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -47,7 +47,9 @@ struct ContentView: View {
         Color.element
           .ignoresSafeArea()
         VStack {
-          ColorCircle(rgb: game.target, size: proxy.size.height * circleSize)
+          ColorCircle(
+            rgb: game.target,
+            size: proxy.size.height * circleSize)
           if !showScore {
             BevelText(
               text: "R: ??? G: ??? B: ???",
@@ -59,7 +61,9 @@ struct ContentView: View {
               width: proxy.size.width * labelWidth,
               height: proxy.size.height * labelHeight)
           }
-          ColorCircle(rgb: guess, size: proxy.size.height * circleSize)
+          ColorCircle(
+            rgb: guess,
+            size: proxy.size.height * circleSize)
           BevelText(
             text: guess.intString(),
             width: proxy.size.width * labelWidth,
@@ -74,14 +78,13 @@ struct ContentView: View {
           .buttonStyle(NeuButtonStyle(
             width: proxy.size.width * buttonWidth,
             height: proxy.size.height * labelHeight))
-          .alert(isPresented: $showScore) {
-            Alert(
-              title: Text("Your Score"),
-              message: Text(String(game.scoreRound)),
-              dismissButton: .default(Text("OK")) {
-                game.startNewRound()
-                guess = RGB()
-              })
+          .alert("Your Score", isPresented: $showScore) {
+            Button("OK") {
+              game.startNewRound()
+              guess = RGB()
+            }
+          } message: {
+            Text(String(game.scoreRound))
           }
         }
         .font(.headline)
@@ -90,34 +93,21 @@ struct ContentView: View {
   }
 }
 
-struct ContentView_Previews: PreviewProvider {
-  static var previews: some View {
-    Group {
-      ContentView(guess: RGB())
-      ContentView(guess: RGB())
-        .previewDevice(
-          PreviewDevice(
-            rawValue: "iPhone 14 Pro"))
-      ContentView(guess: RGB())
-        .previewDevice(
-          PreviewDevice(
-            rawValue: "iPhone 8"))
-    }
-  }
+#Preview {
+  ContentView(guess: RGB())
 }
-
+ 
 struct ColorSlider: View {
   @Binding var value: Double
   var trackColor: Color
 
   var body: some View {
-    HStack {
-      Text("0")
-      Slider(value: $value)
-        .accentColor(trackColor)
-      Text("255")
-    }
-    .font(.subheadline)
-    .padding(.horizontal)
+    Slider(value: $value, in: 0...1)
+    { Text(trackColor.description) }
+    minimumValueLabel: { Text("0") }
+    maximumValueLabel: { Text("255") }
+      .padding(.horizontal)
+      .accentColor(trackColor)
+      .font(.subheadline)
   }
 }

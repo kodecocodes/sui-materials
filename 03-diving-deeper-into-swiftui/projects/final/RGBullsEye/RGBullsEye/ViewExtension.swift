@@ -1,4 +1,4 @@
-/// Copyright (c) 2023 Kodeco LLC
+/// Copyright (c) 2026 Kodeco Ltd.
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -39,10 +39,8 @@ extension View {
   ) -> some View {
     return self
       .shadow(
-        color: .highlight,
-        radius: radius,
-        x: -offset,
-        y: -offset)
+        color: .highlight, radius: radius, x: -offset,
+          y: -offset)
       .shadow(
         color: .shadow, radius: radius, x: offset, y: offset)
   }
@@ -58,3 +56,4 @@ extension View {
         color: .highlight, radius: radius, x: offset, y: offset)
   }
 }
+

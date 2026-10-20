@@ -12,13 +12,13 @@
 		18D775C722AD944400AE281E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18D775C622AD944400AE281E /* Assets.xcassets */; };
 		18D775CA22AD944400AE281E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18D775C922AD944400AE281E /* Preview Assets.xcassets */; };
 		18D775D822AD963800AE281E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18D775DA22AD963800AE281E /* LaunchScreen.storyboard */; };
+		CD353FA73087214200A5A2CA /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD353FA63087214200A5A2CA /* ViewExtension.swift */; };
+		CD353FA93087255A00A5A2CA /* NeuButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD353FA83087255A00A5A2CA /* NeuButtonStyle.swift */; };
+		CD353FAD3087867100A5A2CA /* BevelText.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD353FAC3087867100A5A2CA /* BevelText.swift */; };
 		CDC839FB298CA4B2001C6553 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC839F8298CA4B2001C6553 /* ColorExtension.swift */; };
 		CDC839FC298CA4B2001C6553 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC839F9298CA4B2001C6553 /* Game.swift */; };
 		CDC839FD298CA4B2001C6553 /* RGB.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC839FA298CA4B2001C6553 /* RGB.swift */; };
 		CDC83A02298F48EE001C6553 /* ColorCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC83A01298F48EE001C6553 /* ColorCircle.swift */; };
-		CDC83A04298F4E71001C6553 /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC83A03298F4E71001C6553 /* ViewExtension.swift */; };
-		CDC83A06298F5266001C6553 /* NeuButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC83A05298F5266001C6553 /* NeuButtonStyle.swift */; };
-		CDC83A08298F55AF001C6553 /* BevelText.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC83A07298F55AF001C6553 /* BevelText.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,13 +29,13 @@
 		18D775C922AD944400AE281E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		18D775CE22AD944400AE281E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18D775DE22AD96B400AE281E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		CD353FA63087214200A5A2CA /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
+		CD353FA83087255A00A5A2CA /* NeuButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeuButtonStyle.swift; sourceTree = "<group>"; };
+		CD353FAC3087867100A5A2CA /* BevelText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BevelText.swift; sourceTree = "<group>"; };
 		CDC839F8298CA4B2001C6553 /* ColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		CDC839F9298CA4B2001C6553 /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		CDC839FA298CA4B2001C6553 /* RGB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RGB.swift; sourceTree = "<group>"; };
 		CDC83A01298F48EE001C6553 /* ColorCircle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorCircle.swift; sourceTree = "<group>"; };
-		CDC83A03298F4E71001C6553 /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
-		CDC83A05298F5266001C6553 /* NeuButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeuButtonStyle.swift; sourceTree = "<group>"; };
-		CDC83A07298F55AF001C6553 /* BevelText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BevelText.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,9 +73,9 @@
 				1839F4AF25190F2A00BB00F1 /* RGBullsEyeApp.swift */,
 				18D775C422AD944300AE281E /* ContentView.swift */,
 				CDC83A01298F48EE001C6553 /* ColorCircle.swift */,
-				CDC83A07298F55AF001C6553 /* BevelText.swift */,
-				CDC83A03298F4E71001C6553 /* ViewExtension.swift */,
-				CDC83A05298F5266001C6553 /* NeuButtonStyle.swift */,
+				CD353FA63087214200A5A2CA /* ViewExtension.swift */,
+				CD353FA83087255A00A5A2CA /* NeuButtonStyle.swift */,
+				CD353FAC3087867100A5A2CA /* BevelText.swift */,
 				CDC839FE298CA4BF001C6553 /* Model */,
 				18D775C622AD944400AE281E /* Assets.xcassets */,
 				18D775DA22AD963800AE281E /* LaunchScreen.storyboard */,
@@ -130,8 +130,9 @@
 		18D775B522AD944300AE281E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1100;
-				LastUpgradeCheck = 1200;
+				LastUpgradeCheck = 2720;
 				ORGANIZATIONNAME = Kodeco;
 				TargetAttributes = {
 					18D775BC22AD944300AE281E = {
@@ -199,10 +200,10 @@
 			files = (
 				CDC839FD298CA4B2001C6553 /* RGB.swift in Sources */,
 				CDC839FB298CA4B2001C6553 /* ColorExtension.swift in Sources */,
-				CDC83A08298F55AF001C6553 /* BevelText.swift in Sources */,
+				CD353FAD3087867100A5A2CA /* BevelText.swift in Sources */,
 				18D775C522AD944300AE281E /* ContentView.swift in Sources */,
-				CDC83A04298F4E71001C6553 /* ViewExtension.swift in Sources */,
-				CDC83A06298F5266001C6553 /* NeuButtonStyle.swift in Sources */,
+				CD353FA73087214200A5A2CA /* ViewExtension.swift in Sources */,
+				CD353FA93087255A00A5A2CA /* NeuButtonStyle.swift in Sources */,
 				1839F4B025190F2A00BB00F1 /* RGBullsEyeApp.swift in Sources */,
 				CDC839FC298CA4B2001C6553 /* Game.swift in Sources */,
 				CDC83A02298F48EE001C6553 /* ColorCircle.swift in Sources */,
@@ -260,6 +261,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -279,6 +281,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -321,6 +324,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -333,6 +337,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
@@ -348,7 +353,7 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = RGBullsEye/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 27.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -369,7 +374,7 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = RGBullsEye/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 27.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
