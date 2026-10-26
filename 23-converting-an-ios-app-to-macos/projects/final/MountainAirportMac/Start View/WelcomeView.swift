@@ -93,9 +93,7 @@ struct WelcomeView: View {
       )
     )
 
-    if let flightId = appEnvironment.lastFlightId,
-      let flight = flightInfo.getFlightById(flightId)
-    {
+    if let flight = selectedFlight {
       buttons.append(
         ViewButton(
           id: .showLastFlight,
@@ -176,9 +174,7 @@ struct WelcomeView: View {
             flights: flightInfo.getDaysFlights(.now)
           )
         case .showLastFlight:
-          if let flightId = appEnvironment.lastFlightId,
-            let flight = flightInfo.getFlightById(flightId)
-          {
+          if let flight = selectedFlight {
             FlightStatusBoard(
               flights: flightInfo.getDaysFlights(Date()),
               flightToShow: flight

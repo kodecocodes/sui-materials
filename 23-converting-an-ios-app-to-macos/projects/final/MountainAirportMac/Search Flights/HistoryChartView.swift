@@ -68,6 +68,7 @@ struct HistoryChartView: View {
         ) {
           Text(history.flightDelayDescription)
             .font(.caption)
+            .fixedSize(horizontal: true, vertical: false)
         }
       }
     }
